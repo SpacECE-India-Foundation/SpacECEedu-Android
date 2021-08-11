@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".VideoLibrary.VideoLibrary_Activity"
+    android:background="#FF9800">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FF9800"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="SpaceTube"
-        app:titleTextColor="@color/black">
+        app:title="Video Library"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:titleTextColor="#F5FDFDFD"
+        app:menu="@menu/search">
     </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/VideoLibrary_Fragment_layout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecycleView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/VideoLibrary_Bottom_Navigation"
-        android:layout_weight="1"
-        android:paddingHorizontal="5dp"/>
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/VideoLibrary_Bottom_Navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemTextColor="@color/Spacece_Yellow"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/videolibrary_bottomoptions">
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </LinearLayout>
