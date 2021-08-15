@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
@@ -76,13 +77,19 @@ public class LoginActivity extends AppCompatActivity {
 
         final JSONObject[] apiCall = {null};
         final Account[] account = {null};
+        TextView tv_invalidCredentials=findViewById(R.id.TextView_InvalidCredentials);
 
         if(email.equalsIgnoreCase("admin") && password.equalsIgnoreCase("admin")) {
             e = "af53b6e0-04bf-4ddd-";
             p = "b72c-107fd5b89647";
+            tv_invalidCredentials.setVisibility(View.INVISIBLE);
+
         }else{
-            e=email;
-            p=password;
+            Toast.makeText(this,"Invalid Credentials",Toast.LENGTH_LONG).show();
+            et_email.setText("");
+            et_password.setText("");
+            tv_invalidCredentials.setVisibility(View.VISIBLE);
+            return;
         }
         final boolean[] authenticated = {false};
 

@@ -259,6 +259,11 @@ Consultant newTopic = new Consultant(response_element.getString("name"),
              });
 
          thread.start();
-        setUpAdapter();
+        while(true) {
+            if(COMPLETED[0]){
+                setUpAdapter();
+                return;
+            }
+        }
  }
 }

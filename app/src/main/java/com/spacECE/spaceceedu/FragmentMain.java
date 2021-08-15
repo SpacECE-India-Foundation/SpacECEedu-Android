@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,13 +22,20 @@ import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.Consultants.ConsultantsLibrary;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 public class FragmentMain extends Fragment {
 
-    static Account account;
+    static Account account ;
 
     Button sign_signUp;
     Button signOut;
+    private final int[] mImages = new int[]{
+            R.drawable.view1, R.drawable.view2, R.drawable.view3,
+            R.drawable.img
+    };
+
 
     CardView cd_videoLibrary;
     CardView cd_consultation;
@@ -36,7 +44,14 @@ public class FragmentMain extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.fragment_main,container,false);
 
-
+        CarouselView carouselView = v.findViewById(R.id.MainFragement_NewsCarousel);
+        carouselView.setPageCount(mImages.length);
+        carouselView.setImageListener(new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                imageView.setImageResource(mImages [position]);
+            }
+        });
 
         //Navigating to VideoLibrary/Consultation activity via OnClick
         cd_consultation=v.findViewById(R.id.CardView_Consultation);
@@ -45,7 +60,10 @@ public class FragmentMain extends Fragment {
         cd_videoLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), VideoLibrary_Activity.class));            }
+                Intent myIntent =new Intent(getContext(), VideoLibrary_Activity.class);
+                myIntent.putExtra("account_id","2");
+                startActivity(myIntent);
+            }
         });
 
         cd_consultation.setOnClickListener(new View.OnClickListener() {

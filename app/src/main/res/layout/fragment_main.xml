@@ -9,60 +9,19 @@
     tools:context=".FragmentMain"
     android:background="@color/cardview_shadow_end_color"
     android:orientation="vertical">
-
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:layout_height="wrap_content"
+    <com.synnapps.carouselview.CarouselView
         android:layout_width="match_parent"
-        android:id="@+id/CarouselNew"
-        app:layoutDescription="@xml/fragment_main_scene"
-        xmlns:tools="http://schemas.android.com/tools"
-        app:showPaths="true"
-        app:layout_constraintTop_toBottomOf="@+id/Carousel_Recent"
-        app:layout_constraintBottom_toTopOf="@id/GridView">
+        android:layout_height="200dp"
+        app:pageColor="#00000000"
+        app:fillColor="#FFFFFFFF"
+        app:slideInterval="3000"
+        app:radius="6dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="#FF777777"
+        android:padding="10dp"
+        android:background="@drawable/round_box"
+        android:id="@+id/MainFragement_NewsCarousel"/>
 
-        <ImageView  android:id="@+id/imageView0"
-            android:src="@drawable/img"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
-        <ImageView  android:id="@+id/imageView1"
-            android:src="@drawable/img1"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
-        <ImageView  android:id="@+id/imageView2"
-            android:src="@drawable/img2"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
-        <ImageView  android:id="@+id/imageView3"
-            android:src="@drawable/img3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo" />
-
-        <androidx.constraintlayout.helper.widget.Carousel
-            android:id="@+id/carouselMid"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:carousel_forwardTransition="@+id/forward"
-            app:carousel_backwardTransition="@+id/backward"
-            app:carousel_previousState="@+id/previous"
-            app:carousel_nextState="@+id/next"
-            app:carousel_infinite="true"
-            app:carousel_firstView="@+id/imageView2"
-            app:constraint_referenced_ids="imageView0,imageView1,imageView2,imageView3,imageView4" />
-
-    </androidx.constraintlayout.motion.widget.MotionLayout>
 
     <GridLayout
         android:id="@+id/GridView"
@@ -94,19 +53,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center_vertical|center_horizontal"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_video_library_24" />
+                    android:layout_width="350px"
+                    android:layout_height="350px"
+                    android:src="@drawable/tile_icon2"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Video Library"
-                    android:textSize="16sp" />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Video Library"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -128,9 +86,9 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_child_care_24" />
+                    android:layout_width="350px"
+                    android:layout_height="350px"
+                    android:src="@drawable/tile_icon1" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -158,9 +116,9 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_calendar_today_24" />
+                    android:layout_width="350px"
+                    android:layout_height="350px"
+                    android:src="@drawable/tile_icon3" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -188,9 +146,9 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_medical_services_24" />
+                    android:layout_width="350px"
+                    android:layout_height="350px"
+                    android:src="@drawable/tile_icon4" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

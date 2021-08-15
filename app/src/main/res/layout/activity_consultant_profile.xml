@@ -30,13 +30,19 @@
         android:text="Best your Money can buy" />
 
     <Button
-        android:id="@+id/Profile_button_GoToChat"
+        android:id="@+id/Profile_Button_GoToChat"
         android:layout_width="wrap_content"
-        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:text="CHAT"
         android:textColor="@color/white"
         android:background="@color/Spacece_Yellow"/>
 
+    <Button
+        android:id="@+id/Profile_Button_Call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+
+        android:text="Call"/>
 
 </LinearLayout>

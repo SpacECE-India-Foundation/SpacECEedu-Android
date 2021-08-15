@@ -1,8 +1,5 @@
 package com.spacECE.spaceceedu.Authentication;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.service.autofill.UserData;
 import android.util.Log;
 
 public class Account {
@@ -14,7 +11,7 @@ public class Account {
         this.account_id = account_id;
         this.username = username;
         this.contact_number = contact_number;
-        Log.i("ACCOUNT:", " GENERATED");
+        Log.i("ACCOUNT:", " GENERATED :- "+account_id+" / "+username+" / "+contact_number);
     }
 
     public String getAccount_id() {

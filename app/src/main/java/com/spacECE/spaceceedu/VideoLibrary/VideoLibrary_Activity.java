@@ -1,112 +1,134 @@
 package com.spacECE.spaceceedu.VideoLibrary;
 
 
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.spacECE.spaceceedu.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageClickListener;
+import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
 
-public class VideoLibrary_Activity extends Activity {
-    ArrayList<Topic> topicList= new ArrayList<>();
-    private RecyclerView recyclerView;
-    VideoLibrary_RecyclerViewAdapter.RecyclerViewClickListener listener;
+public class VideoLibrary_Activity extends AppCompatActivity{
 
-    private RequestQueue mQueue;
+    ArrayList<Topic> recentTopicList = new ArrayList<>();
 
+    private final int[] mImages = new int[]{
+            R.drawable.view1, R.drawable.view2, R.drawable.view3,
+            R.drawable.img
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_library);
 
-        mQueue = Volley.newRequestQueue(this);
-        String url = "http://3.109.14.4/SpacTube/api_getAllVideos";
+        BottomNavigationView videoLibraryBottomNav = findViewById(R.id.VideoLibrary_Bottom_Navigation);
+        videoLibraryBottomNav.setOnItemSelectedListener(VL_navListener);
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                response -> {
-                    try {
-                        JSONArray jsonArray = response.getJSONArray("data");
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.VideoLibrary_Fragment_layout,
+                    new VideoLibrary_Free()).commit();
+        }
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
+        CarouselView carouselView = findViewById(R.id.VideoLibrary_Carousel_RecentlyView);
+        carouselView.setPageCount(mImages.length);
 
-                            JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
 
-                            Topic newTopic = new Topic( response_element.getString("v_id"),
-                                    response_element.getString("title"), response_element.getString("v_id"),
-                                    response_element.getString("filter"), response_element.getString("length"),
-                                    response_element.getString("v_url"), response_element.getString("v_date"),
-                                            response_element.getString("v_uni_no"),response_element.getString("desc"));
+        //  getRecentList("http://3.109.14.4/SpacTube/api_getRecent?uid=1",carouselView);
 
-                            topicList.add(newTopic);
-                        }
-                        setAdapter();
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }, new Response.ErrorListener() {
+        carouselView.setPageCount(recentTopicList.size());
+        carouselView.setImageListener(new ImageListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Log.i("    API","NO RESPONSE !!!!!!!!!!!!!!!!!");
+            public void setImageForPosition(int position, ImageView imageView) {
+                imageView.setImageResource(mImages[position]);
+                //Picasso.get().load("https://i.ytimg.com/vi/"+recentTopicList.get(position).getV_URL()+"/0.jpg").into(imageView);
             }
         });
-
-        recyclerView= findViewById(R.id.RecycleView);
-
-        mQueue.add(request);
-
-
-
-    }
-
-     void setList() {
-       //
-    }
-
-    private void setAdapter() {
-        Log.i("SetAdapter:","Working");
-        setOnClickListener();
-        VideoLibrary_RecyclerViewAdapter adapter = new VideoLibrary_RecyclerViewAdapter(topicList,listener);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-        Log.i("Adapter", "Executed");
-    }
-
-    private void setOnClickListener() {
-        listener = new VideoLibrary_RecyclerViewAdapter.RecyclerViewClickListener() {
+        carouselView.setImageClickListener(new ImageClickListener() {
             @Override
-            public void onClick(View v, int position) {
-
-                Intent intent = new Intent(getApplicationContext(), TopicActivity.class);
-                intent.putExtra("topic_name", topicList.get(position).getTitle());
-                intent.putExtra("v_url", topicList.get(position).getV_URL());
-                intent.putExtra("discrp", topicList.get(position).getDesc());
-                intent.putExtra("status",topicList.get(position).getStatus());
-
-                startActivity(intent);
+            public void onClick(int position) {
+                Toast.makeText(getApplicationContext(), "Clicked!", Toast.LENGTH_LONG).show();
+//                Intent intent = new Intent(getApplicationContext(), TopicActivity.class);
+//                intent.putExtra("acocunt_id",account_id);
+//                intent.putExtra("topic_name", recentTopicList.get(position).getTitle());
+//                intent.putExtra("v_url", recentTopicList.get(position).getV_URL());
+//                intent.putExtra("discrp", recentTopicList.get(position).getDesc());
+//                intent.putExtra("status",recentTopicList.get(position).getStatus());
+//                intent.putExtra("v_id",recentTopicList.get(position).getV_id());
+//                startActivity(intent);
             }
-        };
+        });
     }
-}
+
+        NavigationBarView.OnItemSelectedListener VL_navListener =
+                new NavigationBarView.OnItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Fragment selectedFragment = null;
+
+                        switch (item.getItemId()) {
+                            case R.id.videolibrary_nav_free:
+                                selectedFragment = new VideoLibrary_Free();
+                                break;
+                            case R.id.videolibrary_nav_paid:
+                                selectedFragment = new VideoLibrary_Premium();
+                                break;
+                        }
+
+                        getSupportFragmentManager().beginTransaction().replace(R.id.VideoLibrary_Fragment_layout,
+                                selectedFragment).commit();
+
+                        return true;
+                    }
+                };
+
+//    private void getRecentList(String URL, CarouselView carouselView) {
+//        final JSONObject[] response = {null};
+//
+//        response[0] = ApiFunctions.UsingGetAPI(URL);
+//        Log.i("Returned Object : ",response.toString());
+//
+//        JSONArray jsonArray= null;
+//
+//        try {
+//            jsonArray = response[0].getJSONArray("data");
+//        } catch (JSONException e) {
+//            Log.i(" Response : "," Requested Array not found in response");
+//            e.printStackTrace();
+//        }
+//
+//        for (int i = 0; i < jsonArray.length(); i++) {
+//
+//            JSONObject response_element = null;
+//            try {
+//                response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
+//
+//                Topic newTopic = null;
+//
+//                    newTopic = new Topic( response_element.getString("v_id"),
+//                            response_element.getString("title"), response_element.getString("v_id"),
+//                            response_element.getString("filter"), response_element.getString("length"),
+//                            response_element.getString("v_url"), response_element.getString("v_date"),
+//                            response_element.getString("v_uni_no"),response_element.getString("desc"));
+//                    recentTopicList.add(newTopic);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//                Log.i("JSON Object: ","Some key(s) could not be found");
+//            }
+//        }
+//        Log.i("VIDEOS:::::",recentTopicList.toString());
+
+//
+
+  }

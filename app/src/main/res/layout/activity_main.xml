@@ -18,35 +18,25 @@
         app:layout_constraintHorizontal_weight="10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/options_main_activity"
         app:title="Hi !"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:titleTextColor="#F5FDFDFD"
-        app:menu="@menu/options_main_activity">
+        app:titleTextColor="#F5FDFDFD">
 
-
-        <Button
-            android:id="@+id/signin_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="Signin/Register"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
-        android:id="@+id/fragment_layout"
+        android:id="@+id/Main_Fragment_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_Navigation" >
+        android:layout_above="@id/Main_Bottom_Navigation"
+        android:layout_below="@id/toolbar">
 
 
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_Navigation"
+        android:id="@+id/Main_Bottom_Navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -56,5 +46,3 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>
-
-

@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoLibrary.VideoLibrary_Activity"
-    android:background="#FF9800">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -19,24 +15,39 @@
         app:layout_constraintHorizontal_weight="10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Video Library"
+        app:title="SpacECE Tube"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
         app:titleTextColor="#F5FDFDFD"
         app:menu="@menu/search">
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecycleView"
+    <com.synnapps.carouselview.CarouselView
+        android:id="@+id/VideoLibrary_Carousel_RecentlyView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="200dp"
+        android:padding="10dp"
+        app:fillColor="#FFFFFFFF"
+        app:pageColor="#00000000"
+        app:radius="6dp"
+        app:slideInterval="3000"
+        app:strokeColor="#FF777777"
+        app:strokeWidth="1dp" />
 
+    <FrameLayout
+        android:id="@+id/VideoLibrary_Fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/VideoLibrary_Bottom_Navigation"
+        android:layout_marginTop="475dp" />
 
-</LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/VideoLibrary_Bottom_Navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/videolibrary_bottomoptions"
+        android:background="?android:attr/windowBackground">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</RelativeLayout>

@@ -13,11 +13,10 @@ import java.net.URL;
 
 public class ApiFunctions{
 
-    public static JSONObject UsingGetAPI(String inputURL) {
+  public static JSONObject UsingGetAPI(String inputURL) {
 
             String result = "";
             HttpURLConnection urlConnection= null;
-
 
             try {
                 URL url=new URL(inputURL);

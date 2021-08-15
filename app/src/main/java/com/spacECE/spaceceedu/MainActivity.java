@@ -22,7 +22,6 @@ import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 import com.spacECE.spaceceedu.Consultants.ConsultantsLibrary;
 
 public class MainActivity extends AppCompatActivity {
-    Button sign_signUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         //FirebaseMessaging.getInstance().subscribeToTopic("Notify");
 
         //Bottom navigation bar
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_Navigation);
+        BottomNavigationView bottomNav = findViewById(R.id.Main_Bottom_Navigation);
         bottomNav.setOnItemSelectedListener(navListener);
 
         //Toolbar support for navigation and signout button
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout,
+            getSupportFragmentManager().beginTransaction().replace(R.id.Main_Fragment_layout,
                     new FragmentMain()).commit();
         }
 
@@ -53,14 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
         //toolbar.setTitle("Hi "+account.getUsername()+" !");
 
-        sign_signUp=findViewById(R.id.signin_register);
-
-        sign_signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            }
-        });
 
 
     }
@@ -83,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout,
+                    getSupportFragmentManager().beginTransaction().replace(R.id.Main_Fragment_layout,
                             selectedFragment).commit();
 
                     return true;
@@ -103,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.button_signOut:
                 //Logout
                 signOut();
+                return true;
+            case R.id.button_signIn:
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
