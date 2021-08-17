@@ -5,8 +5,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".VideoLibrary.VideoLibrary_Premium">
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/VL_premium_RecyclerView"
+        android:id="@+id/VL_recent_RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="1dp"

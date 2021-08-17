@@ -32,6 +32,9 @@ public class TopicActivity extends AppCompatActivity {
         private Button b_dislikeVideo;
         private Button b_share;
         private Button b_comment;
+        private TextView tv_like;
+        private TextView tv_dislike;
+        private TextView tv_views;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +43,13 @@ public class TopicActivity extends AppCompatActivity {
 
 
             TextView discrip_view = findViewById(R.id.Topic_TextView_Description);
-            TextView status_view = findViewById(R.id.Topic_TextView_Status);
             b_comment= findViewById(R.id.Topics_Button_Comment);
             b_share=findViewById(R.id.Topic_Button_Share);
             b_likeVideo=findViewById(R.id.Topic_Button_LikeVideo);
             b_dislikeVideo= findViewById(R.id.Topic_Button_DislikeVideo);
+            tv_dislike=findViewById(R.id.Topic_TextView_dislikeCount);
+            tv_like=findViewById(R.id.Topic_TextView_likeCount);
+            tv_views = findViewById(R.id.Topic_TextView_viewCount);
 
             String account_id=null;
             String name = "No topic";
@@ -52,8 +57,11 @@ public class TopicActivity extends AppCompatActivity {
             String v_url = "Video ID missing";
             String status ="Unknow";
             String v_id="Unknown";
+            String like_count="Unknown";
+            String dislike_count="Unknown";
+            String views="unknown";
 
-            //Getting Values from prev activity:
+        //Getting Values from prev activity:
             Bundle extras = getIntent().getExtras();
             if(extras!= null){
                 account_id=extras.getString("account_id");
@@ -62,14 +70,15 @@ public class TopicActivity extends AppCompatActivity {
                 v_url = extras.getString("v_url");
                 status= extras.getString("status");
                 v_id=extras.getString("v_id");
+                like_count=extras.getString("like_count");
+                dislike_count=extras.getString("dislike_count");
+                views=extras.getString("views");
             }
 
             discrip_view.setText(discription);
-            if(status.equalsIgnoreCase("paid")) {
-                status_view.setBackgroundResource(R.drawable.ic_baseline_paid_on_24);
-            } else{
-                status_view.setBackgroundResource(R.drawable.ic_baseline_money_off_24);
-            }
+            tv_like.setText(like_count);
+            tv_dislike.setText(dislike_count);
+            tv_views.setText(views);
 
             //YouTube VideoPLayer:
             youTubePlayerView = findViewById(R.id.YoutubePlayerView);

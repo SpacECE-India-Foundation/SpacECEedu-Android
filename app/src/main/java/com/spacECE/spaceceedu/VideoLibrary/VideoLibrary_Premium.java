@@ -38,52 +38,9 @@ public class VideoLibrary_Premium extends Fragment {
 ////        Bundle extras = getIntent().getExtras();
 ////        if(extras!= null){account_id=extras.getString("account_id");}
 //
-//        recyclerView= v.findViewById(R.id.VL_premium_RecyclerView);
-//
-//        try {
-//            getList("http://3.109.14.4/SpacTube/api_getRecent?uid=1");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return v;
-//    }
-//    public void getList(String URL) throws JSONException {
-//        final JSONObject[] response = {null};
-//
-//        response[0] = ApiFunctions.UsingGetAPI(URL);
-//        Log.i("Object Obtained: ", response.toString());
-//
-//        JSONArray jsonArray = null;
-//        try {
-//            jsonArray = response[0].getJSONArray("data");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//            Log.i(" Response : "," Array not found in JSON Response object");
-//        }
-//
-//        Log.i("API : ",response.toString());
-//
-//        for (int i = 0; i < jsonArray.length(); i++) {
-//
-//            JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
-//
-//            Topic newTopic = null;
-//            try {
-//                newTopic = new Topic( response_element.getString("v_id"),
-//                        response_element.getString("title"), response_element.getString("v_id"),
-//                        response_element.getString("filter"), response_element.getString("length"),
-//                        response_element.getString("v_url"), response_element.getString("v_date"),
-//                        response_element.getString("v_uni_no"),response_element.getString("desc"));
-//                topicList.add(newTopic);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//                Log.i("JSON Object: ","Key not found");
-//            }
-//        }
-//        Log.i("VIDEOS:::::",topicList.toString());
-//
-//        setAdapter(topicList);
-return v;
+        recyclerView= v.findViewById(R.id.VL_premium_RecyclerView);
+
+       return v;
     }
 
 
