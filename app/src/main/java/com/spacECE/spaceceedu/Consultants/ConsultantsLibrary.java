@@ -58,48 +58,6 @@ public class ConsultantsLibrary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultants_library);
-/*
-
-        mQueue = Volley.newRequestQueue(this);
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
-                response -> {
-                    try {
-                        JSONArray jsonArray = response.getJSONArray("Consultants");
-                        for (int i = 0; i < jsonArray.length(); i++) {
-
-                            JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
-
-Consultant newTopic = new Consultant(response_element.getString("name"),
-                                    response_element.getString("consultant_id"),
-                                    response_element.getString("profilePic_src"),
-                                    response_element.getString("speciality"),
-                                    response_element.getInt("price"),
-                                    response_element.getString("rating"));
-
-                            Log.i("List----",String.valueOf(response_element.getString("name")+
-                                    response_element.getString("consultant_id")+
-                                    response_element.getString("profilePic_src")+
-                                    response_element.getString("speciality")+
-                                    response_element.getInt("price")+
-                                    response_element.getString("rating")));
-                            //consultants.add(newTopic);
-                        }
-                        setUpAdapter();
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.i("API","NO RESPONSE!!!!!!!!!!!!");
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-
-        mQueue.add(request);
-*/
 
 
         recyclerView= findViewById(R.id.RecycleView);

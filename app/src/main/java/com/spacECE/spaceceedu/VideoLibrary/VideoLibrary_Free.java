@@ -13,15 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.spacECE.spaceceedu.ApiFunctions;
 import com.spacECE.spaceceedu.R;
-import com.spacECE.spaceceedu.VideoLibrary.Topic;
-import com.spacECE.spaceceedu.VideoLibrary.TopicActivity;
-import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_RecyclerViewAdapter;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -30,7 +22,7 @@ public class VideoLibrary_Free extends Fragment {
     ArrayList<Topic> list;
 
     private RecyclerView recyclerView;
-    VideoLibrary_RecyclerViewAdapter.RecyclerViewClickListener listener;
+    VideoLibrary_RecyclerViewAdapter_Free.RecyclerViewClickListener listener;
     String account_id="2";
 
     @Override
@@ -43,17 +35,15 @@ public class VideoLibrary_Free extends Fragment {
 //        if(extras!= null){account_id=extras.getString("account_id");}
 
         recyclerView= v.findViewById(R.id.VL_free_RecycleView);
-        while(true) {
-            if(VideoLibrary_Activity.ArrayDownloadCOMPLETED[0]) {
-                setAdapter(list);
-                return v;
-            }
-        }
+
+        setAdapter(list);
+
+        return v;
     }
     private void setAdapter(ArrayList<Topic> myList) {
         Log.i("SetAdapter:","Working");
         setOnClickListener();
-        VideoLibrary_RecyclerViewAdapter adapter = new VideoLibrary_RecyclerViewAdapter(myList,listener);
+        VideoLibrary_RecyclerViewAdapter_Free adapter = new VideoLibrary_RecyclerViewAdapter_Free(myList,listener);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -62,7 +52,7 @@ public class VideoLibrary_Free extends Fragment {
     }
 
     private void setOnClickListener() {
-        listener = new VideoLibrary_RecyclerViewAdapter.RecyclerViewClickListener() {
+        listener = new VideoLibrary_RecyclerViewAdapter_Free.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
                 Intent intent = new Intent(getContext(), TopicActivity.class);
@@ -72,6 +62,10 @@ public class VideoLibrary_Free extends Fragment {
                 intent.putExtra("discrp", list.get(position).getDesc());
                 intent.putExtra("status",list.get(position).getStatus());
                 intent.putExtra("v_id",list.get(position).getV_id());
+                intent.putExtra("comments", list.get(position).getCntcomment());
+                intent.putExtra("views", list.get(position).getViews());
+                intent.putExtra("like_count", list.get(position).getCntlike());
+                intent.putExtra("dislike_count", list.get(position).getCntdislike());
                 startActivity(intent);
             }
         };

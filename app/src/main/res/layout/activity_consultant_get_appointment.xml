@@ -1,278 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".ConsultUS.Consultant_GetAppointment">
-    <ScrollView
+    android:padding="8dp"
+    tools:context=".Consultant_GetAppointment">
+
+    <Toolbar
+        android:id="@+id/Consultant_GetAppointment_Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="UselessParent">
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="Book Appointment"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <ImageView
+        android:id="@+id/Consultant_GetAppointment_ProfilePic"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_baseline_medical_services_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Consultant_GetAppointment_Toolbar" />
+
+    <TextView
+        android:id="@+id/Consultant_GetAppointment_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="136dp"
+        android:text="Dr. Doctor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Consultant_GetAppointment_ProfilePic"
+        app:layout_constraintTop_toBottomOf="@id/Consultant_GetAppointment_Toolbar" />
+
+    <TextView
+        android:id="@+id/Consultant_GetAppointment_Speciality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Speciality"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintStart_toEndOf="@+id/Consultant_GetAppointment_ProfilePic"
+        app:layout_constraintTop_toBottomOf="@id/Consultant_GetAppointment_Name" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Consultant_GetAppointment_ProfilePic">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RelativeLayout
-                android:background="#F8A800"
+            android:layout_margin="5dp"
+            android:elevation="10dp"
+            android:minWidth="500dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
-                <ImageView
-                    android:layout_margin="6.50dp"
-                    android:layout_width="65.00dp"
-                    android:layout_height="65dp"
-                    android:background="#F8A800"
-                    android:id="@+id/consult_us_after"
-                    android:contentDescription="consultus_pic"
-                    android:src="@drawable/consult_us_after_pic"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:onClick="showDates"
+                android:orientation="horizontal">
+
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAlignment="viewStart"
-                    android:layout_margin="6.50dp"
-                    android:layout_centerInParent="true"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_20ssp"
-                    android:layout_toEndOf="@+id/consult_us_after"
-                    android:text="Consultants" />
-            </RelativeLayout>
+                    android:padding="10dp"
+                    android:text="On : " />
 
-            <RelativeLayout
+                <TextView
+                    android:id="@+id/Consultant_GetAppointment_TextView_AppointmentDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tap to Select Date" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <FrameLayout
+            android:id="@+id/Consultant_GetAppointment_Frame_AppointmentDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/Consultant_GetAppointment_RecyclerView_AppointmentDate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:background="@drawable/corner_for_top_no_raidus_bottom_raidus_rectangle"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_150sdp">
-                </LinearLayout>
-                <ImageView
-                    android:scaleType="fitXY"
-                    android:layout_marginTop="@dimen/_100sdp"
-                    android:id="@+id/Consultant_GetAppointment_ProfilePic"
-                    android:layout_width="@dimen/_200sdp"
-                    android:layout_height="@dimen/_200sdp"
-                    android:src="@drawable/img_1"
-                    android:contentDescription="image of doctor"
-                    android:layout_centerInParent="true"/>
-            </RelativeLayout>
+                android:layout_height="wrap_content" />
+        </FrameLayout>
 
-            <androidx.cardview.widget.CardView
-                app:cardBackgroundColor="#D9D9D9"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_30sdp"
-                app:cardCornerRadius="@dimen/_20sdp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:elevation="10dp"
+            android:minWidth="500dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:layout_marginTop="@dimen/_20sdp"
-                            android:id="@+id/Consultant_GetAppointment_Name"
-                            android:layout_width="match_parent"
-                            android:textAlignment="viewStart"
-                            android:layout_height="wrap_content"
-                            android:text="Doctor Name"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:onClick="showTime"
+                android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/Consultant_GetAppointment_Speciality"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:alpha=".9"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:text="Field"
-                            android:textSize="@dimen/_15ssp"
-                            android:textAlignment="viewStart"
-                            />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="At: : " />
 
+                <TextView
+                    android:id="@+id/Consultant_GetAppointment_TextView_AppointmentTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tap to Select Time" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                        <TextView
-                            android:id="@+id/Consultant_GetAppointment_textView_Charges"
-                            android:layout_width="match_parent"
-                            android:textAlignment="viewStart"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="@dimen/_20sdp"
-                            android:text="Charges :- ₹ "
-                            android:alpha=".7"
-                            android:textSize="@dimen/_15ssp" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:textAlignment="viewStart"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="@dimen/_20sdp"
-                            android:text="Available Days"
-                            android:alpha=".7"
-                            android:textSize="@dimen/_15ssp" />
-                        <TextView
-                            android:id="@+id/Consultant_GetAppointment_c_aval_days"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:layout_gravity="center"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:alpha=".7"
-                            android:textSize="@dimen/_15ssp" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:textAlignment="viewStart"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="@dimen/_20sdp"
-                            android:text="Available From"
-                            android:alpha=".7"
-                            android:textSize="@dimen/_15ssp" />
-                        <TextView
-                            android:id="@+id/Consultant_GetAppointment_textView_Timing"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:layout_gravity="center"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:alpha=".7"
-                            android:textSize="@dimen/_15ssp" />
+        <FrameLayout
+            android:id="@+id/Consultant_GetAppointment_Frame_AppointmentTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                        <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/Consultant_GetAppointment_RecyclerView_AppointmentTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+    </LinearLayout>
 
-                            android:id="@+id/Message"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_20sdp"
-                            android:textSize="@dimen/_20ssp"
-                            android:text="Select Day and Time of Appointment"
-                            android:textStyle="bold"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/Consultant_GetAppointment_TextView_Confirmation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select a Date &amp; Time of your choosing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-                        <TextView
-                            android:id="@+id/Calendar"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_20sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:background="@drawable/cover_edges"
-                            android:drawableLeft="@drawable/calendar_icon"
-                            android:padding="@dimen/_5sdp"
-                            android:text="Click Here to select Date"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_15ssp"
-                            android:textStyle="bold" />
-
-
-                        <TextView
-                            android:background="@drawable/cover_edges"
-                            android:padding="@dimen/_5sdp"
-                            android:drawableLeft="@drawable/clock_icon"
-                            android:layout_gravity="start"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_20sdp"
-                            android:textSize="@dimen/_15ssp"
-                            android:textColor="@color/black"
-                            android:id="@+id/Clock"
-                            android:text="Click here to select Time"
-                            android:textAlignment="viewStart"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_20sdp"
-                            android:textSize="@dimen/_15ssp"
-                            android:textColor="@color/black"
-                            android:id="@+id/Duration"
-                            android:text="Select Appointment Duaration"
-                            android:textStyle="bold"/>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-                            <Button
-                                android:layout_weight="1"
-                                android:id="@+id/add15"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+15 min"
-                                android:layout_marginRight="@dimen/_10sdp"
-                                android:backgroundTint="@color/teal_700"/>
-
-                            <Button
-                                android:layout_weight="1"
-                                android:layout_marginLeft="@dimen/_10sdp"
-                                android:id="@+id/sub15"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:backgroundTint="@color/logError"
-                                android:text="-15 min"/>
-                        </LinearLayout>
-
-                        <Button
-                            android:id="@+id/Consultant_GetAppointment_Button_Confirm"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/_50sdp"
-                            android:background="@drawable/round_background"
-                            android:gravity="center_horizontal"
-                            android:padding="@dimen/_10sdp"
-                            android:text="Book Appointment"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_15ssp"
-                            app:layout_constraintTop_toBottomOf="@+id/Consultant_GetAppointment_TextView_Confirmation" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_15sdp"
-                            android:layout_marginBottom="@dimen/_10sdp"
-                            android:textSize="@dimen/_20ssp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:id="@+id/Consultant_GetAppointment_TextView_Confirmation"
-                            android:textAlignment="center"/>
-
-
-                    </LinearLayout>
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    <Button
+        android:id="@+id/Consultant_GetAppointment_Button_Confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_background"
+        android:gravity="center_horizontal"
+        android:text="Confirm &amp; Pay"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Consultant_GetAppointment_TextView_Confirmation" />
+</androidx.constraintlayout.widget.ConstraintLayout>

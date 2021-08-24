@@ -46,11 +46,13 @@
             android:layout_height="50sp"
             android:layout_weight="1"
             android:background="@drawable/ic_baseline_thumb_up_24" />
-        <TextView
-            android:id="@+id/Topic_TextView_likeCount"
-            android:text="777 Likes"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+
+            <TextView
+                android:id="@+id/Topic_TextView_likeCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="777 Likes"
+                android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -66,11 +68,13 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
             android:background="@drawable/ic_baseline_thumb_down_alt_24"/>
-        <TextView
-            android:id="@+id/Topic_TextView_dislikeCount"
-            android:text="777 Dislikes"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+
+            <TextView
+                android:id="@+id/Topic_TextView_dislikeCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="777 Dislikes"
+                android:textAlignment="center" />
     </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -83,11 +87,13 @@
                 android:layout_height="50sp"
                 android:layout_weight="1"
                 android:background="@drawable/ic_baseline_remove_red_eye_24" />
+
             <TextView
                 android:id="@+id/Topic_TextView_viewCount"
-                android:text="777 Views"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
+                android:text="777 Views"
+                android:textAlignment="center" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -101,11 +107,13 @@
             android:layout_weight="1"
             android:background="@drawable/ic_baseline_share_24" />
             android:background="@drawable/ic_baseline_remove_red_eye_24" />
+
             <TextView
-                android:text="Share"
-                android:layout_gravity="center"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
+                android:layout_gravity="center"
+                android:text="Share"
+                android:textAlignment="center" />
         </LinearLayout>
 
     </LinearLayout>

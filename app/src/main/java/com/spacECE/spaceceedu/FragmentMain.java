@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
+import com.spacECE.spaceceedu.Consultants.Consultant_Main;
 import com.spacECE.spaceceedu.Consultants.ConsultantsLibrary;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 import com.synnapps.carouselview.CarouselView;
@@ -69,7 +70,7 @@ public class FragmentMain extends Fragment {
         cd_consultation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ConsultantsLibrary.class);
+                Intent intent = new Intent(getContext(), Consultant_Main.class);
                 startActivity(intent);
             }
         });

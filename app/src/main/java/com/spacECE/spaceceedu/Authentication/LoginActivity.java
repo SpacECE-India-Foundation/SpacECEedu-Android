@@ -22,6 +22,8 @@ import org.json.JSONObject;
 
 
 public class LoginActivity extends AppCompatActivity {
+
+    public static Account ACCOUNT = null;
     EditText et_email;
     EditText et_password;
     Button b_login;

@@ -2,14 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/videolibrary_nav_free"
-        android:title="Free" />
+        android:title="Free"
+        android:icon="@drawable/ic_baseline_new_free_24"/>
     <item
         android:id="@+id/videolibrary_nav_trending"
-        android:title="Trending" />
+        android:title="Trending"
+        android:icon="@drawable/ic_baseline_trending_24"/>
     <item
         android:id="@+id/videolibrary_nav_paid"
-        android:title="Premium" />
+        android:title="Premium"
+        android:icon="@drawable/ic_baseline_paid_24"/>
     <item
         android:id="@+id/videolibrary_nav_recentlyViewed"
-        android:title="Recently Viewed" />
+        android:title="Recently Viewed"
+        android:icon="@drawable/ic_baseline_recent_24"/>
 </menu>

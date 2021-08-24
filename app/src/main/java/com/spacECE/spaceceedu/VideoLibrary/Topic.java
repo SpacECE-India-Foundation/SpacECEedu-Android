@@ -1,8 +1,12 @@
 package com.spacECE.spaceceedu.VideoLibrary;
 public class Topic {
-    private String status, title, v_id, filter, length, v_URL, v_date,v_uni_no, desc;
+    private String status, title, v_id, filter, length, v_URL, v_date,v_uni_no, desc, cntlike, cntdislike, views, cntcomment;
 
-    public Topic(String status, String title, String v_id, String filter, String length, String v_URL, String v_date, String v_uni_no, String desc) {
+    public Topic(String status, String title, String v_id,
+                 String filter, String length, String v_URL,
+                 String v_date, String v_uni_no, String desc,
+                 String cntlike, String cntdislike, String views,
+                 String cntcomment) {
         this.status = status;
         this.title = title;
         this.v_id = v_id;
@@ -12,6 +16,26 @@ public class Topic {
         this.v_date = v_date;
         this.v_uni_no = v_uni_no;
         this.desc = desc;
+        this.cntlike = cntlike;
+        this.cntdislike = cntdislike;
+        this.views = views;
+        this.cntcomment = cntcomment;
+    }
+
+    public String getCntlike() {
+        return cntlike;
+    }
+
+    public String getCntdislike() {
+        return cntdislike;
+    }
+
+    public String getViews() {
+        return views;
+    }
+
+    public String getCntcomment() {
+        return cntcomment;
     }
 
     public String getStatus() {

@@ -10,22 +10,28 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.spacECE.spaceceedu.Consultant_GetAppointment;
 import com.spacECE.spaceceedu.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class ConsultantProfile extends AppCompatActivity {
+    public static ArrayList<Consultant_GetAppointment.Appointments> appointments=new ArrayList<Consultant_GetAppointment.Appointments>();
+
+    Button b_call;
+    Button b_chat;
+    Button b_appointment;
+    ImageView iv_profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultant_profile);
 
-        Button b_chat= findViewById(R.id.Profile_Button_GoToChat);
-        Button b_call=findViewById(R.id.Profile_Button_Call);
-        TextView tv_about = findViewById(R.id.Profile_textView_Speciality);
-        TextView tv_name = findViewById(R.id.Profile_textView_Name);
-        ImageView iv_profilePic = findViewById(R.id.imageView_ProfilePic);
-
+        TextView tv_name = findViewById(R.id.Consultant_Profile_textView_Name);
+        iv_profilePic = findViewById(R.id.imageView_ProfilePic);
+        b_appointment = findViewById(R.id.Consultant_Profile_Button_GetAppointment);
 
         String name = "No name";
         String consultant_id = "Consultant ID missing";
@@ -41,26 +47,34 @@ public class ConsultantProfile extends AppCompatActivity {
             speciality = extras.getString("categories");
             pic_src=extras.getString("pic_src");
         }
-        b_call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
-
-        b_call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "9876543210"));
-                startActivity(intent);
-            }
-        });
-
-        Picasso.get().load(R.drawable.consultant).into(iv_profilePic);
         tv_name.setText(name);
-        tv_about.setText(speciality);
 
+        makeList();
 
+        b_appointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),Consultant_GetAppointment.class));
+            }
+        });
+    }
 
+    private void makeList() {
+        appointments.add(new Consultant_GetAppointment.Appointments("26", "Aug",new String[]{"10:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("27", "Aug",new String[]{"9:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("28", "Aug",new String[]{"8:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("29", "Aug",new String[]{"7:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("30", "Aug",new String[]{"11:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("1", "Sep",new String[]{"9:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("3", "Sep",new String[]{"10:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("5", "Sep",new String[]{"11:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("7", "Sep",new String[]{"8:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("9", "Sep",new String[]{"7:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("10", "Sep",new String[]{"11:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("22", "Sep",new String[]{"10:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("3", "Oct",new String[]{"8:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("6", "Oct",new String[]{"9:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
+        appointments.add(new Consultant_GetAppointment.Appointments("12", "Oct",new String[]{"11:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
     }
 }

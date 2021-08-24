@@ -12,21 +12,16 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.spacECE.spaceceedu.ApiFunctions;
 import com.spacECE.spaceceedu.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class VideoLibrary_Premium extends Fragment {
 
-    ArrayList<Topic> topicList= new ArrayList<>();
+    ArrayList<Topic> list= new ArrayList<>();
 
     private RecyclerView recyclerView;
-    VideoLibrary_RecyclerViewAdapter.RecyclerViewClickListener listener;
+    private VideoLibrary_RecyclerViewAdapter_paid.RecyclerViewClickListener listener;
     String account_id=null;
 
 
@@ -35,11 +30,13 @@ public class VideoLibrary_Premium extends Fragment {
                              Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.fragment_video_library__premium, container, false);
 
-////        Bundle extras = getIntent().getExtras();
-////        if(extras!= null){account_id=extras.getString("account_id");}
+        list=new ArrayList<>(VideoLibrary_Activity.paidTopicList);
+//      Bundle extras = getIntent().getExtras();
+//      if(extras!= null){account_id=extras.getString("account_id");}
 //
         recyclerView= v.findViewById(R.id.VL_premium_RecyclerView);
 
+        setAdapter(list);
        return v;
     }
 
@@ -48,8 +45,8 @@ public class VideoLibrary_Premium extends Fragment {
     private void setAdapter(ArrayList<Topic> topicList) {
         Log.i("SetAdapter:","Working");
         setOnClickListener();
-        VideoLibrary_RecyclerViewAdapter adapter = new VideoLibrary_RecyclerViewAdapter(topicList,listener);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        VideoLibrary_RecyclerViewAdapter_paid adapter = new VideoLibrary_RecyclerViewAdapter_paid(topicList,listener);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
@@ -57,16 +54,20 @@ public class VideoLibrary_Premium extends Fragment {
     }
 
     private void setOnClickListener() {
-        listener = new VideoLibrary_RecyclerViewAdapter.RecyclerViewClickListener() {
+        listener = new VideoLibrary_RecyclerViewAdapter_paid.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
                 Intent intent = new Intent(getContext(), TopicActivity.class);
                 intent.putExtra("acocunt_id",account_id);
-                intent.putExtra("topic_name", topicList.get(position).getTitle());
-                intent.putExtra("v_url", topicList.get(position).getV_URL());
-                intent.putExtra("discrp", topicList.get(position).getDesc());
-                intent.putExtra("status",topicList.get(position).getStatus());
-                intent.putExtra("v_id",topicList.get(position).getV_id());
+                intent.putExtra("topic_name", list.get(position).getTitle());
+                intent.putExtra("v_url", list.get(position).getV_URL());
+                intent.putExtra("discrp", list.get(position).getDesc());
+                intent.putExtra("status",list.get(position).getStatus());
+                intent.putExtra("v_id",list.get(position).getV_id());
+                intent.putExtra("comments", list.get(position).getCntcomment());
+                intent.putExtra("views", list.get(position).getViews());
+                intent.putExtra("like_count", list.get(position).getCntlike());
+                intent.putExtra("dislike_count", list.get(position).getCntdislike());
                 startActivity(intent);
             }
         };

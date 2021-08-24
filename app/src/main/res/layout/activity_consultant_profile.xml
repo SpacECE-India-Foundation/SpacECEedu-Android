@@ -1,48 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".Consultants.ConsultantProfile"
     android:orientation="vertical"
-    android:gravity="center">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="25dp"
+    android:gravity="center_horizontal">
 
     <ImageView
-        android:id="@+id/imageView_ProfilePic"
+        android:id="@+id/imageView_Consultant_ProfilePic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
         app:srcCompat="@drawable/consultant" />
 
-
     <TextView
-        android:id="@+id/Profile_textView_Name"
+        android:layout_margin="5dp"
+        android:id="@+id/Consultant_Profile_textView_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:padding="10dp"
-        android:text="Mr Doctor" />
-
+        android:text="Dr. Doctor" />
     <TextView
-        android:id="@+id/Profile_textView_Speciality"
+        android:layout_margin="5dp"
+        android:id="@+id/Consultant_Profile_textView_Speciality"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:padding="10dp"
-        android:text="Best your Money can buy" />
+        android:text="Neuro Medicine Specialist" />
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:paddingVertical="20dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="50dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="90dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/teal_700"
+            android:gravity="center"
+            android:paddingVertical="6dp"
+            android:text="Mon- Sat"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
+            android:layout_width="50dip"
+            android:layout_height="wrap_content"
+            android:text="10 AM - 6 PM"
+            android:layout_marginLeft="55dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/teal_700"
+            android:paddingVertical="6dp"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:background="@drawable/circle"/>
+    </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:minWidth="500dp"
+        android:layout_height="wrap_content"
+        android:elevation="10dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Qualification : " />
+            <TextView
+                android:id="@+id/Consultant_Profile_textView_Qualification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Highly Qualified"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:minWidth="500dp"
+        android:layout_height="wrap_content"
+        android:elevation="10dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Organization : " />
+        <TextView
+            android:id="@+id/Consultant_Profile_textView_Organization"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A good Hospital"/>
+    </LinearLayout></androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:minWidth="500dp"
+        android:layout_height="wrap_content"
+        android:elevation="10dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Chamber : " />
+        <TextView
+            android:id="@+id/Consultant_Profile_textView_Chamber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Self Clinic"/>
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:minWidth="500dp"
+        android:layout_height="wrap_content"
+        android:elevation="10dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Location : " />
+            <TextView
+                android:id="@+id/Consultant_Profile_textView_Location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mumbai, Maharashtra"
+                android:drawableEnd="@drawable/ic_baseline_location_on_24"/>
+        </LinearLayout></androidx.cardview.widget.CardView>
+
 
     <Button
-        android:id="@+id/Profile_Button_GoToChat"
+        android:id="@+id/Consultant_Profile_Button_GetAppointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CHAT"
-        android:textColor="@color/white"
-        android:background="@color/Spacece_Yellow"/>
-
-    <Button
-        android:id="@+id/Profile_Button_Call"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-
-        android:text="Call"/>
+        android:text="Book Appointment"
+        android:layout_marginTop="15dp"
+        android:textSize="10dp"
+        android:paddingVertical="1dp"
+        android:background="@drawable/round_background"
+        android:textColor="@color/white" />
 
 </LinearLayout>
+</ScrollView>

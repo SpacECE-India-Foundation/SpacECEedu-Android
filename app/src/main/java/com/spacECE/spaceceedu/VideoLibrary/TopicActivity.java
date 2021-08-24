@@ -32,6 +32,7 @@ public class TopicActivity extends AppCompatActivity {
         private Button b_dislikeVideo;
         private Button b_share;
         private Button b_comment;
+        private TextView tv_title;
         private TextView tv_like;
         private TextView tv_dislike;
         private TextView tv_views;
@@ -50,6 +51,7 @@ public class TopicActivity extends AppCompatActivity {
             tv_dislike=findViewById(R.id.Topic_TextView_dislikeCount);
             tv_like=findViewById(R.id.Topic_TextView_likeCount);
             tv_views = findViewById(R.id.Topic_TextView_viewCount);
+            tv_title=findViewById(R.id.Topic_TextView_Title);
 
             String account_id=null;
             String name = "No topic";
@@ -73,12 +75,14 @@ public class TopicActivity extends AppCompatActivity {
                 like_count=extras.getString("like_count");
                 dislike_count=extras.getString("dislike_count");
                 views=extras.getString("views");
+
             }
 
             discrip_view.setText(discription);
             tv_like.setText(like_count);
             tv_dislike.setText(dislike_count);
             tv_views.setText(views);
+            tv_title.setText(name);
 
             //YouTube VideoPLayer:
             youTubePlayerView = findViewById(R.id.YoutubePlayerView);
@@ -141,4 +145,5 @@ public class TopicActivity extends AppCompatActivity {
                     thread.start();
                     commentText.clearComposingText();
                 }});
-    }}
+    }
+}

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout android:layout_width="match_parent"
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -26,16 +28,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/VideoLibrary_Bottom_Navigation"
-        android:layout_marginTop="475dp" />
+        android:layout_weight="1"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/VideoLibrary_Bottom_Navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        app:itemTextColor="@color/Spacece_Yellow"
+        android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/videolibrary_bottomoptions">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-</RelativeLayout>
+</LinearLayout>
