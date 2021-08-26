@@ -1,20 +1,28 @@
 package com.spacECE.spaceceedu.Consultants;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.spacECE.spaceceedu.Consultant_GetAppointment;
+import com.spacECE.spaceceedu.Agoraa;
 import com.spacECE.spaceceedu.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import io.agora.rtc.Constants;
+import io.agora.rtc.IRtcEngineEventHandler;
+import io.agora.rtc.RtcEngine;
 
 public class ConsultantProfile extends AppCompatActivity {
     public static ArrayList<Consultant_GetAppointment.Appointments> appointments=new ArrayList<Consultant_GetAppointment.Appointments>();
@@ -55,10 +63,12 @@ public class ConsultantProfile extends AppCompatActivity {
         b_appointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),Consultant_GetAppointment.class));
+                startActivity(new Intent(getApplicationContext(), Agoraa.class));
             }
         });
+
     }
+
 
     private void makeList() {
         appointments.add(new Consultant_GetAppointment.Appointments("26", "Aug",new String[]{"10:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));

@@ -1,4 +1,4 @@
-package com.spacECE.spaceceedu;
+package com.spacECE.spaceceedu.Consultants;
 
 import android.os.Bundle;
 
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.spacECE.spaceceedu.Consultants.Consultant;
 import com.spacECE.spaceceedu.Consultants.Consultant_Main;
+import com.spacECE.spaceceedu.R;
 
 import java.util.ArrayList;
 

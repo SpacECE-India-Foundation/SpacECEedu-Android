@@ -40,8 +40,6 @@ public class VideoLibrary_Premium extends Fragment {
        return v;
     }
 
-
-
     private void setAdapter(ArrayList<Topic> topicList) {
         Log.i("SetAdapter:","Working");
         setOnClickListener();

@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoLibrary.VideoLibrary_Recent_Fragment">
+    tools:context=".Consultants.FragmentMyConsultants">
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/VL_recent_RecyclerView"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
 </FrameLayout>

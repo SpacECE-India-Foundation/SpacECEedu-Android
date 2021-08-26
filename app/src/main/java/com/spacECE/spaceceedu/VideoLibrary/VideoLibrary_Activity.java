@@ -1,27 +1,47 @@
 package com.spacECE.spaceceedu.VideoLibrary;
 
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.spacECE.spaceceedu.R;
 
 import java.util.ArrayList;
 
-public class VideoLibrary_Activity extends AppCompatActivity{
+public class VideoLibrary_Activity extends AppCompatActivity {
 
-    public static ArrayList<Topic> topicList= new ArrayList<>();
-    public static ArrayList<Topic> recentTopicList = new ArrayList<>();
-    public static ArrayList<Topic> trendingTopicList= new ArrayList<>();
-    public static ArrayList<Topic> paidTopicList= new ArrayList<>();
-    public static ArrayList<Topic> freeTopicList= new ArrayList<>();
     public final static boolean[] ArrayDownloadCOMPLETED = {false};
+    public static ArrayList<Topic> topicList = new ArrayList<>();
+    public static ArrayList<Topic> recentTopicList = new ArrayList<>();
+    public static ArrayList<Topic> trendingTopicList = new ArrayList<>();
+    public static ArrayList<Topic> paidTopicList = new ArrayList<>();
+    public static ArrayList<Topic> freeTopicList = new ArrayList<>();
+    NavigationBarView.OnItemSelectedListener VL_navListener =
+            new NavigationBarView.OnItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment = null;
+                    switch (item.getItemId()) {
+                        case R.id.videolibrary_nav_free:
+                            selectedFragment = new VideoLibrary_Free();
+                            break;
+                        case R.id.videolibrary_nav_paid:
+                            selectedFragment = new VideoLibrary_Premium();
+                            break;
+                        case R.id.videolibrary_nav_trending:
+                            selectedFragment = new VideoLibrary_trending_Fragment();
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.VideoLibrary_Fragment_layout,
+                            selectedFragment).commit();
+                    return true;
+                }
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,29 +59,6 @@ public class VideoLibrary_Activity extends AppCompatActivity{
                     new VideoLibrary_Free()).commit();
         }
     }
-
-        NavigationBarView.OnItemSelectedListener VL_navListener =
-                new NavigationBarView.OnItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        Fragment selectedFragment = null;
-                        switch (item.getItemId()) {
-                            case R.id.videolibrary_nav_free:
-                                selectedFragment = new VideoLibrary_Free();
-                                break;
-                            case R.id.videolibrary_nav_paid:
-                                selectedFragment = new VideoLibrary_Premium();
-                                break;
-                            case R.id.videolibrary_nav_trending:
-                                selectedFragment = new VideoLibrary_trending_Fragment();
-                            case R.id.videolibrary_nav_recentlyViewed:
-                                selectedFragment= new VideoLibrary_Recent_Fragment();
-                        }
-                        getSupportFragmentManager().beginTransaction().replace(R.id.VideoLibrary_Fragment_layout,
-                                selectedFragment).commit();
-                        return true;
-                    }
-                };
 
 //
 //

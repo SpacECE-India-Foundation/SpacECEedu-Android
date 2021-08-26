@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.spacECE.spaceceedu.ApiFunctions;
-import com.spacECE.spaceceedu.FragmentProfile;
 import com.spacECE.spaceceedu.R;
 
 import org.json.JSONArray;
@@ -37,11 +36,66 @@ public class Consultant_Main extends AppCompatActivity {
         //List Generation:
 //        getCategoryList generator = new getCategoryList();
 //        generator.execute();
-        generateList();
+        generateCatList();
+        generateMyConsList();
 
          BottomNavigationView bottomNav = findViewById(R.id.Consultant_Main_BottomNav);
                 bottomNav.setOnItemSelectedListener(navListener);
     }
+
+    private void generateMyConsList(){
+            final boolean[] COMPLETED = {false};
+            final JSONObject[] apiCall = {null};
+
+            Thread thread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    apiCall[0] = ApiFunctions.UsingGetAPI("https://run.mocky.io/v3/837c1168-db9e-41b6-8b4f-5856dd2136a8");
+                    try {
+                        Log.i("Object Obtained: ", apiCall[0].get("Consultants").toString());
+                    } catch (JSONException e) {
+                        Log.i("API Response:","Eror");
+                        e.printStackTrace();
+                    }
+
+                    JSONArray jsonArray = null;
+                    try {
+                        jsonArray = apiCall[0].getJSONArray("Consultants");
+                        Log.i("API : ",apiCall[0].toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    try {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
+
+                            Consultant newConsultants = new Consultant(response_element.getString("name"),
+                                    response_element.getString("consultant_id"),
+                                    response_element.getString("profilePic_src"),
+                                    response_element.getString("Speciality"),
+                                    response_element.getInt("price"),
+                                    response_element.getString("rating"));
+
+                            FragmentMyConsultants.myConsultants.add(newConsultants);
+                        }
+                        COMPLETED[0] =true;
+                        Log.i("My CONSULTANTS:::::",FragmentMyConsultants.myConsultants.toString());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+
+            thread.start();
+
+            }
 
     NavigationBarView.OnItemSelectedListener navListener =
             new NavigationBarView.OnItemSelectedListener() {
@@ -54,7 +108,7 @@ public class Consultant_Main extends AppCompatActivity {
                             selectedFragment = new Consultant_Categories();
                             break;
                         case R.id.consultant_main_navButton_my:
-                            selectedFragment = new FragmentProfile();
+                            selectedFragment = new FragmentMyConsultants();
                             break;
                     }
 
@@ -66,13 +120,13 @@ public class Consultant_Main extends AppCompatActivity {
             };
 
 
-    private void generateList() {
+    private void generateCatList() {
         Log.i("Generate List : "," Generating....");
-        categoryList.add(new Consultant_Categories.ConsultantCategory("Psycho","Nice"));
-        categoryList.add(new Consultant_Categories.ConsultantCategory("Surgeon","Nice"));
+        categoryList.add(new Consultant_Categories.ConsultantCategory("Psychologist","Nice"));
+        categoryList.add(new Consultant_Categories.ConsultantCategory("Internal Medicine","Nice"));
         categoryList.add(new Consultant_Categories.ConsultantCategory("Anesthesia","Nice"));
-        categoryList.add(new Consultant_Categories.ConsultantCategory("New","Nice"));
-        categoryList.add(new Consultant_Categories.ConsultantCategory("Old","Nice"));
+        categoryList.add(new Consultant_Categories.ConsultantCategory("Dermatologist","Nice"));
+        categoryList.add(new Consultant_Categories.ConsultantCategory("Dentist","Nice"));
         categoryList.add(new Consultant_Categories.ConsultantCategory("Good","Nice"));
         categoryList.add(new Consultant_Categories.ConsultantCategory("Great","Nice"));
         categoryList.add(new Consultant_Categories.ConsultantCategory("Cool","Nice"));

@@ -37,7 +37,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ConsultantsLibrary extends AppCompatActivity {
-    private ArrayList<Consultant> consultants= new ArrayList<Consultant>();
+    private ArrayList<Consultant> consultants= new ArrayList<>();
+    private ArrayList<Consultant> myConsultants= new ArrayList<>();
     int rating=5;
 
     String categoryFilter;
@@ -96,10 +97,7 @@ public class ConsultantsLibrary extends AppCompatActivity {
                 adapter.listUpdate(categoryFilter,ratingFilter);
             }
         });
-        //addToList();
             getList();
-        //setUpAdapter();
-
     }
 
     private void setUpAdapter() {

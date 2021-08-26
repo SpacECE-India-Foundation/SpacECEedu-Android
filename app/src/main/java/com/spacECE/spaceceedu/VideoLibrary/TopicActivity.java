@@ -19,6 +19,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.spacECE.spaceceedu.ApiFunctions;
+import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.R;
 
 import java.net.URL;
@@ -53,7 +54,6 @@ public class TopicActivity extends AppCompatActivity {
             tv_views = findViewById(R.id.Topic_TextView_viewCount);
             tv_title=findViewById(R.id.Topic_TextView_Title);
 
-            String account_id=null;
             String name = "No topic";
             String discription = "No ID";
             String v_url = "Video ID missing";
@@ -66,7 +66,6 @@ public class TopicActivity extends AppCompatActivity {
         //Getting Values from prev activity:
             Bundle extras = getIntent().getExtras();
             if(extras!= null){
-                account_id=extras.getString("account_id");
                 name=extras.getString("topic_name");
                 discription=extras.getString("discrp");
                 v_url = extras.getString("v_url");
@@ -96,7 +95,6 @@ public class TopicActivity extends AppCompatActivity {
                 }
             });
 
-        String finalAccount_id = account_id;
         String finalV_id = v_id;
         b_likeVideo.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,7 +104,7 @@ public class TopicActivity extends AppCompatActivity {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                    ApiFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_extractlike?uid="+ finalAccount_id +"2&vid=3"+ finalV_id);}});
+                    ApiFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_extractlike?uid="+ LoginActivity.ACCOUNT.getuId() +"2&vid=3"+ finalV_id);}});
                     thread.start();
 
                 }
@@ -119,7 +117,7 @@ public class TopicActivity extends AppCompatActivity {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                    ApiFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_getDisLike?uid="+finalAccount_id+"2&vid="+finalV_id);}});
+                    ApiFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_getDisLike?uid="+LoginActivity.ACCOUNT.getuId()+"2&vid="+finalV_id);}});
                     thread.start();
                 }
             });
@@ -141,7 +139,7 @@ public class TopicActivity extends AppCompatActivity {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                           ApiFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_extractlike?uid="+ finalAccount_id +"2&vid=3"+ comment);}});
+                           ApiFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_extractlike?uid="+ LoginActivity.ACCOUNT.getuId() +"2&vid=3"+ comment);}});
                     thread.start();
                     commentText.clearComposingText();
                 }});

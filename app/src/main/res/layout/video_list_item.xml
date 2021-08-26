@@ -6,13 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="5sp"
     android:background="@drawable/round_background"
-    android:padding="2sp"
-    tools:ignore="ExtraText">
-    Listing Page:
-    Title of the video
-    Time duration
-    Number views
-    When was it uploaded
+    android:padding="2sp">
 
     <TextView
         android:id="@+id/topicName"
@@ -45,7 +39,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="975dp"
+        android:layout_width="700dp"
         android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,4 +1,4 @@
-package com.spacECE.spaceceedu;
+package com.spacECE.spaceceedu.Consultants;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.spacECE.spaceceedu.Consultants.ConsultantProfile;
 import com.spacECE.spaceceedu.Consultants.Consultant_GetAppointment_Date_RecyclerAdapter;
 import com.spacECE.spaceceedu.Consultants.Consultant_GetAppointment_Time_RecyclerAdapter;
+import com.spacECE.spaceceedu.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

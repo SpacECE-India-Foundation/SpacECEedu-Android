@@ -84,10 +84,12 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if (LoginActivity.ACCOUNT == null) {
-            toolbar.setTitle("Hi  !");
-        }else{
-            toolbar.setTitle("Hi "+LoginActivity.ACCOUNT.getUsername());
+        //toolbar.setTitle("Hi "+account.getUsername()+" !");
+
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.Main_Fragment_layout,
+                    new FragmentMain()).commit();
         }
 
         GetLists getLists= new GetLists();

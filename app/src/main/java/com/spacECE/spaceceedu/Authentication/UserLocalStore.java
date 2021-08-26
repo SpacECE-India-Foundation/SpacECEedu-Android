@@ -20,7 +20,6 @@ public class UserLocalStore {
         spEditor.putString("username", account.getUsername());
         spEditor.putString("contact_number", account.getContact_number());
         spEditor.commit();
-
     }
 
     public Account getLoggedInAccount() {

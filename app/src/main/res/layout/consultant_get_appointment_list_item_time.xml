@@ -7,12 +7,15 @@
     android:layout_marginTop="4dp"
     android:layout_marginLeft="4dp"
     android:background="@drawable/round_box"
-    android:backgroundTint="#646766">
+    android:backgroundTint="#646766"
+    android:paddingVertical="15dp"
+    android:paddingHorizontal="10dp">
 
     <TextView
+
         android:id="@+id/Consultant_GetAppointment_ListItem_AppointmentTime"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="12:30 PM"
         android:textColor="@color/white"

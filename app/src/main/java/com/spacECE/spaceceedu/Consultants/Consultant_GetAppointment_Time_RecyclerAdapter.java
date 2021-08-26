@@ -1,6 +1,5 @@
 package com.spacECE.spaceceedu.Consultants;
 
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.spacECE.spaceceedu.Consultant_GetAppointment;
 import com.spacECE.spaceceedu.R;
 
 import java.util.ArrayList;

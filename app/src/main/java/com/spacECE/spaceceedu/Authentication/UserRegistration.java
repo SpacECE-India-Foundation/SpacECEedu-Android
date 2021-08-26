@@ -1,4 +1,4 @@
-package com.spacECE.spaceceedu;
+package com.spacECE.spaceceedu.Authentication;
 
 import android.os.Bundle;
 
@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.spacECE.spaceceedu.ApiFunctions;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
+import com.spacECE.spaceceedu.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,8 +42,10 @@ public class UserRegistration extends AppCompatActivity {
             public void onClick(View view) {
                 if(validateData()){
                     b_register.setClickable(false);
-                        sendUserRegistration();
+
+                    sendUserRegistration(ev_email.getText().toString(),ev_name.getText().toString(),ev_password.getText().toString(),ev_phoneNo.getText().toString());
                 }else{
+                    Toast.makeText(getApplicationContext(), "Check Details", Toast.LENGTH_LONG).show();
                     return;
                 }
             }
@@ -49,18 +53,18 @@ public class UserRegistration extends AppCompatActivity {
 
     }
 
-    private void sendUserRegistration() {
+    private void sendUserRegistration(String email_id, String name, String password, String contact) {
 
         //API Call to register:
 
         if(true){
 
-            LoginActivity.ACCOUNT= new Account("example@example.com","Sachin","8946452130");
+            LoginActivity.ACCOUNT= new Account(email_id,name,contact);
+
             Toast.makeText(this, "Welcome to SpacECE!", Toast.LENGTH_SHORT).show();
+
         }else{
-
-
-
+            Toast.makeText(this, "Check Network", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -71,7 +75,6 @@ public class UserRegistration extends AppCompatActivity {
         }
         return false;
     }
-
 
     private boolean validateName(){
         if(ev_name.getText().toString().isEmpty()){

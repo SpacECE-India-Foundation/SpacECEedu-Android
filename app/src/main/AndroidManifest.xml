@@ -7,6 +7,12 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
         android:allowBackup="true"
@@ -17,12 +23,18 @@
         android:theme="@style/Theme.SpacECEedu"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".UserRegistration"
+            android:name=".Agoraa"
+            android:exported="true" />
+        <activity
+            android:name=".Consultants.Consultant_AppointmentConfirmation"
+            android:exported="true" />
+        <activity
+            android:name=".Authentication.UserRegistration"
             android:exported="true"
             android:label="@string/title_activity_user_registration"
             android:theme="@style/Theme.SpacECEedu.NoActionBar" />
         <activity
-            android:name=".Consultant_GetAppointment"
+            android:name=".Consultants.Consultant_GetAppointment"
             android:exported="true" />
         <activity
             android:name=".Consultants.Consultant_Main"
