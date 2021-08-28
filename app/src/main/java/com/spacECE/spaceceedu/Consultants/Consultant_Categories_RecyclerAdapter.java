@@ -16,11 +16,11 @@ import java.util.ArrayList;
 
 public class Consultant_Categories_RecyclerAdapter extends RecyclerView.Adapter<Consultant_Categories_RecyclerAdapter.MyViewHolder>{
 
-    ArrayList<Consultant_Categories.ConsultantCategory> categories;
+    ArrayList<ConsultantCategory> categories;
 
     private RecyclerViewClickListener listener;
 
-    public Consultant_Categories_RecyclerAdapter(ArrayList<Consultant_Categories.ConsultantCategory> categories, Consultant_Categories_RecyclerAdapter.RecyclerViewClickListener listener) {
+    public Consultant_Categories_RecyclerAdapter(ArrayList<ConsultantCategory> categories, Consultant_Categories_RecyclerAdapter.RecyclerViewClickListener listener) {
         this.categories = categories;
         this.listener = listener;
         Log.i("ADAPTER WORKING : ","STARTED");

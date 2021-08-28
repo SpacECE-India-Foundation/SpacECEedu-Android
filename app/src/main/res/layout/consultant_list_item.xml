@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/roun_box"
-    android:padding="10dp"
+    android:elevation="10dp"
+    android:padding="4dp"
+    app:cardCornerRadius="15dp"
     android:layout_marginTop="4dp">
-
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/roun_box">
 
     <TextView
         android:id="@+id/textView_Name"
         android:layout_width="235dp"
         android:layout_height="43dp"
+        android:layout_marginTop="4dp"
         android:maxWidth="50px"
-        android:layout_marginTop="8dp"
+        android:paddingStart="4dp"
         android:text="Dr. Doctor"
         android:textAlignment="viewStart"
         android:textColor="#3F51B5"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView_Rating"
-        app:layout_constraintHorizontal_bias="0.016"
+        android:textSize="26sp"
+
         app:layout_constraintStart_toEndOf="@+id/imageView_ProfilePic"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,12 +33,12 @@
         android:id="@+id/textView_Category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingStart="4dp"
         android:text="Good Category"
         android:textAlignment="viewStart"
         android:textColor="#E91E63"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/textView_Price"
         app:layout_constraintHeight="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/imageView_ProfilePic"
         app:layout_constraintTop_toBottomOf="@+id/textView_Name"
@@ -43,15 +48,17 @@
         android:id="@+id/textView_Price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:layout_marginEnd="132dp"
+        android:layout_marginBottom="12dp"
+        android:paddingStart="4dp"
         android:text="Good Price"
         android:textColor="#4CAF50"
+        android:backgroundTint="#4CAF50"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView_Category"
-        app:layout_constraintTop_toBottomOf="@+id/textView_Name"
-        app:layout_constraintVertical_bias="0.582" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_Category"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView_ProfilePic"
@@ -62,16 +69,32 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/textView_Rating"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="16dp"
-        android:text="5"
-        android:textColor="#FFC107"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@id/textView_Price"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.155" />
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Spacece_Yelloww"
+            android:text="Rating"/>
+        <TextView
+            android:gravity="center_horizontal"
+            android:id="@+id/textView_Rating"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="4dp"
+            android:text="5"
+            android:textColor="#FFC107"
+            android:textSize="34dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

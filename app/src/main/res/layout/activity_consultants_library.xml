@@ -8,6 +8,7 @@
     tools:context=".Consultants.ConsultantsLibrary"
     android:background="#FF9800"
     android:orientation="vertical"
+    android:paddingHorizontal="5dp"
     tools:menu="@menu/search">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -23,7 +24,8 @@
         app:title="Consultants"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
         app:titleTextColor="#F5FDFDFD"
-        app:menu="@menu/search">
+        app:menu="@menu/search"
+        android:paddingHorizontal="8dp">
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -63,8 +65,17 @@
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/consultant_list_item"/>
 
 
-
+    <TextView
+        android:id="@+id/Abhikant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:text="Developed by Abhikant Awasthi"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:layout_gravity="bottom" />
 </LinearLayout>

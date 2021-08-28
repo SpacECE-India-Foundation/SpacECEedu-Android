@@ -7,7 +7,7 @@
     android:layout_marginTop="4dp"
     android:padding="0dp"
     android:background="@drawable/circle"
-    android:backgroundTint="@color/teal_200">
+    android:backgroundTint="@color/Spacece_Yellow">
 
     <TextView
         android:id="@+id/Consultant_GetAppointment_ListItem_AppointmentDate"

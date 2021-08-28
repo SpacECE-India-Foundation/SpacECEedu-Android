@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Consultants.Consultant_Main">
+    tools:context=".Consultants.Consultant_Main"
+    android:background="@color/Spacece_Yelloww">
 <Toolbar
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:titleTextColor="@color/white"
     android:title="Consultants"/>
     <FrameLayout
         android:layout_width="match_parent"
@@ -19,8 +21,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/Consultant_Main_BottomNav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/consultant_main_bottomnav">
+        android:layout_height="wrap_content">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </LinearLayout>

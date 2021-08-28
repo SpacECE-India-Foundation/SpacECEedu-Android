@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spacECE.spaceceedu.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,15 +60,15 @@ public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consul
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String name = consultants.get(position).getName();
         String profilePic_src = consultants.get(position).getProfilePic_src();
-        String rating = consultants.get(position).getRating();
+        String rating = "5";
         String categories = consultants.get(position).getCategories();
-        int price = consultants.get(position).getPrice();
+        String price = consultants.get(position).getPrice();
 
         holder.name.setText(name);
         holder.category.setText(categories);
-        holder.price.setText(String.valueOf(price));
+        holder.price.setText(String.valueOf(price)+"/-");
         holder.rating.setText(String.valueOf(rating));
-        holder.profile.setImageResource(R.drawable.consultant);
+        Picasso.get().load(profilePic_src).into(holder.profile);
     }
 
     @Override
@@ -79,23 +80,6 @@ public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consul
         void onClick(View v, int position);
     }
 
-    public void listUpdate(String categoryFilter, String ratingFilter) {
-        preFilteredList = new ArrayList<>();
-
-        if (categoryFilter != null || ratingFilter != null) {
-            for (Consultant item : AllConsultants) {
-                if (String.valueOf(item.getRating()).toLowerCase(Locale.ROOT).contains(ratingFilter) && item.getCategories().toString().toLowerCase(Locale.ROOT).contains(categoryFilter)) {
-                    preFilteredList.add(item);
-                }
-            }
-        }else{
-            preFilteredList= new ArrayList<Consultant>(AllConsultants);
-        }
-        consultants.clear();
-        consultants.addAll(preFilteredList);
-        getFilter();
-
-    }
 
     @Override
     public Filter getFilter(){

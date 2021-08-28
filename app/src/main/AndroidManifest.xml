@@ -23,7 +23,11 @@
         android:theme="@style/Theme.SpacECEedu"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Agoraa"
+            android:name=".ui.login.NewLoginActivity"
+            android:exported="true"
+            android:label="@string/title_activity_new_login" />
+        <activity
+            android:name=".Consultants.Agoraa"
             android:exported="true" />
         <activity
             android:name=".Consultants.Consultant_AppointmentConfirmation"

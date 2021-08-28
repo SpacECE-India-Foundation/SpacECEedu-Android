@@ -2,6 +2,8 @@ package com.spacECE.spaceceedu.Authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
-import com.spacECE.spaceceedu.ApiFunctions;
+import com.spacECE.spaceceedu.UsefulFunctions;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 
@@ -25,7 +27,6 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
 
     public static Account ACCOUNT = null;
-    static int RC_SIGN_IN = 1;
     EditText et_email;
     EditText et_password;
     Button b_login;
@@ -87,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                 TextView tv_invalidCredentials = findViewById(R.id.TextView_InvalidCredentials);
 
                 try {
-                    apiCall[0] = ApiFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_getalluser?user=" + email);
+                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_getalluser?user=" + email);
                     Log.i("Object Obtained: ", apiCall[0].get("status").toString());
                     Log.i("Object Obtained: ", apiCall[0].toString());
 
@@ -123,7 +124,14 @@ public class LoginActivity extends AppCompatActivity {
                         et_password.setText("");
                         authenticationComplete[0] = true;
                     }
-                } catch (Exception e) {
+                } catch(RuntimeException e){
+                    Log.i("Runtime Exception :::", "Connection error Or Server took too long to respond");
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getBaseContext(), "text", Toast.LENGTH_LONG).show();
+                        }
+                    });                } catch (Exception e) {
                     e.printStackTrace();
                     Log.i("JSON: ", "Not Found or Invalid Credentials!!");
                     et_email.setText("");

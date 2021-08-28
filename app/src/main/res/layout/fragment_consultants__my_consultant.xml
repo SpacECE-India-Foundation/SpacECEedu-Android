@@ -3,8 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".VideoLibrary.VideoLibrary_Premium">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+    android:orientation="vertical">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Consultants_MyConsultants_RecyclerView"
         android:layout_width="match_parent"
@@ -16,7 +22,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_weight="1"
+        tools:listitem="@layout/consultants_consultants_appointments_list_item"/>
 
 
+ </LinearLayout>
+    </ScrollView>
+    <TextView
+        android:id="@+id/Abhikant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:text="Developed by Abhikant Awasthi"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:layout_gravity="bottom" />
 </FrameLayout>

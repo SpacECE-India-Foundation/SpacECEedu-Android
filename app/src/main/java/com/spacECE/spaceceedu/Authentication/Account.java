@@ -7,7 +7,7 @@ public class Account {
     static private String username=null;
     static private String contact_number=null;
     static private String profile_pic=null;
-    static private boolean CONSULTANT;
+    static private boolean CONSULTANT=false;
     static private String U_ID;
 
     public Account(String account_id, String username, String contact_number, boolean CONSULTANT, String profile_pic, String U_ID) {

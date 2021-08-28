@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ApiFunctions{
+public class UsefulFunctions {
 
   public static JSONObject UsingGetAPI(String inputURL) {
 

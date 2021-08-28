@@ -4,11 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".VideoLibrary.VideoLibrary_Premium"
-    android:paddingHorizontal="5dp">
-
-<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/VL_premium_RecyclerView"
+    tools:context=".Consultants.Fragment_Consultants_Consultants_appointments"
+    android:background="@color/Spacece_Yelloww">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Consultants_Consultants_Appointments_RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="1dp"
@@ -18,7 +17,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/consultants_consultants_appointments_list_item"/>
     <TextView
         android:id="@+id/Abhikant"
         android:layout_width="match_parent"

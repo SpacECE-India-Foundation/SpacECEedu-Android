@@ -1,162 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#ECC85D">
+    <LinearLayout
+
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentMain"
     android:background="@color/cardview_shadow_end_color"
     android:orientation="vertical">
-    <com.synnapps.carouselview.CarouselView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:pageColor="#00000000"
-        app:fillColor="#FFFFFFFF"
-        app:slideInterval="3000"
-        app:radius="6dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="#FF777777"
-        android:padding="10dp"
-        android:background="@drawable/round_box"
-        android:id="@+id/MainFragement_NewsCarousel"/>
 
+        <com.synnapps.carouselview.CarouselView
+            android:id="@+id/MainFragement_NewsCarousel"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/round_box"
+            android:padding="10dp"
+            app:fillColor="#FFFFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:pageColor="#00000000"
+            app:radius="6dp"
+            app:slideInterval="3000"
+            app:strokeColor="#FF777777"
+            app:strokeWidth="1dp" />
 
-    <GridLayout
-        android:id="@+id/GridView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="2"
-        android:rowCount="2"
-        android:padding="5sp"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintVertical_weight="2"
-        android:layout_margin="5sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carouselMid"
-        tools:layout_editor_absoluteX="1dp" >
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/CardView_VideoLibrary"
-            android:layout_width="wrap_content"
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="195dp"
+    android:layout_weight="1"/>
+        <GridLayout
+            android:id="@+id/GridView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_columnWeight="1"
-            android:layout_gravity="fill"
-            android:layout_margin="5sp"
-            android:elevation="18dp"
-            app:cardCornerRadius="3dp">
+            android:layout_marginStart="5sp"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="5sp"
+            android:layout_marginBottom="5sp"
+            android:numColumns="2"
+            android:padding="5sp"
+            android:rowCount="2"
 
-            <LinearLayout
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintVertical_weight="2"
+            tools:layout_editor_absoluteX="1dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardView_VideoLibrary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:backgroundTint="#FAA317"
+                android:layout_gravity="fill"
+                android:layout_margin="5sp"
+                android:elevation="18dp"
+                app:cardCornerRadius="10dp">
+
+
+                <ImageView
+                    android:layout_width="450px"
+                    android:layout_height="350px"
+                    android:layout_gravity="center"
+                    android:src="@drawable/tile_iicon_1" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardView_Consultation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
+                android:layout_margin="5sp"
+                android:backgroundTint="#FAA317"
+                android:elevation="18dp"
+                app:cardCornerRadius="10dp">
 
                 <ImageView
                     android:layout_width="350px"
                     android:layout_height="350px"
-                    android:src="@drawable/tile_icon2"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/tile_iicon_4" />
+            </androidx.cardview.widget.CardView>
 
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Video Library"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/CardView_Consultation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_columnWeight="1"
-            android:layout_gravity="fill"
-            android:layout_margin="5sp"
-            android:elevation="18dp"
-            app:cardCornerRadius="3dp">
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardView_MyAppointments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="350px"
-                    android:layout_height="350px"
-                    android:src="@drawable/tile_icon1" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Consultation"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/CardView_MyAppointments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_columnWeight="1"
-            android:layout_gravity="fill"
-            android:layout_margin="5sp"
-            android:elevation="18dp"
-            app:cardCornerRadius="3dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="vertical">
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:backgroundTint="#FAA317"
+                android:layout_gravity="fill"
+                android:layout_margin="5sp"
+                android:elevation="18dp"
+                app:cardCornerRadius="10dp">
 
                 <ImageView
                     android:layout_width="350px"
                     android:layout_height="350px"
-                    android:src="@drawable/tile_icon3" />
+                    android:layout_gravity="center"
+                    android:src="@drawable/tile_iicon_2" />
+            </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="My Appointments"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/CardView_MyConsultations"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:layout_columnWeight="1"
-            android:layout_gravity="fill"
-            android:layout_margin="5sp"
-            android:elevation="18dp"
-            app:cardCornerRadius="3dp">
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardView_MyConsultations"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="vertical">
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
+                android:layout_margin="5sp"
+                android:elevation="18dp"
+                android:backgroundTint="#FAA317"
+                app:cardCornerRadius="10dp">
+
                 <ImageView
                     android:layout_width="350px"
                     android:layout_height="350px"
-                    android:src="@drawable/tile_icon4" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="My Consultanys"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </GridLayout>
+                    android:layout_gravity="center"
+                    android:src="@drawable/tile_iicon_3" />
+            </androidx.cardview.widget.CardView>
+        </GridLayout>
 
-
+        <TextView
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/Abhikant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Developed by Abhikant Awasthi"
+            android:textSize="16dp" />
 </LinearLayout>
+</ScrollView>

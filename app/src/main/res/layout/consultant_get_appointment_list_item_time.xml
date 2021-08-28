@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
     android:layout_marginLeft="4dp"
     android:background="@drawable/round_box"
-    android:backgroundTint="#646766"
+    android:backgroundTint="@color/Spacece_Yellow"
     android:paddingVertical="15dp"
     android:paddingHorizontal="10dp">
 
     <TextView
-
         android:id="@+id/Consultant_GetAppointment_ListItem_AppointmentTime"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="90dp"
         android:layout_gravity="center_horizontal"
         android:text="12:30 PM"
         android:textColor="@color/white"

@@ -56,5 +56,4 @@ dependencies {
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
     implementation 'com.synnapps:carouselview:0.1.5'
     implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
-    implementation 'io.agora.rtc:voice-sdk:3.5.0'
 }

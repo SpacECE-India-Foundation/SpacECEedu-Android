@@ -28,7 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/VideoLibrary_Bottom_Navigation"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:paddingHorizontal="5dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/VideoLibrary_Bottom_Navigation"

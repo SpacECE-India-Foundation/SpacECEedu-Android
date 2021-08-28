@@ -10,9 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.spacECE.spaceceedu.ApiFunctions;
-import com.spacECE.spaceceedu.Authentication.Account;
-import com.spacECE.spaceceedu.Authentication.LoginActivity;
+import com.spacECE.spaceceedu.UsefulFunctions;
 import com.spacECE.spaceceedu.R;
 
 import org.json.JSONException;
@@ -100,7 +98,7 @@ public class UserRegistration extends AppCompatActivity {
     }
 
     private boolean emailRegistered(String email) {
-        JSONObject check=  ApiFunctions.UsingGetAPI(""+email);
+        JSONObject check=  UsefulFunctions.UsingGetAPI(""+email);
         try {
             if(check.get("email").toString().equalsIgnoreCase("true")){
             return true;

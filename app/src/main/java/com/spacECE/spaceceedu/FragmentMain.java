@@ -2,10 +2,8 @@ package com.spacECE.spaceceedu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,18 +11,19 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.spacECE.spaceceedu.Authentication.Account;
-import com.spacECE.spaceceedu.Authentication.LoginActivity;
+import com.spacECE.spaceceedu.Consultants.ConsultantCategory;
 import com.spacECE.spaceceedu.Consultants.Consultant_Main;
-import com.spacECE.spaceceedu.Consultants.ConsultantsLibrary;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class FragmentMain extends Fragment {
 
@@ -38,8 +37,8 @@ public class FragmentMain extends Fragment {
     };
 
 
-    CardView cd_videoLibrary;
-    CardView cd_consultation;
+    CardView cv_videoLibrary;
+    CardView cv_consultation;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,10 +54,10 @@ public class FragmentMain extends Fragment {
         });
 
         //Navigating to VideoLibrary/Consultation activity via OnClick
-        cd_consultation=v.findViewById(R.id.CardView_Consultation);
-        cd_videoLibrary=v.findViewById(R.id.CardView_VideoLibrary);
+        cv_consultation=v.findViewById(R.id.CardView_Consultation);
+        cv_videoLibrary=v.findViewById(R.id.CardView_VideoLibrary);
 
-        cd_videoLibrary.setOnClickListener(new View.OnClickListener() {
+        cv_videoLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent =new Intent(getContext(), VideoLibrary_Activity.class);
@@ -67,15 +66,58 @@ public class FragmentMain extends Fragment {
             }
         });
 
-        cd_consultation.setOnClickListener(new View.OnClickListener() {
+        cv_consultation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                generateMyCatList();
                 Intent intent = new Intent(getContext(), Consultant_Main.class);
                 startActivity(intent);
             }
         });
     return v;
     }
+    public void generateMyCatList() {
+        final boolean[] COMPLETED = {false};
+        final JSONObject[] apiCall = {null};
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                try{
+                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_category?category=all");
+
+                    JSONArray jsonArray = null;
+                    try {
+                        jsonArray = apiCall[0].getJSONArray("data");
+                        Log.i("API : ", jsonArray.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            ConsultantCategory newCategory = new ConsultantCategory((String) jsonArray.get(i), "nice");
+
+                            Consultant_Main.categoryList.add(newCategory);
+                        }
+                        COMPLETED[0] = true;
+                        Log.i("My CATEGORIES:::::", Consultant_Main.categoryList.toString());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }   catch (RuntimeException runtimeException){
+                    Log.i("RUNTIME EXCEPTION:::", "Server did not respons");
+                }
+            }
+        });
+
+        thread.start();
+    }
+
 }
 
 

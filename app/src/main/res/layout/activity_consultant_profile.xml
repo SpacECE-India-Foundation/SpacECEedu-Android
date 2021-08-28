@@ -14,13 +14,12 @@
     android:paddingHorizontal="25dp"
     android:gravity="center_horizontal">
 
-
     <ImageView
-        android:id="@+id/imageView_Consultant_ProfilePic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/Consultant_Profile_ImageView_ProfilePic"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         app:srcCompat="@drawable/consultant" />
 
     <TextView
@@ -29,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:padding="10dp"
         android:text="Dr. Doctor" />
     <TextView
         android:layout_margin="5dp"
@@ -42,19 +40,20 @@
 
     <LinearLayout
         android:layout_margin="5dp"
-        android:paddingVertical="20dp"
+        android:paddingVertical="10dp"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_gravity="center">
 
         <TextView
+            android:id="@+id/Consultant_Profile_textView_Days"
             android:layout_width="50dip"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="90dp"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/teal_700"
+            android:backgroundTint="@color/Spacece_Yelloww"
             android:gravity="center"
             android:paddingVertical="6dp"
             android:text="Mon- Sat"
@@ -62,18 +61,20 @@
             android:textSize="14dp" />
 
         <TextView
+            android:id="@+id/Consultant_Profile_textView_Timing"
             android:layout_width="50dip"
             android:layout_height="wrap_content"
             android:text="10 AM - 6 PM"
             android:layout_marginLeft="55dp"
             android:textColor="@color/white"
             android:layout_gravity="center_horizontal"
-            android:backgroundTint="@color/teal_700"
+            android:backgroundTint="@color/Spacece_Yelloww"
             android:paddingVertical="6dp"
             android:gravity="center"
             android:textSize="14dp"
             android:background="@drawable/circle"/>
     </LinearLayout>
+
     <androidx.cardview.widget.CardView
         android:layout_margin="5dp"
         android:layout_width="wrap_content"
@@ -94,56 +95,11 @@
                 android:id="@+id/Consultant_Profile_textView_Qualification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxHeight="60dp"
                 android:text="Highly Qualified"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_margin="5dp"
-        android:layout_width="wrap_content"
-        android:minWidth="500dp"
-        android:layout_height="wrap_content"
-        android:elevation="10dp">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Organization : " />
-        <TextView
-            android:id="@+id/Consultant_Profile_textView_Organization"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="A good Hospital"/>
-    </LinearLayout></androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_margin="5dp"
-        android:layout_width="wrap_content"
-        android:minWidth="500dp"
-        android:layout_height="wrap_content"
-        android:elevation="10dp">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Chamber : " />
-        <TextView
-            android:id="@+id/Consultant_Profile_textView_Chamber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" Self Clinic"/>
-    </LinearLayout>
-    </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:layout_margin="5dp"
         android:layout_width="wrap_content"
@@ -183,15 +139,49 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="Location : " />
+                android:text="Language : " />
             <TextView
-                android:id="@+id/Consultant_Profile_textView_Location"
+                android:id="@+id/Consultant_Profile_textView_Language"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mumbai, Maharashtra"
-                android:drawableEnd="@drawable/ic_baseline_location_on_24"/>
+                android:text="English" />
         </LinearLayout></androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:minWidth="500dp"
+        android:layout_height="wrap_content"
+        android:elevation="10dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Chamber : " />
+            <TextView
+                android:id="@+id/Consultant_Profile_textView_Chamber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="60dp"
+                android:text=" Self Clinic"
+                android:drawableEnd="@drawable/ic_baseline_location_on_24"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+    android:id="@+id/Consultant_Profile_Button_Call"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/teal_700"
+    android:text="Call"
+    android:textColor="@color/white"
+    android:gravity="center"
+    android:drawableEnd="@drawable/ic_baseline_call_24"/>
 
     <Button
         android:id="@+id/Consultant_Profile_Button_GetAppointment"
@@ -203,6 +193,14 @@
         android:paddingVertical="1dp"
         android:background="@drawable/round_background"
         android:textColor="@color/white" />
-
+    <TextView
+        android:id="@+id/Abhikant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:text="Developed by Abhikant Awasthi"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:layout_gravity="bottom" />
 </LinearLayout>
 </ScrollView>
