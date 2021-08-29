@@ -10,7 +10,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
+    android:padding="0dp"
     tools:context=".Consultants.Consultant_GetAppointment">
 
     <Toolbar
@@ -84,12 +84,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:textSize="20dp"
                     android:text="Charges : " />
                 <TextView
                     android:id="@+id/Consultant_GetAppointment_textView_Charges"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" 400 /-"
+                    android:textSize="20dp"
                     android:drawableStart="@drawable/rupee10"/>
             </LinearLayout></androidx.cardview.widget.CardView>
 
@@ -111,12 +113,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:textSize="20dp"
                     android:text="On : " />
 
                 <TextView
                     android:id="@+id/Consultant_GetAppointment_TextView_AppointmentDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="20dp"
                     android:text="Tap to Select Date" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -131,6 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/consultant_get_appointment_list_item"/>
+
         </FrameLayout>
 
         <androidx.cardview.widget.CardView
@@ -151,13 +156,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:textSize="20dp"
                     android:text="At : " />
 
                 <TextView
                     android:id="@+id/Consultant_GetAppointment_TextView_AppointmentTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="20dp"
                     android:text="Tap to Select Time" />
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -172,7 +180,13 @@
                 tools:listitem="@layout/consultant_get_appointment_list_item_time"/>
         </FrameLayout>
     </LinearLayout>
-
+<LinearLayout
+    app:layout_constraintTop_toBottomOf="@id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="4dp"
+    android:paddingVertical="4dp">
     <TextView
         android:id="@+id/Consultant_GetAppointment_TextView_Confirmation"
         android:layout_width="match_parent"
@@ -185,29 +199,30 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
+        android:layout_marginTop="14dp"
         android:id="@+id/Consultant_GetAppointment_Button_Confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/round_background"
         android:gravity="center_horizontal"
         android:text="Confirm &amp; Pay"
-        android:layout_marginBottom="10dp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/Abhikant"
+        android:textSize="20dp"
+        android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-    </Button>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Consultant_GetAppointment_TextView_Confirmation"></Button>
 
     <TextView
         android:id="@+id/Abhikant"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_weight="1"
         android:gravity="center"
         android:text="Developed by Abhikant Awasthi"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="16dp" />
+</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

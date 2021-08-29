@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Topic Title"
+        android:textColor="@color/black"
         android:textSize="24sp" />
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -40,18 +41,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="5dp">
-        <Button
-            android:id="@+id/Topic_Button_LikeVideo"
-            android:layout_width="60sp"
-            android:layout_height="50sp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_baseline_thumb_up_24" />
+
+            <Button
+                android:id="@+id/Topic_Button_LikeVideo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_baseline_thumb_up_24" />
 
             <TextView
                 android:id="@+id/Topic_TextView_likeCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="777 Likes"
+                android:text=" 777 Likes"
+                android:layout_gravity="center"
                 android:textAlignment="center" />
         </LinearLayout>
 
@@ -63,8 +67,8 @@
 
             <Button
             android:id="@+id/Topic_Button_DislikeVideo"
-                android:layout_width="60sp"
-                android:layout_height="50sp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"
             android:background="@drawable/ic_baseline_thumb_down_alt_24"/>
@@ -74,6 +78,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="777 Dislikes"
+                android:layout_gravity="center"
+
                 android:textAlignment="center" />
     </LinearLayout>
         <LinearLayout
@@ -83,8 +89,9 @@
             android:padding="5dp">
             <Button
                 android:id="@+id/Topic_Button_ViewCount"
-                android:layout_width="60sp"
-                android:layout_height="50sp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@drawable/ic_baseline_remove_red_eye_24" />
 
@@ -93,6 +100,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="777 Views"
+                android:layout_gravity="center"
+
                 android:textAlignment="center" />
         </LinearLayout>
         <LinearLayout
@@ -102,10 +111,11 @@
             android:padding="5dp">
             <Button
             android:id="@+id/Topic_Button_Share"
-            android:layout_width="60sp"
-            android:layout_height="50sp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/ic_baseline_share_24" />
+                android:layout_gravity="center"
+                android:background="@drawable/ic_baseline_share_24" />
             android:background="@drawable/ic_baseline_remove_red_eye_24" />
 
             <TextView

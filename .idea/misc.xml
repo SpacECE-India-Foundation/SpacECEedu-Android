@@ -46,6 +46,7 @@
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_consultant_main.xml" value="0.25" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_consultant_profile.xml" value="0.264" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_consultant_profile2.xml" value="0.24583333333333332" />
+        <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_consultant_registration.xml" value="0.21052631578947367" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_consultants_library.xml" value="0.264" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_consultation.xml" value="0.25" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_consutants_library.xml" value="0.25" />
@@ -53,8 +54,9 @@
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_main2.xml" value="0.264" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_new_login.xml" value="0.21052631578947367" />
+        <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_registration_selection.xml" value="0.21052631578947367" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_topic.xml" value="0.25" />
-        <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_user_registration.xml" value="0.176" />
+        <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_user_registration.xml" value="0.21052631578947367" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/activity_video_library.xml" value="0.25" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/consultant_category_list_item.xml" value="0.25" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/layout/consultant_get_appointment_list_item.xml" value="0.25" />
@@ -87,6 +89,7 @@
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/menu/consultant_main_consultants_bottomnav.xml" value="0.25" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/menu/navigationdrawer_main_activity.xml" value="0.24895833333333334" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/menu/options_main_activity.xml" value="0.25" />
+        <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/menu/options_main_activity_loggedin.xml" value="0.21052631578947367" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/menu/search.xml" value="0.25" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/menu/videolibrary_bottomoptions.xml" value="0.25" />
         <entry key="..\:/Work/SpacECE/SpacECEedu/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.26614583333333336" />
@@ -99,5 +102,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.21052631578947367" />
+      </ProjectState>
+    </option>
   </component>
 </project>

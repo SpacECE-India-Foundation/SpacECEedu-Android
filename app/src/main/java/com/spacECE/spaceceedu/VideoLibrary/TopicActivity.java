@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.UsefulFunctions;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.R;
@@ -28,6 +29,7 @@ public class TopicActivity extends AppCompatActivity {
         private Button b_dislikeVideo;
         private Button b_share;
         private Button b_comment;
+
         private TextView tv_title;
         private TextView tv_like;
         private TextView tv_dislike;
@@ -73,9 +75,9 @@ public class TopicActivity extends AppCompatActivity {
             }
 
             discrip_view.setText(discription);
-            tv_like.setText(like_count);
-            tv_dislike.setText(dislike_count);
-            tv_views.setText(views);
+            tv_like.setText(like_count+" Likes");
+            tv_dislike.setText(dislike_count+" Dislikes");
+            tv_views.setText(views+" Views");
             tv_title.setText(name);
 
             //YouTube VideoPLayer:
@@ -99,7 +101,7 @@ public class TopicActivity extends AppCompatActivity {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                    UsefulFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_extractlike?uid="+ LoginActivity.ACCOUNT.getuId() +"2&vid=3"+ finalV_id);}});
+                    UsefulFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_extractlike?uid="+ MainActivity.ACCOUNT.getuId() +"2&vid=3"+ finalV_id);}});
                     thread.start();
 
                 }
@@ -112,17 +114,18 @@ public class TopicActivity extends AppCompatActivity {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                    UsefulFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_getDisLike?uid="+LoginActivity.ACCOUNT.getuId()+"2&vid="+finalV_id);}});
+                    UsefulFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_getDisLike?uid="+MainActivity.ACCOUNT.getuId()+"2&vid="+finalV_id);}});
                     thread.start();
                 }
             });
+        String finalName = name;
         b_share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent myIntent = new Intent(Intent.ACTION_SEND);
                     myIntent.setType("text/plain");
-                    myIntent.putExtra(Intent.EXTRA_SUBJECT,"Hey!, check this out"+ finalV_url);
-                    myIntent.putExtra(Intent.EXTRA_TEXT,"SpaceTube");
+                    myIntent.putExtra(Intent.EXTRA_SUBJECT,"SpaceTube");
+                    myIntent.putExtra(Intent.EXTRA_TEXT,"Hey!, check this out this video on " + finalName +" by SpacECE: https://www.youtube.com/watch?v="+ finalV_url);
                     startActivity(Intent.createChooser(myIntent,"Share Using"));
                 }
             });
@@ -134,7 +137,7 @@ public class TopicActivity extends AppCompatActivity {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                           UsefulFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_extractlike?uid="+ LoginActivity.ACCOUNT.getuId() +"2&vid=3"+ comment);}});
+                           UsefulFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_extractlike?uid="+ MainActivity.ACCOUNT.getuId() +"2&vid=3"+ comment);}});
                     thread.start();
                     commentText.clearComposingText();
                 }});

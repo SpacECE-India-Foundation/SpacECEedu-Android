@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
+import com.spacECE.spaceceedu.RegistrationSelection;
 import com.spacECE.spaceceedu.UsefulFunctions;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
@@ -26,25 +27,31 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static Account ACCOUNT = null;
+    public Account ACCOUNT = null;
     EditText et_email;
     EditText et_password;
     Button b_login;
     TextView tv_register;
+    TextView tv_invalid;
+
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        userLocalStore = new UserLocalStore(this);
+
         et_email = findViewById(R.id.editTextText_EmailAddress);
         et_password = findViewById(R.id.editTextText_Password);
         b_login = findViewById(R.id.Button_Login);
         tv_register = findViewById(R.id.TextView_Register);
+        tv_invalid=findViewById(R.id.TextView_InvalidCredentials);
 
         ACCOUNT= null;
 
-        SignInButton G_signInButton = findViewById(R.id.sign_in_button);
+//        SignInButton G_signInButton = findViewById(R.id.sign_in_button);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -57,111 +64,100 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        tv_register.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //startActivity(new Intent(this,RegisterChoice.class));
-//            }
-//        });
-
-        G_signInButton.setOnClickListener(new View.OnClickListener() {
+        tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getApplicationContext(),RegistrationSelection.class));
             }
         });
-    }
 
+//        G_signInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+    }
+//                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_getalluser?user=" + email);
 
     private void logIn(String email, String password) {
 
         Log.i("Authentication : Input Credentials : ", email + " / " + password);
-
+        final boolean[] COMPLETED = {false};
         final JSONObject[] apiCall = {null};
-        final boolean[] authenticationComplete = {false};
 
         Thread thread = new Thread(new Runnable() {
 
-
             @Override
             public void run() {
-                TextView tv_invalidCredentials = findViewById(R.id.TextView_InvalidCredentials);
 
-                try {
+                try{
                     apiCall[0] = UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_getalluser?user=" + email);
-                    Log.i("Object Obtained: ", apiCall[0].get("status").toString());
-                    Log.i("Object Obtained: ", apiCall[0].toString());
+                    Log.i("Object Obtained::::::: ", apiCall[0].get("status").toString());
 
                     try {
                         if (apiCall[0].get("status").toString().equalsIgnoreCase("success")) {
-                            Log.i("Authentication: ", "User Found.....");
+                            Log.i("Authentication:::: ", "User Found.....3209e903uje93");
                             if (apiCall[0].getJSONArray("data").getJSONObject(0).get("password").toString().equals(password)) {
-                                Log.i("Authentication: ", "Approved!!");
+                                Log.i("Authentication:::::: ", "Approved!! 2390e93jej");
 
-                                ACCOUNT = new Account(apiCall[0].getJSONObject("data").getString("email"),
-                                        apiCall[0].getJSONObject("data").getString("name"),
-                                        apiCall[0].getJSONObject("data").getString("phone")
-                                        , false, apiCall[0].getJSONObject("data").getString("img")
-                                        , apiCall[0].getString("UID"));
-                                Log.i(" Data: ", ACCOUNT.toString());
+                                MainActivity.ACCOUNT = new Account(apiCall[0].getJSONArray("data").getJSONObject(0).getString("email"),
+                                        apiCall[0].getJSONArray("data").getJSONObject(0).getString("name"),
+                                        apiCall[0].getJSONArray("data").getJSONObject(0).getString("phone")
+                                        , false, apiCall[0].getJSONArray("data").getJSONObject(0).getString("img")
+                                        , apiCall[0].getJSONArray("data").getJSONObject(0).getString("UID"),apiCall[0].getJSONArray("data").getJSONObject(0).getString("token"));
+                                Log.i(" Data::::: ", ACCOUNT.toString());
 
-                                authenticationComplete[0] = true;
+                                COMPLETED[0] = true;
                             } else {
-                                et_email.setText("");
-                                et_password.setText("");
-                                authenticationComplete[0] = true;
+                                COMPLETED[0] = true;
                             }
                         } else {
-                            et_email.setText("");
-                            et_password.setText("");
-                            authenticationComplete[0] = true;
+                            COMPLETED[0] = true;
                         }
 
                     } catch (JSONException jsonException) {
                         jsonException.printStackTrace();
                         Log.i("JSON: ", "Not Found or Invalid Credentials!!");
-                        et_email.setText("");
-                        et_password.setText("");
-                        authenticationComplete[0] = true;
+                        COMPLETED[0] = true;
                     }
                 } catch(RuntimeException e){
                     Log.i("Runtime Exception :::", "Connection error Or Server took too long to respond");
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
-                        public void run() {
-                            Toast.makeText(getBaseContext(), "text", Toast.LENGTH_LONG).show();
-                        }
-                    });                } catch (Exception e) {
+                    COMPLETED[0]=true;
+                } catch (Exception e) {
                     e.printStackTrace();
                     Log.i("JSON: ", "Not Found or Invalid Credentials!!");
-                    et_email.setText("");
-                    et_password.setText("");
-                    authenticationComplete[0] = true;
+                    COMPLETED[0] = true;
                 }
             }
         });
 
         thread.start();
-        while (!authenticationComplete[0]) {
+        while (!COMPLETED[0]) {
             Log.i("Authentication:: ", "Waiting......");
         }
         Log.i("Authentication:: ", "Completed......");
 
-        if (ACCOUNT != null) {
+        if(MainActivity.ACCOUNT != null) {
+            userLocalStore.storeUserData(MainActivity.ACCOUNT);
+            tv_invalid.setVisibility(View.INVISIBLE);
+            userLocalStore.setUserLoggedIn(true);
             Log.i("Authentication:: ", "Approved Credentials received ...");
-            Log.i("Authenticated User:: ", LoginActivity.ACCOUNT.toString());
+            Log.i("Authenticated User:: ", MainActivity.ACCOUNT.toString());
             Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(goToMainPage);
-            return;
+        }else{
+            Log.i("Authentication:: ", "Rejected.....");
+            et_email.setText("");
+            et_email.setError("");
+            et_password.setError("");
+            et_password.setText("");
+            tv_invalid.setVisibility(View.VISIBLE);
         }
-        Log.i("Authentication:: ", "Rejected.....");
-        return;
     }
 
     public void goToRegister(View view) {
-        LayoutInflater inflater = getLayoutInflater();
-        View customToastLayout = inflater.inflate(R.layout.registration_selection_toast, (ViewGroup) findViewById(R.id.Registration_Selection_LinearLayout));
-
+       startActivity(new Intent(this, RegistrationSelection.class));
     }
 
 

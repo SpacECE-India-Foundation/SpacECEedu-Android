@@ -52,7 +52,7 @@ public class Consultants_Consultants_appointments_RecyclerViewAdapter extends Re
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String name = myConsultants.get(position).getC_name();
+        String name = myConsultants.get(position).getP_name();
      //   String profilePic_src = myConsultants.get(position).getProfilePic_src();
         String time = myConsultants.get(position).getTime();
         String status = myConsultants.get(position).getStatus();

@@ -17,16 +17,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
+import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.VideoLibrary.Topic;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,11 +41,15 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private Toolbar toolbar;
+    public static Account ACCOUNT=null;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userLocalStore= new UserLocalStore(this);
 
         Log.i("DEVICE TOKEN","In next line");
         //Android ID:
@@ -72,19 +81,31 @@ public class MainActivity extends AppCompatActivity {
         //Bottom navigation bar
         BottomNavigationView bottomNav = findViewById(R.id.Main_Bottom_Navigation);
         bottomNav.setOnItemSelectedListener(navListener);
+
         //Navigation Drawer
         drawer = findViewById(R.id.Main_NavView_drawer);
+
         //Toolbar support for navigationDrawer
         toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         //NavigationDrawer
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        if(ACCOUNT!=null){
 
-        //toolbar.setTitle("Hi "+account.getUsername()+" !");
+            toolbar.setTitle("Hi "+ACCOUNT.getUsername()+" !");
+            NavigationView navigationView = (NavigationView) findViewById(R.id.Main_navView_drawer);
 
+            // get menu from navigationView
+            View navHead = navigationView.getHeaderView(0);
 
+            // find MenuItem you want to change
+            ImageView nav_camara = navHead.findViewById(R.id.Main_nav_drawer_profile_pic);
+            Picasso.get().load(ACCOUNT.getProfile_pic()).into(nav_camara);
+
+        }
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.Main_Fragment_layout,
                     new FragmentMain()).commit();
@@ -98,13 +119,28 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_token?email=null"+"&token="+token);
+                UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_token?email="+ACCOUNT.getAccount_id()+"&token="+token);
             }
         });
         thread.start();
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(authenticate()){
+            getDetails();
+        }
+    }
+
+    private void getDetails() {
+        ACCOUNT= userLocalStore.getLoggedInAccount();
+    }
+
+    private boolean authenticate(){
+        return userLocalStore.getUserLoggedIn();
+    }
 
     @Override
     public void onBackPressed() {
@@ -144,7 +180,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_main_activity,menu);
+        if(ACCOUNT!=null){
+            inflater.inflate(R.menu.options_main_activity_loggedin, menu);
+        }else {
+            inflater.inflate(R.menu.options_main_activity, menu);
+        }
         return true;
     }
 
@@ -154,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
 
             case R.id.button_signOut:
-                //Logout
                 signOut();
                 return true;
             case R.id.button_signIn:
@@ -166,7 +205,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void signOut() {
-        LoginActivity.ACCOUNT= new Account(null, null, null);
+        userLocalStore.clearUserData();
+        userLocalStore.setUserLoggedIn(false);
+        ACCOUNT=null;
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
 

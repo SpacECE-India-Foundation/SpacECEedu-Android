@@ -6,7 +6,8 @@
     tools:context=".Consultants.ConsultantProfile"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EFDC5D">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -201,6 +202,7 @@
         android:text="Developed by Abhikant Awasthi"
         android:gravity="center"
         android:textSize="16dp"
+        android:layout_marginTop="15dp"
         android:layout_gravity="bottom" />
 </LinearLayout>
 </ScrollView>

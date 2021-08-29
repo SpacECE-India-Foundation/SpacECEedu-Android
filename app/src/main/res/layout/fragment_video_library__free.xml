@@ -24,7 +24,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/VL_recent_RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/video_list_item"/>
 
            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/VL_free_RecycleView"

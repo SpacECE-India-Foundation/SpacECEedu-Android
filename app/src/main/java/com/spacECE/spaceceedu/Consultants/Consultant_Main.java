@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
+import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.UsefulFunctions;
 import com.spacECE.spaceceedu.R;
 
@@ -22,8 +23,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Consultant_Main extends AppCompatActivity {
-
-    Account account= null;
 
     public static ArrayList<ConsultantCategory> categoryList = new ArrayList<>();
     NavigationBarView.OnItemSelectedListener navListener =
@@ -58,16 +57,16 @@ public class Consultant_Main extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.Consultant_Main_BottomNav);
         bottomNav.setOnItemSelectedListener(navListener);
 
-
-        account= LoginActivity.ACCOUNT;
-       // generateMyConsList();
-        if(false){
+        // generateMyConsList();
+        if(MainActivity.ACCOUNT!=null){
             if (true) {
                 bottomNav.inflateMenu(R.menu.consultant_main_consultants_bottomnav);
                 getSupportFragmentManager().beginTransaction().replace(R.id.ConsultantMain_Frame,
                         new Fragment_Consultants_Consultants_appointments()).commit();
                 generateConsultantsAppointmentList();
             } else {
+                getSupportFragmentManager().beginTransaction().replace(R.id.ConsultantMain_Frame,
+                        new Consultant_Categories()).commit();
                 bottomNav.inflateMenu(R.menu.consultant_main_bottomnav);
                 generateUserConsultantsList();
             }
@@ -176,7 +175,7 @@ public class Consultant_Main extends AppCompatActivity {
                         }
                         for (int i = 0; i < jsonCArray.length(); i++) {
 
-                            JSONObject response_element = new JSONObject(String.valueOf(jsonUArray.getJSONObject(i)));
+                            JSONObject response_element = new JSONObject(String.valueOf(jsonCArray.getJSONObject(i)));
 
                             UserAppointments newAppointment = new UserAppointments(response_element.getString("date_appointment"), response_element.getString("date_appointment")
                                     , response_element.getString("date_appointment"), response_element.getString("date_appointment"), response_element.getString("cname")

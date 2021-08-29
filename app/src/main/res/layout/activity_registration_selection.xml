@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Authentication.RegistrationSelection">
+    tools:context=".RegistrationSelection">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register As?"
         android:textSize="26dp"
-        android:fontFamily="@font/poppins_medium"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,12 +19,10 @@
 
     <Button
         android:id="@+id/Registration_Selection_Button_User"
-        android:layout_width="190dp"
-        android:layout_height="80dp"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
         android:text="User"
-        android:fontFamily="@font/poppins_medium"
-        android:textSize="18dp"
-        android:textColor="@color/colorSelected"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,13 +31,11 @@
 
     <Button
         android:id="@+id/Registration_Selection_Button_Consultant"
-        android:layout_width="190dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Consultant"
-        android:textSize="18dp"
-        android:fontFamily="@font/poppins_medium"
-        android:textColor="@color/colorSelected"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Registration_Selection_Button_User" />

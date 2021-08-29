@@ -7,7 +7,8 @@
     android:layout_centerInParent="true"
     android:layout_weight="1"
     android:elevation="5dp"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="10dp"
+    android:layout_marginTop="2dp">
 
     <LinearLayout
         android:layout_width="wrap_content"

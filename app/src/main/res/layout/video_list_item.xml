@@ -15,6 +15,7 @@
         android:text="TextView"
         android:textAlignment="center"
         android:textColor="#FF8F00"
+        android:visibility="invisible"
         android:textSize="34sp"
         android:translationZ="3sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,16 +33,17 @@
         android:translationZ="3sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintHorizontal_bias="0.99"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.826" />
+        app:layout_constraintVertical_bias="0.811" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="700dp"
         android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_background" />
