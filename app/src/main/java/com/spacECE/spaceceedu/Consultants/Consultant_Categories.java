@@ -88,7 +88,7 @@ public class Consultant_Categories extends Fragment {
 
                 try{
                     try {
-                        apiCall[0] = UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_category?category=one&val=" + URLEncoder.encode(category, "UTF-8"));
+                        apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_category?category=one&val=" + URLEncoder.encode(category, "UTF-8"));
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }

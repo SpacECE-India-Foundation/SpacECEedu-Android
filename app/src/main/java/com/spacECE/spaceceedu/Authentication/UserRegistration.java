@@ -25,6 +25,9 @@ import com.spacECE.spaceceedu.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class UserRegistration extends AppCompatActivity {
 
     private Button b_register;
@@ -138,14 +141,22 @@ public class UserRegistration extends AppCompatActivity {
 
         }
     }
-    private void sendUserRegistration(String email_id, String name, String password, String contact) {
+    private void sendUserRegistration(String email_id, String name, String password, String contact){
 
         //API Call to register:
-
         if(true){
-
-            MainActivity.ACCOUNT= new Account(email_id,name,contact,false,null, null, null);
-
+            String sendData=ev_email.getText().toString()+"&fullname="+ev_name.getText().toString()+"&password=+"+ev_password.getText().toString()+"&email="+ev_email.getText().toString()+"&mobile="+ev_phoneNo.getText().toString()+"&img="+"null"+"&token="+"null";
+                Thread newThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_registration_user?username="+URLEncoder.encode(sendData, "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    }
+                });
+                newThread.start();
             Toast.makeText(this, "Welcome to SpacECE!", Toast.LENGTH_SHORT).show();
 
         }else{
@@ -180,13 +191,13 @@ public class UserRegistration extends AppCompatActivity {
             ev_email.setError("Field cannot be empty");
             return false;
         }
-//        else if(!(ev_email.getText().toString()
-//                .matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"))){
-//            ev_email.setError("Invalid Email address");
-//            return false;
-//        }
+        else if(!(ev_email.getText().toString().contains("@"))){
+            ev_email.setError("Invalid Email address");
+            return false;
+        }
         else if(!emailRegistered(ev_email.getText().toString())){
             ev_email.setError("Email already registered ");
+            return false;
         }
         return true;
     }
@@ -203,7 +214,7 @@ public class UserRegistration extends AppCompatActivity {
             public void run() {
 
                 try {
-                        JSONObject check = UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_getalluser?user=" + email);
+                        JSONObject check = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_getalluser?user=" + email);
                         Log.i("Email Validation(EV):::", check.toString());
                         try {
                             EXISTS[0]=(check.get("status").toString().equalsIgnoreCase("fail"));
@@ -214,6 +225,7 @@ public class UserRegistration extends AppCompatActivity {
                     COMPLETED[0]=true;
                 }catch(RuntimeException e ){
                     Log.i(e+" EXCEPTION:::","Server took too long or JSON Key not found");
+                    COMPLETED[0]=true;
                 }
             }
         });
@@ -223,6 +235,7 @@ public class UserRegistration extends AppCompatActivity {
             Log.i("Email Check (EC):::", "Waiting.....");
         }
         Log.i("Email Check (EC):::", "Completed.");
+        Log.i("EMAIL FOUND (EF):::::", String.valueOf(EXISTS[0]));
         return EXISTS[0];
     }
 

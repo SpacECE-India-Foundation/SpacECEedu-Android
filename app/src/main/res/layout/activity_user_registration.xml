@@ -3,14 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FEC02A"
+    android:paddingVertical="0dp"
+    android:fillViewport="true">
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:background="#FEC02A">
+        android:layout_marginBottom="0dp"
+        android:paddingHorizontal="0dp">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/UserRegistration_toolbar"
@@ -49,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:ems="10"
-        android:hint="Enter you Name"
+        android:hint="Enter Name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -62,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="Enter your Phone Number"
+        android:hint="Enter Phone Number"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -75,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="Enter your Email"
+        android:hint="Enter Email"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -88,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="Enter your Password"
+        android:hint="Enter Password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -118,9 +121,11 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Abhikant"
         app:layout_constraintTop_toBottomOf="@+id/UserRegistration_editTextText_Repassword" />
 
     <TextView
+
         android:id="@+id/Abhikant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -128,7 +133,9 @@
         android:gravity="center"
         android:text="Developed by Abhikant Awasthi"
         android:textSize="16dp"
+        app:layout_constraintTop_toBottomOf="@id/UserRegistration_Button_Signup"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

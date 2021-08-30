@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -74,8 +77,13 @@ public class Consultant_GetAppointment extends AppCompatActivity {
         b_confPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                confirmSlot(userAppointment);
-            }
+
+                Uri webpage = Uri.parse("http://educationfoundation.space/ConsultUs/index.html");
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, webpage));
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(getApplicationContext(), "No app found", Toast.LENGTH_SHORT).show();
+                }}
         });
 
         Bundle extras = getIntent().getExtras();

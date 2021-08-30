@@ -26,7 +26,7 @@ public class ConsultantsLibrary extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Consultants_RecyclerViewAdapter.RecyclerViewClickListener listener;
 
-    private String URL = "http://3.109.14.4/ConsultUs/api_getconsultant?user=all";
+    private String URL = "http://educationfoundation.space/ConsultUs/api_getconsultant?user=all";
 
 
     private Spinner s_categories;
@@ -75,7 +75,6 @@ public class ConsultantsLibrary extends AppCompatActivity {
 //            }
 //        });
 // addToList();
-
         setUpAdapter();
     }
 

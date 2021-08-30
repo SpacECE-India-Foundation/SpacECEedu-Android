@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_token?email="+ACCOUNT.getAccount_id()+"&token="+token);
+                UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_token?email="+ACCOUNT.getAccount_id()+"&token="+token);
             }
         });
         thread.start();
@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(String... strings) {
             try {
-                apiCall[0] = UsefulFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_all?uid=1&type=all");
+                apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/SpacTube/api_all?uid=1&type=all");
                 Log.i("Object Obtained: ", apiCall[0].toString());
 
                 JSONArray jsonArray = null;

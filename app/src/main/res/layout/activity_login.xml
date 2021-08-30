@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:fillViewport="true">
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Authentication.LoginActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+       >
 
     <EditText
         android:id="@+id/editTextText_Password"

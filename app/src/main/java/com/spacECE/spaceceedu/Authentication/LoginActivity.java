@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 //            }
 //        });
     }
-//                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_getalluser?user=" + email);
+//                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_getalluser?user=" + email);
 
     private void logIn(String email, String password) {
 
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
 
                 try{
-                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_getalluser?user=" + email);
+                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_getalluser?user=" + email);
                     Log.i("Object Obtained::::::: ", apiCall[0].get("status").toString());
 
                     try {

@@ -86,7 +86,7 @@ public class FragmentMain extends Fragment {
             public void run() {
 
                 try{
-                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_category?category=all");
+                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_category?category=all");
 
                     JSONArray jsonArray = null;
                     try {
