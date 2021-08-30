@@ -1,4 +1,4 @@
-package com.spacECE.spaceceedu;
+package com.spacECE.spaceceedu.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.spacECE.spaceceedu.MainActivity;
+import com.spacECE.spaceceedu.R;
 
 public class ConsultantRegistration extends AppCompatActivity {
 
@@ -17,7 +20,7 @@ public class ConsultantRegistration extends AppCompatActivity {
         b_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
     }

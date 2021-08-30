@@ -86,46 +86,51 @@ public class Consultant_Categories extends Fragment {
             @Override
             public void run() {
 
-                try {
-                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_category?category=one&val=" + URLEncoder.encode(category, "UTF-8"));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    Log.i("Object Obtained: ", apiCall[0].get("data").toString());
-                } catch (JSONException e) {
-                    Log.i("API Response:", "Error");
-                    e.printStackTrace();
-                }
-
-                JSONArray jsonArray = null;
-                try {
-                    jsonArray = apiCall[0].getJSONArray("data");
-                    Log.i("API : ", apiCall[0].toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-                try {
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
-
-                        Consultant newConsultants = new Consultant(response_element.getString("name"), response_element.getString("c_id"), response_element.getString("img")
-                                , response_element.getString("category"), response_element.getString("office"), response_element.getString("mobile"), response_element.getString("lang")
-                                , response_element.getString("email"), response_element.getString("ctime"), response_element.getString("stime"), response_element.getString("lno")
-                                , response_element.getString("available_to"),response_element.getString("available_from"), response_element.getString("qualification"), response_element.getString("fee"));
-
-                        aList.add(newConsultants);
+                try{
+                    try {
+                        apiCall[0] = UsefulFunctions.UsingGetAPI("http://3.109.14.4/ConsultUs/api_category?category=one&val=" + URLEncoder.encode(category, "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
+                    try {
+                        Log.i("Object Obtained: ", apiCall[0].get("data").toString());
+                    } catch (JSONException e) {
+                        Log.i("API Response:", "Error");
+                        e.printStackTrace();
+                    }
+
+                    JSONArray jsonArray = null;
+                    try {
+                        jsonArray = apiCall[0].getJSONArray("data");
+                        Log.i("API : ", apiCall[0].toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    try {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
+
+                            Consultant newConsultants = new Consultant(response_element.getString("name"), response_element.getString("c_id"), response_element.getString("img")
+                                    , response_element.getString("category"), response_element.getString("office"), response_element.getString("mobile"), response_element.getString("lang")
+                                    , response_element.getString("email"), response_element.getString("ctime"), response_element.getString("stime"), response_element.getString("lno")
+                                    , response_element.getString("available_to"), response_element.getString("available_from"), response_element.getString("qualification"), response_element.getString("fee"));
+
+                            aList.add(newConsultants);
+                        }
+                        COMPLETED[0] = true;
+                        Log.i("CONSULTANTS ::::: ===>", aList.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        COMPLETED[0] = true;
+                    }
+
+                }catch(RuntimeException e){
+                    Log.i("RUNTIME ERROR::::", "Server took too long...");
                     COMPLETED[0] = true;
-                    Log.i("CONSULTANTS ::::: ===>", aList.toString());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-
             }
         });
 

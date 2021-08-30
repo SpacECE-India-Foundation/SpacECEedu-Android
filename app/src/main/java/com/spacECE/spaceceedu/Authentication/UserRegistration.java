@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.spacECE.spaceceedu.ConsultantRegistration;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.UsefulFunctions;
 import com.spacECE.spaceceedu.R;
@@ -34,7 +33,7 @@ public class UserRegistration extends AppCompatActivity {
     private boolean consultant=false;
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
-    private Uri picData= Uri.parse("opo");
+    private Uri picData= Uri.parse(String.valueOf(R.drawable.default_profilepic));
     Toolbar toolbar;
 
     @Override

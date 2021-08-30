@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spacECE.spaceceedu.R;
@@ -66,7 +67,7 @@ public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consul
 
         holder.name.setText(name);
         holder.category.setText(categories);
-        holder.price.setText(String.valueOf(price)+"/-");
+        holder.price.setText("Fee: "+String.valueOf(price)+"/-");
         holder.rating.setText(String.valueOf(rating));
         Picasso.get().load(profilePic_src).into(holder.profile);
     }

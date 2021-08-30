@@ -18,10 +18,10 @@
         android:theme="@style/Theme.SpacECEedu"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ConsultantRegistration"
+            android:name=".Authentication.ConsultantRegistration"
             android:exported="true" />
         <activity
-            android:name=".RegistrationSelection"
+            android:name=".Authentication.RegistrationSelection"
             android:exported="true" />
         <activity
             android:name=".Consultants.Agoraa"

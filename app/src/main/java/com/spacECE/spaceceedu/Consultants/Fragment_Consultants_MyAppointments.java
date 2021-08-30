@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 
 import java.util.ArrayList;
@@ -37,6 +39,10 @@ public class Fragment_Consultants_MyAppointments extends Fragment {
 
         recyclerView = v.findViewById(R.id.Consultants_MyConsultants_RecyclerView);
 
+        if(MainActivity.ACCOUNT!=null){
+            TextView tv_l=v.findViewById(R.id.MyC_Login);
+            tv_l.setVisibility(View.INVISIBLE);
+        }
         setAdapter(myAppointments);
         return v;
     }

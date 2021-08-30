@@ -59,14 +59,10 @@ public class Consultant_Main extends AppCompatActivity {
 
         // generateMyConsList();
         if(MainActivity.ACCOUNT!=null){
-            if (true) {
+            if (MainActivity.ACCOUNT.isCONSULTANT()) {
                 bottomNav.inflateMenu(R.menu.consultant_main_consultants_bottomnav);
-                getSupportFragmentManager().beginTransaction().replace(R.id.ConsultantMain_Frame,
-                        new Fragment_Consultants_Consultants_appointments()).commit();
                 generateConsultantsAppointmentList();
             } else {
-                getSupportFragmentManager().beginTransaction().replace(R.id.ConsultantMain_Frame,
-                        new Consultant_Categories()).commit();
                 bottomNav.inflateMenu(R.menu.consultant_main_bottomnav);
                 generateUserConsultantsList();
             }
@@ -77,6 +73,8 @@ public class Consultant_Main extends AppCompatActivity {
                         new Consultant_Categories()).commit();
             }
         }
+        getSupportFragmentManager().beginTransaction().replace(R.id.ConsultantMain_Frame,
+                new Consultant_Categories()).commit();
     }
 
     private void generateUserConsultantsList() {

@@ -5,6 +5,7 @@
     <string name="agora_access_token">
         006464ff3e49fb3409494c0956edcec52e7IAB+DDmhDfV6A4vogtIE0UGwzmwIClst6qgqbegCOpDPJHfBAaIAAAAAEACLgpZhqa4oYQEAAQCkrihh
 </string>
+    <string name="Rs">\u20B9</string>
     <string name="app_name">SpacECEedu</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>

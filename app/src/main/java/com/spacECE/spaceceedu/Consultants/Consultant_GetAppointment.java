@@ -138,9 +138,10 @@ public class Consultant_GetAppointment extends AppCompatActivity {
             @Override
             public void onClick(View v, int position) {
               //  userAppointment.setTime(timings.get(position));
+                aTime=timings.get(position);
                 tv_time.setText(timings.get(position));
                 setTimeAdapter(new ArrayList<String>());
-                tv_confirmation.setText("Confirm appointment with "+name+" on "+aTime+", "+aMonth+" "+aYear+", at "+aTime+"? Click to Confirm & make Payment.");
+                tv_confirmation.setText("Confirm appointment with "+name+" on "+aDate+", "+aMonth+" "+aYear+", at "+aTime+"? Click to Confirm & make Payment.");
             }
         };
     }
@@ -151,7 +152,7 @@ public class Consultant_GetAppointment extends AppCompatActivity {
             public void onClick(View v, int position) {
                 timings=new ArrayList<>(Arrays.asList(slots.get(position).getTime()));
                // userAppointment = new UserAppointments(slots.get(position).getDate(), slots.get(position).getMonth(), slots.get(position).getMonth(), null,consultantName,consultant_id);
-                tv_date.setText(slots.get(position).getDate()+", "+slots.get(position).getMonth()+" "+slots.get(position).getMonth());
+                tv_date.setText(slots.get(position).getDate()+", "+slots.get(position).getMonth()+" "+slots.get(position).getYear());
                 tv_time.setText("Tap to Select Time ");
                 aTime=null;
                 aMonth=slots.get(position).getMonth();
