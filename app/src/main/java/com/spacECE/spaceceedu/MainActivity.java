@@ -1,5 +1,21 @@
 package com.spacECE.spaceceedu;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,24 +24,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
@@ -37,12 +43,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private Toolbar toolbar;
     public static Account ACCOUNT=null;
     UserLocalStore userLocalStore;
+    DBController dbController;
+    int dayNo;
+    public final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +125,17 @@ public class MainActivity extends AppCompatActivity {
 
         GetLists getLists= new GetLists();
         getLists.execute();
+
+        DBController dbController = new DBController(MainActivity.this);
+
+        if(dbController.isNewUser() == 0) {
+            Log.d(TAG, "onCreate: "+"new User");
+            createNotificationChannel();
+            sendNotification();
+            GetFirstActivity getActivities = new GetFirstActivity();
+            getActivities.execute();
+        }
+
     }
 
     private void sendTokenToServer(String token) {
@@ -203,6 +226,63 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            CharSequence name = "Reminder";
+            String description = "New Activity is Available";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notify", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    public void sendNotification(){
+
+        Log.d(TAG, "sendNotification: called");
+        //Toast.makeText(ActivitiesListActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(MainActivity.this, ReminderBroadCastReciever.class);
+
+        //int lastDay = dbController.isNewUser();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        //myEdit.putInt("dayNo", lastDay);
+
+        myEdit.commit();
+
+
+        //make it 0 if not worked
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 200, intent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        long time = System.currentTimeMillis();
+        long tenSeconds = 1000 * 10;
+
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(date);
+
+        calendar.set(Calendar.DATE,1);
+        calendar.set(Calendar.HOUR_OF_DAY,8);
+        calendar.set(Calendar.MINUTE,5);
+        calendar.set(Calendar.SECOND,0);
+
+        Log.d(TAG, "sendNotification: "+calendar.getTime());
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+
+        Log.d(TAG, "sendNotification: "+calendar.getTimeInMillis());
+        Log.d(TAG, "sendNotification: tenSeconds "+(time+tenSeconds));
+
+    }
 
     private void signOut() {
         userLocalStore.clearUserData();
@@ -219,13 +299,16 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(String... strings) {
+
             try {
+
                 apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/SpacTube/api_all?uid=1&type=all");
                 Log.i("Object Obtained: ", apiCall[0].toString());
 
                 JSONArray jsonArray = null;
                 JSONArray recentJsonArray = null;
                 JSONArray trendingJsonArray = null;
+
                 try {
                     jsonArray = apiCall[0].getJSONArray("data");
                     recentJsonArray = apiCall[0].getJSONArray("data_recent");
@@ -303,5 +386,36 @@ public class MainActivity extends AppCompatActivity {
         }
             return null;
         }
-}
+    }
+
+    class GetFirstActivity extends AsyncTask<String,Void,JSONObject>{
+
+        final private JSONObject[] apiCall = {null};
+
+        @Override
+        protected JSONObject doInBackground(String... strings) {
+
+            try {
+
+                apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/spacece/api/spaceactive_activities.php?ano=1");
+                Log.d(TAG, "Object Obtained "+apiCall[0].toString());
+
+                GsonBuilder gsonBuilder = new GsonBuilder();
+                Gson gson = gsonBuilder.create();
+                ActivityData activityData = gson.fromJson(apiCall[0].toString(),ActivityData.class);
+                Log.d(TAG, "doInBackground: activity_dev_domain "+activityData.getData().get(0).getActivityDevDomain());
+                //List<Data> list = activityData.getData();
+
+                DBController dbController = new DBController(MainActivity.this);
+                dbController.insertRecord(activityData);
+                Log.d(TAG, "doInBackground: "+dbController.isNewUser());
+
+            }catch (RuntimeException runtimeException){
+                Log.d(TAG, "RUNTIME EXCEPTION:::, Server did not respons");
+            }
+
+            return null;
+        }       
+    }
+
 }

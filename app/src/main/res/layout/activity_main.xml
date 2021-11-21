@@ -16,12 +16,12 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#FFC000"
+            android:background="@color/white"
             android:theme="?attr/actionBarTheme"
             app:menu="@menu/navigationdrawer_main_activity"
             app:title="Hi !"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:titleTextColor="#F5FDFDFD"/>
+            app:titleTextColor="@color/Spacece_Yellow"/>
 
 
 
@@ -37,8 +37,10 @@
                 android:id="@+id/Main_Bottom_Navigation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:itemIconTint="@color/white"
+                app:itemTextColor="@color/white"
                 android:layout_alignParentBottom="true"
-                android:background="?android:attr/windowBackground"
+                android:background="@color/Spacece_Yellow"
                 app:menu="@menu/bottom_navigation" />
             </LinearLayout>
 

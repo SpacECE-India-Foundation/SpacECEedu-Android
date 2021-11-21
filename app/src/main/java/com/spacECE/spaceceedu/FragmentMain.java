@@ -33,12 +33,13 @@ public class FragmentMain extends Fragment {
     Button signOut;
     private final int[] mImages = new int[]{
             R.drawable.view1, R.drawable.view2, R.drawable.view3,
-            R.drawable.img
+            R.drawable.view4,R.drawable.view5
     };
 
 
     CardView cv_videoLibrary;
     CardView cv_consultation;
+    CardView cv_dailyActivities;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,6 +58,10 @@ public class FragmentMain extends Fragment {
         cv_consultation=v.findViewById(R.id.CardView_Consultation);
         cv_videoLibrary=v.findViewById(R.id.CardView_VideoLibrary);
 
+        //Navigating to Daily Activities
+        cv_dailyActivities = v.findViewById(R.id.CardView_MyActivities);
+
+
         cv_videoLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +79,15 @@ public class FragmentMain extends Fragment {
                 startActivity(intent);
             }
         });
+
+        cv_dailyActivities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(),ActivitiesListActivity.class);
+                startActivity(intent);
+            }
+        });
+
     return v;
     }
     public void generateMyCatList() {
