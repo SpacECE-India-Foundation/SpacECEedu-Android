@@ -1,10 +1,8 @@
 package com.spacECE.spaceceedu.LearnOnApp;
 
 import org.jetbrains.annotations.NotNull;
-import java.io.Serializable;
 
-
-public class Learn implements Serializable{
+public class Learn {
 
     private String id;
     private String title;
@@ -13,6 +11,7 @@ public class Learn implements Serializable{
     private final String mode;
     private final String duration;
     private final String price;
+
 
     public Learn(String id, String title, String description, String type, String mode, String duration, String price) {
         this.id = id;
@@ -57,7 +56,7 @@ public class Learn implements Serializable{
     }
 
     public String getDuration() {
-        return duration.contains("days") ? duration : duration + " days";
+        return duration;
     }
 
     public String getPrice() {
@@ -72,7 +71,7 @@ public class Learn implements Serializable{
                 "\ndescription= " + description +
                 "\ntype= " + type +
                 "\nmode= " + mode +
-                "\nduration= " + getDuration() +
-                "\nprice= " + price;
+                "\nduration= " + duration +
+                "\nprice= " + price ;
     }
 }
