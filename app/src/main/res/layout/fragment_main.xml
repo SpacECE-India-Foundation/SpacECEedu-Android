@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="#FFFFFF">
+
+
     <LinearLayout
 
     android:id="@+id/constraintLayout"
@@ -30,6 +32,13 @@
             app:slideInterval="3000"
             app:strokeColor="#FF777777"
             app:strokeWidth="1dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="herejhbsdlajbcl"
+            android:id="@+id/temp"
+            />
 
         <GridLayout
             android:id="@+id/GridView"
@@ -88,7 +97,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/CardView_MyAppointments"
+                android:id="@+id/CardView_Library"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="1"
@@ -108,7 +117,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/CardView_MyConsultations"
+                android:id="@+id/CardView_LearnOnApp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="1"

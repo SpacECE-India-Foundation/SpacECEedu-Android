@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.spacECE.spaceceedu">
+    package="com.spacECE.spaceceedu" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +23,11 @@
         android:roundIcon="@mipmap/ic_launcher_round_"
         android:supportsRtl="true"
         android:theme="@style/Theme.SpacECEedu"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
+        <activity android:name=".LearnOnApp.LearnDetailed" />
+        <activity android:name=".LearnOnApp.Payment" />
+        <activity android:name=".LearnOnApp.LearnOn_Main" />
+        <activity android:name=".LearnOnApp.LearnOn_List_SplashScreen" />
         <activity
             android:name=".Authentication.ConsultantRegistration"
             android:exported="true" />
@@ -44,14 +53,14 @@
             android:exported="true" />
         <activity
             android:name=".ActivitiesListActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".ActivityDetailsActivity"
-            android:exported="true"/>
+            android:exported="true" />
 
         <service
             android:name=".FirebaseMessageReceiver"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -73,8 +82,14 @@
             android:name=".Authentication.LoginActivity"
             android:exported="true" />
         <activity
+            android:name=".Library.Library_main"
+            android:exported="true" />
+        <activity
+            android:name=".Library.My_books"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -83,7 +98,6 @@
         </activity>
 
         <receiver android:name=".ReminderBroadCastReciever" />
-
     </application>
 
 </manifest>

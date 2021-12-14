@@ -1,5 +1,7 @@
 package com.spacECE.spaceceedu;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -17,6 +20,10 @@ import androidx.fragment.app.Fragment;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Consultants.ConsultantCategory;
 import com.spacECE.spaceceedu.Consultants.Consultant_Main;
+import com.spacECE.spaceceedu.LearnOnApp.Learn;
+import com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_SplashScreen;
+import com.spacECE.spaceceedu.LearnOnApp.LearnOn_Main;
+import com.spacECE.spaceceedu.Library.Library_main;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -24,6 +31,9 @@ import com.synnapps.carouselview.ImageListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.InetAddress;
+import java.util.ArrayList;
 
 public class FragmentMain extends Fragment {
 
@@ -40,6 +50,9 @@ public class FragmentMain extends Fragment {
     CardView cv_videoLibrary;
     CardView cv_consultation;
     CardView cv_dailyActivities;
+    CardView cv_libraryBooks;
+    CardView cv_learnOnApp;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,6 +74,10 @@ public class FragmentMain extends Fragment {
         //Navigating to Daily Activities
         cv_dailyActivities = v.findViewById(R.id.CardView_MyActivities);
 
+        //Navigating to Library Books
+        cv_libraryBooks = v.findViewById(R.id.CardView_Library);
+
+        cv_learnOnApp = v.findViewById(R.id.CardView_LearnOnApp);
 
         cv_videoLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,16 +105,35 @@ public class FragmentMain extends Fragment {
             }
         });
 
+        cv_libraryBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), Library_main.class);
+                startActivity(intent);
+            }
+        });
+
+        cv_learnOnApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), LearnOn_List_SplashScreen.class);
+                startActivity(intent);
+            }
+        });
+
     return v;
     }
+
+
     public void generateMyCatList() {
-        final boolean[] COMPLETED = {false};
         final JSONObject[] apiCall = {null};
 
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
+
+
 
                 try{
                     apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_category?category=all");
@@ -109,24 +145,24 @@ public class FragmentMain extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
+                    Consultant_Main.categoryList = null;
                     try {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             ConsultantCategory newCategory = new ConsultantCategory((String) jsonArray.get(i), "nice");
-
                             Consultant_Main.categoryList.add(newCategory);
                         }
-                        COMPLETED[0] = true;
-                        Log.i("My CATEGORIES:::::", Consultant_Main.categoryList.toString());
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                 }   catch (RuntimeException runtimeException){
-                    Log.i("RUNTIME EXCEPTION:::", "Server did not respons");
+                    Log.i("RUNTIME EXCEPTION:::", "Server did not respond");
                 }
             }
+
+
+
         });
 
         thread.start();

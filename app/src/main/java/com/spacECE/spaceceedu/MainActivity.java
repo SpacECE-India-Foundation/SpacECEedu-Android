@@ -1,11 +1,10 @@
 package com.spacECE.spaceceedu;
 
-import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.app.*;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +34,7 @@ import com.google.gson.GsonBuilder;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
+import com.spacECE.spaceceedu.Location.LocationService;
 import com.spacECE.spaceceedu.VideoLibrary.Topic;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 import com.squareup.picasso.Picasso;
@@ -43,6 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.InetAddress;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -56,10 +57,13 @@ public class MainActivity extends AppCompatActivity {
     int dayNo;
     public final String TAG = "MainActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         userLocalStore= new UserLocalStore(this);
 
@@ -129,12 +133,17 @@ public class MainActivity extends AppCompatActivity {
         DBController dbController = new DBController(MainActivity.this);
 
         if(dbController.isNewUser() == 0) {
+            Toast.makeText(MainActivity.this,"Ram",Toast.LENGTH_SHORT).show();
             Log.d(TAG, "onCreate: "+"new User");
             createNotificationChannel();
             sendNotification();
             GetFirstActivity getActivities = new GetFirstActivity();
             getActivities.execute();
         }
+
+        //Starting Location Service
+        LocationService locationService = new LocationService();
+        locationService.Start(this, this);
 
     }
 
@@ -174,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     NavigationBarView.OnItemSelectedListener navListener =
             new NavigationBarView.OnItemSelectedListener() {
                 @Override
@@ -210,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -292,7 +299,6 @@ public class MainActivity extends AppCompatActivity {
         finish();
         startActivity(intent);
     }
-
 
     class GetLists extends AsyncTask<String, Void, JSONObject> {
         final private JSONObject[] apiCall = {null};
@@ -415,7 +421,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return null;
-        }       
+        }
     }
 
 }

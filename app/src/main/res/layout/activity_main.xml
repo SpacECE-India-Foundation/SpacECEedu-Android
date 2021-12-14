@@ -23,8 +23,6 @@
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
             app:titleTextColor="@color/Spacece_Yellow"/>
 
-
-
             <FrameLayout
                 android:id="@+id/Main_Fragment_layout"
                 android:layout_width="match_parent"

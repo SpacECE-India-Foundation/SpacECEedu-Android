@@ -38,7 +38,7 @@ public class UsefulFunctions {
                 e.printStackTrace();
             }
         try {
-            Log.i(" API: "," Creation"+result);
+//            Log.i(" API: "," Creation"+result);
             return new JSONObject(result);
 
         } catch (JSONException e) {
