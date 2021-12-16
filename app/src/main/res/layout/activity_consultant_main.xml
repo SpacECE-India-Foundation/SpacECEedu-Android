@@ -7,16 +7,21 @@
     android:orientation="vertical"
     tools:context=".Consultants.Consultant_Main"
     android:background="@color/Spacece_Yelloww">
+
+
 <Toolbar
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:titleTextColor="@color/white"
     android:title="Consultants"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ConsultantMain_Frame"
-        android:layout_weight="1"/>
+        android:layout_weight="1">
+
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/Consultant_Main_BottomNav"

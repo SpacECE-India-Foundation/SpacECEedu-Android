@@ -31,7 +31,7 @@ public class LocationService extends Activity {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 Log.d("TAG", "onLocationChanged: " + location.toString());
-                startLocationServices(location);
+//                startLocationServices(location);
             }
 
         };

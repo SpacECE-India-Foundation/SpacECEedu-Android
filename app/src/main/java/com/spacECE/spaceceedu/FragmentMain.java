@@ -1,7 +1,5 @@
 package com.spacECE.spaceceedu;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -20,9 +17,8 @@ import androidx.fragment.app.Fragment;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Consultants.ConsultantCategory;
 import com.spacECE.spaceceedu.Consultants.Consultant_Main;
-import com.spacECE.spaceceedu.LearnOnApp.Learn;
+import com.spacECE.spaceceedu.Consultants.ConsultUs_SplashScreen;
 import com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_SplashScreen;
-import com.spacECE.spaceceedu.LearnOnApp.LearnOn_Main;
 import com.spacECE.spaceceedu.Library.Library_main;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 import com.synnapps.carouselview.CarouselView;
@@ -32,7 +28,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class FragmentMain extends Fragment {
@@ -91,8 +86,7 @@ public class FragmentMain extends Fragment {
         cv_consultation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                generateMyCatList();
-                Intent intent = new Intent(getContext(), Consultant_Main.class);
+                Intent intent = new Intent(getContext(), ConsultUs_SplashScreen.class);
                 startActivity(intent);
             }
         });
@@ -122,50 +116,6 @@ public class FragmentMain extends Fragment {
         });
 
     return v;
-    }
-
-
-    public void generateMyCatList() {
-        final JSONObject[] apiCall = {null};
-
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-
-
-
-                try{
-                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_category?category=all");
-
-                    JSONArray jsonArray = null;
-                    try {
-                        jsonArray = apiCall[0].getJSONArray("data");
-                        Log.i("API : ", jsonArray.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    Consultant_Main.categoryList = null;
-                    try {
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            ConsultantCategory newCategory = new ConsultantCategory((String) jsonArray.get(i), "nice");
-                            Consultant_Main.categoryList.add(newCategory);
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }   catch (RuntimeException runtimeException){
-                    Log.i("RUNTIME EXCEPTION:::", "Server did not respond");
-                }
-            }
-
-
-
-        });
-
-        thread.start();
     }
 
 }

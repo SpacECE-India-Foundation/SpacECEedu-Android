@@ -86,7 +86,7 @@ public class ConsultantProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-           //     startActivity(new Intent(getApplicationContext(), Agoraa.class));
+                startActivity(new Intent(getApplicationContext(), Agoraa.class));
 
             }
         });

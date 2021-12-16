@@ -1,6 +1,6 @@
 <resources>
     // Replace #YOUR APP ID# with your App ID in the string format
-    <string name="agora_app_id">464ff3e49fb3409494c0956edcec52e7</string>
+    <string name="agora_app_id">bf700419ed4e475683f0a3971492c5bf</string>
     // Replace #YOUR ACCESS TOKEN# with your temporary token in the string format
     <string name="agora_access_token">
         006464ff3e49fb3409494c0956edcec52e7IAB+DDmhDfV6A4vogtIE0UGwzmwIClst6qgqbegCOpDPJHfBAaIAAAAAEACLgpZhqa4oYQEAAQCkrihh
