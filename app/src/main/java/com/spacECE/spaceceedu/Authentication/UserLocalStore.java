@@ -14,17 +14,6 @@ public class UserLocalStore {
         userLocalDatabase = context.getSharedPreferences(DETAILS, 0);
     }
 
-    public void storeUserData(Account account) {
-        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
-        spEditor.putString("account_id", account.getAccount_id());
-        spEditor.putString("username", account.getUsername());
-        spEditor.putString("contact_number", account.getContact_number());
-        spEditor.putString("UID", account.getuId());
-        spEditor.putBoolean("isConsultant", account.isCONSULTANT());
-        spEditor.putString("profile_pic", account.getProfile_pic());
-        spEditor.commit();
-    }
-
     public Account getLoggedInAccount() {
         String name = userLocalDatabase.getString("username", null);
         String account_id = userLocalDatabase.getString("account_id", null);
@@ -35,6 +24,18 @@ public class UserLocalStore {
 
         Account account = new Account(account_id, name, contact_number,isConsultant,profile_pic);
         return account;
+    }
+
+    public void setUserLoggedIn(boolean loggedIn, Account account) {
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putBoolean("loggedIn", loggedIn);
+        spEditor.putString("account_id", account.getAccount_id());
+        spEditor.putString("username", account.getUsername());
+        spEditor.putString("contact_number", account.getContact_number());
+        spEditor.putString("UID", account.getuId());
+        spEditor.putBoolean("isConsultant", account.isCONSULTANT());
+        spEditor.putString("profile_pic", account.getProfile_pic());
+        spEditor.commit();
     }
 
     public void setUserLoggedIn(boolean loggedIn) {
@@ -55,3 +56,4 @@ public class UserLocalStore {
         return false;
     }
 }
+

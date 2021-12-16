@@ -66,15 +66,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-        userLocalStore = new UserLocalStore(this);
+        userLocalStore = new UserLocalStore(getApplicationContext());
 
         Log.i("DEVICE TOKEN","In next line");
         //Android ID:
         //Log.i("DEVICE TOKEN : ",Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart", true);
+
+        if(authenticate()){
+            getDetails();
+        }
 
         if (firstStart) {
             //causing crash on first boot
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(ACCOUNT!=null) {
 
+            Toast.makeText(this, ACCOUNT.getUsername(), Toast.LENGTH_SHORT).show();
             toolbar.setTitle("Hello "+ACCOUNT.getUsername()+" !");
             Toast.makeText(this, ACCOUNT.getUsername(), Toast.LENGTH_SHORT).show();
             NavigationView navigationView = (NavigationView) findViewById(R.id.Main_navView_drawer);
@@ -168,14 +171,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(authenticate()){
-            getDetails();
-        }
-    }
-
     private void getDetails() {
         ACCOUNT = userLocalStore.getLoggedInAccount();
     }
@@ -189,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         } else{
-        super.onBackPressed();
+            super.onBackPressed();
         }
     }
 
@@ -210,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new FragmentAbout();
                             break;
                     }
-
                     getSupportFragmentManager().beginTransaction().replace(R.id.Main_Fragment_layout,
                             selectedFragment).commit();
 
@@ -303,8 +297,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void signOut() {
         userLocalStore.clearUserData();
+        ACCOUNT = null;
         userLocalStore.setUserLoggedIn(false);
-        ACCOUNT=null;
         Intent intent = getIntent();
         finish();
         startActivity(intent);
@@ -399,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }    catch (RuntimeException runtimeException){
                 Log.i("RUNTIME EXCEPTION:::", "Server did not respons");
-        }
+            }
             return null;
         }
     }

@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         //what is this?
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        userLocalStore = new UserLocalStore(this);
+        userLocalStore = new UserLocalStore(getApplicationContext());
 
         et_email = findViewById(R.id.editTextText_EmailAddress);
         et_password = findViewById(R.id.editTextText_Password);
@@ -82,9 +82,9 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void logIn(String email, String password) {
+    public void logIn(String email, String password) {
 
-        String login = "http://spacefoundation.in/test/SpacECE-4460/spacece_auth/login_action.php";
+        String login = "http://spacefoundation.in/test/SpacECE-4466/spacece_auth/login_action.php";
 
         new Thread(new Runnable() {
 
@@ -144,17 +144,14 @@ public class LoginActivity extends AppCompatActivity {
 
                                         Log.d("TAG", "onResponse: "+object);
 
-                                        MainActivity.ACCOUNT= new Account(object.getString("current_user_id"), object.getString("current_user_name"),
-                                                object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
-                                                object.getString("current_user_image"));
-
-                                        userLocalStore.storeUserData(MainActivity.ACCOUNT);
                                         tv_invalid.setVisibility(View.INVISIBLE);
-                                        userLocalStore.setUserLoggedIn(true);
+
+                                        userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
+                                                object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
+                                                object.getString("current_user_image")));
+
                                         Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(goToMainPage);
-
-                                        Toast.makeText(getApplicationContext(), "Welcome to SpacECE!", Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -167,3 +164,4 @@ public class LoginActivity extends AppCompatActivity {
         }).start();
     }
 }
+

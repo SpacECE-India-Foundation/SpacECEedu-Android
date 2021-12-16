@@ -4,8 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
+import android.os.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,11 +40,14 @@ public class UserRegistration extends AppCompatActivity {
     private static final int PERMISSION_CODE = 1001;
     private Uri picData= Uri.parse(String.valueOf(R.drawable.default_profilepic));
     Toolbar toolbar;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
+
+        userLocalStore = new UserLocalStore(getApplicationContext());
 
         b_register= findViewById(R.id.UserRegistration_Button_Signup);
         iv_profile_pic= findViewById(R.id.UserRegistration_ImageView_ProfilePic);
@@ -89,16 +91,16 @@ public class UserRegistration extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                    if (validateData()) {
+                if (validateData()) {
 
-                        sendUserRegistration( ev_name.getText().toString(), ev_email.getText().toString(),
-                                ev_password.getText().toString(), ev_phoneNo.getText().toString(), picData);
-                        // not go here go after completion
-                        //startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    sendUserRegistration( ev_name.getText().toString(), ev_email.getText().toString(),
+                            ev_password.getText().toString(), ev_phoneNo.getText().toString(), picData);
+                    // not go here go after completion
+                    //startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Check Details", Toast.LENGTH_LONG).show();
-                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Check Details", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -136,13 +138,12 @@ public class UserRegistration extends AppCompatActivity {
             //set image to image view
             picData= data.getData();
             iv_profile_pic.setImageURI(data.getData());
-
         }
     }
 
     private void sendUserRegistration(String name, String email, String password, String phone, Uri image){
 
-        String register = "http://spacefoundation.in/test/SpacECE-4460/spacece_auth/register_action.php";
+        String register = "http://spacefoundation.in/test/SpacECE-4466/spacece_auth/register_action.php";
 
         new Thread(new Runnable() {
 
@@ -188,6 +189,8 @@ public class UserRegistration extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
+
                                 try {
                                     Log.d("TAG", "onResponse: "+jsonObject.getString("status"));
                                     if(jsonObject.getString("status").equals("error")) {
@@ -197,7 +200,11 @@ public class UserRegistration extends AppCompatActivity {
                                             Toast.makeText(getApplicationContext(), "Please try after some time!", Toast.LENGTH_SHORT).show();
                                         }
                                     } else if(jsonObject.getString("status").equals("success")) {
-                                        Toast.makeText(getApplicationContext(), "Welcome to SpacECE!", Toast.LENGTH_SHORT).show();
+
+                                        Toast.makeText(getApplicationContext(), "Welcome to SpacECE Login to Continue!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                        startActivity(intent);
+
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -275,7 +282,7 @@ public class UserRegistration extends AppCompatActivity {
             ev_password.setError("Field cannot be empty");
             return false;
         }
-            return true;
+        return true;
     }
 
 
