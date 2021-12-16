@@ -8,18 +8,15 @@ public class Account {
     static private String contact_number=null;
     static private String profile_pic=null;
     static private boolean CONSULTANT=false;
-    static private String token=null;
     static private String U_ID;
 
-    public Account(String account_id, String username, String contact_number, boolean CONSULTANT, String profile_pic, String U_ID,String token) {
+    public Account(String account_id, String username, String contact_number, boolean CONSULTANT, String profile_pic) {
         this.account_id = account_id;
         this.username = username;
         this.contact_number = contact_number;
         this.CONSULTANT = CONSULTANT;
         this.profile_pic= profile_pic;
-        this.U_ID=U_ID;
-        this.token=token;
-        Log.i("ACCOUNT:", " GENERATED :- "+account_id+" / "+username+" / "+contact_number);
+        Log.i("ACCOUNT:", " GENERATED :- "+account_id+" / "+username+" / "+contact_number+ " /"+profile_pic);
     }
 
     public String getuId() {
@@ -46,12 +43,5 @@ public class Account {
         return CONSULTANT;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 }
 

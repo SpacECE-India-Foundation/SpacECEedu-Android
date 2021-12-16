@@ -98,8 +98,12 @@
         <entry key="app/src/main/res/layout/activity_agoraa.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_consultant_main.xml" value="0.2056159420289855" />
         <entry key="app/src/main/res/layout/activity_learnon_list_splashscreen.xml" value="0.32083333333333336" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.32083333333333336" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/fragment_consultant__categories.xml" value="0.15833333333333333" />
+        <entry key="app/src/main/res/menu/navigationdrawer_main_activity.xml" value="0.33541666666666664" />
+        <entry key="app/src/main/res/menu/options_main_activity.xml" value="0.33541666666666664" />
       </map>
     </option>
   </component>

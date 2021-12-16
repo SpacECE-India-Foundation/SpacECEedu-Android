@@ -39,10 +39,13 @@ import com.spacECE.spaceceedu.VideoLibrary.Topic;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 import com.squareup.picasso.Picasso;
 
+import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Calendar;
 import java.util.Date;
@@ -65,26 +68,29 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        userLocalStore= new UserLocalStore(this);
+        userLocalStore = new UserLocalStore(this);
 
         Log.i("DEVICE TOKEN","In next line");
         //Android ID:
         //Log.i("DEVICE TOKEN : ",Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart", true);
+
         if (firstStart) {
-            FirebaseMessaging.getInstance().getToken()
-                    .addOnCompleteListener(new OnCompleteListener<String>() {
-                        @Override
-                        public void onComplete(@NonNull Task<String> task) {
-                            if (!task.isSuccessful()) {
-                                Log.w("FCM TOKEN : ", "Fetching FCM registration token failed", task.getException());
-                                return;
-                            }
-                            Log.d("FCM TOKEN : ", task.getResult());
-                            sendTokenToServer(task.getResult());
-                        }
-                    });
+            //causing crash on first boot
+//            FirebaseMessaging.getInstance().getToken()
+//                    .addOnCompleteListener(new OnCompleteListener<String>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<String> task) {
+//                            if (!task.isSuccessful()) {
+//                                Log.w("FCM TOKEN : ", "Fetching FCM registration token failed", task.getException());
+//                                return;
+//                            }
+//                            Log.d("FCM TOKEN : ", task.getResult());
+//                            sendTokenToServer(task.getResult());
+//                        }
+//                    });
+
             prefs = getSharedPreferences("prefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("firstStart", false);
@@ -109,9 +115,11 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        if(ACCOUNT!=null){
 
-            toolbar.setTitle("Hi "+ACCOUNT.getUsername()+" !");
+        if(ACCOUNT!=null) {
+
+            toolbar.setTitle("Hello "+ACCOUNT.getUsername()+" !");
+            Toast.makeText(this, ACCOUNT.getUsername(), Toast.LENGTH_SHORT).show();
             NavigationView navigationView = (NavigationView) findViewById(R.id.Main_navView_drawer);
 
             // get menu from navigationView
@@ -119,9 +127,11 @@ public class MainActivity extends AppCompatActivity {
 
             // find MenuItem you want to change
             ImageView nav_camara = navHead.findViewById(R.id.Main_nav_drawer_profile_pic);
-            Picasso.get().load(ACCOUNT.getProfile_pic()).into(nav_camara);
-
+            if(!ACCOUNT.getProfile_pic().isEmpty()){
+                Picasso.get().load(ACCOUNT.getProfile_pic()).into(nav_camara);
+            }
         }
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.Main_Fragment_layout,
                     new FragmentMain()).commit();
@@ -167,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getDetails() {
-        ACCOUNT= userLocalStore.getLoggedInAccount();
+        ACCOUNT = userLocalStore.getLoggedInAccount();
     }
 
     private boolean authenticate(){

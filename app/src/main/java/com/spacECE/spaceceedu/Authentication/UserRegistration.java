@@ -22,9 +22,12 @@ import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.UsefulFunctions;
 import com.spacECE.spaceceedu.R;
 
+import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -44,10 +47,6 @@ public class UserRegistration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
 
-        Bundle extra = getIntent().getExtras();
-
-        consultant=getIntent().getBooleanExtra("consultant",false);
-
         b_register= findViewById(R.id.UserRegistration_Button_Signup);
         iv_profile_pic= findViewById(R.id.UserRegistration_ImageView_ProfilePic);
 
@@ -57,11 +56,9 @@ public class UserRegistration extends AppCompatActivity {
         ev_name=findViewById(R.id.UserRegistration_editTextText_Name);
         ev_phoneNo=findViewById(R.id.UserRegistration_editTextText_PhoneNumber);
         toolbar =  findViewById(R.id.UserRegistration_toolbar);
+
         setSupportActionBar(toolbar);
-        if(consultant){
-            toolbar.setTitle("Consultant Registration");
-            b_register.setText("Next");
-        }
+
         //OnClickListener:
         iv_profile_pic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,20 +84,18 @@ public class UserRegistration extends AppCompatActivity {
 
             }
         });
+
         b_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                     if (validateData()) {
-                        if(consultant){
-                            MainActivity.ACCOUNT= new Account(ev_email.getText().toString(),ev_name.getText().toString(),ev_phoneNo.getText().toString(),true,picData.toString(), "1", null);
-                            startActivity(new Intent(getApplicationContext(), ConsultantRegistration.class));
-                        }else{
-                            sendUserRegistration(ev_email.getText().toString(), ev_name.getText().toString(), ev_password.getText().toString(), ev_phoneNo.getText().toString());
-                            MainActivity.ACCOUNT= new Account(ev_email.getText().toString(),ev_name.getText().toString(),ev_phoneNo.getText().toString(),false,null, "1", null);
 
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        }
+                        sendUserRegistration( ev_name.getText().toString(), ev_email.getText().toString(),
+                                ev_password.getText().toString(), ev_phoneNo.getText().toString(), picData);
+                        // not go here go after completion
+                        //startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
                     } else {
                         Toast.makeText(getApplicationContext(), "Check Details", Toast.LENGTH_LONG).show();
                     }
@@ -109,12 +104,14 @@ public class UserRegistration extends AppCompatActivity {
         });
 
     }
+
     private void pickImageFromGallery() {
         //intent to pick image
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_CODE);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -131,6 +128,7 @@ public class UserRegistration extends AppCompatActivity {
             }
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -141,28 +139,78 @@ public class UserRegistration extends AppCompatActivity {
 
         }
     }
-    private void sendUserRegistration(String email_id, String name, String password, String contact){
 
-        //API Call to register:
-        if(true){
-            String sendData=ev_email.getText().toString()+"&fullname="+ev_name.getText().toString()+"&password=+"+ev_password.getText().toString()+"&email="+ev_email.getText().toString()+"&mobile="+ev_phoneNo.getText().toString()+"&img="+"null"+"&token="+"null";
-                Thread newThread = new Thread(new Runnable() {
+    private void sendUserRegistration(String name, String email, String password, String phone, Uri image){
+
+        String register = "http://spacefoundation.in/test/SpacECE-4460/spacece_auth/register_action.php";
+
+        new Thread(new Runnable() {
+
+            JSONObject jsonObject;
+
+            @Override
+            public void run() {
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody fromBody = new FormBody.Builder()
+                        .add("name", name)
+                        .add("email", email)
+                        .add("password", password)
+                        .add("phone", phone)
+                        .add("image", "null")
+                        .add("type", "customer")
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(register)
+                        .post(fromBody)
+                        .build();
+
+                Call call = client.newCall(request);
+
+                call.enqueue(new Callback() {
                     @Override
-                    public void run() {
-                        try {
-                            UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_registration_user?username="+URLEncoder.encode(sendData, "UTF-8"));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        System.out.println("Registration Error ApI " + e.getMessage());
                     }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                        try {
+                            jsonObject = new JSONObject(response.body().string());
+                            Log.d("TAG", "onResponse: "+jsonObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error Registering!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Log.d("TAG", "onResponse: "+jsonObject.getString("status"));
+                                    if(jsonObject.getString("status").equals("error")) {
+                                        if(jsonObject.getString("message").equals("Email already exists!")) {
+                                            ev_email.setError("Email already exist!");
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Please try after some time!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else if(jsonObject.getString("status").equals("success")) {
+                                        Toast.makeText(getApplicationContext(), "Welcome to SpacECE!", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     }
                 });
-                newThread.start();
-            Toast.makeText(this, "Welcome to SpacECE!", Toast.LENGTH_SHORT).show();
+            }
+        }).start();
 
-        }else{
-            Toast.makeText(this, "Check Network", Toast.LENGTH_LONG).show();
-        }
     }
+
 
     private boolean validateData() {
         validateName();
@@ -170,20 +218,12 @@ public class UserRegistration extends AppCompatActivity {
         validateEmail();
         validatePass();
         validateRepass();
+
         if(validateEmail() && validateName() && validatePass()
                 && validateRepass() && validatePhone()) {
             return true;
         }
         return false;
-    }
-
-    private boolean validateName(){
-        if(ev_name.getText().toString().isEmpty()){
-            ev_name.setError("Field cannot be empty");
-            return false;
-        }else{
-            return true;
-        }
     }
 
     private boolean validateEmail(){
@@ -195,48 +235,16 @@ public class UserRegistration extends AppCompatActivity {
             ev_email.setError("Invalid Email address");
             return false;
         }
-        else if(!emailRegistered(ev_email.getText().toString())){
-            ev_email.setError("Email already registered ");
-            return false;
-        }
         return true;
     }
 
-    private boolean emailRegistered(String email) {
-
-        final boolean[] COMPLETED = {false};
-        final boolean[] EXISTS = {false};
-        final JSONObject[] apiCall = {null};
-
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-
-                try {
-                        JSONObject check = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_getalluser?user=" + email);
-                        Log.i("Email Validation(EV):::", check.toString());
-                        try {
-                            EXISTS[0]=(check.get("status").toString().equalsIgnoreCase("fail"));
-                        } catch (JSONException e) {
-                            Log.i("Email Registered API Check (ERAC):: ", "Response not found in object");
-                            e.printStackTrace();
-                        }
-                    COMPLETED[0]=true;
-                }catch(RuntimeException e ){
-                    Log.i(e+" EXCEPTION:::","Server took too long or JSON Key not found");
-                    COMPLETED[0]=true;
-                }
-            }
-        });
-
-        thread.start();
-        while(!COMPLETED[0]){
-            Log.i("Email Check (EC):::", "Waiting.....");
+    private boolean validateName(){
+        if(ev_name.getText().toString().isEmpty()){
+            ev_name.setError("Field cannot be empty");
+            return false;
+        }else{
+            return true;
         }
-        Log.i("Email Check (EC):::", "Completed.");
-        Log.i("EMAIL FOUND (EF):::::", String.valueOf(EXISTS[0]));
-        return EXISTS[0];
     }
 
     private boolean validatePhone(){

@@ -18,6 +18,8 @@ public class RegistrationSelection extends AppCompatActivity {
         setContentView(R.layout.activity_registration_selection);
         Button b_User=findViewById(R.id.Registration_Selection_Button_User);
         Button b_Consultant= findViewById(R.id.Registration_Selection_Button_Consultant);
+
+
         b_Consultant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -26,6 +28,7 @@ public class RegistrationSelection extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         b_User.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

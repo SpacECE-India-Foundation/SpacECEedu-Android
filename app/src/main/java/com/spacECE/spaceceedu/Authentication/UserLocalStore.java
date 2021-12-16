@@ -20,7 +20,6 @@ public class UserLocalStore {
         spEditor.putString("username", account.getUsername());
         spEditor.putString("contact_number", account.getContact_number());
         spEditor.putString("UID", account.getuId());
-        spEditor.putString("token", account.getToken());
         spEditor.putBoolean("isConsultant", account.isCONSULTANT());
         spEditor.putString("profile_pic", account.getProfile_pic());
         spEditor.commit();
@@ -31,11 +30,10 @@ public class UserLocalStore {
         String account_id = userLocalDatabase.getString("account_id", null);
         String contact_number = userLocalDatabase.getString("contact_number", null);
         String UID = userLocalDatabase.getString("UID", null);
-        String token = userLocalDatabase.getString("token", null);
         String profile_pic = userLocalDatabase.getString("profile_pic", null);
         boolean isConsultant = userLocalDatabase.getBoolean("isConsultant", false);
 
-        Account account = new Account(account_id, name, contact_number,isConsultant,profile_pic, UID, token);
+        Account account = new Account(account_id, name, contact_number,isConsultant,profile_pic);
         return account;
     }
 

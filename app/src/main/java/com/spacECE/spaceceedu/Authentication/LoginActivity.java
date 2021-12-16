@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -16,12 +17,16 @@ import com.spacECE.spaceceedu.UsefulFunctions;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 
+import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 public class LoginActivity extends AppCompatActivity {
 
-    public Account ACCOUNT = null;
     EditText et_email;
     EditText et_password;
     Button b_login;
@@ -34,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //what is this?
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         userLocalStore = new UserLocalStore(this);
@@ -44,17 +51,17 @@ public class LoginActivity extends AppCompatActivity {
         tv_register = findViewById(R.id.TextView_Register);
         tv_invalid=findViewById(R.id.TextView_InvalidCredentials);
 
-        ACCOUNT= null;
+
 
 //        SignInButton G_signInButton = findViewById(R.id.sign_in_button);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
+
         b_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Input Values: ", et_email.getText() + "/" + et_password.getText().toString());
                 logIn(et_email.getText().toString(), et_password.getText().toString());
             }
         });
@@ -72,88 +79,91 @@ public class LoginActivity extends AppCompatActivity {
 //
 //            }
 //        });
+
     }
-//                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_getalluser?user=" + email);
 
     private void logIn(String email, String password) {
 
-        Log.i("Authentication : Input Credentials : ", email + " / " + password);
-        final boolean[] COMPLETED = {false};
-        final JSONObject[] apiCall = {null};
+        String login = "http://spacefoundation.in/test/SpacECE-4460/spacece_auth/login_action.php";
 
-        Thread thread = new Thread(new Runnable() {
+        new Thread(new Runnable() {
+
+            JSONObject jsonObject;
 
             @Override
             public void run() {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody fromBody = new FormBody.Builder()
+                        .add("email", email)
+                        .add("password", password)
+                        .add("type", "customer")
+                        .add("isAPI", "true")
+                        .build();
 
-                try{
-                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_getalluser?user=" + email);
-                    Log.i("Object Obtained::::::: ", apiCall[0].get("status").toString());
+                Request request = new Request.Builder()
+                        .url(login)
+                        .post(fromBody)
+                        .build();
 
-                    try {
-                        if (apiCall[0].get("status").toString().equalsIgnoreCase("success")) {
-                            Log.i("Authentication:::: ", "User Found.....3209e903uje93");
-                            if (apiCall[0].getJSONArray("data").getJSONObject(0).get("password").toString().equals(password)) {
-                                Log.i("Authentication:::::: ", "Approved!! 2390e93jej");
 
-                                MainActivity.ACCOUNT = new Account(apiCall[0].getJSONArray("data").getJSONObject(0).getString("email"),
-                                        apiCall[0].getJSONArray("data").getJSONObject(0).getString("name"),
-                                        apiCall[0].getJSONArray("data").getJSONObject(0).getString("phone")
-                                        , false, apiCall[0].getJSONArray("data").getJSONObject(0).getString("img")
-                                        , apiCall[0].getJSONArray("data").getJSONObject(0).getString("UID"),apiCall[0].getJSONArray("data").getJSONObject(0).getString("token"));
-                                Log.i(" Data::::: ", ACCOUNT.toString());
+                Call call = client.newCall(request);
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        System.out.println("Registration Error ApI " + e.getMessage());
+                    }
 
-                                COMPLETED[0] = true;
-                            } else {
-                                COMPLETED[0] = true;
-                            }
-                        } else {
-                            COMPLETED[0] = true;
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                        try {
+                            jsonObject = new JSONObject(response.body().string());
+                            Log.d("Login", "onResponse: "+jsonObject.getString("status"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
-                    } catch (JSONException jsonException) {
-                        jsonException.printStackTrace();
-                        Log.i("JSON: ", "Not Found or Invalid Credentials!!");
-                        COMPLETED[0] = true;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    if(jsonObject.getString("status").equals("error")) {
+
+                                        Log.i("Authentication:: ", "Rejected.....");
+                                        et_email.setText("");
+                                        et_email.setError("");
+                                        et_password.setError("");
+                                        et_password.setText("");
+                                        tv_invalid.setVisibility(View.VISIBLE);
+
+                                        Toast.makeText(getApplicationContext(), "Invalid email or password!", Toast.LENGTH_SHORT).show();
+
+                                    } else if(jsonObject.getString("status").equals("success")) {
+
+                                        JSONObject object = new JSONObject(jsonObject.getString("data"));
+
+                                        Log.d("TAG", "onResponse: "+object);
+
+                                        MainActivity.ACCOUNT= new Account(object.getString("current_user_id"), object.getString("current_user_name"),
+                                                object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
+                                                object.getString("current_user_image"));
+
+                                        userLocalStore.storeUserData(MainActivity.ACCOUNT);
+                                        tv_invalid.setVisibility(View.INVISIBLE);
+                                        userLocalStore.setUserLoggedIn(true);
+                                        Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(goToMainPage);
+
+                                        Toast.makeText(getApplicationContext(), "Welcome to SpacECE!", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     }
-                } catch(RuntimeException e){
-                    Log.i("Runtime Exception :::", "Connection error Or Server took too long to respond");
-                    COMPLETED[0]=true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.i("JSON: ", "Not Found or Invalid Credentials!!");
-                    COMPLETED[0] = true;
-                }
+                });
             }
-        });
-
-        thread.start();
-        while (!COMPLETED[0]) {
-            Log.i("Authentication:: ", "Waiting......");
-        }
-        Log.i("Authentication:: ", "Completed......");
-
-        if(MainActivity.ACCOUNT != null) {
-            userLocalStore.storeUserData(MainActivity.ACCOUNT);
-            tv_invalid.setVisibility(View.INVISIBLE);
-            userLocalStore.setUserLoggedIn(true);
-            Log.i("Authentication:: ", "Approved Credentials received ...");
-            Log.i("Authenticated User:: ", MainActivity.ACCOUNT.toString());
-            Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(goToMainPage);
-        }else{
-            Log.i("Authentication:: ", "Rejected.....");
-            et_email.setText("");
-            et_email.setError("");
-            et_password.setError("");
-            et_password.setText("");
-            tv_invalid.setVisibility(View.VISIBLE);
-        }
+        }).start();
     }
-
-    public void goToRegister(View view) {
-       startActivity(new Intent(this, RegistrationSelection.class));
-    }
-
-
 }
