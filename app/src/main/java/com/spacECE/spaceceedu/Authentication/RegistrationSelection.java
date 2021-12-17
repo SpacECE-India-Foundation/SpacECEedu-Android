@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.spacECE.spaceceedu.Authentication.UserRegistration;
 import com.spacECE.spaceceedu.R;
 
 public class RegistrationSelection extends AppCompatActivity {
@@ -23,8 +22,7 @@ public class RegistrationSelection extends AppCompatActivity {
         b_Consultant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UserRegistration.class);
-                intent.putExtra("consultant", true);
+                Intent intent = new Intent(getApplicationContext(), ConsultantRegistrationInit.class);
                 startActivity(intent);
             }
         });
@@ -32,8 +30,7 @@ public class RegistrationSelection extends AppCompatActivity {
         b_User.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UserRegistration.class);
-                intent.putExtra("consultant", false);
+                Intent intent = new Intent(getApplicationContext(), ConsultantRegistrationFinal.class);
                 startActivity(intent);
             }
         });

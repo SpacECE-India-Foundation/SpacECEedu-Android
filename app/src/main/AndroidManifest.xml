@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.spacECE.spaceceedu" >
+    package="com.spacECE.spaceceedu">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -27,7 +27,14 @@
         android:roundIcon="@mipmap/ic_launcher_round_"
         android:supportsRtl="true"
         android:theme="@style/Theme.SpacECEedu"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Authentication.NumberVerification"
+            android:exported="true" />
+        <activity
+            android:name=".ui.login.LoginActivity2"
+            android:exported="true"
+            android:label="@string/title_activity_login2" />
         <activity
             android:name=".Consultants.ConsultUs_SplashScreen"
             android:exported="true" />
@@ -36,7 +43,7 @@
         <activity android:name=".LearnOnApp.LearnOn_Main" />
         <activity android:name=".LearnOnApp.LearnOn_List_SplashScreen" />
         <activity
-            android:name=".Authentication.ConsultantRegistration"
+            android:name=".Authentication.ConsultantRegistrationInit"
             android:exported="true" />
         <activity
             android:name=".Authentication.RegistrationSelection"
@@ -48,7 +55,7 @@
             android:name=".Consultants.Consultant_AppointmentConfirmation"
             android:exported="true" />
         <activity
-            android:name=".Authentication.UserRegistration"
+            android:name=".Authentication.ConsultantRegistrationFinal"
             android:exported="true"
             android:label="@string/title_activity_user_registration"
             android:theme="@style/Theme.SpacECEedu.NoActionBar" />
@@ -67,7 +74,7 @@
 
         <service
             android:name=".FirebaseMessageReceiver"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -96,7 +103,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -119,10 +119,7 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         if(ACCOUNT!=null) {
-
-            Toast.makeText(this, ACCOUNT.getUsername(), Toast.LENGTH_SHORT).show();
             toolbar.setTitle("Hello "+ACCOUNT.getUsername()+" !");
-            Toast.makeText(this, ACCOUNT.getUsername(), Toast.LENGTH_SHORT).show();
             NavigationView navigationView = (NavigationView) findViewById(R.id.Main_navView_drawer);
 
             // get menu from navigationView

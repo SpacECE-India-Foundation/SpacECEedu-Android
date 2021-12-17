@@ -17,8 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.spacECE.spaceceedu.MainActivity;
-import com.spacECE.spaceceedu.UsefulFunctions;
 import com.spacECE.spaceceedu.R;
 
 import okhttp3.*;
@@ -27,10 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
-public class UserRegistration extends AppCompatActivity {
+public class ConsultantRegistrationFinal extends AppCompatActivity {
 
     private Button b_register;
     private ImageView iv_profile_pic;
@@ -41,6 +37,9 @@ public class UserRegistration extends AppCompatActivity {
     private Uri picData= Uri.parse(String.valueOf(R.drawable.default_profilepic));
     Toolbar toolbar;
     UserLocalStore userLocalStore;
+
+    String TYPE, LANGUAGE, ADDRESS, FEE,
+            QUALIFICATION, START_TIME, END_TIME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +59,20 @@ public class UserRegistration extends AppCompatActivity {
         toolbar =  findViewById(R.id.UserRegistration_toolbar);
 
         setSupportActionBar(toolbar);
+
+        //Intent and shit
+
+        Intent intent = getIntent();
+
+        TYPE = intent.getStringExtra("Type");
+        LANGUAGE = intent.getStringExtra("Language");
+        ADDRESS = intent.getStringExtra("Address");
+        FEE = intent.getStringExtra("Fee");
+        QUALIFICATION = intent.getStringExtra("Qualification");
+        START_TIME = intent.getStringExtra("StartTime");
+        END_TIME = intent.getStringExtra("EndTime");
+
+
 
         //OnClickListener:
         iv_profile_pic.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +115,9 @@ public class UserRegistration extends AppCompatActivity {
 
             }
         });
+
+
+
 
     }
 
