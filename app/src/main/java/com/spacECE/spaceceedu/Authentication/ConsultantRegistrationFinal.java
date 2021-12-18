@@ -160,7 +160,7 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
 
     private void sendUserRegistration(String name, String email, String password, String phone, Uri image){
 
-        String register = "http://spacefoundation.in/test/SpacECE-4495/spacece_auth/register_action.php";
+        String register = "http://spacefoundation.in/test/SpacECE-4496/spacece_auth/register_action.php";
 
         new Thread(new Runnable() {
 

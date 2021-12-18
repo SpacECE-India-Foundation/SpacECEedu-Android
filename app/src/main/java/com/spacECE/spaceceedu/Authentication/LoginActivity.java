@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void logIn(String email, String password) {
 
-        String login = "http://spacefoundation.in/test/SpacECE-4495/spacece_auth/login_action.php";
+        String login = "http://spacefoundation.in/test/SpacECE-4496/spacece_auth/login_action.php";
 
         new Thread(new Runnable() {
 
@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.makeText(LoginActivity.this, "Consultant!", Toast.LENGTH_SHORT).show();
                                             userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
                                                     object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
-                                                    object.getString("current_user_image"), object.getString("consultant_category"), null,
+                                                    object.getString("current_user_image"), object.getString("consultant_category"), object.getString("consultant_office "),
                                                     object.getString("consultant_from_time"), object.getString("consultant_to_time"), object.getString("consultant_language"),
                                                     object.getString("consultant_fee"), object.getString("consultant_qualification")));
                                         } else {
