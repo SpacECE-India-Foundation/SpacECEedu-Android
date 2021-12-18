@@ -72,6 +72,9 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
         START_TIME = intent.getStringExtra("StartTime");
         END_TIME = intent.getStringExtra("EndTime");
 
+        Log.d("TAG", "onCreate: "+TYPE+" "+LANGUAGE+" "+ADDRESS+" "+FEE+" "+
+                QUALIFICATION+" "+START_TIME+" "+END_TIME);
+
 
 
         //OnClickListener:
@@ -157,7 +160,7 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
 
     private void sendUserRegistration(String name, String email, String password, String phone, Uri image){
 
-        String register = "http://spacefoundation.in/test/SpacECE-4477/spacece_auth/register_action.php";
+        String register = "http://spacefoundation.in/test/SpacECE-4495/spacece_auth/register_action.php";
 
         new Thread(new Runnable() {
 
@@ -173,7 +176,16 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
                         .add("password", password)
                         .add("phone", phone)
                         .add("image", "null")
-                        .add("type", "customer")
+                        .add("type", "consultant")
+                        .add("c_categories", TYPE)
+                        .add("c_office", ADDRESS)
+                        .add("c_from_time", START_TIME)
+                        .add("c_to_time", END_TIME)
+                        .add("c_language", LANGUAGE)
+                        .add("c_fee", FEE)
+                        .add("c_available_from", "Monday")
+                        .add("c_available_to", "Tuesday")
+                        .add("c_qualification", QUALIFICATION)
                         .build();
 
                 Request request = new Request.Builder()

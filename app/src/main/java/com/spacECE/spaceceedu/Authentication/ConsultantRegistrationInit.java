@@ -2,6 +2,8 @@ package com.spacECE.spaceceedu.Authentication;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +12,8 @@ import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 import com.spacECE.spaceceedu.R;
+
+import static java.lang.String.*;
 
 public class ConsultantRegistrationInit extends AppCompatActivity {
 
@@ -55,6 +59,7 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(validateAll()) {
+
                     Intent intent = new Intent(ConsultantRegistrationInit.this,
                             ConsultantRegistrationFinal.class);
 
@@ -65,14 +70,16 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
                     intent.putExtra("Qualification", QUALIFICATION);
                     intent.putExtra("StartTime", START_TIME);
                     intent.putExtra("EndTime", END_TIME);
-
                     startActivity(intent);
 
-
+                }
+                else {
+                    Toast.makeText(ConsultantRegistrationInit.this, "Please Check Details!", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
+
 
         StartTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +88,7 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        START_TIME = hourOfDay+":"+minute;
+                        START_TIME = format("%02d:%02d", hourOfDay, minute);
                         StartTime.setText(START_TIME);
                     }
                 }, 12, 0, false);
@@ -96,7 +103,7 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        END_TIME = hourOfDay+":"+minute;
+                        END_TIME = format("%02d:%02d", hourOfDay, minute);
                         EndTime.setText(END_TIME);
                     }
                 }, 12, 0, false);
@@ -119,7 +126,7 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
         Type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                TYPE = type[position];
+                TYPE = String.valueOf(position);
             }
 
             @Override
@@ -133,7 +140,7 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
         Language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                LANGUAGE = type[position];
+                LANGUAGE = language[position];
             }
 
             @Override

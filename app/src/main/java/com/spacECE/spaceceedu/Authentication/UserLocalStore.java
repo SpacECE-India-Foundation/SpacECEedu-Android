@@ -28,14 +28,32 @@ public class UserLocalStore {
 
     public void setUserLoggedIn(boolean loggedIn, Account account) {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
-        spEditor.putBoolean("loggedIn", loggedIn);
-        spEditor.putString("account_id", account.getAccount_id());
-        spEditor.putString("username", account.getUsername());
-        spEditor.putString("contact_number", account.getContact_number());
-        spEditor.putString("UID", account.getuId());
-        spEditor.putBoolean("isConsultant", account.isCONSULTANT());
-        spEditor.putString("profile_pic", account.getProfile_pic());
-        spEditor.commit();
+        if(account.isCONSULTANT()){
+            spEditor.putBoolean("loggedIn", loggedIn);
+            spEditor.putString("account_id", account.getAccount_id());
+            spEditor.putString("username", account.getUsername());
+            spEditor.putString("contact_number", account.getContact_number());
+            spEditor.putString("UID", account.getuId());
+            spEditor.putBoolean("isConsultant", account.isCONSULTANT());
+            spEditor.putString("profile_pic", account.getProfile_pic());
+            spEditor.putString("consultant_category", account.getConsultant_Category());
+            spEditor.putString("consultant_office", account.getConsultant_Office());
+            spEditor.putString("consultant_start_time", account.getConsultant_StartTime());
+            spEditor.putString("consultant_end_time", account.getConsultant_Language());
+            spEditor.putString("consultant_fee", account.getConsultant_Fee());
+            spEditor.putString("consultant_qualification", account.getConsultant_Qualification());
+            spEditor.commit();
+        } else {
+            spEditor.putBoolean("loggedIn", loggedIn);
+            spEditor.putString("account_id", account.getAccount_id());
+            spEditor.putString("username", account.getUsername());
+            spEditor.putString("contact_number", account.getContact_number());
+            spEditor.putString("UID", account.getuId());
+            spEditor.putBoolean("isConsultant", account.isCONSULTANT());
+            spEditor.putString("profile_pic", account.getProfile_pic());
+            spEditor.commit();
+        }
+
     }
 
     public void setUserLoggedIn(boolean loggedIn) {

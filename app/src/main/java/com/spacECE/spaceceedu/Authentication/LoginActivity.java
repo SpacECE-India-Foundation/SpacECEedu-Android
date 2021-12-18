@@ -4,22 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
 
-import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.spacECE.spaceceedu.UsefulFunctions;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,6 +28,9 @@ public class LoginActivity extends AppCompatActivity {
     Button b_login;
     TextView tv_register;
     TextView tv_invalid;
+    ToggleButton is_Consultant;
+
+    String USER;
 
     UserLocalStore userLocalStore;
 
@@ -49,7 +48,11 @@ public class LoginActivity extends AppCompatActivity {
         et_password = findViewById(R.id.editTextText_Password);
         b_login = findViewById(R.id.Button_Login);
         tv_register = findViewById(R.id.TextView_Register);
-        tv_invalid=findViewById(R.id.TextView_InvalidCredentials);
+        tv_invalid = findViewById(R.id.TextView_InvalidCredentials);
+        is_Consultant = findViewById(R.id.isConsultant);
+
+
+
 
 
 
@@ -59,9 +62,19 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
 
+
+
+
         b_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(is_Consultant.isChecked()){
+                    USER = "consultant";
+                } else {
+                    USER = "costumer";
+                }
+
                 logIn(et_email.getText().toString(), et_password.getText().toString());
             }
         });
@@ -84,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void logIn(String email, String password) {
 
-        String login = "http://spacefoundation.in/test/SpacECE-4477/spacece_auth/login_action.php";
+        String login = "http://spacefoundation.in/test/SpacECE-4495/spacece_auth/login_action.php";
 
         new Thread(new Runnable() {
 
@@ -96,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                 RequestBody fromBody = new FormBody.Builder()
                         .add("email", email)
                         .add("password", password)
-                        .add("type", "customer")
+                        .add("type", USER)
                         .add("isAPI", "true")
                         .build();
 
@@ -118,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         try {
                             jsonObject = new JSONObject(response.body().string());
-                            Log.d("Login", "onResponse: "+jsonObject.getString("status"));
+                            Log.d("Login", "onResponse: "+jsonObject);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -136,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                                         et_password.setText("");
                                         tv_invalid.setVisibility(View.VISIBLE);
 
-                                        Toast.makeText(getApplicationContext(), "Invalid email or password!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "Invalid email or password!", Toast.LENGTH_SHORT).show();
 
                                     } else if(jsonObject.getString("status").equals("success")) {
 
@@ -146,9 +159,18 @@ public class LoginActivity extends AppCompatActivity {
 
                                         tv_invalid.setVisibility(View.INVISIBLE);
 
-                                        userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
-                                                object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
-                                                object.getString("current_user_image")));
+                                        if(object.getString("current_user_type").equals("consultant")){
+                                            Toast.makeText(LoginActivity.this, "Consultant!", Toast.LENGTH_SHORT).show();
+                                            userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
+                                                    object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
+                                                    object.getString("current_user_image"), object.getString("consultant_category"), null,
+                                                    object.getString("consultant_from_time"), object.getString("consultant_to_time"), object.getString("consultant_language"),
+                                                    object.getString("consultant_fee"), object.getString("consultant_qualification")));
+                                        } else {
+                                            userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
+                                                    object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
+                                                    object.getString("current_user_image")));
+                                        }
 
                                         Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(goToMainPage);
