@@ -61,10 +61,6 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-
-
-
-
         b_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void logIn(String email, String password) {
 
-        String login = "http://spacefoundation.in/test/SpacECE-4496/spacece_auth/login_action.php";
+        String login = "http://spacefoundation.in/test/SpacECE-4510/spacece_auth/login_action.php";
 
         new Thread(new Runnable() {
 
@@ -170,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                                             userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
                                                     object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
                                                     object.getString("current_user_image")));
+                                            System.out.println(object.getString("current_user_image"));
                                         }
 
                                         Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);

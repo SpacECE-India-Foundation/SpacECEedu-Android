@@ -4,10 +4,13 @@ import android.app.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,6 +38,7 @@ import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.Location.LocationService;
+import com.spacECE.spaceceedu.Test.listener;
 import com.spacECE.spaceceedu.VideoLibrary.Topic;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 import com.squareup.picasso.Picasso;
@@ -128,7 +132,8 @@ public class MainActivity extends AppCompatActivity {
             // find MenuItem you want to change
             ImageView nav_camara = navHead.findViewById(R.id.Main_nav_drawer_profile_pic);
             if(!ACCOUNT.getProfile_pic().isEmpty()){
-                Picasso.get().load(ACCOUNT.getProfile_pic()).into(nav_camara);
+                Bitmap btmap=decodeBase64(ACCOUNT.getProfile_pic());
+                nav_camara.setImageBitmap(btmap);
             }
         }
 
@@ -155,6 +160,48 @@ public class MainActivity extends AppCompatActivity {
         LocationService locationService = new LocationService();
         locationService.Start(this, this);
 
+        //Testing
+        //startService(new Intent(MainActivity.this, listener.class));
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody fromBody = new FormBody.Builder()
+                        .add("channel_name", "testing")
+                        .add("consult_id", "consultant")
+                        .add("user_id", "user")
+                        .add("create_call", "1")
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url("http://spacefoundation.in/test/SpacECE-4504/ConsultUs/agoracallapi.php")
+                        .post(fromBody)
+                        .build();
+
+                Call call = client.newCall(request);
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        System.out.println("Registration Error ApI " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        String resp = response.body().string();
+                        System.out.println(resp);
+                    }
+                });
+            }
+        });
+        thread.start();
+
+    }
+
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray
+                (decodedByte, 0, decodedByte.length);
     }
 
     private void sendTokenToServer(String token) {

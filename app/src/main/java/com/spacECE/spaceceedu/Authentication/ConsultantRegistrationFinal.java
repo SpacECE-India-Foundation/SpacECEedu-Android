@@ -3,9 +3,12 @@ package com.spacECE.spaceceedu.Authentication;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.*;
 
+import android.util.Base64;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -24,6 +27,8 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
 import java.io.IOException;
 
 public class ConsultantRegistrationFinal extends AppCompatActivity {
@@ -158,16 +163,41 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
         }
     }
 
+    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
+        ParcelFileDescriptor parcelFileDescriptor =
+                getContentResolver().openFileDescriptor(uri, "r");
+        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+        parcelFileDescriptor.close();
+        return image;
+    }
+
+    public static String encodeBase64(Bitmap image) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
+        byte[] encoded = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(encoded, 0);
+    }
+
     private void sendUserRegistration(String name, String email, String password, String phone, Uri image){
 
-        String register = "http://spacefoundation.in/test/SpacECE-4496/spacece_auth/register_action.php";
+        String register = "http://spacefoundation.in/test/SpacECE-4508/spacece_auth/register_action.php";
 
         new Thread(new Runnable() {
 
             JSONObject jsonObject;
+            Bitmap selectedImage;
+            String encodedImage = "null";
 
             @Override
             public void run() {
+
+                try {
+                    selectedImage = getBitmapFromUri(image);
+                    encodedImage = encodeBase64(selectedImage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 OkHttpClient client = new OkHttpClient();
                 RequestBody fromBody = new FormBody.Builder()
@@ -175,7 +205,7 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
                         .add("email", email)
                         .add("password", password)
                         .add("phone", phone)
-                        .add("image", "null")
+                        .add("image", encodedImage)
                         .add("type", "consultant")
                         .add("c_categories", TYPE)
                         .add("c_office", ADDRESS)
@@ -209,7 +239,6 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
                             Log.d("TAG", "onResponse: "+jsonObject);
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Error Registering!", Toast.LENGTH_SHORT).show();
                         }
 
                         runOnUiThread(new Runnable() {

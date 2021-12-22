@@ -31,10 +31,7 @@
         <activity
             android:name=".Authentication.NumberVerification"
             android:exported="true" />
-        <activity
-            android:name=".ui.login.LoginActivity2"
-            android:exported="true"
-            android:label="@string/title_activity_login2" />
+
         <activity
             android:name=".Consultants.ConsultUs_SplashScreen"
             android:exported="true" />
@@ -57,8 +54,8 @@
         <activity
             android:name=".Authentication.ConsultantRegistrationFinal"
             android:exported="true"
-            android:label="@string/title_activity_user_registration"
             android:theme="@style/Theme.SpacECEedu.NoActionBar" />
+        <activity android:name=".Authentication.UserRegistration"/>
         <activity
             android:name=".Consultants.Consultant_GetAppointment"
             android:exported="true" />
@@ -71,14 +68,6 @@
         <activity
             android:name=".ActivityDetailsActivity"
             android:exported="true" />
-
-        <service
-            android:name=".FirebaseMessageReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
         <activity
             android:name=".Consultants.ConsultantProfile"
@@ -112,6 +101,18 @@
         </activity>
 
         <receiver android:name=".ReminderBroadCastReciever" />
+
+        <service
+            android:name=".FirebaseMessageReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".Test.listener"
+            android:enabled="true"/>
+
     </application>
 
 </manifest>
