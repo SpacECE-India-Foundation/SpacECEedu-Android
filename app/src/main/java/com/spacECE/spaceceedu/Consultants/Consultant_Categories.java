@@ -26,6 +26,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
+
 
 public class Consultant_Categories extends Fragment {
 
@@ -47,7 +49,6 @@ public class Consultant_Categories extends Fragment {
         View v = inflater.inflate(R.layout.fragment_consultant__categories, container, false);
 
         Log.i("Categories", "Initiated");
-//        generateList();
 
         categoryRecyclerView = v.findViewById(R.id.Consultant_Category_RecyclerView);
 
@@ -77,69 +78,59 @@ public class Consultant_Categories extends Fragment {
                 progressBar = getActivity().findViewById(R.id.Loading_Consultants);
                 progressBar.setVisibility(View.VISIBLE);
                 Toast.makeText(v.getContext(), "here", Toast.LENGTH_SHORT).show();
-                getList(categories.get(position).getCategoryName(), ConsultantsLibrary.consultantsList);
+                getList(categories.get(position).getCategoryName());
             }
         };
     }
 
-    public void getList(String category, ArrayList<Consultant> aList) {
-        final boolean[] COMPLETED = {false};
-        final JSONObject[] apiCall = {null};
+    public void getList(String category) {
 
-
+        System.out.println(category);
 
         Thread thread = new Thread(() -> {
 
-            try{
+            JSONObject apiCall = null;
+
+
+            try {
                 try {
-                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_category?category=one&val=" + URLEncoder.encode(category, "UTF-8"));
+                    apiCall = UsefulFunctions.UsingGetAPI("http://spacefoundation.in/test/SpacECE-" + BUILD_NUMBER + "/ConsultUs/api_getconsultant.php?cat=" + URLEncoder.encode(category, "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    Log.i("Object Obtained: ", apiCall[0].get("data").toString());
-                } catch (JSONException e) {
-                    Log.i("API Response:", "Error");
                     e.printStackTrace();
                 }
 
                 JSONArray jsonArray = null;
                 try {
-                    jsonArray = apiCall[0].getJSONArray("data");
-                    Log.i("API : ", apiCall[0].toString());
+                    jsonArray = apiCall.getJSONArray("data");
+                    Log.i("API : ", apiCall.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-
+                ConsultantsLibrary.consultantsList = new ArrayList<>();
                 try {
                     for (int i = 0; i < jsonArray.length(); i++) {
 
                         JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
 
-                        Consultant newConsultants = new Consultant(response_element.getString("name"), response_element.getString("c_id"), response_element.getString("img")
-                                , response_element.getString("category"), response_element.getString("office"), response_element.getString("mobile"), response_element.getString("lang")
-                                , response_element.getString("email"), response_element.getString("ctime"), response_element.getString("stime"), response_element.getString("lno")
-                                , response_element.getString("available_to"), response_element.getString("available_from"), response_element.getString("qualification"), response_element.getString("fee"));
+                        Consultant consultant = new Consultant(response_element.getString("u_name"),
+                                response_element.getString("u_id"), response_element.getString("image"),
+                                response_element.getString("cat_name"), response_element.getString("c_office"),
+                                response_element.getString("c_language"), response_element.getString("c_from_time"),
+                                response_element.getString("c_to_time"), response_element.getString("c_qualification"),
+                                response_element.getString("c_fee"));
 
-                        aList.add(newConsultants);
+                        ConsultantsLibrary.consultantsList.add(consultant);
                     }
-                    COMPLETED[0] = true;
-                    Log.i("CONSULTANTS ::::: ===>", aList.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    COMPLETED[0] = true;
                 }
-
-                Intent intent = new Intent(getContext(), ConsultantsLibrary.class);
-                progressBar.setVisibility(View.INVISIBLE);
-                startActivity(intent);
-
-            }catch(RuntimeException e){
-                Log.i("RUNTIME ERROR::::", "Server took too long...");
-                COMPLETED[0] = true;
+            } catch (Exception e){
+                e.printStackTrace();
             }
-
+            Intent intent = new Intent(getContext(), ConsultantsLibrary.class);
+            progressBar.setVisibility(View.INVISIBLE);
+            startActivity(intent);
         });
 
         thread.start();

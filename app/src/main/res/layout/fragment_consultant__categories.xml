@@ -8,20 +8,10 @@
 
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/Consultant_Category_RecyclerView"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-         android:paddingHorizontal="10dp"
-       tools:listitem="@layout/consultant_category_list_item"/>
-
-   <TextView
-       android:id="@+id/Abhikant"
+       android:layout_height="match_parent"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_marginBottom="0dp"
-       android:text="Developed by Abhikant Awasthi"
-       android:gravity="center"
-       android:textSize="16dp"
-       android:layout_gravity="bottom" />
+       android:padding="8dp"
+       tools:listitem="@layout/consultant_category_list_item"/>
 
    <ProgressBar
        android:id="@+id/Loading_Consultants"

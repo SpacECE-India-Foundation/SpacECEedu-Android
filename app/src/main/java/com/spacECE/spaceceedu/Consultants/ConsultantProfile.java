@@ -105,7 +105,8 @@ public class ConsultantProfile extends AppCompatActivity {
                 intent.putExtra("consultant_name", finalName);
                 intent.putExtra("speciality", finalSpeciality);
                 intent.putExtra("fee", finalFee);
-                startActivity(intent);            }
+                startActivity(intent);
+            }
         });
 
     }
@@ -113,18 +114,6 @@ public class ConsultantProfile extends AppCompatActivity {
 
     private void makeList() {
         appointments.add(new Consultant_GetAppointment.Appointments("26", "Aug","2021",new String[]{"10:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("27", "Aug","2021",new String[]{"9:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("28", "Aug","2021",new String[]{"8:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("29", "Aug","2021",new String[]{"7:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("30", "Aug","2021",new String[]{"11:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("1", "Sep","2021",new String[]{"9:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("3", "Sep","2021",new String[]{"10:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("5", "Sep","2021",new String[]{"11:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("7", "Sep","2021",new String[]{"8:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("9", "Sep","2021",new String[]{"7:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("10", "Sep","2021",new String[]{"11:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("22", "Sep","2021",new String[]{"10:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("3", "Oct","2022",new String[]{"8:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
         appointments.add(new Consultant_GetAppointment.Appointments("6", "Oct","2022",new String[]{"9:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
         appointments.add(new Consultant_GetAppointment.Appointments("12", "Oct","2022",new String[]{"11:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
     }

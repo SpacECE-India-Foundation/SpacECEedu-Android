@@ -12,5 +12,10 @@
     <color name="localBackground">#FFC107</color>
     <color name="remoteBackground">#EAAE15</color>
 
+    <!-- Logs -->
+    <color name="logInfo">#4a90e2</color>
+    <color name="logWarn">#fedd56</color>
+    <color name="logError">#fe375f</color>
+
 
 </resources>

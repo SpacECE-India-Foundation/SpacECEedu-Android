@@ -13,7 +13,6 @@ import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spacECE.spaceceedu.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +68,6 @@ public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consul
         holder.category.setText(categories);
         holder.price.setText("Fee: "+String.valueOf(price)+"/-");
         holder.rating.setText(String.valueOf(rating));
-        Picasso.get().load(profilePic_src).into(holder.profile);
     }
 
     @Override

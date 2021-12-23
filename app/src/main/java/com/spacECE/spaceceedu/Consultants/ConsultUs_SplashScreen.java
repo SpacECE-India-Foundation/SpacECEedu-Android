@@ -3,6 +3,7 @@ package com.spacECE.spaceceedu.Consultants;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
 
 public class ConsultUs_SplashScreen extends AppCompatActivity {
 
@@ -34,7 +37,7 @@ public class ConsultUs_SplashScreen extends AppCompatActivity {
             public void run() {
                 final JSONObject apiCall;
                 try{
-                    apiCall = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_category?category=all");
+                    apiCall = UsefulFunctions.UsingGetAPI("http://spacefoundation.in/test/SpacECE-"+BUILD_NUMBER+"/ConsultUs/api_category.php?category=all");
                     JSONArray jsonArray = null;
                     try {
                         try {

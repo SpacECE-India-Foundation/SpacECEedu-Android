@@ -1,12 +1,10 @@
 package com.spacECE.spaceceedu;
 
 import android.app.*;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,8 +24,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
@@ -38,23 +34,19 @@ import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.Location.LocationService;
-import com.spacECE.spaceceedu.Test.listener;
 import com.spacECE.spaceceedu.VideoLibrary.Topic;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
-import com.squareup.picasso.Picasso;
 
-import okhttp3.*;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.InetAddress;
 import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String BUILD_NUMBER = "4558";
 
     private DrawerLayout drawer;
     private Toolbar toolbar;
@@ -163,38 +155,7 @@ public class MainActivity extends AppCompatActivity {
         //Testing
         //startService(new Intent(MainActivity.this, listener.class));
 
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                OkHttpClient client = new OkHttpClient();
-                RequestBody fromBody = new FormBody.Builder()
-                        .add("channel_name", "testing")
-                        .add("consult_id", "consultant")
-                        .add("user_id", "user")
-                        .add("create_call", "1")
-                        .build();
 
-                Request request = new Request.Builder()
-                        .url("http://spacefoundation.in/test/SpacECE-4504/ConsultUs/agoracallapi.php")
-                        .post(fromBody)
-                        .build();
-
-                Call call = client.newCall(request);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        System.out.println("Registration Error ApI " + e.getMessage());
-                    }
-
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        String resp = response.body().string();
-                        System.out.println(resp);
-                    }
-                });
-            }
-        });
-        thread.start();
 
     }
 

@@ -1,9 +1,9 @@
 package com.spacECE.spaceceedu.Consultants;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
@@ -18,11 +18,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
 
 public class Agoraa extends AppCompatActivity {
     private static final String TAG = "Agora";
@@ -50,6 +59,10 @@ public class Agoraa extends AppCompatActivity {
     private ImageView mMuteBtn;
     private ImageView mSwitchCameraBtn;
 
+    // Customized logger view
+    private AgoraaLogger mLogView;
+
+    String token, channel;
 
 
     /**
@@ -72,7 +85,7 @@ public class Agoraa extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d(TAG, "run: Join channel success, uid: " + (uid & 0xFFFFFFFFL));
+                    mLogView.logI("Join channel success, uid: " + (uid & 0xFFFFFFFFL));
                 }
             });
         }
@@ -82,7 +95,7 @@ public class Agoraa extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d(TAG, "run: First remote video decoded, uid: " + (uid & 0xFFFFFFFFL));
+                    mLogView.logI("First remote video decoded, uid: " + (uid & 0xFFFFFFFFL));
                     setupRemoteVideo(uid);
                 }
             });
@@ -115,7 +128,7 @@ public class Agoraa extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d(TAG, "run: User offline, uid: " + (uid & 0xFFFFFFFFL));
+                    mLogView.logI("User offline, uid: " + (uid & 0xFFFFFFFFL));
                     onRemoteUserLeft(uid);
                 }
             });
@@ -164,13 +177,66 @@ public class Agoraa extends AppCompatActivity {
         setContentView(R.layout.activity_agoraa);
         initUI();
 
+        String Consult_ID = "temp";
+        Intent intent = getIntent();
+        Consult_ID = intent.getStringExtra("Consult_ID");
+
+
+        Thread thread = new Thread(new Runnable() {
+
+            JSONObject jsonObject;
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody fromBody = new FormBody.Builder()
+                        .add("consult_id", "11")
+                        .add("user_id", MainActivity.ACCOUNT.getAccount_id())
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url("http://spacefoundation.in/test/SpacECE-"+BUILD_NUMBER+"/ConsultUs/agoracallapi.php")
+                        .post(fromBody)
+                        .build();
+
+                Call call = client.newCall(request);
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        System.out.println("Registration Error ApI " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        String resp = response.body().string();
+                        try {
+                            jsonObject = new JSONObject(resp);
+                            System.out.println(jsonObject);
+                            token = jsonObject.getString("token");
+                            channel = jsonObject.getString("channelName");
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
+                                            checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID)) {
+                                        initEngineAndJoinChannel();
+                                    }
+                                }
+                            });
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+        thread.start();
+
+
         // Ask for permissions at runtime.
         // This is just an example set of permissions. Other permissions
         // may be needed, and please refer to our online documents.
-        if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
-                checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID)) {
-            initEngineAndJoinChannel();
-        }
     }
 
     private void initUI() {
@@ -181,6 +247,15 @@ public class Agoraa extends AppCompatActivity {
         mMuteBtn = findViewById(R.id.btn_mute);
         mSwitchCameraBtn = findViewById(R.id.btn_switch_camera);
 
+        mLogView = findViewById(R.id.log_recycler_view);
+
+        // Sample logs are optional.
+        showSampleLogs();
+
+    }
+
+    private void showSampleLogs() {
+        mLogView.logI("Welcome to SpaceECE");
     }
 
 
@@ -202,7 +277,7 @@ public class Agoraa extends AppCompatActivity {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED ||
                     grantResults[1] != PackageManager.PERMISSION_GRANTED ||
                     grantResults[2] != PackageManager.PERMISSION_GRANTED) {
-                showLongToast("Need permissions " + Manifest.permission.RECORD_AUDIO +
+                showShortToast("Need permissions " + Manifest.permission.RECORD_AUDIO +
                         "/" + Manifest.permission.CAMERA);
                 finish();
                 return;
@@ -214,11 +289,11 @@ public class Agoraa extends AppCompatActivity {
         }
     }
 
-    private void showLongToast(final String msg) {
+    private void showShortToast(final String msg) {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -279,7 +354,10 @@ public class Agoraa extends AppCompatActivity {
         // 2. One token is only valid for the channel name that
         // you use to generate this token.
 
-        mRtcEngine.joinChannel(null, "demoChannel1", "Extra Optional Data", 0);
+
+
+        mRtcEngine.joinChannel(token, channel, "Extra Optional Data", 0);
+
     }
 
     @Override

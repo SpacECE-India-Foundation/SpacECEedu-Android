@@ -17,6 +17,7 @@ import com.spacECE.spaceceedu.R;
 import java.util.ArrayList;
 
 public class ConsultantsLibrary extends AppCompatActivity {
+
     public static ArrayList<Consultant> consultantsList = new ArrayList<>();
 
     String categoryFilter;
@@ -25,8 +26,6 @@ public class ConsultantsLibrary extends AppCompatActivity {
     private Consultants_RecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private Consultants_RecyclerViewAdapter.RecyclerViewClickListener listener;
-
-    private String URL = "http://educationfoundation.space/ConsultUs/api_getconsultant?user=all";
 
 
     private Spinner s_categories;
@@ -94,20 +93,24 @@ public class ConsultantsLibrary extends AppCompatActivity {
         listener = new Consultants_RecyclerViewAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
-                Intent intent = new Intent(getApplicationContext(), ConsultantProfile.class);
-                intent.putExtra("profile_pic", consultantsList.get(position).getProfilePic_src());
-                intent.putExtra("consultant_id", consultantsList.get(position).getConsultant_id());
-                intent.putExtra("consultant_name", consultantsList.get(position).getName());
-                intent.putExtra("speciality", consultantsList.get(position).getCategories());
-                intent.putExtra("chamber", consultantsList.get(position).getAddress());
-                intent.putExtra("fee", consultantsList.get(position).getPrice());
-                intent.putExtra("language", consultantsList.get(position).getLanguage());
-                intent.putExtra("days_from", consultantsList.get(position).getDaysFrom());
-                intent.putExtra("days_to", consultantsList.get(position).getDaysTo());
-                intent.putExtra("timing_to", consultantsList.get(position).getTiming_end());
-                intent.putExtra("timing_from", consultantsList.get(position).getTiming_start());
-                intent.putExtra("qualification", consultantsList.get(position).getQualification());
-                startActivity(intent);
+
+                System.out.println(consultantsList.get(position));
+
+
+//                Intent intent = new Intent(getApplicationContext(), ConsultantProfile.class);
+//                intent.putExtra("profile_pic", consultantsList.get(position).getProfilePic_src());
+//                intent.putExtra("consultant_id", consultantsList.get(position).getConsultant_id());
+//                intent.putExtra("consultant_name", consultantsList.get(position).getName());
+//                intent.putExtra("speciality", consultantsList.get(position).getCategories());
+//                intent.putExtra("chamber", consultantsList.get(position).getAddress());
+//                intent.putExtra("fee", consultantsList.get(position).getPrice());
+//                intent.putExtra("language", consultantsList.get(position).getLanguage());
+//                intent.putExtra("days_from", consultantsList.get(position).getDaysFrom());
+//                intent.putExtra("days_to", consultantsList.get(position).getDaysTo());
+//                intent.putExtra("timing_to", consultantsList.get(position).getTiming_end());
+//                intent.putExtra("timing_from", consultantsList.get(position).getTiming_start());
+//                intent.putExtra("qualification", consultantsList.get(position).getQualification());
+//                startActivity(intent);
             }
         };
     }

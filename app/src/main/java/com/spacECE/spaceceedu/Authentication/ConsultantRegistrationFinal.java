@@ -31,6 +31,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
+import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
+
 public class ConsultantRegistrationFinal extends AppCompatActivity {
 
     private Button b_register;
@@ -181,7 +183,7 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
 
     private void sendUserRegistration(String name, String email, String password, String phone, Uri image){
 
-        String register = "http://spacefoundation.in/test/SpacECE-4508/spacece_auth/register_action.php";
+        String register = "http://spacefoundation.in/test/SpacECE-"+BUILD_NUMBER+"/spacece_auth/register_action.php";
 
         new Thread(new Runnable() {
 

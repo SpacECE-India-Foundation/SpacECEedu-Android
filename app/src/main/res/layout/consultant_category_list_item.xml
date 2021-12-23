@@ -8,7 +8,7 @@
     android:layout_weight="1"
     android:elevation="5dp"
     app:cardCornerRadius="10dp"
-    android:layout_marginTop="2dp">
+    android:layout_marginTop="16dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -17,14 +17,17 @@
 
         <ImageView
             android:id="@+id/Consultant_Categories_ListItem_Icon"
-            android:layout_width="175dp"
+            android:layout_width="170dp"
             android:layout_height="100dp"
+            android:padding="4dp"
+            android:background="@color/white"
             android:src="@drawable/ic_baseline_medical_services_24" />
 
         <TextView
             android:id="@+id/Consultant_Categories_ListItem_TextView_CategoryName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="4dp"
             android:layout_gravity="center_horizontal"
             android:text="Category" />
 

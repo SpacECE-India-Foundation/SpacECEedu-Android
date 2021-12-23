@@ -2,6 +2,8 @@ package com.spacECE.spaceceedu;
 
 import android.util.Log;
 
+import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,36 +17,29 @@ public class UsefulFunctions {
 
   public static JSONObject UsingGetAPI(String inputURL) {
 
-            String result = "";
-            HttpURLConnection urlConnection= null;
+      JSONObject jsonObject = null;
 
-            try {
-                URL url=new URL(inputURL);
-                urlConnection= (HttpURLConnection) url.openConnection();
-                Log.i("URL: ",url.toString());
+      Response response;
+      String resp;
 
-                InputStream in = urlConnection.getInputStream();
-                InputStreamReader reader = new InputStreamReader(in);
+      OkHttpClient client = new OkHttpClient();
 
-                int data = reader.read();
+      Request request = new Request.Builder()
+              .url(inputURL)
+              .build();
 
-                while(data!=-1){
-                    char current = (char) data;
-                    result+= current;
-                    data= reader.read();
-                }
-            }catch (IOException e) {
-                Log.i(" API: "," Data parsing error");
-                e.printStackTrace();
-            }
-        try {
-           //Log.i(" API: "," Creation"+result);
-            return new JSONObject(result);
+      Call call = client.newCall(request);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.i(" JSON Object: ","Malformed JSON");
-            return null;
-        }
+      try {
+          response = call.execute();
+          resp = response.body().string();
+          //System.out.println(resp);
+          jsonObject= new  JSONObject(resp);
+      } catch (IOException | JSONException e) {
+          e.printStackTrace();
+      }
+
+      return jsonObject;
+
     }
 }
