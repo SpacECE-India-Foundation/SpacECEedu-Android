@@ -1,7 +1,7 @@
 package com.spacECE.spaceceedu.Consultants;
 
 public class Consultant {
-    private String name,consultant_id,profilePic_src,categories,address,language,timing_start,timing_end,fee,daysTo,daysFrom,qualification;
+    private String name,consultant_id,profilePic_src,categories,address,language,timing_start,timing_end,qualification;
     private String price;
 
     public Consultant(String name, String consultant_id, String profilePic_src, String categories
@@ -21,14 +21,6 @@ public class Consultant {
 
     public String getQualification() {
         return qualification;
-    }
-
-    public String getDaysTo() {
-        return daysTo;
-    }
-
-    public String getDaysFrom() {
-        return daysFrom;
     }
 
     public String getName() {

@@ -16,10 +16,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class ConsultantProfile extends AppCompatActivity {
+
     public static ArrayList<Consultant_GetAppointment.Appointments> appointments=new ArrayList<Consultant_GetAppointment.Appointments>();
 
     Button b_call;
-    Button b_chat;
     Button b_appointment;
     ImageView iv_profilePic;
     private TextView tv_name,tv_speciality,tv_chambers,tv_charges,tv_timing,tv_language,tv_days,tv_qualification;
@@ -53,24 +53,25 @@ public class ConsultantProfile extends AppCompatActivity {
         String days_to="Any";
         String timing_to="All";
         String timing_from="All";
-        String pic_src = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png";
+        String pic_src = "https://img.favpng.com/11/24/17/management-consulting-consulting-firm-consultant-business-png-favpng-jkyKzuQ3UyL0wXXCBcvk4c1fu.jpg";
 
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
             name = extras.getString("consultant_name");
             Log.i("CONSULTANT NAME::::", name);
             address=extras.getString("chamber");
             fee= extras.getString("fee");
             language=extras.getString("language");
-            days_from=extras.getString("days_from");
-            days_to=extras.getString("days_to");
             consultant_id = extras.getString("consultant_id");
             speciality = extras.getString("speciality");
-            pic_src=extras.getString("profile_pic");
             timing_from=extras.getString("timing_from");
             timing_to=extras.getString("timing_to");
             qualification=extras.getString("qualification");
+            pic_src = extras.getString("profilepic");
         }
+
+
         tv_qualification.setText(qualification);
         tv_name.setText(name);
         tv_chambers.setText(address);
@@ -79,7 +80,14 @@ public class ConsultantProfile extends AppCompatActivity {
         tv_timing.setText(timing_from+" - "+timing_to);
         tv_language.setText(language);
         tv_days.setText(String.valueOf(days_from.charAt(0))+days_from.charAt(1)+days_from.charAt(2)+" - "+days_to.charAt(0)+days_to.charAt(1)+days_to.charAt(2));
-        Picasso.get().load(pic_src).into(iv_profilePic);
+
+        try {
+            pic_src = "https://spacefoundation.in/test/SpacECE-PHP/img/users/" + pic_src;
+            Picasso.get().load(pic_src.replace("https://","http://")).into(iv_profilePic);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         makeList();
 
         b_call.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +104,7 @@ public class ConsultantProfile extends AppCompatActivity {
         String finalName = name;
         String finalFee = fee;
         String finalSpeciality = speciality;
+
         b_appointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

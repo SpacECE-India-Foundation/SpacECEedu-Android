@@ -109,6 +109,7 @@
         <entry key="app/src/main/res/drawable/toogle_text_color.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/layout/activity_agoraa.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_agoraa_logger.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_consultant_appointment_confirmation.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_consultant_get_appointment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_consultant_main.xml" value="0.2056159420289855" />
         <entry key="app/src/main/res/layout/activity_consultant_profile.xml" value="0.32083333333333336" />
@@ -117,7 +118,7 @@
         <entry key="app/src/main/res/layout/activity_learnon_list_splashscreen.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/activity_login2.xml" value="0.32083333333333336" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.32083333333333336" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.10404624277456648" />
         <entry key="app/src/main/res/layout/activity_my_books.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_number_verification.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.32083333333333336" />
@@ -129,10 +130,20 @@
         <entry key="app/src/main/res/layout/consultants_consultants_appointments_list_item.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/fragment__consultants__consultants_appointments.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/fragment_consultant__categories.xml" value="0.15833333333333333" />
+        <entry key="app/src/main/res/layout/fragment_consultants__my_consultant.xml" value="0.32083333333333336" />
+        <entry key="app/src/main/res/layout/fragment_consultus_appointments_for_consultant.xml" value="0.32083333333333336" />
+        <entry key="app/src/main/res/layout/fragment_consultus_appointments_for_user.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/nav_drawer_head.xml" value="0.32083333333333336" />
+        <entry key="app/src/main/res/menu/consultant_main_bottomnav.xml" value="0.2740740740740741" />
+        <entry key="app/src/main/res/menu/consultant_main_consultants_bottomnav.xml" value="0.2740740740740741" />
+        <entry key="app/src/main/res/menu/consultant_main_nouser_bottomnav.xml" value="0.334375" />
         <entry key="app/src/main/res/menu/navigationdrawer_main_activity.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/menu/options_main_activity.xml" value="0.33541666666666664" />
+        <entry key="app/src/main/res/menu/options_main_activity_loggedin.xml" value="0.33541666666666664" />
+        <entry key="app/src/main/res/menu/search.xml" value="0.33541666666666664" />
+        <entry key="app/src/main/res/menu/videolibrary_bottomoptions.xml" value="0.33541666666666664" />
       </map>
     </option>
   </component>

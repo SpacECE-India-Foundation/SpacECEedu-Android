@@ -1,6 +1,5 @@
 package com.spacECE.spaceceedu.Consultants;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,11 +16,12 @@ import com.spacECE.spaceceedu.R;
 
 import java.util.ArrayList;
 
-public class Fragment_Consultants_Consultants_appointments extends Fragment {
-    public static ArrayList<UserAppointments> consultantsAppointments = new ArrayList<>();
+public class Fragment_Appointments_For_Consultants extends Fragment {
+
+    public static ArrayList<Appointment> appointmentsArrayList = new ArrayList<>();
 
     private RecyclerView recyclerView;
-    private Consultants_Consultants_appointments_RecyclerViewAdapter.RecyclerViewClickListener listener;
+    private Appointments_For_Consultant_RecyclerViewAdapter.RecyclerViewClickListener listener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,25 +31,26 @@ public class Fragment_Consultants_Consultants_appointments extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v= inflater.inflate(R.layout.fragment__consultants__consultants_appointments, container, false);
+        View v= inflater.inflate(R.layout.fragment_consultus_appointments_for_consultant, container, false);
 
-        recyclerView=v.findViewById(R.id.Consultants_Consultants_Appointments_RecyclerView);
+        recyclerView=v.findViewById(R.id.Appointments_For_Consultant_RecyclerView);
 
-        setAdapter(consultantsAppointments);
+        setAdapter(appointmentsArrayList);
         return v;
     }
 
-    private void setAdapter(ArrayList<UserAppointments> list) {
+    private void setAdapter(ArrayList<Appointment> list) {
         Log.i("SetAdapter:","Working");
         setOnClickListener();
-        Consultants_Consultants_appointments_RecyclerViewAdapter adapter = new Consultants_Consultants_appointments_RecyclerViewAdapter(list,listener);
+        Appointments_For_Consultant_RecyclerViewAdapter adapter = new Appointments_For_Consultant_RecyclerViewAdapter(list,listener);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         Log.i("Adapter", "Executed");
     }
+
     private void setOnClickListener() {
-        listener = new Consultants_Consultants_appointments_RecyclerViewAdapter.RecyclerViewClickListener() {
+        listener = new Appointments_For_Consultant_RecyclerViewAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
 

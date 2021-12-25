@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.*;
 
-import android.util.Base64;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -174,11 +173,11 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
         return image;
     }
 
-    public static String encodeBase64(Bitmap image) {
+    public static byte[] encodeBase64(Bitmap image) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
         byte[] encoded = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(encoded, 0);
+        return encoded;
     }
 
     private void sendUserRegistration(String name, String email, String password, String phone, Uri image){
@@ -189,7 +188,7 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
 
             JSONObject jsonObject;
             Bitmap selectedImage;
-            String encodedImage = "null";
+            byte[] encodedImage ;
 
             @Override
             public void run() {
@@ -202,22 +201,24 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
                 }
 
                 OkHttpClient client = new OkHttpClient();
-                RequestBody fromBody = new FormBody.Builder()
-                        .add("name", name)
-                        .add("email", email)
-                        .add("password", password)
-                        .add("phone", phone)
-                        .add("image", encodedImage)
-                        .add("type", "consultant")
-                        .add("c_categories", TYPE)
-                        .add("c_office", ADDRESS)
-                        .add("c_from_time", START_TIME)
-                        .add("c_to_time", END_TIME)
-                        .add("c_language", LANGUAGE)
-                        .add("c_fee", FEE)
-                        .add("c_available_from", "Monday")
-                        .add("c_available_to", "Tuesday")
-                        .add("c_qualification", QUALIFICATION)
+                RequestBody fromBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("name", name)
+                        .addFormDataPart("email", email)
+                        .addFormDataPart("password", password)
+                        .addFormDataPart("phone", phone)
+                        .addFormDataPart("image", name+".jpg",
+                                RequestBody.create(MediaType.parse("image/*jpg"), encodedImage))
+                        .addFormDataPart("type", "consultant")
+                        .addFormDataPart("c_categories", TYPE)
+                        .addFormDataPart("c_office", ADDRESS)
+                        .addFormDataPart("c_from_time", START_TIME)
+                        .addFormDataPart("c_to_time", END_TIME)
+                        .addFormDataPart("c_language", LANGUAGE)
+                        .addFormDataPart("c_fee", FEE)
+                        .addFormDataPart("c_available_from", "Monday")
+                        .addFormDataPart("c_available_to", "Tuesday")
+                        .addFormDataPart("c_qualification", QUALIFICATION)
                         .build();
 
                 Request request = new Request.Builder()

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
 
 
-public class Consultant_Categories extends Fragment {
+public class Fragment_Consultant_Categories extends Fragment {
 
     private ProgressBar progressBar;
 
@@ -77,7 +76,6 @@ public class Consultant_Categories extends Fragment {
             public void onClick(View v, int position) {
                 progressBar = getActivity().findViewById(R.id.Loading_Consultants);
                 progressBar.setVisibility(View.VISIBLE);
-                Toast.makeText(v.getContext(), "here", Toast.LENGTH_SHORT).show();
                 getList(categories.get(position).getCategoryName());
             }
         };

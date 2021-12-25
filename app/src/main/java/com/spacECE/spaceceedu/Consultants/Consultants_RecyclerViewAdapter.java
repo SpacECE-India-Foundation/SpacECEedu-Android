@@ -9,10 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spacECE.spaceceedu.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,15 +59,18 @@ public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consul
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String name = consultants.get(position).getName();
-        String profilePic_src = consultants.get(position).getProfilePic_src();
-        String rating = "5";
+        String profilePicSrc = consultants.get(position).getProfilePic_src();
         String categories = consultants.get(position).getCategories();
         String price = consultants.get(position).getPrice();
-
         holder.name.setText(name);
         holder.category.setText(categories);
         holder.price.setText("Fee: "+String.valueOf(price)+"/-");
-        holder.rating.setText(String.valueOf(rating));
+        try {
+            profilePicSrc = "https://spacefoundation.in/test/SpacECE-PHP/img/users/" + profilePicSrc;
+            Picasso.get().load(profilePicSrc.replace("https://","http://")).into(holder.profile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

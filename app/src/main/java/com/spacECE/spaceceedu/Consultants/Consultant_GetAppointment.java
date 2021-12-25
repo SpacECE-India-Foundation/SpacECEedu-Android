@@ -1,73 +1,61 @@
 package com.spacECE.spaceceedu.Consultants;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.icu.util.Calendar;
+import android.os.Build;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
+import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 import com.squareup.picasso.Picasso;
+import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.IOException;
+
+import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
+import static java.lang.String.format;
 
 public class Consultant_GetAppointment extends AppCompatActivity {
 
-    ArrayList<Appointments> slots = new ArrayList<>();
-    ArrayList<String> timings = new ArrayList<>();
-    String orderID = null;
-    UserAppointments userAppointment ;
+    Appointment userAppointment ;
     String name = "No name";
     String consultant_id = "Consultant ID missing";
     String speciality = "None";
     String fee="Free";
-    String pic_src = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png";
+    String pic_src = "";
+
+    String date, time;
+    int mYear, mMonth, mDay, mHour, mMinute;
 
     private TextView tv_date,tv_time;
     private TextView tv_confirmation,tv_name,tv_speciality,tv_charges;
     private ImageView iv_profile;
     private Button b_confPay;
-    private CalendarView calendarView;
+    private TextView clock, calendar;
+    private Boolean Date_picked = false;
+    private Boolean Time_picked = false;
+    private String BOOKINGDAY, BOOKINGTIME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultant_get_appointment);
 
-//        Instamojo.getInstance().initialize(this, Instamojo.Environment.TEST);
-
         tv_charges = findViewById(R.id.Consultant_GetAppointment_textView_Charges);
         tv_name = findViewById(R.id.Consultant_GetAppointment_Name);
         tv_speciality = findViewById(R.id.Consultant_GetAppointment_Speciality);
         iv_profile = findViewById(R.id.Consultant_GetAppointment_ProfilePic);
-        tv_date = findViewById(R.id.Consultant_GetAppointment_TextView_AppointmentDate);
         tv_confirmation = findViewById(R.id.Consultant_GetAppointment_TextView_Confirmation);
         b_confPay = findViewById(R.id.Consultant_GetAppointment_Button_Confirm);
-        calendarView = findViewById(R.id.Calendar);
-
-        slots = ConsultantProfile.appointments;
-        setDateAdapter(slots);
-
-        b_confPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Uri webpage = Uri.parse("http://educationfoundation.space/ConsultUs/index.html");
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, webpage));
-                } catch (ActivityNotFoundException e) {
-                    Toast.makeText(getApplicationContext(), "No app found", Toast.LENGTH_SHORT).show();
-                }}
-        });
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -80,67 +68,104 @@ public class Consultant_GetAppointment extends AppCompatActivity {
         tv_speciality.setText(speciality);
         tv_charges.setText(fee);
         tv_name.setText(name);
-        Picasso.get().load(pic_src).into(iv_profile);
-    }
 
-    private void confirmSlot(UserAppointments userAppointment) {
-        if(true){
-            orderID="sfioje090sjn";
-//            Instamojo.getInstance().initiatePayment(this, orderID, this);
-        }else{
-            Toast.makeText(this, "Slot unavailable", Toast.LENGTH_LONG).show();
-            //Refresh Available Slots
+        try {
+            pic_src = "https://spacefoundation.in/test/SpacECE-PHP/img/users/" + pic_src;
+            Picasso.get().load(pic_src.replace("https://","http://")).into(iv_profile);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        clock = findViewById(R.id.Clock);
+        calendar = findViewById(R.id.Calendar);
+
+        clock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePicker();
+            }
+        });
+
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    datePicker();
+            }
+        });
+
+
+        b_confPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Date_picked&Time_picked){
+                    //tv_confirmation.setText(BOOKINGDAY+BOOKINGTIME);
+                    BookAppointment();
+                } else{
+                    Toast.makeText(Consultant_GetAppointment.this, "Please Select Date and Time",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
     }
 
+    private void datePicker(){
 
-    public void showDates(View view) {
-        setDateAdapter(slots);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+            mHour = c.get(Calendar.HOUR_OF_DAY);
+            mMinute = c.get(Calendar.MINUTE);
+        }
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,int monthOfYear, int dayOfMonth) {
+                        Date_picked =true;
+                        date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year + " ";
+                        BOOKINGDAY = format("%d:%d:%d ", year, (monthOfYear+1), dayOfMonth);
+                        calendar.setText(date);
+
+                        if(!Time_picked){
+                            timePicker();
+                        }
+                        if(Date_picked && Time_picked){
+                            tv_confirmation.setText("Appointment booked on " + date + time);
+                        }
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.show();
     }
 
-    private void setDateAdapter(ArrayList<Appointments> myList) {
-        Log.i("SetDateAdapter:","Working");
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager( getApplicationContext(), 4, LinearLayoutManager.VERTICAL, false);
-        Log.i("Adapter", "Executed");
+    private void timePicker(){
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,int minute) {
+                        Time_picked = true;
+                        mHour = hourOfDay;
+                        mMinute = minute;
+                        time = format("%02d:%02d", hourOfDay, minute);
+                        BOOKINGTIME = format("%02d:%02d:00", hourOfDay, minute);
+                        clock.setText(time);
+
+                        if(!Date_picked) {
+                            datePicker();
+                        }
+                        if(Date_picked && Time_picked){
+                            tv_confirmation.setText("Appointment booked on " + date + time);
+                        }
+                    }
+                }, mHour, mMinute, false);
+        timePickerDialog.show();
     }
-
-    public void showTime(View view) {
-        setTimeAdapter(timings);
-    }
-
-    private void setTimeAdapter(ArrayList<String> timeList) {
-        Log.i("SetTimeAdapter:","Working");
-        RecyclerView.LayoutManager layoutTManager = new GridLayoutManager( getApplicationContext(), 3, LinearLayoutManager.VERTICAL, false);
-
-        Log.i("Adapter", "Executed");
-    }
-
-
-
-//    @Override
-//    public void onInstamojoPaymentComplete(String orderID, String transactionID, String paymentID, String paymentStatus) {
-//        Log.d("INSTAMOJO PAYMENT: ", "Payment complete. Order ID: " + orderID + ", Transaction ID: " + transactionID
-//                + ", Payment ID:" + paymentID + ", Status: " + paymentStatus);
-//        paymentComplete();
-//    }
-//
-//    private void paymentComplete() {
-//    }
-//
-//    @Override
-//    public void onPaymentCancelled() {
-//        Log.d("INSTAMOJO PAYMENT: ", "Payment cancelled");
-//        paymentCancelled();
-//    }
-//
-//    private void paymentCancelled() {
-//    }
-//
-//    @Override
-//    public void onInitiatePaymentFailure(String errorMessage) {
-//        Log.d("INSTAMOJO PAYMENT: ", "Initiate payment failed ::::: "+errorMessage);
-//        paymentCancelled();
-//    }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
@@ -150,7 +175,7 @@ public class Consultant_GetAppointment extends AppCompatActivity {
     public static class Appointments {
 
         private String date,month;
-        private String year="2021";
+        private String year;
         private String[] time;
 
         public String getDate() {
@@ -181,6 +206,66 @@ public class Consultant_GetAppointment extends AppCompatActivity {
             this.month = month;
             this.time = time;
         }
+    }
+
+    private void BookAppointment() {
+
+        new Thread(new Runnable() {
+
+            JSONObject jsonObject;
+
+            final String booking = "http://spacefoundation.in/test/SpacECE-"+
+                    BUILD_NUMBER+"/ConsultUs/api_bookappointment.php";
+
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody fromBody = new FormBody.Builder()
+                        .add("u_id", MainActivity.ACCOUNT.getAccount_id())
+                        .add("c_id", consultant_id)
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(booking)
+                        .post(fromBody)
+                        .build();
+
+
+                Call call = client.newCall(request);
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        System.out.println("Registration Error ApI " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    jsonObject = new JSONObject(response.body().string());
+                                    System.out.println(jsonObject);
+                                    if(jsonObject.getString("status").equals("success")){
+                                        Toast.makeText(Consultant_GetAppointment.this,"Booking Confirmed",
+                                                Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(getApplicationContext(), Consultant_AppointmentConfirmation.class));
+                                        finishAffinity();
+                                    } else {
+                                        Toast.makeText(Consultant_GetAppointment.this,"Booking Failed",
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                } catch (JSONException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }).start();
+
     }
 
 }

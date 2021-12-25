@@ -17,6 +17,8 @@ public class UsefulFunctions {
 
   public static JSONObject UsingGetAPI(String inputURL) {
 
+      System.out.println(inputURL);
+
       JSONObject jsonObject = null;
 
       Response response;

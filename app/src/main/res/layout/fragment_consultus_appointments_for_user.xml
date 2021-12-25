@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/Spacece_Yelloww"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
         android:id="@+id/MyC_Login"
@@ -13,27 +13,39 @@
         android:visibility="visible"
         android:text="Login to view you appointments"
         android:layout_gravity="center"/>
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/Appointments_For_Users_RecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="1dp"
-                android:layout_marginBottom="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_weight="1"
-                tools:listitem="@layout/consultus_appointments_list_item"/>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Appointments_For_Users_RecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_weight="1"
+        tools:listitem="@layout/consultus_appointments_list_item"/>
+
+
+ </LinearLayout>
+    </ScrollView>
+    <TextView
+        android:id="@+id/Abhikant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:text="Developed by Abhikant Awasthi"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:textColor="@color/Spacece_Yelloww"
+        android:layout_gravity="bottom" />
 </FrameLayout>

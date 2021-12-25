@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.*;
 
-import android.util.Base64;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.spacECE.spaceceedu.MainActivity;
-import com.spacECE.spaceceedu.UsefulFunctions;
 import com.spacECE.spaceceedu.R;
 
 import okhttp3.*;
@@ -32,8 +30,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
 
@@ -154,11 +150,11 @@ public class UserRegistration extends AppCompatActivity {
         return image;
     }
 
-    public static String encodeBase64(Bitmap image) {
+    public static byte[] getByteArray(Bitmap image) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
         byte[] encoded = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(encoded, 0);
+        return encoded;
     }
 
     private void sendUserRegistration(String name, String email, String password, String phone, Uri image){
@@ -169,7 +165,7 @@ public class UserRegistration extends AppCompatActivity {
 
             JSONObject jsonObject;
             Bitmap selectedImage;
-            String encodedImage = "null";
+            byte[] encodedImage ;
 
 
             @Override
@@ -177,19 +173,21 @@ public class UserRegistration extends AppCompatActivity {
 
                 try {
                     selectedImage = getBitmapFromUri(image);
-                    encodedImage = encodeBase64(selectedImage);
+                    encodedImage = getByteArray(selectedImage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 OkHttpClient client = new OkHttpClient();
-                RequestBody fromBody = new FormBody.Builder()
-                        .add("name", name)
-                        .add("email", email)
-                        .add("password", password)
-                        .add("phone", phone)
-                        .add("image", encodedImage)
-                        .add("type", "customer")
+                RequestBody fromBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("name", name)
+                        .addFormDataPart("email", email)
+                        .addFormDataPart("password", password)
+                        .addFormDataPart("phone", phone)
+                        .addFormDataPart("image", name+".jpg",
+                                RequestBody.create(MediaType.parse("image/*jpg"), encodedImage))
+                        .addFormDataPart("type", "customer")
                         .build();
 
                 Request request = new Request.Builder()

@@ -37,16 +37,18 @@ import com.spacECE.spaceceedu.Location.LocationService;
 import com.spacECE.spaceceedu.VideoLibrary.Topic;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 
+import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String BUILD_NUMBER = "4558";
+    public static final String BUILD_NUMBER = "PHP";
 
     private DrawerLayout drawer;
     private Toolbar toolbar;
@@ -123,9 +125,13 @@ public class MainActivity extends AppCompatActivity {
 
             // find MenuItem you want to change
             ImageView nav_camara = navHead.findViewById(R.id.Main_nav_drawer_profile_pic);
-            if(!ACCOUNT.getProfile_pic().isEmpty()){
-                Bitmap btmap=decodeBase64(ACCOUNT.getProfile_pic());
-                nav_camara.setImageBitmap(btmap);
+
+            String image = "http://spacefoundation.in/test/SpacECE-PHP/img/users/Utkarsh.jpg";
+
+            try {
+                Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://","http://")).into(nav_camara);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -159,11 +165,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static Bitmap decodeBase64(String input) {
-        byte[] decodedByte = Base64.decode(input, 0);
-        return BitmapFactory.decodeByteArray
-                (decodedByte, 0, decodedByte.length);
-    }
 
     private void sendTokenToServer(String token) {
         Thread thread = new Thread(new Runnable() {
