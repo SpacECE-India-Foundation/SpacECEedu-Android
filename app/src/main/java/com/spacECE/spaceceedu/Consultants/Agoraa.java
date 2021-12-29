@@ -39,7 +39,6 @@ public class Agoraa extends AppCompatActivity {
     private static final int PERMISSION_REQ_ID = 22;
 
     String Consult_ID, Consult_Name, Consult_Pic;
-    String User_Name, User_Pic;
 
     // Permission WRITE_EXTERNAL_STORAGE is not mandatory
     // for Agora RTC SDK, just in case if you wanna save
@@ -88,7 +87,7 @@ public class Agoraa extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mLogView.logI("Join channel success "+User_Name);
+                    mLogView.logI("Join channel success "+MainActivity.ACCOUNT.getUsername());
                 }
             });
         }
@@ -98,7 +97,7 @@ public class Agoraa extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mLogView.logI("First remote video decoded "+User_Name);
+                    mLogView.logI("First remote video decoded "+MainActivity.ACCOUNT.getUsername());
                     setupRemoteVideo(uid);
                 }
             });
@@ -131,7 +130,7 @@ public class Agoraa extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mLogView.logI("User offline "+User_Name);
+                    mLogView.logI("User offline "+MainActivity.ACCOUNT.getUsername());
                     onRemoteUserLeft(uid);
                 }
             });
@@ -184,12 +183,9 @@ public class Agoraa extends AppCompatActivity {
         Consult_ID = intent.getStringExtra("c_id");
         Consult_Name = intent.getStringExtra("c_name");
         Consult_Pic = intent.getStringExtra("c_pic");
-        User_Name = intent.getStringExtra("u_name");
-        User_Pic = intent.getStringExtra("u_pic");
         String finalConsult_ID = Consult_ID;
 
         System.out.println(Consult_ID+Consult_Name+Consult_Pic);
-        System.out.println(User_Name+User_Pic);
 
         Thread thread = new Thread(new Runnable() {
 

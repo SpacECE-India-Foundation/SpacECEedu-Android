@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.spacECE.spaceceedu.R;
 
+import com.spacECE.spaceceedu.UsefulFunctions;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.text.ParseException;
 
 import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
 
@@ -114,10 +116,16 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (validateData()) {
-
-                    sendUserRegistration( ev_name.getText().toString(), ev_email.getText().toString(),
-                            ev_password.getText().toString(), ev_phoneNo.getText().toString(), picData);
-
+                    try {
+                        if(validTime(START_TIME, END_TIME)){
+                            sendUserRegistration( ev_name.getText().toString(), ev_email.getText().toString(),
+                                    ev_password.getText().toString(), ev_phoneNo.getText().toString(), picData);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "End Time must be greater than Start Time", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "Check Details", Toast.LENGTH_LONG).show();
                 }
@@ -162,6 +170,10 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
             picData= data.getData();
             iv_profile_pic.setImageURI(data.getData());
         }
+    }
+
+    private boolean validTime(String fromTime, String endTime) throws ParseException {
+        return UsefulFunctions.DateFunc.StringToTime(fromTime).before(UsefulFunctions.DateFunc.StringToTime(endTime));
     }
 
     private Bitmap getBitmapFromUri(Uri uri) throws IOException {

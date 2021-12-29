@@ -69,8 +69,6 @@ public class Appointments_For_Consultant_RecyclerViewAdapter extends RecyclerVie
                 intent.putExtra("c_id", myConsultants.get(holder.getAdapterPosition()).getConsult_id());
                 intent.putExtra("c_name", myConsultants.get(holder.getAdapterPosition()).getC_name());
                 intent.putExtra("c_pic", myConsultants.get(holder.getAdapterPosition()).getC_pic());
-                intent.putExtra("u_name", myConsultants.get(holder.getAdapterPosition()).getU_name());
-                intent.putExtra("c_pic", myConsultants.get(holder.getAdapterPosition()).getU_pic());
                 v.getContext().startActivity(intent);
             }
         });
