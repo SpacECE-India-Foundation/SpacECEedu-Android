@@ -23,7 +23,7 @@ public class ReminderBroadCastReciever extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         //int dayNo = intent.getExtras().getInt("EXTRA_DAY_NO");
-        //Log.d(TAG, "onReceive: EXtra "+dayNo);
+        //Log.d(TAG, "onReceive: Extra "+dayNo);
         DBController dbController = new DBController(context);
         ActivityData lastActivity = dbController.getLastActivity();
         int dayNo = dbController.isNewUser();

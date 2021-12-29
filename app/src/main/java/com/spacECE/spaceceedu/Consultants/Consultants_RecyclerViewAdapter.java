@@ -18,17 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consultants_RecyclerViewAdapter.MyViewHolder> implements Filterable {
+public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consultants_RecyclerViewAdapter.MyViewHolder> {
     ArrayList<Consultant> consultants;
-    ArrayList<Consultant> AllConsultants,preFilteredList;
 
     private RecyclerViewClickListener listener;
 
     public Consultants_RecyclerViewAdapter(ArrayList<Consultant> consultants, RecyclerViewClickListener listener) {
         this.consultants = consultants;
         this.listener = listener;
-        AllConsultants = new ArrayList<>(consultants);
-        preFilteredList = new ArrayList<>(consultants);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -83,38 +80,4 @@ public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consul
     }
 
 
-    @Override
-    public Filter getFilter(){
-        return SearchFilter;
-    }
-
-    private Filter SearchFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<Consultant> filteredList = new ArrayList<>();
-
-            if (charSequence == null || charSequence.length() == 0) {
-                filteredList.addAll(preFilteredList);
-            } else {
-                String filteredPattern = charSequence.toString().toLowerCase(Locale.ROOT).trim();
-
-                for (Consultant item : preFilteredList) {
-                    if (item.getName().toLowerCase(Locale.ROOT).contains(filteredPattern) || item.getCategories().toString().toLowerCase(Locale.ROOT).contains(filteredPattern)) {
-                        filteredList.add(item);
-                    }
-                }
-            }
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            consultants.clear();
-            consultants.addAll((List) filterResults.values);
-            notifyDataSetChanged();
-        }
-    };
 }

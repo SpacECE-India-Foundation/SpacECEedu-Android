@@ -1,5 +1,6 @@
 package com.spacECE.spaceceedu.Consultants;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,8 @@ import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 
 import java.util.ArrayList;
+
+import static com.spacECE.spaceceedu.Consultants.ConsultantsLibrary.consultantsList;
 
 public class Fragment_Appointments_For_User extends Fragment {
 
@@ -61,8 +64,18 @@ public class Fragment_Appointments_For_User extends Fragment {
         listener = new Appointments_For_User_RecyclerViewAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
-//                Intent intent = new Intent(getContext(), ConsultantProfile.class);
-//                intent.putExtra("position", position);
+//                Intent intent = new Intent(v.getContext(), ConsultantProfile.class);
+//                intent.putExtra("profile_pic", consultantsList.get(position).getProfilePic_src());
+//                intent.putExtra("consultant_id", consultantsList.get(position).getConsultant_id());
+//                intent.putExtra("consultant_name", consultantsList.get(position).getName());
+//                intent.putExtra("speciality", consultantsList.get(position).getCategories());
+//                intent.putExtra("chamber", consultantsList.get(position).getAddress());
+//                intent.putExtra("fee", consultantsList.get(position).getPrice());
+//                intent.putExtra("language", consultantsList.get(position).getLanguage());
+//                intent.putExtra("timing_to", consultantsList.get(position).getTiming_end());
+//                intent.putExtra("timing_from", consultantsList.get(position).getTiming_start());
+//                intent.putExtra("qualification", consultantsList.get(position).getQualification());
+//                intent.putExtra("profilePic", consultantsList.get(position).getProfilePic_src());
 //                startActivity(intent);
             }
         };

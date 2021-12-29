@@ -26,13 +26,13 @@ public class Consultant_AppointmentConfirmation extends AppCompatActivity {
         BookedOn = findViewById(R.id.BookedOn);
         Home = findViewById(R.id.BookingtoHome);
 
-        Bundle extra = getIntent().getExtras();
-        bookingId = extra.getString("bookingId");
-        bookedOn = extra.getString("bookedOn");
-        duration = extra.getString("duration");
-
-        BookingId.setText("Order ID : "+bookingId);
-        BookedOn.setText("Booked On "+bookedOn+"for "+duration+"minutes");
+//        Bundle extra = getIntent().getExtras();
+//        bookingId = extra.getString("bookingId");
+//        bookedOn = extra.getString("bookedOn");
+//        duration = extra.getString("duration");
+//
+//        BookingId.setText("Order ID : "+bookingId);
+//        BookedOn.setText("Booked On "+bookedOn+"for "+duration+"minutes");
 
 
 

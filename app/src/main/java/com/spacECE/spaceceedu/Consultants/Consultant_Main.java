@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 
+import com.spacECE.spaceceedu.UsefulFunctions;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -20,7 +22,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Consultant_Main extends AppCompatActivity {
 
@@ -117,17 +121,20 @@ public class Consultant_Main extends AppCompatActivity {
 
                             if(jsonObject.getString("status").equals("success")) {
                                 jsonArray = jsonObject.getJSONArray("data");
+
+                                Fragment_Appointments_For_User.appointmentsArrayList = new ArrayList<>();
+
                                 try {
                                     for (int i = 0; i < jsonArray.length(); i++) {
 
                                         JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
 
-                                        Appointment newAppointment = new Appointment(response_element.getString("c_name"), response_element.getString("u_name")
-                                                , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("booked_on")
+                                        Appointment newAppointment = new Appointment(response_element.getString("c_id"), response_element.getString("c_name"), response_element.getString("u_name")
+                                                , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("b_time")
                                                 , response_element.getString("end_time"));
                                         Fragment_Appointments_For_User.appointmentsArrayList.add(newAppointment);
                                     }
-                                    Log.i("My CONSULTANTS:::::", Fragment_Appointments_For_User.appointmentsArrayList.toString());
+                                    Log.i("Appointments_For_User:::::", Fragment_Appointments_For_User.appointmentsArrayList.toString());
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -184,17 +191,19 @@ public class Consultant_Main extends AppCompatActivity {
 
                                 jsonArray = jsonObject.getJSONArray("data");
 
+                                Fragment_Appointments_For_Consultants.appointmentsArrayList = new ArrayList<>();
+
                                 try {
                                     for (int i = 0; i < jsonArray.length(); i++) {
 
                                         JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
 
-                                        Appointment newAppointment = new Appointment(response_element.getString("c_name"), response_element.getString("u_name")
-                                                , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("booked_on")
+                                        Appointment newAppointment = new Appointment(response_element.getString("c_id"), response_element.getString("c_name"), response_element.getString("u_name")
+                                                , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("b_time")
                                                 , response_element.getString("end_time"));
                                         Fragment_Appointments_For_Consultants.appointmentsArrayList.add(newAppointment);
                                     }
-                                    Log.i("My CONSULTANTS:::::", Fragment_Appointments_For_Consultants.appointmentsArrayList.toString());
+                                    Log.i("Appointments_For_Consultant:::::", Fragment_Appointments_For_Consultants.appointmentsArrayList.toString());
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -208,6 +217,19 @@ public class Consultant_Main extends AppCompatActivity {
                 });
             }
         }).start();
+    }
+
+    public static void SetDateTimeDay(int position, ArrayList<Appointment> myConsultants, TextView date, TextView time, TextView day) {
+        Date dateObject = new Date();
+        try {
+            dateObject = UsefulFunctions.DateFunc.StringToDate(myConsultants.get(position).getBookedAt());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        date.setText(UsefulFunctions.DateFunc.DateObjectToDate(dateObject));
+        time.setText(UsefulFunctions.DateFunc.DateObjectToTime(dateObject));
+        day.setText(UsefulFunctions.DateFunc.DateObjectToDay(dateObject));
     }
 
 

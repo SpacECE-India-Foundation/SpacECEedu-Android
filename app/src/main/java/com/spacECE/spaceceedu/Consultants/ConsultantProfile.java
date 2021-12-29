@@ -17,9 +17,6 @@ import java.util.ArrayList;
 
 public class ConsultantProfile extends AppCompatActivity {
 
-    public static ArrayList<Consultant_GetAppointment.Appointments> appointments=new ArrayList<Consultant_GetAppointment.Appointments>();
-
-    Button b_call;
     Button b_appointment;
     ImageView iv_profilePic;
     private TextView tv_name,tv_speciality,tv_chambers,tv_charges,tv_timing,tv_language,tv_days,tv_qualification;
@@ -39,7 +36,6 @@ public class ConsultantProfile extends AppCompatActivity {
         tv_timing=findViewById(R.id.Consultant_Profile_textView_Timing);
         tv_qualification=findViewById(R.id.Consultant_Profile_textView_Qualification);
         b_appointment = findViewById(R.id.Consultant_Profile_Button_GetAppointment);
-        b_call=findViewById(R.id.Consultant_Profile_Button_Call);
 
 
         String name = "No name";
@@ -68,7 +64,7 @@ public class ConsultantProfile extends AppCompatActivity {
             timing_from=extras.getString("timing_from");
             timing_to=extras.getString("timing_to");
             qualification=extras.getString("qualification");
-            pic_src = extras.getString("profilepic");
+            pic_src = extras.getString("profile_pic");
         }
 
 
@@ -77,7 +73,7 @@ public class ConsultantProfile extends AppCompatActivity {
         tv_chambers.setText(address);
         tv_speciality.setText(speciality);
         tv_charges.setText(fee+" /-");
-        tv_timing.setText(timing_from+" - "+timing_to);
+        tv_timing.setText(timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
         tv_language.setText(language);
         tv_days.setText(String.valueOf(days_from.charAt(0))+days_from.charAt(1)+days_from.charAt(2)+" - "+days_to.charAt(0)+days_to.charAt(1)+days_to.charAt(2));
 
@@ -88,22 +84,13 @@ public class ConsultantProfile extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        makeList();
-
-        b_call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                startActivity(new Intent(getApplicationContext(), Agoraa.class));
-
-            }
-        });
-
         String finalPic_src = pic_src;
         String finalConsultant_id = consultant_id;
         String finalName = name;
         String finalFee = fee;
         String finalSpeciality = speciality;
+        String finalTiming_from = timing_from;
+        String finalTiming_to = timing_to;
 
         b_appointment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,16 +101,11 @@ public class ConsultantProfile extends AppCompatActivity {
                 intent.putExtra("consultant_name", finalName);
                 intent.putExtra("speciality", finalSpeciality);
                 intent.putExtra("fee", finalFee);
+                intent.putExtra("startTime", finalTiming_from);
+                intent.putExtra("endTime", finalTiming_to);
                 startActivity(intent);
             }
         });
 
-    }
-
-
-    private void makeList() {
-        appointments.add(new Consultant_GetAppointment.Appointments("26", "Aug","2021",new String[]{"10:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("6", "Oct","2022",new String[]{"9:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
-        appointments.add(new Consultant_GetAppointment.Appointments("12", "Oct","2022",new String[]{"11:15 AM","11:30 AM","12:45 PM","1:25 PM","3:00 PM","4:15 PM","4:45 PM","6:00 PM"}));
     }
 }

@@ -112,7 +112,7 @@
         <entry key="app/src/main/res/layout/activity_consultant_appointment_confirmation.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_consultant_get_appointment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_consultant_main.xml" value="0.2056159420289855" />
-        <entry key="app/src/main/res/layout/activity_consultant_profile.xml" value="0.32083333333333336" />
+        <entry key="app/src/main/res/layout/activity_consultant_profile.xml" value="0.21965317919075145" />
         <entry key="app/src/main/res/layout/activity_consultant_registration.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/activity_consultants_library.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/activity_learnon_list_splashscreen.xml" value="0.32083333333333336" />
@@ -128,6 +128,7 @@
         <entry key="app/src/main/res/layout/consultant_get_appointment_list_item_time.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/consultant_list_item.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/consultants_consultants_appointments_list_item.xml" value="0.32083333333333336" />
+        <entry key="app/src/main/res/layout/consultus_appointments_list_item.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/fragment__consultants__consultants_appointments.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/fragment_consultant__categories.xml" value="0.15833333333333333" />
         <entry key="app/src/main/res/layout/fragment_consultants__my_consultant.xml" value="0.32083333333333336" />

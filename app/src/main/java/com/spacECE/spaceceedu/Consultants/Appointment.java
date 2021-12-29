@@ -1,18 +1,24 @@
 package com.spacECE.spaceceedu.Consultants;
 
 public class Appointment {
+    private String consult_id;
     private String c_name, u_name, c_pic, u_pic;
     private String bookedAt;
     private String duration;
 
-    public Appointment(String c_name, String u_name, String c_pic,
+    public Appointment(String consult_id, String c_name, String u_name, String c_pic,
                        String u_pic, String bookedAt, String duration) {
+        this.consult_id = consult_id;
         this.c_name = c_name;
         this.u_name = u_name;
         this.c_pic = c_pic;
         this.u_pic = u_pic;
         this.bookedAt = bookedAt;
         this.duration = duration;
+    }
+
+    public String getConsult_id() {
+        return consult_id;
     }
 
     public String getC_name() {

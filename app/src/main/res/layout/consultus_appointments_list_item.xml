@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
@@ -14,8 +15,7 @@
         <TextView
             android:id="@+id/Consultant_Consultants_textView_Name"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:maxWidth="200dp"
+            android:layout_height="wrap_content"
             android:paddingStart="2dp"
             android:text="Mr. Patient"
             android:textAlignment="viewStart"
@@ -38,15 +38,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight="wrap_content"
             app:layout_constraintStart_toEndOf="@+id/Consultant_Consultants_ImageView_ProfilePic"
-            app:layout_constraintTop_toBottomOf="@+id/Consultant_Consultants_textView_Status"
+            app:layout_constraintTop_toBottomOf="@+id/Consultant_Consultants_textView_Day"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/Consultant_Consultants_textView_Status"
+            android:id="@+id/Consultant_Consultants_textView_Day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Payment Pending"
+            android:layout_marginStart="56dp"
+            android:text="Monday"
             android:textColor="#4CAF50"
             android:textSize="16sp"
             android:textStyle="italic"
@@ -69,13 +69,25 @@
             android:id="@+id/Consultant_Consultants_textView_Date"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="48dp"
             android:gravity="right"
             android:text="1/Jan"
             android:textColor="#FFC107"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.235" />
+
+        <ImageButton
+            android:id="@+id/bCall"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_call_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

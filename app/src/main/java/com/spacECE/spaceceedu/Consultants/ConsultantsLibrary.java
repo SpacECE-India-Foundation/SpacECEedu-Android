@@ -48,7 +48,6 @@ public class ConsultantsLibrary extends AppCompatActivity {
         listener = new Consultants_RecyclerViewAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
-
                 Intent intent = new Intent(getApplicationContext(), ConsultantProfile.class);
                 intent.putExtra("profile_pic", consultantsList.get(position).getProfilePic_src());
                 intent.putExtra("consultant_id", consultantsList.get(position).getConsultant_id());

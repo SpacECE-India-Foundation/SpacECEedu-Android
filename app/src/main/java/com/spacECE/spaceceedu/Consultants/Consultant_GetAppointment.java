@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.UsefulFunctions;
 import com.squareup.picasso.Picasso;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +21,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 
 import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
 import static java.lang.String.format;
@@ -31,7 +34,9 @@ public class Consultant_GetAppointment extends AppCompatActivity {
     String consultant_id = "Consultant ID missing";
     String speciality = "None";
     String fee="Free";
-    String pic_src = "";
+    String pic_src;
+    String timing_from= "";
+    String timing_to = "";
 
     String date, time;
     int mYear, mMonth, mDay, mHour, mMinute;
@@ -41,9 +46,10 @@ public class Consultant_GetAppointment extends AppCompatActivity {
     private ImageView iv_profile;
     private Button b_confPay;
     private TextView clock, calendar;
+    private EditText duration;
     private Boolean Date_picked = false;
     private Boolean Time_picked = false;
-    private String BOOKINGDAY, BOOKINGTIME;
+    private String BOOKING_DAY, BOOKING_TIME, DURATION;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,7 @@ public class Consultant_GetAppointment extends AppCompatActivity {
         iv_profile = findViewById(R.id.Consultant_GetAppointment_ProfilePic);
         tv_confirmation = findViewById(R.id.Consultant_GetAppointment_TextView_Confirmation);
         b_confPay = findViewById(R.id.Consultant_GetAppointment_Button_Confirm);
+        tv_time = findViewById(R.id.Consultant_GetAppointment_textView_Timing);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -64,13 +71,18 @@ public class Consultant_GetAppointment extends AppCompatActivity {
             consultant_id = extras.getString("consultant_id");
             speciality = extras.getString("speciality");
             pic_src=extras.getString("profile_pic");
+            timing_from = extras.getString("startTime");
+            timing_to = extras.getString("endTime");
+
         }
         tv_speciality.setText(speciality);
         tv_charges.setText(fee);
         tv_name.setText(name);
+        tv_time.setText("Available from "+timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
+
+        System.out.println(pic_src);
 
         try {
-            pic_src = "https://spacefoundation.in/test/SpacECE-PHP/img/users/" + pic_src;
             Picasso.get().load(pic_src.replace("https://","http://")).into(iv_profile);
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,6 +90,7 @@ public class Consultant_GetAppointment extends AppCompatActivity {
 
         clock = findViewById(R.id.Clock);
         calendar = findViewById(R.id.Calendar);
+        duration = findViewById(R.id.Duration);
 
         clock.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,11 +110,21 @@ public class Consultant_GetAppointment extends AppCompatActivity {
         b_confPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Date_picked&Time_picked){
-                    //tv_confirmation.setText(BOOKINGDAY+BOOKINGTIME);
-                    BookAppointment();
+                DURATION = duration.getText().toString().trim();
+                if(Date_picked & Time_picked & !DURATION.isEmpty()){
+                    //tv_confirmation.setText(BOOKING_DAY+BOOKING_TIME);
+                    try {
+                        if(validTime(timing_from, timing_to, BOOKING_TIME)){
+                            tv_confirmation.setText("Appointment booked on " + date + time);
+                            BookAppointment();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Select A valid Time", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 } else{
-                    Toast.makeText(Consultant_GetAppointment.this, "Please Select Date and Time",
+                    Toast.makeText(Consultant_GetAppointment.this, "Please Select Date, Time and Duration",
                             Toast.LENGTH_SHORT).show();
                 }
 
@@ -127,15 +150,13 @@ public class Consultant_GetAppointment extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year,int monthOfYear, int dayOfMonth) {
                         Date_picked =true;
                         date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year + " ";
-                        BOOKINGDAY = format("%d:%d:%d ", year, (monthOfYear+1), dayOfMonth);
+                        BOOKING_DAY = format("%04d:%02d:%02d ", year, (monthOfYear+1), dayOfMonth);
                         calendar.setText(date);
 
                         if(!Time_picked){
                             timePicker();
                         }
-                        if(Date_picked && Time_picked){
-                            tv_confirmation.setText("Appointment booked on " + date + time);
-                        }
+                        DateAndTimePicked();
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -153,15 +174,13 @@ public class Consultant_GetAppointment extends AppCompatActivity {
                         mHour = hourOfDay;
                         mMinute = minute;
                         time = format("%02d:%02d", hourOfDay, minute);
-                        BOOKINGTIME = format("%02d:%02d:00", hourOfDay, minute);
+                        BOOKING_TIME = format("%02d:%02d:00", hourOfDay, minute);
                         clock.setText(time);
 
                         if(!Date_picked) {
                             datePicker();
                         }
-                        if(Date_picked && Time_picked){
-                            tv_confirmation.setText("Appointment booked on " + date + time);
-                        }
+                        DateAndTimePicked();
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();
@@ -172,44 +191,33 @@ public class Consultant_GetAppointment extends AppCompatActivity {
 
     }
 
-    public static class Appointments {
-
-        private String date,month;
-        private String year;
-        private String[] time;
-
-        public String getDate() {
-            return date;
+    private void DateAndTimePicked() {
+        if(Date_picked && Time_picked){
+            try {
+                if(validTime(timing_from, timing_to, BOOKING_TIME)){
+                    tv_confirmation.setText("Appointment booked on " + date + time);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Select A valid Time", Toast.LENGTH_SHORT).show();
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
+    }
 
-        public String getMonth() {
-            return month;
-        }
+    private boolean validTime(String start, String end, String to_check) throws ParseException {
+        Date Start = UsefulFunctions.DateFunc.StringToTime(start);
+        Date End = UsefulFunctions.DateFunc.StringToTime(end);
+        Date To_Check = UsefulFunctions.DateFunc.StringToTime(to_check);
 
-        public String getYear() {
-            return year;
-        }
+        return (To_Check.before(End) & To_Check.after(Start));
 
-        public String[] getTime() {
-            return time;
-        }
-
-        public Appointments(String date, String month, String year, String[] time) {
-            this.date = date;
-            this.month = month;
-            this.year = year;
-            this.time = time;
-        }
-
-        public Appointments(String date, String month, String[] time) {
-            this.date = date;
-            this.month = month;
-            this.time = time;
-        }
     }
 
     private void BookAppointment() {
 
+        System.out.println(MainActivity.ACCOUNT.getAccount_id()+consultant_id+ BOOKING_DAY + BOOKING_TIME);
+        System.out.println(DURATION);
         new Thread(new Runnable() {
 
             JSONObject jsonObject;
@@ -223,6 +231,8 @@ public class Consultant_GetAppointment extends AppCompatActivity {
                 RequestBody fromBody = new FormBody.Builder()
                         .add("u_id", MainActivity.ACCOUNT.getAccount_id())
                         .add("c_id", consultant_id)
+                        .add("b_time", BOOKING_DAY + BOOKING_TIME)
+                        .add("end_time", DURATION)
                         .build();
 
                 Request request = new Request.Builder()

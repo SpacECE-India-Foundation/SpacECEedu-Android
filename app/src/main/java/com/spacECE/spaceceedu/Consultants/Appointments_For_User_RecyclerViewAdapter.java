@@ -1,9 +1,10 @@
 package com.spacECE.spaceceedu.Consultants;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import static com.spacECE.spaceceedu.Consultants.Consultant_Main.SetDateTimeDay;
+
 public class Appointments_For_User_RecyclerViewAdapter extends RecyclerView.Adapter<Appointments_For_User_RecyclerViewAdapter.MyViewHolder>{
     ArrayList<Appointment> myConsultants;
     ArrayList<Appointment> AllConsultants,preFilteredList;
@@ -24,21 +27,21 @@ public class Appointments_For_User_RecyclerViewAdapter extends RecyclerView.Adap
     public Appointments_For_User_RecyclerViewAdapter(ArrayList<Appointment> myConsultants, RecyclerViewClickListener listener) {
         this.myConsultants = myConsultants;
         this.listener = listener;
-        AllConsultants = new ArrayList<>(myConsultants);
-        preFilteredList = new ArrayList<>(myConsultants);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView name, date, time, status;
+        private TextView name, date, time, day;
         private ImageView profile;
+        private ImageButton call;
 
         public MyViewHolder(@NonNull View view) {
             super(view);
             name = view.findViewById(R.id.Consultant_Consultants_textView_Name);
             profile = view.findViewById(R.id.Consultant_Consultants_ImageView_ProfilePic);
             date = view.findViewById(R.id.Consultant_Consultants_textView_Date);
-            status = view.findViewById(R.id.Consultant_Consultants_textView_Status);
+            day = view.findViewById(R.id.Consultant_Consultants_textView_Day);
             time=view.findViewById(R.id.Consultant_Consultants_textView_Timing);
+            call=view.findViewById(R.id.bCall);
             view.setOnClickListener(this);
         }
 
@@ -56,10 +59,22 @@ public class Appointments_For_User_RecyclerViewAdapter extends RecyclerView.Adap
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String name = myConsultants.get(position).getC_name();
+        SetDateTimeDay(position, myConsultants, holder.date, holder.time, holder.day);
         String profilePic_src = null;
-        holder.name.setText(name);
-
+        holder.name.setText("Dr. "+name);
         Picasso.get().load(R.drawable.default_profilepic).into(holder.profile);
+        holder.call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Agoraa.class);
+                intent.putExtra("c_id", myConsultants.get(holder.getAdapterPosition()).getConsult_id());
+                intent.putExtra("c_name", myConsultants.get(holder.getAdapterPosition()).getC_name());
+                intent.putExtra("c_pic", myConsultants.get(holder.getAdapterPosition()).getC_pic());
+                intent.putExtra("u_name", myConsultants.get(holder.getAdapterPosition()).getU_name());
+                intent.putExtra("c_pic", myConsultants.get(holder.getAdapterPosition()).getU_pic());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
