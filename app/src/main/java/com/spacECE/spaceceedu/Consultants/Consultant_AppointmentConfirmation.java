@@ -1,6 +1,9 @@
 package com.spacECE.spaceceedu.Consultants;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,6 +13,12 @@ import android.os.Bundle;
 
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.Notification;
+import com.spacECE.spaceceedu.Utils.UsefulFunctions;
+
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Consultant_AppointmentConfirmation extends AppCompatActivity {
 
@@ -25,6 +34,25 @@ public class Consultant_AppointmentConfirmation extends AppCompatActivity {
         BookingId = findViewById(R.id.Order_ID);
         BookedOn = findViewById(R.id.BookedOn);
         Home = findViewById(R.id.BookingtoHome);
+
+
+        //TODO
+//        Intent intent = new Intent(Consultant_Main.this, Notification.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(Consultant_Main.this,
+//                Integer.parseInt(response_element.getString("booking_id")), intent, 0);
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        Date date = new Date();
+//        Calendar calendar = Calendar.getInstance();
+//        try {
+//            date = UsefulFunctions.DateFunc.StringToDate(response_element.getString("b_time"));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        calendar.setTime(date);
+//        Log.d("Notification", "sendNotification: "+calendar.getTime());
+//        alarmManager.set(AlarmManager.RTC_WAKEUP,
+//                calendar.getTimeInMillis()-1000*60*10, pendingIntent);
+
 
 //        Bundle extra = getIntent().getExtras();
 //        bookingId = extra.getString("bookingId");

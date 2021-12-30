@@ -15,8 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.spacECE.spaceceedu.MainActivity;
-import com.spacECE.spaceceedu.UsefulFunctions;
-import com.spacECE.spaceceedu.Authentication.LoginActivity;
+import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import com.spacECE.spaceceedu.R;
 
 import java.net.URLEncoder;

@@ -62,6 +62,8 @@ public class Appointments_For_Consultant_RecyclerViewAdapter extends RecyclerVie
         SetDateTimeDay(position, myConsultants, holder.date, holder.time, holder.day);
         holder.name.setText("User "+name);
         Picasso.get().load(R.drawable.default_profilepic).into(holder.profile);
+
+
         holder.call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +74,7 @@ public class Appointments_For_Consultant_RecyclerViewAdapter extends RecyclerVie
                 v.getContext().startActivity(intent);
             }
         });
+
     }
 
     @Override

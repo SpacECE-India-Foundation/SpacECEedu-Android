@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.spacECE.spaceceedu.R;
 
-import com.spacECE.spaceceedu.UsefulFunctions;
+import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -104,7 +104,7 @@ public class ConsultantRegistrationFinal extends AppCompatActivity {
                     }
                 }
                 else {
-                    //system os is less then marshmallow
+                    //system os is less than marshmallow
                     pickImageFromGallery();
                 }
 

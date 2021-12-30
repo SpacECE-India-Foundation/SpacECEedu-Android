@@ -13,11 +13,12 @@ import androidx.core.app.NotificationManagerCompat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import org.json.JSONObject;
 
 public class ReminderBroadCastReciever extends BroadcastReceiver {
 
-    final String TAG = "ReminderBroadCastReciever";
+    final String TAG = "ReminderBroadCastReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -45,7 +46,7 @@ public class ReminderBroadCastReciever extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notify")
                 .setSmallIcon(R.drawable.logo)
                 .setContentIntent(pendingIntent)
-                .setContentTitle("SapceActive - Activity "+activityNo)
+                .setContentTitle("SpaceActive - Activity "+activityNo)
                 .setContentText(activityName)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 

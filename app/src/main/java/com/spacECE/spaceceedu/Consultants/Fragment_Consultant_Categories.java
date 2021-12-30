@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.spacECE.spaceceedu.UsefulFunctions;
+import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import com.spacECE.spaceceedu.R;
 
 import org.json.JSONArray;

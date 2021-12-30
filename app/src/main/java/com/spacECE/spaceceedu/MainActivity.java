@@ -3,12 +3,9 @@ package com.spacECE.spaceceedu;
 import android.app.*;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -34,6 +33,8 @@ import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.Location.LocationService;
+import com.spacECE.spaceceedu.Utils.Notification;
+import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import com.spacECE.spaceceedu.VideoLibrary.Topic;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 
@@ -42,7 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -140,8 +141,9 @@ public class MainActivity extends AppCompatActivity {
                     new FragmentMain()).commit();
         }
 
-        GetLists getLists= new GetLists();
-        getLists.execute();
+        //TODO this api is not working
+//        GetLists getLists= new GetLists();
+//        getLists.execute();
 
         DBController dbController = new DBController(MainActivity.this);
 
@@ -158,8 +160,23 @@ public class MainActivity extends AppCompatActivity {
         LocationService locationService = new LocationService();
         locationService.Start(this, this);
 
-        //Testing
-        //startService(new Intent(MainActivity.this, listener.class));
+//        Testing
+//        Intent intent = new Intent(this, Notification.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this,
+//                0, intent, 0);
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        Date date = new Date();
+//        Calendar calendar = Calendar.getInstance();
+//        try {
+//            date = UsefulFunctions.DateFunc.StringToDate("2021-12-30 17:06:00");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        calendar.setTime(date);
+//        Log.d(TAG, "sendNotification: "+calendar.getTime());
+//        alarmManager.set(AlarmManager.RTC_WAKEUP,
+//                calendar.getTimeInMillis(), pendingIntent);
+
 
 
 
