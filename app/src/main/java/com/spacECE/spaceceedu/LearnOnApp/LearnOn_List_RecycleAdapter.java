@@ -1,5 +1,6 @@
 package com.spacECE.spaceceedu.LearnOnApp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.instamojo.android.Instamojo;
 import com.spacECE.spaceceedu.R;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +20,7 @@ public class LearnOn_List_RecycleAdapter extends RecyclerView.Adapter<LearnOn_Li
 
     ArrayList<Learn> Llist;
 
-
+    public static String orderID = "0169c0a4-342c-4040-9537-9f7d94c86553";
 
     private final LearnOn_List_RecycleAdapter.RecyclerViewClickListener listener;
 
@@ -28,7 +30,7 @@ public class LearnOn_List_RecycleAdapter extends RecyclerView.Adapter<LearnOn_Li
         this.listener = listener;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, Instamojo.InstamojoPaymentCallback {
         private final TextView tv_category;
         private final Button tv_enroll;
 
@@ -39,14 +41,30 @@ public class LearnOn_List_RecycleAdapter extends RecyclerView.Adapter<LearnOn_Li
             tv_enroll = view.findViewById(R.id.Enroll);
             tv_enroll.setOnClickListener(v -> {
 
-                Intent intent = new Intent(tv_enroll.getContext(), Payment.class);
-                tv_enroll.getContext().startActivity(intent);
+                Instamojo.getInstance().initialize(view.getContext(), Instamojo.Environment.TEST);
+                Instamojo.getInstance().initiatePayment((Activity) view.getContext(), orderID, this);
+
             });
         }
 
 
         @Override
         public void onClick(View view) {listener.onClick(view, getAdapterPosition()); }
+
+        @Override
+        public void onInstamojoPaymentComplete(String s, String s1, String s2, String s3) {
+
+        }
+
+        @Override
+        public void onPaymentCancelled() {
+
+        }
+
+        @Override
+        public void onInitiatePaymentFailure(String s) {
+
+        }
     }
 
 

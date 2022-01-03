@@ -25,8 +25,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
-
 
 public class Fragment_Consultant_Categories extends Fragment {
 
@@ -92,7 +90,7 @@ public class Fragment_Consultant_Categories extends Fragment {
 
             try {
                 try {
-                    apiCall = UsefulFunctions.UsingGetAPI("http://spacefoundation.in/test/SpacECE-" + BUILD_NUMBER + "/ConsultUs/api_getconsultant.php?cat=" + URLEncoder.encode(category, "UTF-8"));
+                    apiCall = UsefulFunctions.UsingGetAPI("http://spacefoundation.in/test/SpacECE-PHP/ConsultUs/api_getconsultant.php?cat=" + URLEncoder.encode(category, "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }

@@ -62,6 +62,7 @@ public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consul
         holder.name.setText(name);
         holder.category.setText(categories);
         holder.price.setText("Fee: "+String.valueOf(price)+"/-");
+        //currently, src only send image name we have to set the image path
         try {
             profilePicSrc = "https://spacefoundation.in/test/SpacECE-PHP/img/users/" + profilePicSrc;
             Picasso.get().load(profilePicSrc.replace("https://","http://")).into(holder.profile);

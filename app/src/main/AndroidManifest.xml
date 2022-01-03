@@ -37,10 +37,9 @@
         <activity
             android:name=".Consultants.ConsultUs_SplashScreen"
             android:exported="true" />
-        <activity android:name=".Library.chatUS" />
+        <activity android:name=".Library.ChatUS" />
         <activity android:name=".Library.AddBook" />
         <activity android:name=".LearnOnApp.LearnDetailed" />
-        <activity android:name=".LearnOnApp.Payment" />
         <activity android:name=".LearnOnApp.LearnOn_Main" />
         <activity android:name=".LearnOnApp.LearnOn_List_SplashScreen" />
         <activity

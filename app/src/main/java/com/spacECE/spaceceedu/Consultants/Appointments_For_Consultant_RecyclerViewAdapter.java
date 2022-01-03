@@ -65,6 +65,7 @@ public class Appointments_For_Consultant_RecyclerViewAdapter extends RecyclerVie
 
 
         holder.call.setOnClickListener(new View.OnClickListener() {
+            //initiates the call with the consultants all the user details can be accessed from shared prefs
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Agoraa.class);

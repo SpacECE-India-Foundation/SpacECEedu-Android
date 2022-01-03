@@ -21,8 +21,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
-
 public class LoginActivity extends AppCompatActivity {
 
     EditText et_email;
@@ -95,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void logIn(String email, String password) {
 
-        String login = "http://spacefoundation.in/test/SpacECE-"+BUILD_NUMBER+"/spacece_auth/login_action.php";
+        String login = "http://spacefoundation.in/test/SpacECE-PHP/spacece_auth/login_action.php";
 
         new Thread(new Runnable() {
 

@@ -49,8 +49,6 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String BUILD_NUMBER = "PHP";
-
     private DrawerLayout drawer;
     private Toolbar toolbar;
     public static Account ACCOUNT=null;
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (firstStart) {
-            //causing crash on first boot
+            //causing crash on first boot TODO
 //            FirebaseMessaging.getInstance().getToken()
 //                    .addOnCompleteListener(new OnCompleteListener<String>() {
 //                        @Override
@@ -127,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             // find MenuItem you want to change
             ImageView nav_camara = navHead.findViewById(R.id.Main_nav_drawer_profile_pic);
 
-            String image = "http://spacefoundation.in/test/SpacECE-PHP/img/users/Utkarsh.jpg";
+            //https connection doesn't work as of now use http
 
             try {
                 Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://","http://")).into(nav_camara);
@@ -148,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         DBController dbController = new DBController(MainActivity.this);
 
         if(dbController.isNewUser() == 0) {
-            Toast.makeText(MainActivity.this,"Ram",Toast.LENGTH_SHORT).show();
+            //sending first notification to user who just installed
             Log.d(TAG, "onCreate: "+"new User");
             createNotificationChannel();
             sendNotification();
@@ -157,27 +155,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Starting Location Service
+        //more info in the respective class
         LocationService locationService = new LocationService();
         locationService.Start(this, this);
-
-//        Testing
-//        Intent intent = new Intent(this, Notification.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this,
-//                0, intent, 0);
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//        Date date = new Date();
-//        Calendar calendar = Calendar.getInstance();
-//        try {
-//            date = UsefulFunctions.DateFunc.StringToDate("2021-12-30 17:06:00");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        calendar.setTime(date);
-//        Log.d(TAG, "sendNotification: "+calendar.getTime());
-//        alarmManager.set(AlarmManager.RTC_WAKEUP,
-//                calendar.getTimeInMillis(), pendingIntent);
-
-
 
 
     }
@@ -187,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                //this is not working right now but this is to know when someone installs the app for the first time
                 UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_token?email="+ACCOUNT.getAccount_id()+"&token="+token);
             }
         });

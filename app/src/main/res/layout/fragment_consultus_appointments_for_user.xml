@@ -38,14 +38,4 @@
 
  </LinearLayout>
     </ScrollView>
-    <TextView
-        android:id="@+id/Abhikant"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:text="Developed by Abhikant Awasthi"
-        android:gravity="center"
-        android:textSize="16dp"
-        android:textColor="@color/Spacece_Yelloww"
-        android:layout_gravity="bottom" />
 </FrameLayout>

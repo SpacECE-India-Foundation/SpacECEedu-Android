@@ -1,5 +1,6 @@
 package com.spacECE.spaceceedu.LearnOnApp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,8 +16,10 @@ import com.spacECE.spaceceedu.R;
 
 import java.text.MessageFormat;
 
+import static com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_RecycleAdapter.orderID;
 
-public class LearnDetailed extends AppCompatActivity {
+
+public class LearnDetailed extends AppCompatActivity implements Instamojo.InstamojoPaymentCallback {
 
     TextView Id, Title, Description, Duration, Price, Mode_Type;
     Button Buy;
@@ -54,16 +57,29 @@ public class LearnDetailed extends AppCompatActivity {
 
         Buy.setOnClickListener(v -> {
             Toast.makeText(LearnDetailed.this, "yeah!", Toast.LENGTH_LONG).show();
-            Intent intent1 = new Intent(Buy.getContext(), Payment.class);
-            startActivity(intent1);
-            finish();
+
+            Instamojo.getInstance().initialize(this, Instamojo.Environment.TEST);
+            Instamojo.getInstance().initiatePayment(this, orderID, this);
         });
-
-
-
 
     }
 
 
 
+
+    @Override
+    public void onInstamojoPaymentComplete(String orderID, String transactionID, String paymentID, String paymentStatus) {
+        Log.d("TAG", "Payment complete. Order ID: " + orderID + ", Transaction ID: " + transactionID
+                + ", Payment ID:" + paymentID + ", Status: " + paymentStatus);
+    }
+
+    @Override
+    public void onPaymentCancelled() {
+
+    }
+
+    @Override
+    public void onInitiatePaymentFailure(String s) {
+
+    }
 }

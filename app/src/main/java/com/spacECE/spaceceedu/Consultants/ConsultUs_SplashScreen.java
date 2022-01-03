@@ -15,15 +15,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
-
 public class ConsultUs_SplashScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+        //launched the spinner and loaded the list and then started the activity
         LoadList();
 
     }
@@ -35,7 +33,7 @@ public class ConsultUs_SplashScreen extends AppCompatActivity {
             public void run() {
                 final JSONObject apiCall;
                 try{
-                    apiCall = UsefulFunctions.UsingGetAPI("http://spacefoundation.in/test/SpacECE-"+BUILD_NUMBER+"/ConsultUs/api_category.php?category=all");
+                    apiCall = UsefulFunctions.UsingGetAPI("http://spacefoundation.in/test/SpacECE-PHP/ConsultUs/api_category.php?category=all");
                     JSONArray jsonArray = null;
                     try {
                         try {
@@ -43,6 +41,8 @@ public class ConsultUs_SplashScreen extends AppCompatActivity {
                         } catch (AssertionError e) {
 
                             e.printStackTrace();
+
+                            //checked for if there is any issue with either the api or the internet
 
                             runOnUiThread(() -> {
                                 new AlertDialog.Builder(ConsultUs_SplashScreen.this)

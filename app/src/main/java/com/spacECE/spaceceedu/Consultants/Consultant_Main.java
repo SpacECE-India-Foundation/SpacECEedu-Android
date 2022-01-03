@@ -66,7 +66,7 @@ public class Consultant_Main extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.Consultant_Main_BottomNav);
         bottomNav.setOnItemSelectedListener(navListener);
 
-        // generateMyConsList();
+        //generated the list based on user type and expanded the fragments accordingly
         if(MainActivity.ACCOUNT!=null){
             if (MainActivity.ACCOUNT.isCONSULTANT()) {
                 bottomNav.inflateMenu(R.menu.consultant_main_consultants_bottomnav);
@@ -261,7 +261,10 @@ public class Consultant_Main extends AppCompatActivity {
         }).start();
     }
 
+
+
     public static void SetDateTimeDay(int position, ArrayList<Appointment> myConsultants, TextView date, TextView time, TextView day) {
+        //using this function to put in values in different fragments
         Date dateObject = new Date();
         try {
             dateObject = UsefulFunctions.DateFunc.StringToDate(myConsultants.get(position).getBookedAt());

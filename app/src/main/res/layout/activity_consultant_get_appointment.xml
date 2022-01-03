@@ -192,16 +192,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <EditText
+    <TextView
         android:id="@+id/Duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:textSize="18dp"
-        android:hint="Select Duration of Appointment in Minutes"
-        android:inputType="time"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/add15"
+        app:layout_constraintStart_toEndOf="@+id/sub15"
+        app:layout_constraintTop_toBottomOf="@+id/Clock" />
+
+    <Button
+        android:id="@+id/add15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="36dp"
+        android:text="+15 min"
+        android:backgroundTint="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Clock" />
+
+    <Button
+        android:id="@+id/sub15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/logError"
+        android:text="-15 min"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Clock" />
 

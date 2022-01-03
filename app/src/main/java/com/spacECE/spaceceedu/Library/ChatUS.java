@@ -4,7 +4,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.spacECE.spaceceedu.R;
 
-public class chatUS extends AppCompatActivity {
+public class ChatUS extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

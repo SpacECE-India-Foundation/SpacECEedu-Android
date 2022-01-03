@@ -126,6 +126,7 @@
         <entry key="app/src/main/res/layout/activity_my_books.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_number_verification.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.32083333333333336" />
+        <entry key="app/src/main/res/layout/activity_topic.xml" value="0.15833333333333333" />
         <entry key="app/src/main/res/layout/activity_user_registration.xml" value="0.25" />
         <entry key="app/src/main/res/layout/consultant_category_list_item.xml" value="0.15602836879432624" />
         <entry key="app/src/main/res/layout/consultant_get_appointment_list_item.xml" value="0.32083333333333336" />
@@ -134,12 +135,16 @@
         <entry key="app/src/main/res/layout/consultants_consultants_appointments_list_item.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/consultus_appointments_list_item.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/fragment__consultants__consultants_appointments.xml" value="0.32083333333333336" />
+        <entry key="app/src/main/res/layout/fragment_about.xml" value="0.15833333333333333" />
         <entry key="app/src/main/res/layout/fragment_consultant__categories.xml" value="0.15833333333333333" />
         <entry key="app/src/main/res/layout/fragment_consultants__my_consultant.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/fragment_consultus_appointments_for_consultant.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/fragment_consultus_appointments_for_user.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_video_library__free.xml" value="0.15833333333333333" />
+        <entry key="app/src/main/res/layout/fragment_video_library__premium.xml" value="0.15833333333333333" />
+        <entry key="app/src/main/res/layout/fragment_video_library__trending_.xml" value="0.15833333333333333" />
         <entry key="app/src/main/res/layout/nav_drawer_head.xml" value="0.32083333333333336" />
         <entry key="app/src/main/res/menu/app_bar_menu.xml" value="0.1" />
         <entry key="app/src/main/res/menu/consultant_main_bottomnav.xml" value="0.2740740740740741" />

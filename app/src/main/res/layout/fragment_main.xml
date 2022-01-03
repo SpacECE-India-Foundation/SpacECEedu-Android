@@ -157,14 +157,5 @@
             </androidx.cardview.widget.CardView>
 
         </GridLayout>
-
-        <TextView
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/Abhikant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Developed by Abhikant Awasthi"
-            android:textSize="16dp" />
 </LinearLayout>
 </ScrollView>

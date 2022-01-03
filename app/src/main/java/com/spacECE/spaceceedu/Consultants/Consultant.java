@@ -4,6 +4,8 @@ public class Consultant {
     private String name,consultant_id,profilePic_src,categories,address,language,timing_start,timing_end,qualification;
     private String price;
 
+    //TODO in this class days on which consultant is available is missing and needs to implemented from the server side and proper string array to be added.
+
     public Consultant(String name, String consultant_id, String profilePic_src, String categories
             , String address, String language, String timing_start, String timing_end,
                       String qualification, String price) {

@@ -16,14 +16,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-import static com.spacECE.spaceceedu.MainActivity.BUILD_NUMBER;
-
 public class LocationService extends Activity {
     
     private LocationManager locationManager;
     private LocationListener locationListener;
 
-    private String url = "http://spacefoundation.in/test/SpacECE-"+BUILD_NUMBER+"/api/add_tracking_api.php";
+    private String url = "http://spacefoundation.in/test/SpacECE-PHP/api/add_tracking_api.php";
 
     public void Start(Context context, Activity activity) {
 
@@ -33,6 +31,7 @@ public class LocationService extends Activity {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 Log.d("TAG", "onLocationChanged: " + location.toString());
+                //make this start to start sending location to the server
 //                startLocationServices(location);
             }
 

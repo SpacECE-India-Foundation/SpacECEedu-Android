@@ -36,7 +36,7 @@ public class Consultant_AppointmentConfirmation extends AppCompatActivity {
         Home = findViewById(R.id.BookingtoHome);
 
 
-        //TODO
+        //TODO display the details of booking api still not working on the server side.
 //        Intent intent = new Intent(Consultant_Main.this, Notification.class);
 //        PendingIntent pendingIntent = PendingIntent.getBroadcast(Consultant_Main.this,
 //                Integer.parseInt(response_element.getString("booking_id")), intent, 0);

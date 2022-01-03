@@ -13,15 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.Inet4Address;
-import java.net.MulticastSocket;
 import java.util.ArrayList;
 
 public class Library_main extends AppCompatActivity {
@@ -59,7 +56,7 @@ public class Library_main extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
 
                 if(item.getItemId()==R.id.menuChat){
-                    Intent i=new Intent(Library_main.this, chatUS.class);
+                    Intent i=new Intent(Library_main.this, ChatUS.class);
                     startActivity(i);
                 }
                 if(item.getItemId()==R.id.menuBook){
