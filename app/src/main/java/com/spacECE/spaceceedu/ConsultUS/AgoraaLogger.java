@@ -8,12 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.spacECE.spaceceedu.R;
 
 import java.util.ArrayList;
@@ -93,7 +91,7 @@ public class AgoraaLogger extends RecyclerView {
         }
     }
 
-    public class LogRecyclerViewAdapter extends Adapter<ViewHolder> {
+    public class LogRecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         @NonNull
         @Override

@@ -6,18 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
+import android.widget.ProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.spacECE.spaceceedu.R;
-import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
+import com.spacECE.spaceceedu.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,14 +60,11 @@ public class Fragment_Consultant_Categories extends Fragment {
     private void setAdapter(ArrayList<ConsultantCategory> myList) {
         Log.i("SetAdapter:", "Working");
         setOnClickListener();
-        adapter = new Consultant_Categories_RecyclerAdapter(myList, listener,getContext());
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1, LinearLayoutManager.VERTICAL, false);
+        adapter = new Consultant_Categories_RecyclerAdapter(myList, listener);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false);
         categoryRecyclerView.setLayoutManager(layoutManager);
         categoryRecyclerView.setItemAnimator(new DefaultItemAnimator());
         categoryRecyclerView.setAdapter(adapter);
-        if(myList.size()==0){
-            Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
-        }
         Log.i("Adapter", "Executed");
     }
 
@@ -95,20 +90,9 @@ public class Fragment_Consultant_Categories extends Fragment {
 
             try {
                 try {
-                    JSONObject config = ConfigUtils.loadConfig(getContext().getApplicationContext());
-                    if(config != null){
-                        String baseUrl= config.getString("BASE_URL");
-                        String consultGetConsultantUrl = config.getString("CONSULT_GETCONSULTANT");
-
-                        apiCall = UsefulFunctions.UsingGetAPI(baseUrl+ consultGetConsultantUrl + URLEncoder.encode(category, "UTF-8"));
-                    }
-                }
-                catch (UnsupportedEncodingException e) {
+                    apiCall = UsefulFunctions.UsingGetAPI("http://spacefoundation.in/test/SpacECE-PHP/ConsultUs/api_getconsultant.php?cat=" + URLEncoder.encode(category, "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                    Log.i("ERROR:::", "Failed to load API URLs");
                 }
 
                 JSONArray jsonArray = null;
@@ -131,7 +115,6 @@ public class Fragment_Consultant_Categories extends Fragment {
                                 response_element.getString("c_language"), response_element.getString("c_from_time"),
                                 response_element.getString("c_to_time"), response_element.getString("c_qualification"),
                                 response_element.getString("c_fee"));
-                        consultant.setC_available_from(response_element.getString("c_available_from"));consultant.setC_available_to(response_element.getString("c_available_to"));consultant.setC_aval_days(response_element.getString("c_aval_days"));
 
                         ConsultantsLibrary.consultantsList.add(consultant);
                     }

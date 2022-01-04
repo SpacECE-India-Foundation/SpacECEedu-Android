@@ -30,7 +30,7 @@ public class RegistrationSelection extends AppCompatActivity {
         b_User.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UserRegistration.class);
+                Intent intent = new Intent(getApplicationContext(), RegistrationFinal.class);
                 startActivity(intent);
             }
         });

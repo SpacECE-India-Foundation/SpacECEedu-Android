@@ -2,8 +2,6 @@ package com.spacECE.spaceceedu.Authentication;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -61,7 +59,7 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
                 if(validateAll()) {
 
                     Intent intent = new Intent(ConsultantRegistrationInit.this,
-                            ConsultantRegistrationFinal.class);
+                            RegistrationFinal.class);
 
                     intent.putExtra("Type",TYPE);
                     intent.putExtra("Language", LANGUAGE);

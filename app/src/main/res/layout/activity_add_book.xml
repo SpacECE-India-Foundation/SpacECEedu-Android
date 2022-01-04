@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Library.AddBook">
+    tools:context=".LibForSmall.AddBook">
 
     <TextView
         android:id="@+id/addbook_edittext"

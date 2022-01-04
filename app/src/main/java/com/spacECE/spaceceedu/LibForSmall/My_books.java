@@ -1,15 +1,9 @@
 package com.spacECE.spaceceedu.LibForSmall;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
 import com.spacECE.spaceceedu.R;
-import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,33 +28,25 @@ public class My_books extends AppCompatActivity {
         Thread thread = new Thread(() -> {
 
             try {
-                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
-                if(config != null) {
-                    String baseUrl= config.getString("BASE_URL");
-                    String libBookDataUrl = config.getString("LIB_BOOKDATA");
-                    apiCall[0] = UsefulFunctions.UsingGetAPI(baseUrl+libBookDataUrl);
-                    try {
-                        Log.i("Object Obtained: ", apiCall[0].get("data").toString());
-                    } catch (JSONException e) {
-                        Log.i("API Response:", "Error");
-                        e.printStackTrace();
-                    }
-
-                    JSONArray jsonArray = null;
-                    try {
-                        jsonArray = apiCall[0].getJSONArray("data");
-                        Log.i("API : ", apiCall[0].toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_user_appoint?user=raju%20rastogi");
+                try {
+                    Log.i("Object Obtained: ", apiCall[0].get("data").toString());
+                } catch (JSONException e) {
+                    Log.i("API Response:", "Error");
+                    e.printStackTrace();
                 }
+
+                JSONArray jsonArray = null;
+                try {
+                    jsonArray = apiCall[0].getJSONArray("data");
+                    Log.i("API : ", apiCall[0].toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
 
             } catch (RuntimeException runtimeException) {
                 Log.i("RUNTIME EXCEPTION:::", "Server did not respons");
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-                Log.i("ERROR:::", "Failed to load API URLs");
             }
         });
 

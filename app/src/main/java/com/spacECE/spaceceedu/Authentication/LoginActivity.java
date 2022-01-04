@@ -168,9 +168,10 @@ public class LoginActivity extends AppCompatActivity {
                                                     object.getString("current_user_image")));
                                             System.out.println(object.getString("current_user_image"));
                                         }
-
-                                        Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(goToMainPage);
+                                        MainActivity.ACCOUNT = userLocalStore.getLoggedInAccount();
+                                        finish();
+//                                        Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);
+//                                        startActivity(goToMainPage);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

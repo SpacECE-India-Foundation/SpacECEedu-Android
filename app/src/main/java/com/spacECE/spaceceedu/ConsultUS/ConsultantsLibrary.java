@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +24,8 @@ public class ConsultantsLibrary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultants_library);
-        getWindow().setStatusBarColor(ContextCompat.getColor(ConsultantsLibrary.this,R.color.black));
+
+
         recyclerView = findViewById(R.id.RecycleView);
         setUpAdapter();
     }
@@ -33,7 +33,7 @@ public class ConsultantsLibrary extends AppCompatActivity {
     private void setUpAdapter() {
         Log.i("Adapter", "Started");
         setOnClickListener();
-        Consultants_RecyclerViewAdapter adapter = new Consultants_RecyclerViewAdapter(consultantsList, listener,ConsultantsLibrary.this);
+        Consultants_RecyclerViewAdapter adapter = new Consultants_RecyclerViewAdapter(consultantsList, listener);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -58,11 +58,6 @@ public class ConsultantsLibrary extends AppCompatActivity {
                 intent.putExtra("timing_from", consultantsList.get(position).getTiming_start());
                 intent.putExtra("qualification", consultantsList.get(position).getQualification());
                 intent.putExtra("profilePic", consultantsList.get(position).getProfilePic_src());
-
-
-                intent.putExtra("c_available_from", consultantsList.get(position).getC_available_from());
-                intent.putExtra("c_available_to", consultantsList.get(position).getC_available_to());
-                intent.putExtra("c_aval_days()", consultantsList.get(position).getC_aval_days());
                 startActivity(intent);
             }
         };

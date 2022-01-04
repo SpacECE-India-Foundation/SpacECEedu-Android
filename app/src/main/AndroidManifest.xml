@@ -35,10 +35,11 @@
             android:exported="true" />
 
         <activity
-            android:name=".Consultants.ConsultUs_SplashScreen"
+            android:name=".ConsultUS.ConsultUs_SplashScreen"
             android:exported="true" />
-        <activity android:name=".Library.ChatUS" />
-        <activity android:name=".Library.AddBook" />
+        <activity android:name=".LibForSmall.ChatUS" />
+        <activity android:name=".VideoLibrary.VideoLibrary_Activity_SplashScreen" />
+        <activity android:name=".LibForSmall.AddBook" />
         <activity android:name=".LearnOnApp.LearnDetailed" />
         <activity android:name=".LearnOnApp.LearnOn_Main" />
         <activity android:name=".LearnOnApp.LearnOn_List_SplashScreen" />
@@ -49,21 +50,20 @@
             android:name=".Authentication.RegistrationSelection"
             android:exported="true" />
         <activity
-            android:name=".Consultants.Agoraa"
+            android:name=".ConsultUS.Agoraa"
             android:exported="true" />
         <activity
-            android:name=".Consultants.Consultant_AppointmentConfirmation"
+            android:name=".ConsultUS.Consultant_AppointmentConfirmation"
             android:exported="true" />
         <activity
-            android:name=".Authentication.ConsultantRegistrationFinal"
+            android:name=".Authentication.RegistrationFinal"
             android:exported="true"
             android:theme="@style/Theme.SpacECEedu.NoActionBar" />
-        <activity android:name=".Authentication.UserRegistration"/>
         <activity
-            android:name=".Consultants.Consultant_GetAppointment"
+            android:name=".ConsultUS.Consultant_GetAppointment"
             android:exported="true" />
         <activity
-            android:name=".Consultants.Consultant_Main"
+            android:name=".ConsultUS.Consultant_Main"
             android:exported="true" />
         <activity
             android:name=".ActivitiesListActivity"
@@ -73,10 +73,10 @@
             android:exported="true" />
 
         <activity
-            android:name=".Consultants.ConsultantProfile"
+            android:name=".ConsultUS.ConsultantProfile"
             android:exported="true" />
         <activity
-            android:name=".Consultants.ConsultantsLibrary"
+            android:name=".ConsultUS.ConsultantsLibrary"
             android:exported="true" />
         <activity
             android:name=".VideoLibrary.TopicActivity"
@@ -88,10 +88,10 @@
             android:name=".Authentication.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".Library.Library_main"
+            android:name=".LibForSmall.Library_main"
             android:exported="true" />
         <activity
-            android:name=".Library.My_books"
+            android:name=".LibForSmall.My_books"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

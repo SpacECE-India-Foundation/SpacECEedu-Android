@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Consultants.Fragment_Consultant_Categories"
+    tools:context=".ConsultUS.Fragment_Consultant_Categories"
     android:background="@color/Spacece_Yelloww">
 
    <androidx.recyclerview.widget.RecyclerView

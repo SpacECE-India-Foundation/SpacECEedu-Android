@@ -24,7 +24,7 @@ public class Account {
         this.contact_number = contact_number;
         this.CONSULTANT = CONSULTANT;
         this.profile_pic= profile_pic;
-        Log.i("ACCOUNT:", " GENERATED :- "+account_id+" / "+username+" / "+contact_number+ " /"+profile_pic);
+        Log.i("ACCOUNT:", " GENERATED :- "+account_id+" / "+username+" / "+contact_number+ " / "+profile_pic+" / ");
     }
 
     public Account(String account_id, String username, String contact_number, boolean CONSULTANT, String profile_pic,

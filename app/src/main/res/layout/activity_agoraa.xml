@@ -4,7 +4,7 @@
     android:id="@+id/activity_video_chat_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Consultants.Agoraa">
+    tools:context=".ConsultUS.Agoraa">
 
     <RelativeLayout
         android:id="@+id/remote_video_view_container"
@@ -93,7 +93,7 @@
             android:src="@drawable/btn_unmute" />
     </RelativeLayout>
 
-    <com.spacECE.spaceceedu.Consultants.AgoraaLogger
+    <com.spacECE.spaceceedu.ConsultUS.AgoraaLogger
         android:id="@+id/log_recycler_view"
         android:layout_width="@dimen/log_container_width"
         android:layout_height="@dimen/log_container_height"

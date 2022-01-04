@@ -2,7 +2,6 @@ package com.spacECE.spaceceedu;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,21 +14,12 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.spacECE.spaceceedu.Authentication.Account;
-import com.spacECE.spaceceedu.Consultants.ConsultantCategory;
-import com.spacECE.spaceceedu.Consultants.Consultant_Main;
-import com.spacECE.spaceceedu.Consultants.ConsultUs_SplashScreen;
+import com.spacECE.spaceceedu.ConsultUS.ConsultUs_SplashScreen;
 import com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_SplashScreen;
-import com.spacECE.spaceceedu.LearnOnApp.LearnOn_Main;
-import com.spacECE.spaceceedu.Library.Library_main;
-import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
+import com.spacECE.spaceceedu.LibForSmall.Library_main;
+import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity_SplashScreen;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class FragmentMain extends Fragment {
 
@@ -78,9 +68,9 @@ public class FragmentMain extends Fragment {
         cv_videoLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent =new Intent(getContext(), VideoLibrary_Activity.class);
-                myIntent.putExtra("account_id","2");
-                startActivity(myIntent);
+                Intent intent =new Intent(getContext(), VideoLibrary_Activity_SplashScreen.class);
+                intent.putExtra("account_id","2");
+                startActivity(intent);
             }
         });
 
@@ -114,7 +104,6 @@ public class FragmentMain extends Fragment {
                 Intent intent = new Intent(getContext(), LearnOn_List_SplashScreen.class);
                 startActivity(intent);
             }
-
         });
 
     return v;

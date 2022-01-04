@@ -1,26 +1,22 @@
 package com.spacECE.spaceceedu.ConsultUS;
 
-import static com.spacECE.spaceceedu.ConsultUS.Consultant_Main.SetDateTimeDay;
-
 import android.content.Intent;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import static com.spacECE.spaceceedu.ConsultUS.Consultant_Main.SetDateTimeDay;
 
 public class Appointments_For_User_RecyclerViewAdapter extends RecyclerView.Adapter<Appointments_For_User_RecyclerViewAdapter.MyViewHolder>{
     ArrayList<Appointment> myConsultants;
@@ -55,7 +51,7 @@ public class Appointments_For_User_RecyclerViewAdapter extends RecyclerView.Adap
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Appointments_For_User_RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.consultus_appointments_list_item, parent, false);
         return new MyViewHolder(itemView);
     }
@@ -67,30 +63,15 @@ public class Appointments_For_User_RecyclerViewAdapter extends RecyclerView.Adap
         String profilePic_src = null;
         holder.name.setText("Dr. "+name);
         Picasso.get().load(R.drawable.default_profilepic).into(holder.profile);
-        holder.call.setVisibility(View.VISIBLE);
         holder.call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phoneNumber = myConsultants.get(holder.getAdapterPosition()).getMobile();
-                Log.d("Adapter_User", "phoneNumber: " + phoneNumber);
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + phoneNumber));
-                v.getContext().startActivity(intent);
-            }
-            /*@Override
-            public void onClick(View v) {
-                Log.d("------","consultant id ="+myConsultants.get(holder.getAbsoluteAdapterPosition()).getConsult_id());
-                Log.d("------","name ="+myConsultants.get(holder.getAbsoluteAdapterPosition()).getC_name());
-                Log.d("------","pic ="+myConsultants.get(holder.getAbsoluteAdapterPosition()).getC_pic());
-                Log.d("------","Uid ="+ MainActivity.ACCOUNT.getuId());
-                Log.d("------","AccountId ="+ MainActivity.ACCOUNT.getAccount_id());
-
                 Intent intent = new Intent(v.getContext(), Agoraa.class);
                 intent.putExtra("c_id", myConsultants.get(holder.getAdapterPosition()).getConsult_id());
                 intent.putExtra("c_name", myConsultants.get(holder.getAdapterPosition()).getC_name());
                 intent.putExtra("c_pic", myConsultants.get(holder.getAdapterPosition()).getC_pic());
                 v.getContext().startActivity(intent);
-            } */
+            }
         });
     }
 
@@ -102,4 +83,5 @@ public class Appointments_For_User_RecyclerViewAdapter extends RecyclerView.Adap
     public interface RecyclerViewClickListener {
         void onClick(View v, int position);
     }
+
 }

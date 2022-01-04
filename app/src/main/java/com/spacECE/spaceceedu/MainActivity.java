@@ -57,6 +57,40 @@ public class MainActivity extends AppCompatActivity {
     int dayNo;
     public final String TAG = "MainActivity";
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        SetAccountDetails();
+
+
+    }
+
+    private void SetAccountDetails() {
+        if(ACCOUNT!=null) {
+            toolbar.setTitle("Hello "+ACCOUNT.getUsername()+" !");
+            NavigationView navigationView = (NavigationView) findViewById(R.id.Main_navView_drawer);
+
+            // get menu from navigationView
+            View navHead = navigationView.getHeaderView(0);
+
+            // find MenuItem you want to change
+            ImageView nav_camara = navHead.findViewById(R.id.Main_nav_drawer_profile_pic);
+
+            //https connection doesn't work as of now use http
+
+            try {
+                Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://","http://")).into(nav_camara);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            MenuItem sign = findViewById(R.menu.options_main_activity);
+
+
+
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,33 +149,13 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if(ACCOUNT!=null) {
-            toolbar.setTitle("Hello "+ACCOUNT.getUsername()+" !");
-            NavigationView navigationView = (NavigationView) findViewById(R.id.Main_navView_drawer);
-
-            // get menu from navigationView
-            View navHead = navigationView.getHeaderView(0);
-
-            // find MenuItem you want to change
-            ImageView nav_camara = navHead.findViewById(R.id.Main_nav_drawer_profile_pic);
-
-            //https connection doesn't work as of now use http
-
-            try {
-                Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://","http://")).into(nav_camara);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        //puts account details
+        SetAccountDetails();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.Main_Fragment_layout,
                     new FragmentMain()).commit();
         }
-
-        //TODO this api is not working
-//        GetLists getLists= new GetLists();
-//        getLists.execute();
 
         DBController dbController = new DBController(MainActivity.this);
 
@@ -306,100 +320,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
-    }
-
-    class GetLists extends AsyncTask<String, Void, JSONObject> {
-        final private JSONObject[] apiCall = {null};
-
-        @Override
-        protected JSONObject doInBackground(String... strings) {
-
-            try {
-
-                apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/SpacTube/api_all?uid=1&type=all");
-                Log.i("Object Obtained: ", apiCall[0].toString());
-
-                JSONArray jsonArray = null;
-                JSONArray recentJsonArray = null;
-                JSONArray trendingJsonArray = null;
-
-                try {
-                    jsonArray = apiCall[0].getJSONArray("data");
-                    recentJsonArray = apiCall[0].getJSONArray("data_recent");
-                    trendingJsonArray = apiCall[0].getJSONArray("data_trending");
-                    Log.i("API : ", apiCall[0].toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.i("JSON Error: ", "Key not found in JSON");
-                }
-
-                try {
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
-
-                        Topic newTopic = new Topic(response_element.getString("status"), response_element.getString("title"),
-                                response_element.getString("v_id"), response_element.getString("filter"),
-                                response_element.getString("length"), response_element.getString("v_url"),
-                                response_element.getString("v_date"), response_element.getString("v_uni_no"),
-                                response_element.getString("desc"), response_element.getString("cntlike"),
-                                response_element.getString("cntdislike"), response_element.getString("views"),
-                                response_element.getString("cntcomment"));
-                        VideoLibrary_Activity.topicList.add(newTopic);
-                        if (response_element.getString("status").equalsIgnoreCase("created")) {
-                            VideoLibrary_Activity.paidTopicList.add(newTopic);
-                        } else {
-                            VideoLibrary_Activity.freeTopicList.add(newTopic);
-                        }
-                    }
-
-                    Log.i("Paid : ", VideoLibrary_Activity.paidTopicList.toString() + "///" + VideoLibrary_Activity.paidTopicList.size());
-                    Log.i("Free : ", VideoLibrary_Activity.freeTopicList.toString() + "///" + VideoLibrary_Activity.freeTopicList.size());
-
-                    for (int i = 0; i < recentJsonArray.length(); i++) {
-
-                        JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
-
-                        Topic newTopic = new Topic(response_element.getString("status"), response_element.getString("title"),
-                                response_element.getString("v_id"), response_element.getString("filter"),
-                                response_element.getString("length"), response_element.getString("v_url"),
-                                response_element.getString("v_date"), response_element.getString("v_uni_no"),
-                                response_element.getString("desc"), response_element.getString("cntlike"),
-                                response_element.getString("cntdislike"), response_element.getString("views"),
-                                response_element.getString("cntcomment"));
-                        VideoLibrary_Activity.recentTopicList.add(newTopic);
-                    }
-                    Log.i("Recent : ", VideoLibrary_Activity.recentTopicList.toString());
-
-                    for (int i = 0; i < trendingJsonArray.length(); i++) {
-
-                        JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
-
-                        Topic newTopic = new Topic(response_element.getString("status"), response_element.getString("title"),
-                                response_element.getString("v_id"), response_element.getString("filter"),
-                                response_element.getString("length"), response_element.getString("v_url"),
-                                response_element.getString("v_date"), response_element.getString("v_uni_no"),
-                                response_element.getString("desc"), response_element.getString("cntlike"),
-                                response_element.getString("cntdislike"), response_element.getString("views"),
-                                response_element.getString("cntcomment"));
-                        VideoLibrary_Activity.topicList.add(newTopic);
-                        VideoLibrary_Activity.trendingTopicList.add(newTopic);
-                    }
-                    Log.i("TRENDING : ", VideoLibrary_Activity.trendingTopicList.toString());
-
-                } catch (JSONException jsonException) {
-                    jsonException.printStackTrace();
-                    Log.i("JSON Object : ", "Key not found");
-                }
-                VideoLibrary_Activity.ArrayDownloadCOMPLETED[0] = true;
-                Log.i("VIDEOS:::::", VideoLibrary_Activity.topicList.toString());
-
-                return null;
-            }    catch (RuntimeException runtimeException){
-                Log.i("RUNTIME EXCEPTION:::", "Server did not respons");
-            }
-            return null;
-        }
     }
 
     class GetFirstActivity extends AsyncTask<String,Void,JSONObject>{
