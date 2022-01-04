@@ -45,5 +45,15 @@
         android:id="@+id/LearnOnMain_Frame"
         android:layout_weight="1"/>
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:id="@+id/bottom_navigation_learn"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/navigation_menu"
+        android:layout_height="wrap_content">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
 
 </LinearLayout>

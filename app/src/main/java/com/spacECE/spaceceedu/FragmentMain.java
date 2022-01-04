@@ -19,6 +19,7 @@ import com.spacECE.spaceceedu.Consultants.ConsultantCategory;
 import com.spacECE.spaceceedu.Consultants.Consultant_Main;
 import com.spacECE.spaceceedu.Consultants.ConsultUs_SplashScreen;
 import com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_SplashScreen;
+import com.spacECE.spaceceedu.LearnOnApp.LearnOn_Main;
 import com.spacECE.spaceceedu.Library.Library_main;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 import com.synnapps.carouselview.CarouselView;
@@ -113,6 +114,7 @@ public class FragmentMain extends Fragment {
                 Intent intent = new Intent(getContext(), LearnOn_List_SplashScreen.class);
                 startActivity(intent);
             }
+
         });
 
     return v;
