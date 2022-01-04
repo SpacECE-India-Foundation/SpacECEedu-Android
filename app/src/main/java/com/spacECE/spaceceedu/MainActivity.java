@@ -84,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            MenuItem sign = findViewById(R.menu.options_main_activity);
+
+            invalidateOptionsMenu();
 
 
 
@@ -232,6 +233,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+
         MenuInflater inflater = getMenuInflater();
         if(ACCOUNT!=null){
             inflater.inflate(R.menu.options_main_activity_loggedin, menu);
