@@ -59,12 +59,9 @@ public class RegistrationFinal extends AppCompatActivity {
 
         ev_email=findViewById(R.id.UserRegistration_editTextText_Email);
         ev_password=findViewById(R.id.UserRegistration_editTextText_Password);
-        ev_re_password =findViewById(R.id.UserRegistration_editTextText_Repassword);
+        ev_re_password =findViewById(R.id.UserRegistration_editTextText_Re_Password);
         ev_name=findViewById(R.id.UserRegistration_editTextText_Name);
         ev_phoneNo=findViewById(R.id.UserRegistration_editTextText_PhoneNumber);
-        toolbar =  findViewById(R.id.UserRegistration_toolbar);
-
-        setSupportActionBar(toolbar);
 
         //Intent and shit
 
@@ -165,7 +162,7 @@ public class RegistrationFinal extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             //set image to image view
-            b_register.setText("Register / SignUp");
+            b_register.setText("Register");
             picData= data.getData();
             iv_profile_pic.setImageURI(data.getData());
         }

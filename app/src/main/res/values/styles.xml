@@ -60,4 +60,44 @@
         <item name="android:textColor">#383838</item>
     </style>
 
+    <style name="spaceece">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="registratio">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">#030109</item>
+    </style>
+
+    <style name="enter_user_">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#40000000</item>
+    </style>
+
+    <style name="enter_phone">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#40000000</item>
+    </style>
+
+    <style name="enter_email">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#40000000</item>
+    </style>
+
+    <style name="enter_passw">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#40000000</item>
+    </style>
+
+    <style name="re_enter_pa">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#40000000</item>
+    </style>
+
+    <style name="register_si">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#A6000000</item>
+    </style>
+
 </resources>
