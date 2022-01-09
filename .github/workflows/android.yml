@@ -30,7 +30,7 @@ jobs:
       
   apk:
     name: Generate APK
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -46,71 +46,22 @@ jobs:
         with:
           name: apk
           path: app/build/outputs/apk/debug/app-debug.apk 
-  release:
-    name: Release APK
-    needs: apk
-    if: startsWith(github.ref, 'refs/tags/v')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download APK from build
-        uses: actions/download-artifact@v1
+  
+      - name: Send mail
+        if: always()
+        uses: dawidd6/action-send-mail@v2
         with:
-          name: apk  
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }} 
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }} 
-      - name: Upload Release APK
-        id: upload_release_asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: apk/app-debug.apk
-          asset_name: MensaApp.apk
-          asset_content_type: application/zip      
-      
-    - name: Send mail
-      uses: dawidd6/action-send-mail@v3
-      with:
-        # Required mail server address:
-        server_address: smtp.gmail.com
-        # Required mail server port:
-        server_port: 465
-        # Optional (recommended): mail server username:
-        username: ${{secrets.MAIL_USERNAME}}
-        # Optional (recommended) mail server password:
-        password: ${{secrets.MAIL_PASSWORD}}
-        # Required mail subject:
-        subject: Github Actions job result
-        # Required recipients' addresses:
-        to: spacece_web_dev@spacece.co, spacece-web-test@spacece.co
-        # Required sender full name (address can be skipped):
-        from: GitHub Android Builder # <contactus@spacece.co>
-        # Optional whether this connection use TLS (default is true if server_port is 465)
-        secure: true
-        # Optional plain body:
-        body: Build job of ${{github.repository}} completed successfully!
-        # Optional HTML body read from file:
-        html_body: file://README.html
-        # Optional carbon copy recipients:
-        #cc: kyloren@example.com,leia@example.com
-        # Optional blind carbon copy recipients:
-        #bcc: r2d2@example.com,hansolo@example.com
-        # Optional recipient of the email response:
-        reply_to: noreplly@spacece.co
-        # Optional Message ID this message is replying to:
-        #in_reply_to: <random-luke@example.com>
-        # Optional unsigned/invalid certificates allowance:
-        ignore_cert: true
-        # Optional converting Markdown to HTML (set content_type to text/html too):
-        convert_markdown: true
-        # Optional attachments:
-        #attachments: attachments.zip,git.diff,./dist/static/*.js
-        # Optional priority: 'high', 'normal' (default) or 'low'
-        priority: low      
+          # mail server settings
+          server_address: smtp.gmail.com
+          server_port: 465
+          # user credentials
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          # email subject
+          subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+          # email body as text
+          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+          # comma-separated string, send email to
+          to: spacece_web_dev@spacece.co, spacece-web-test@spacece.co
+          # from email name
+          from: SpacECE Technology Team     
