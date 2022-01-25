@@ -7,12 +7,17 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import org.json.JSONArray;
@@ -23,87 +28,52 @@ import java.util.ArrayList;
 
 public class Library_main extends AppCompatActivity {
 
-    Button books;
+    public static ArrayList<books> list = new ArrayList<>();
 
-    RecyclerView recyclerView;
-    public FloatingActionButton floatingActionButton;
-
-    ArrayList<String> book_name,book_price,book_category;
-    BottomAppBar bottomAppBar;
+    Fragment fragment=new library_list();
+    public  FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library_main);
-
-        ArrayList<String> Books = new ArrayList<>();
-
-        boolean[] COMPLETED = {false};
-        JSONObject[] apiCall = {null};
+        getSupportFragmentManager().beginTransaction().replace(R.id.book_framelayout, fragment).commit();
 
         floatingActionButton=findViewById(R.id.floatingActionBtnBottom);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Library_main.this, AddBook.class);
-                startActivity(intent);
+            public void onClick(View v) {
+                Intent i=new Intent(Library_main.this, AddBook.class);
+                startActivity(i);
             }
         });
 
-        bottomAppBar=findViewById(R.id.bottomAppBar);
-        bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottomAppBar);
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.menuBook:
+                        startActivity(new Intent(getApplicationContext(),library_my_books.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.menuChat:
+                        startActivity(new Intent(getApplicationContext(), ChatUS.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.menuHome:
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
 
-                if(item.getItemId()==R.id.menuChat){
-                    Intent i=new Intent(Library_main.this, ChatUS.class);
-                    startActivity(i);
                 }
-                if(item.getItemId()==R.id.menuBook){
-                    Intent i=new Intent(Library_main.this, My_books.class);
-                    startActivity(i);
-                }
-                if(item.getItemId()==R.id.menuMaps){
-                    Intent i=new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse("geo:47.4925,19.0513"));
-                    Intent chooser=Intent.createChooser(i,"Lauch Maps");
-                    startActivity(chooser);
-
-                }
-                return false;
+                return  false;
             }
         });
 
-        Thread thread = new Thread(new Runnable() {
 
-            @Override
-            public void run() {
-
-                try {
-                    apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_user_appoint?user=raju%20rastogi");
-                    try {
-                        Log.i("Object Obtained: ", apiCall[0].get("data").toString());
-                    } catch (JSONException e) {
-                        Log.i("API Response:", "Error");
-                        e.printStackTrace();
-                    }
-
-                    JSONArray jsonArray = null;
-                    try {
-                        jsonArray = apiCall[0].getJSONArray("data");
-                        Log.i("API : ", apiCall[0].toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                } catch (RuntimeException runtimeException) {
-                    Log.i("RUNTIME EXCEPTION:::", "Server did not respons");
-                }
-            }
-        });
-
-        thread.start();
 
 
     }

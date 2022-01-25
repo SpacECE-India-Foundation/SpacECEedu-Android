@@ -17,6 +17,7 @@ import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.ConsultUS.ConsultUs_SplashScreen;
 import com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_SplashScreen;
 import com.spacECE.spaceceedu.LibForSmall.Library_main;
+import com.spacECE.spaceceedu.LibForSmall.library_splash_screen;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity_SplashScreen;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -93,7 +94,7 @@ public class FragmentMain extends Fragment {
         cv_libraryBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), Library_main.class);
+                Intent intent = new Intent(getContext(), library_splash_screen.class);
                 startActivity(intent);
             }
         });

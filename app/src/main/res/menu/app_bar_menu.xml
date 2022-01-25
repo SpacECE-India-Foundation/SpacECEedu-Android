@@ -13,7 +13,7 @@
          android:title="MyBook"
          app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/menuMaps"
+    <item android:id="@+id/menuHome"
         android:icon="@drawable/ic_baseline_navigation_24"
         android:title="MyMap"
         app:showAsAction="ifRoom"/>

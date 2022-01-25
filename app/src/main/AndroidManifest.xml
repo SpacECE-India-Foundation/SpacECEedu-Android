@@ -43,6 +43,8 @@
         <activity android:name=".LearnOnApp.LearnDetailed" />
         <activity android:name=".LearnOnApp.LearnOn_Main" />
         <activity android:name=".LearnOnApp.LearnOn_List_SplashScreen" />
+        <activity android:name=".LibForSmall.library_my_books"/>
+
         <activity
             android:name=".Authentication.ConsultantRegistrationInit"
             android:exported="true" />
