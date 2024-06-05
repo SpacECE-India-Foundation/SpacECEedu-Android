@@ -16,8 +16,7 @@ import java.util.ArrayList;
 public class library_RecycleAdapter extends RecyclerView.Adapter<library_RecycleAdapter.MyViewHolder>{
 
     ArrayList<books> list;
-
-    private final RecyclerViewClickListener listener;
+    private final library_RecycleAdapter.RecyclerViewClickListener listener;
 
     public library_RecycleAdapter(ArrayList<books> myList, RecyclerViewClickListener listener) {
         this.list = myList;
@@ -26,9 +25,9 @@ public class library_RecycleAdapter extends RecyclerView.Adapter<library_Recycle
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public library_RecycleAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.library_list_listitem, parent, false);
-        return new MyViewHolder(itemView);
+        return new library_RecycleAdapter.MyViewHolder(itemView);
     }
 
     @Override
@@ -44,7 +43,6 @@ public class library_RecycleAdapter extends RecyclerView.Adapter<library_Recycle
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         private final TextView book_name;
         private final TextView book_category ;
         private final TextView book_price;

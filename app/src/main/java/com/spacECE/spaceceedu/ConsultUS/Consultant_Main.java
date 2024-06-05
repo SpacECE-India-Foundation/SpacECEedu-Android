@@ -138,19 +138,18 @@ public class Consultant_Main extends AppCompatActivity {
                                         JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
 
                                         Appointment newAppointment = new Appointment(response_element.getString("c_id"), response_element.getString("c_name"), response_element.getString("u_name")
-                                                , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("b_date").replace("-",":")
+                                                , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("b_time")
                                                 , response_element.getString("end_time"));
-                                        Log.e( "onResponse:------------",response_element.getString("booking_time")+"---------------");
-                                        newAppointment.setTime(response_element.getString("booking_time"));
+
 
                                         Intent intent = new Intent(Consultant_Main.this, Notification.class);
                                         PendingIntent pendingIntent = PendingIntent.getBroadcast(Consultant_Main.this,
-                                                Integer.parseInt(response_element.getString("booking_id")), intent, PendingIntent.FLAG_IMMUTABLE);
+                                                Integer.parseInt(response_element.getString("booking_id")), intent, 0);
                                         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                                         Date date = new Date();
                                         Calendar calendar = Calendar.getInstance();
                                         try {
-                                            date = UsefulFunctions.DateFunc.StringToDate(response_element.getString("b_date"));
+                                            date = UsefulFunctions.DateFunc.StringToDate(response_element.getString("b_time"));
                                         } catch (ParseException e) {
                                             e.printStackTrace();
                                         }
@@ -211,7 +210,6 @@ public class Consultant_Main extends AppCompatActivity {
 
 
                         try {
-                            assert response.body() != null;
                             jsonObject = new JSONObject(response.body().string());
                             Log.d("Login", "onResponse: " + jsonObject);
 
@@ -226,30 +224,28 @@ public class Consultant_Main extends AppCompatActivity {
 
                                         JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
 
-                                        Log.e( "onResponse: ", "hit-----------------------------------------");
-
                                         Appointment newAppointment = new Appointment(response_element.getString("c_id"), response_element.getString("c_name"), response_element.getString("u_name")
-                                                , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("b_date")
+                                                , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("b_time")
                                                 , response_element.getString("end_time"));
-                                        newAppointment.setTime(response_element.getString("booking_time"));
 
+
+                                        Intent intent = new Intent(Consultant_Main.this, Notification.class);
+                                        PendingIntent pendingIntent = PendingIntent.getBroadcast(Consultant_Main.this,
+                                                Integer.parseInt(response_element.getString("booking_id")), intent, 0);
+                                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                        Date date = new Date();
+                                        Calendar calendar = Calendar.getInstance();
                                         try {
-                                            Intent intent = new Intent(Consultant_Main.this, Notification.class);
-                                            PendingIntent pendingIntent = PendingIntent.getBroadcast(Consultant_Main.this,
-                                                    Integer.parseInt(response_element.getString("booking_id")), intent,PendingIntent.FLAG_IMMUTABLE);
-                                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                                            Date date = new Date();
-                                            Calendar calendar = Calendar.getInstance();
-                                            Log.e( "onResponse: ", "hit---------------------------------");
-                                            date = UsefulFunctions.DateFunc.StringToDate(response_element.getString("b_date"));
-                                            calendar.setTime(date);
-                                            Log.d("Notification", "sendNotification: "+calendar.getTime());
-                                            alarmManager.set(AlarmManager.RTC_WAKEUP,
-                                                    calendar.getTimeInMillis()-1000*60*10, pendingIntent);
+                                            date = UsefulFunctions.DateFunc.StringToDate(response_element.getString("b_time"));
                                         } catch (ParseException e) {
                                             e.printStackTrace();
-                                            Log.e( "onResponse: ",e.toString());
                                         }
+                                        calendar.setTime(date);
+                                        Log.d("Notification", "sendNotification: "+calendar.getTime());
+                                        alarmManager.set(AlarmManager.RTC_WAKEUP,
+                                                calendar.getTimeInMillis()-1000*60*10, pendingIntent);
+
+
                                         Fragment_Appointments_For_Consultants.appointmentsArrayList.add(newAppointment);
                                     }
                                     Log.i("Appointments_For_Consultant:::::", Fragment_Appointments_For_Consultants.appointmentsArrayList.toString());
@@ -278,10 +274,9 @@ public class Consultant_Main extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Log.e( "SetDateTimeDay:------------",UsefulFunctions.DateFunc.DateObjectToDate(dateObject)+"----"+UsefulFunctions.DateFunc.DateObjectToTime(dateObject)+"=="+UsefulFunctions.DateFunc.DateObjectToDay(dateObject));
+
         date.setText(UsefulFunctions.DateFunc.DateObjectToDate(dateObject));
-        Log.e("SetDateTimeDay:876545",myConsultants.get(position).getTime()+"---------");
-        time.setText(myConsultants.get(position).getTime());
+        time.setText(UsefulFunctions.DateFunc.DateObjectToTime(dateObject));
         day.setText(UsefulFunctions.DateFunc.DateObjectToDay(dateObject));
     }
 

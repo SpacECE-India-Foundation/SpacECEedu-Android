@@ -1,21 +1,17 @@
 package com.spacECE.spaceceedu.ConsultUS;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.android.datatransport.cct.internal.LogEvent;
 import com.instamojo.android.Instamojo;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
@@ -52,20 +48,16 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
     private ImageView iv_profile;
     private Button b_confPay;
     private TextView clock, calendar, duration;
-    TextView Consultant_GetAppointment_c_aval_days;
     private Button add15, sub15;
     private int Duration = 0;
     private Boolean Date_picked = false;
     private Boolean Time_picked = false;
     private String BOOKING_DAY, BOOKING_TIME;
-    String c_aval_days;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultant_get_appointment);
-        getWindow().setStatusBarColor(ContextCompat.getColor(Consultant_GetAppointment.this,R.color.orange));
 
         tv_charges = findViewById(R.id.Consultant_GetAppointment_textView_Charges);
         tv_name = findViewById(R.id.Consultant_GetAppointment_Name);
@@ -74,7 +66,6 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
         tv_confirmation = findViewById(R.id.Consultant_GetAppointment_TextView_Confirmation);
         b_confPay = findViewById(R.id.Consultant_GetAppointment_Button_Confirm);
         tv_time = findViewById(R.id.Consultant_GetAppointment_textView_Timing);
-        Consultant_GetAppointment_c_aval_days = findViewById(R.id.Consultant_GetAppointment_c_aval_days);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -85,23 +76,19 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
             pic_src=extras.getString("profile_pic");
             timing_from = extras.getString("startTime");
             timing_to = extras.getString("endTime");
-            c_aval_days=extras.getString("c_aval_days").replace(",",", ");
 
         }
         tv_speciality.setText(speciality);
-        tv_charges.append(fee);
+        tv_charges.setText(fee);
         tv_name.setText(name);
-        tv_time.setText(timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
-        Consultant_GetAppointment_c_aval_days.setText(c_aval_days);
+        tv_time.setText("Available from "+timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
 
         System.out.println(pic_src);
 
         try {
             Picasso.get().load(pic_src.replace("https://","http://")).into(iv_profile);
-            Log.e("onCreate:1",Picasso.get().load(pic_src.replace("https://","http://"))+"");
-
         } catch (Exception e) {
-            Log.e( "onCreate:2",e.toString());
+            e.printStackTrace();
         }
 
         clock = findViewById(R.id.Clock);
@@ -120,7 +107,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datePicker();
+                    datePicker();
             }
         });
 
@@ -147,7 +134,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
                 //tv_confirmation.setText(BOOKING_DAY+BOOKING_TIME);
                 try {
                     if(validTime(timing_from, timing_to, BOOKING_TIME)){
-                        tv_confirmation.setText("Appointment will be booked on " + date+" at " + time);
+                        tv_confirmation.setText("Appointment booked on " + date + time);
                         Instamojo.getInstance().initialize(this, Instamojo.Environment.TEST);
                         Instamojo.getInstance().initiatePayment(this, orderID, this);
                         //now book appointment in on payment success class
@@ -230,7 +217,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
         if(Date_picked && Time_picked){
             try {
                 if(validTime(timing_from, timing_to, BOOKING_TIME)){
-                    tv_confirmation.setText("Appointment will be booked on " + date+" at " + time);
+                    tv_confirmation.setText("Appointment booked on " + date + time);
                 } else {
                     Toast.makeText(getApplicationContext(), "Select A valid Time", Toast.LENGTH_SHORT).show();
                 }
@@ -253,13 +240,11 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
 
         System.out.println(MainActivity.ACCOUNT.getAccount_id()+consultant_id+ BOOKING_DAY + BOOKING_TIME);
         System.out.println(String.valueOf(Duration));
-        Log.e( "BookAppointment: 1",MainActivity.ACCOUNT.getAccount_id()+consultant_id+ BOOKING_DAY + BOOKING_TIME);
-        Log.e( "BookAppointment: 2",String.valueOf(Duration));
         new Thread(new Runnable() {
 
             JSONObject jsonObject;
 
-            final String booking = "http://43.205.45.96/ConsultUs/api_bookappointment.php";
+            final String booking = "http://spacefoundation.in/test/SpacECE-PHP/ConsultUs/api_bookappointment.php";
 
             @Override
             public void run() {
@@ -267,11 +252,9 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
                 RequestBody fromBody = new FormBody.Builder()
                         .add("u_id", MainActivity.ACCOUNT.getAccount_id())
                         .add("c_id", consultant_id)
-                        .add("b_date", BOOKING_DAY.toString().replace(" ","").replace(":","-"))
-                        .add("time", BOOKING_TIME)
+                        .add("b_time", BOOKING_DAY + BOOKING_TIME)
                         .add("end_time", valueOf(Duration))
                         .build();
-                Log.e( "api hit at Consult_GetAppointment: ","u_id"+"="+MainActivity.ACCOUNT.getAccount_id()+"&"+"c_id="+consultant_id+"&b_date="+BOOKING_DAY.toString().replace(" ","")+"&time="+BOOKING_TIME+"&end_time="+valueOf(Duration));
 
                 Request request = new Request.Builder()
                         .url(booking)
@@ -284,7 +267,6 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
                         System.out.println("Registration Error ApI " + e.getMessage());
-                        Log.e( "onFailure: 1",e.toString());
                     }
 
                     @Override
@@ -294,7 +276,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
                             @Override
                             public void run() {
                                 try {
-                                    assert response.body() != null;
+                                    System.out.println(response.body().string());
                                     jsonObject = new JSONObject(response.body().string());
                                     System.out.println(jsonObject);
                                     if(jsonObject.getString("status").equals("success")){
@@ -303,23 +285,10 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
                                         startActivity(new Intent(getApplicationContext(), Consultant_AppointmentConfirmation.class));
                                         finishAffinity();
                                     } else {
-                                        Log.e( "run: 3","failed");
                                         Toast.makeText(Consultant_GetAppointment.this,"Booking Failed",
                                                 Toast.LENGTH_LONG).show();
-                                        new Handler().postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                try {
-                                                    Toast.makeText(Consultant_GetAppointment.this,jsonObject.getString("msg").toString(), Toast.LENGTH_SHORT).show();
-                                                } catch (JSONException e) {
-                                                    Log.e( "run: 6", e.toString());
-                                                    throw new RuntimeException(e);
-                                                }
-                                            }
-                                        },2500);
                                     }
                                 } catch (JSONException | IOException e) {
-                                    Log.e( "run: instamojo1",e.toString());
                                     e.printStackTrace();
                                 }
                             }

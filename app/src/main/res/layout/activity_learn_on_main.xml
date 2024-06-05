@@ -37,16 +37,11 @@
         android:layout_height="150dp"
         android:src="@drawable/tile_icon_3"/>
 
-    <TextView
-        android:id="@+id/ShowWhichListIsSelected"
+    <Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:titleTextColor="@color/black"
-        android:text="All Courses"
-        android:textColor="@color/black"
-        android:textSize="28dp"
-        android:textStyle="bold"
-        android:padding="6dp"/>
+        android:title="All Courses" />
 
     <FrameLayout
         android:layout_width="match_parent"

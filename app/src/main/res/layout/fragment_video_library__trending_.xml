@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoLibrary.VideoLibrary_Recent_Fragment">
+    tools:context=".VideoLibrary.VideoLibrary_Recent_Fragment"
+    android:paddingHorizontal="5dp">
 
 
     <androidx.recyclerview.widget.RecyclerView
