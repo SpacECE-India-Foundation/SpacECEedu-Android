@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library_mybook_recyclerAdapter.myviewholder> {
 
     ArrayList<books> list;
-    private final library_mybook_recyclerAdapter.RecyclerViewClickListener listener;
+    private final RecyclerViewClickListener listener;
 
     public library_mybook_recyclerAdapter(ArrayList<books> list, RecyclerViewClickListener listener) {
         this.list = list;
@@ -26,7 +26,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
     @Override
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.library_item_myooks, parent, false);
-        return new library_mybook_recyclerAdapter.myviewholder(itemView);
+        return new myviewholder(itemView);
     }
 
     @Override
