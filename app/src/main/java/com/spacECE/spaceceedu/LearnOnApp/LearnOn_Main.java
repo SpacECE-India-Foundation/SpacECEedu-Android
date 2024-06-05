@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,7 @@ public class LearnOn_Main extends AppCompatActivity {
     public static ArrayList<Learn> Llist = new ArrayList<>();
     Fragment fragment = new LearnOn_List();
     BottomNavigationView bottomNavigationView;
+    TextView showCourseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class LearnOn_Main extends AppCompatActivity {
 
 //        BottomNavigationView
         bottomNavigationView=findViewById(R.id.bottom_navigation_learn);
+        showCourseList = findViewById(R.id.ShowWhichListIsSelected);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -49,12 +53,14 @@ public class LearnOn_Main extends AppCompatActivity {
                     case R.id.allCourse:
 //                          You Just Attach Here Fragment Manager Here Of All Course
 //                            getSupportFragmentManager().beginTransaction().replace(R.id.LearnOnMain_Frame, fragment).commit();
+                            showCourseList.setText("All Course");
                             Toast.makeText(getApplicationContext(), "All Course", Toast.LENGTH_SHORT).show();
                             break;
 
                     case R.id.myCourse:
 //                          You just Attach Here Fragment Manager Here Of My Course
 //                            getSupportFragmentManager().beginTransaction().replace(R.id.LearnOnMain_Frame, fragment).commit();
+                        showCourseList.setText("My Course");
                             Toast.makeText(getApplicationContext(), "My Course", Toast.LENGTH_SHORT).show();
                             break;
                 }
