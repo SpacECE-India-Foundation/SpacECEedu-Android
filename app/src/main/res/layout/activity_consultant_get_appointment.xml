@@ -44,10 +44,10 @@
             <LinearLayout
                 android:background="@drawable/corner_for_top_no_raidus_bottom_raidus_rectangle"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp">
+                android:layout_height="@dimen/_150sdp">
             </LinearLayout>
             <ImageView
-                android:layout_marginTop="@dimen/_200sdp"
+                android:layout_marginTop="@dimen/_100sdp"
                 android:id="@+id/Consultant_GetAppointment_ProfilePic"
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="@dimen/_200sdp"
@@ -238,9 +238,21 @@
                         android:textStyle="bold"
                         android:id="@+id/Consultant_GetAppointment_TextView_Confirmation"
                         android:textAlignment="center"/>
+
+
                 </LinearLayout>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
+        <TextView
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:text="Designed by Ashish"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
+        android:alpha=".5"
+        />
     </LinearLayout>
     </ScrollView>
 </LinearLayout>
