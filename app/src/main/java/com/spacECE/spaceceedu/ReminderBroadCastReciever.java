@@ -23,36 +23,40 @@ public class ReminderBroadCastReciever extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        //int dayNo = intent.getExtras().getInt("EXTRA_DAY_NO");
-        //Log.d(TAG, "onReceive: Extra "+dayNo);
-        DBController dbController = new DBController(context);
-        ActivityData lastActivity = dbController.getLastActivity();
-        int dayNo = dbController.isNewUser();
-        dayNo++;
 
-        Log.d(TAG, "onReceive: day"+dayNo);
-        GetRecentActivity getRecentActivity = new GetRecentActivity(dayNo);
-        getRecentActivity.execute();
+try{
+    //int dayNo = intent.getExtras().getInt("EXTRA_DAY_NO");
+    //Log.d(TAG, "onReceive: Extra "+dayNo);
+    DBController dbController = new DBController(context);
+    ActivityData lastActivity = dbController.getLastActivity();
+    int dayNo = dbController.isNewUser();
+    dayNo++;
 
-        String activityNo = lastActivity.getData().get(0).getActivityNo();
-        String activityName = lastActivity.getData().get(0).getActivityName();
+    Log.d(TAG, "onReceive: day"+dayNo);
+    GetRecentActivity getRecentActivity = new GetRecentActivity(dayNo);
+    getRecentActivity.execute();
 
-        Intent repeatingIntent = new Intent(context,ActivityDetailsActivity.class);
-        repeatingIntent.putExtra("EXTRA_ACTIVITY",lastActivity);
-        repeatingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    String activityNo = lastActivity.getData().get(0).getActivityNo();
+    String activityName = lastActivity.getData().get(0).getActivityName();
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,200,repeatingIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+    Intent repeatingIntent = new Intent(context,ActivityDetailsActivity.class);
+    repeatingIntent.putExtra("EXTRA_ACTIVITY",lastActivity);
+    repeatingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notify")
-                .setSmallIcon(R.drawable.logo)
-                .setContentIntent(pendingIntent)
-                .setContentTitle("SpaceActive - Activity "+activityNo)
-                .setContentText(activityName)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+    PendingIntent pendingIntent = PendingIntent.getActivity(context,200,repeatingIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notify")
+            .setSmallIcon(R.drawable.logo)
+            .setContentIntent(pendingIntent)
+            .setContentTitle("SpaceActive - Activity "+activityNo)
+            .setContentText(activityName)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-            notificationManagerCompat.notify(200, builder.build());
-            Log.d(TAG, "onReceive:notification sent ");
+    NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+    notificationManagerCompat.notify(200, builder.build());
+    Log.d(TAG, "onReceive:notification sent ");
+}catch (Exception e){
+    Log.e( "onReceive:---------------", e.toString());
+}
 
 
     }
