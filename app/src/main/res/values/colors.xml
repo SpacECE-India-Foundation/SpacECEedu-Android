@@ -16,6 +16,9 @@
     <color name="logInfo">#4a90e2</color>
     <color name="logWarn">#fedd56</color>
     <color name="logError">#fe375f</color>
+    <color name="editable_text_bg">#ECEAEA</color>
+    <color name="colorSelected">#000000</color> <!-- Color for selected item -->
+    <color name="colorUnselected">#2C2C2C</color>
 
 
 </resources>

@@ -30,7 +30,7 @@ public class FragmentMain extends Fragment {
     Button signOut;
     private final int[] mImages = new int[]{
             R.drawable.view1, R.drawable.view2, R.drawable.view3,
-            R.drawable.view4,R.drawable.view5
+            //R.drawable.view4,R.drawable.view5
     };
 
 
