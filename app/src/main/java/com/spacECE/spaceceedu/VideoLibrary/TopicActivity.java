@@ -100,7 +100,7 @@ public class TopicActivity extends AppCompatActivity {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                    UsefulFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_extractlike?uid="+ MainActivity.ACCOUNT.getuId() +"2&vid=3"+ finalV_id);}});
+                    UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_extractlike.php?uid="+ MainActivity.ACCOUNT.getuId() +"2&vid=3"+ finalV_id);}});
                     thread.start();
 
                 }
@@ -113,7 +113,7 @@ public class TopicActivity extends AppCompatActivity {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                    UsefulFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_getDisLike?uid="+MainActivity.ACCOUNT.getuId()+"2&vid="+finalV_id);}});
+                    UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_getDisLike.php?uid="+MainActivity.ACCOUNT.getuId()+"2&vid="+finalV_id);}});
                     thread.start();
                 }
             });
@@ -128,6 +128,7 @@ public class TopicActivity extends AppCompatActivity {
                     startActivity(Intent.createChooser(myIntent,"Share Using"));
                 }
             });
+
         b_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -136,7 +137,7 @@ public class TopicActivity extends AppCompatActivity {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                           UsefulFunctions.UsingGetAPI("http://3.109.14.4/SpacTube/api_extractlike?uid="+ MainActivity.ACCOUNT.getuId() +"2&vid=3"+ comment);}});
+                           UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_extractlike.php?uid="+ MainActivity.ACCOUNT.getuId() +"2&vid=3"+ comment);}});
                     thread.start();
                     commentText.clearComposingText();
                 }});
