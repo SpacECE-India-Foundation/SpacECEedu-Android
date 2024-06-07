@@ -17,7 +17,7 @@
     <RelativeLayout
         android:background="#F8A800"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="60dp">
         <ImageView
             android:layout_margin="6.50dp"
             android:layout_width="65.00dp"

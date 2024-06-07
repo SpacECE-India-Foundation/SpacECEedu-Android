@@ -12,7 +12,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/roun_box">
+    android:background="@drawable/registration_background">
 
     <TextView
         android:id="@+id/textView_Name"
@@ -36,7 +36,7 @@
         android:paddingStart="4dp"
         android:text="Good Category"
         android:textAlignment="viewStart"
-        android:textColor="#E91E63"
+        android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHeight="wrap_content"
