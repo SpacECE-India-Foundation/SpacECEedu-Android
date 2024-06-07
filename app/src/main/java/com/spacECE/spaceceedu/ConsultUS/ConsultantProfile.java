@@ -1,8 +1,10 @@
 package com.spacECE.spaceceedu.ConsultUS;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.hardware.camera2.params.BlackLevelPattern;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +28,7 @@ public class ConsultantProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultant_profile);
+        getWindow().setStatusBarColor(ContextCompat.getColor(ConsultantProfile.this,R.color.black));
 
         tv_name = findViewById(R.id.Consultant_Profile_textView_Name);
         iv_profilePic = findViewById(R.id.Consultant_Profile_ImageView_ProfilePic);
@@ -69,14 +72,14 @@ public class ConsultantProfile extends AppCompatActivity {
         }
 
 
-        tv_qualification.setText(qualification);
+        tv_qualification.append(qualification);
         tv_name.setText(name);
-        tv_chambers.setText(address);
+        tv_chambers.append(address);
         tv_speciality.setText(speciality);
-        tv_charges.setText(fee+" /-");
-        tv_timing.setText(timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
-        tv_language.setText(language);
-        tv_days.setText(String.valueOf(days_from.charAt(0))+days_from.charAt(1)+days_from.charAt(2)+" - "+days_to.charAt(0)+days_to.charAt(1)+days_to.charAt(2));
+        tv_charges.append(fee+" /-");
+        tv_timing.append(timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
+        tv_language.append(language);
+        tv_days.append(String.valueOf(days_from.charAt(0))+days_from.charAt(1)+days_from.charAt(2)+" - "+days_to.charAt(0)+days_to.charAt(1)+days_to.charAt(2));
 
         try {
             pic_src = "http://43.205.45.96/img/users/" + pic_src;
