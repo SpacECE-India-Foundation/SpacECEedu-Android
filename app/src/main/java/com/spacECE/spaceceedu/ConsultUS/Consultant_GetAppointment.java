@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -114,7 +115,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    datePicker();
+                datePicker();
             }
         });
 
@@ -224,7 +225,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
         if(Date_picked && Time_picked){
             try {
                 if(validTime(timing_from, timing_to, BOOKING_TIME)){
-                    tv_confirmation.setText("Appointment booked on " + date + time);
+                    tv_confirmation.setText("Appointment will be booked on " + date+" at " + time);
                 } else {
                     Toast.makeText(getApplicationContext(), "Select A valid Time", Toast.LENGTH_SHORT).show();
                 }
@@ -247,11 +248,13 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
 
         System.out.println(MainActivity.ACCOUNT.getAccount_id()+consultant_id+ BOOKING_DAY + BOOKING_TIME);
         System.out.println(String.valueOf(Duration));
+        Log.e( "BookAppointment: 1",MainActivity.ACCOUNT.getAccount_id()+consultant_id+ BOOKING_DAY + BOOKING_TIME);
+        Log.e( "BookAppointment: 2",String.valueOf(Duration));
         new Thread(new Runnable() {
 
             JSONObject jsonObject;
 
-            final String booking = "http://spacefoundation.in/test/SpacECE-PHP/ConsultUs/api_bookappointment.php";
+            final String booking = "http://43.205.45.96/ConsultUs/api_bookappointment.php";
 
             @Override
             public void run() {
@@ -262,6 +265,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
                         .add("b_time", BOOKING_DAY + BOOKING_TIME)
                         .add("end_time", valueOf(Duration))
                         .build();
+                Log.e( "api hit at Consult_GetAppointment: ","u_id"+"="+MainActivity.ACCOUNT.getAccount_id()+"&"+"c_id="+consultant_id+"&b_time="+BOOKING_DAY + BOOKING_TIME+"&end_time="+valueOf(Duration));
 
                 Request request = new Request.Builder()
                         .url(booking)
@@ -274,6 +278,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
                         System.out.println("Registration Error ApI " + e.getMessage());
+                        Log.e( "onFailure: 1",e.toString());
                     }
 
                     @Override
@@ -283,7 +288,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
                             @Override
                             public void run() {
                                 try {
-                                    System.out.println(response.body().string());
+                                    assert response.body() != null;
                                     jsonObject = new JSONObject(response.body().string());
                                     System.out.println(jsonObject);
                                     if(jsonObject.getString("status").equals("success")){
@@ -292,10 +297,23 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
                                         startActivity(new Intent(getApplicationContext(), Consultant_AppointmentConfirmation.class));
                                         finishAffinity();
                                     } else {
+                                        Log.e( "run: 3","failed");
                                         Toast.makeText(Consultant_GetAppointment.this,"Booking Failed",
                                                 Toast.LENGTH_LONG).show();
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    Toast.makeText(Consultant_GetAppointment.this,jsonObject.getString("msg").toString(), Toast.LENGTH_SHORT).show();
+                                                } catch (JSONException e) {
+                                                    Log.e( "run: 6", e.toString());
+                                                    throw new RuntimeException(e);
+                                                }
+                                            }
+                                        },2500);
                                     }
                                 } catch (JSONException | IOException e) {
+                                    Log.e( "run: instamojo1",e.toString());
                                     e.printStackTrace();
                                 }
                             }

@@ -115,6 +115,7 @@ public class Fragment_Consultant_Categories extends Fragment {
                                 response_element.getString("c_language"), response_element.getString("c_from_time"),
                                 response_element.getString("c_to_time"), response_element.getString("c_qualification"),
                                 response_element.getString("c_fee"));
+                        consultant.setC_available_from(response_element.getString("c_available_from"));consultant.setC_available_to(response_element.getString("c_available_to"));consultant.setC_aval_days(response_element.getString("c_aval_days"));
 
                         ConsultantsLibrary.consultantsList.add(consultant);
                     }

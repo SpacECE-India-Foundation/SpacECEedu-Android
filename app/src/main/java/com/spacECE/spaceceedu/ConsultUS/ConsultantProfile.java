@@ -52,6 +52,7 @@ public class ConsultantProfile extends AppCompatActivity {
         String days_from="Any";
         String days_to="Any";
         String timing_to="All";
+        String c_aval_days="No data";
         String timing_from="All";
         String pic_src = "https://img.favpng.com/11/24/17/management-consulting-consulting-firm-consultant-business-png-favpng-jkyKzuQ3UyL0wXXCBcvk4c1fu.jpg";
 
@@ -69,6 +70,9 @@ public class ConsultantProfile extends AppCompatActivity {
             timing_to=extras.getString("timing_to");
             qualification=extras.getString("qualification");
             pic_src = extras.getString("profile_pic");
+
+            c_aval_days=extras.getString("c_aval_days()");
+            Log.e("onCreate: days",c_aval_days);
         }
 
 
@@ -79,7 +83,7 @@ public class ConsultantProfile extends AppCompatActivity {
         tv_charges.append(fee+" /-");
         tv_timing.append(timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
         tv_language.append(language);
-        tv_days.append(String.valueOf(days_from.charAt(0))+days_from.charAt(1)+days_from.charAt(2)+" - "+days_to.charAt(0)+days_to.charAt(1)+days_to.charAt(2));
+        tv_days.append(c_aval_days.replace(",",", "));
 
         try {
             pic_src = "http://43.205.45.96/img/users/" + pic_src;
