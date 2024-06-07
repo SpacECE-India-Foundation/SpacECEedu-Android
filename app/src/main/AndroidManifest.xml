@@ -124,6 +124,7 @@
             android:name=".VideoLibrary.VideoLibrary_Activity"
             android:exported="true" />
 
+
         <activity
             android:name=".Authentication.LoginActivity"
             android:exported="true" />
