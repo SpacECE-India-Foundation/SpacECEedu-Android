@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ConsultUS.Fragment_Consultant_Categories"
     android:background="@color/white">
    <androidx.core.widget.NestedScrollView
@@ -49,6 +50,17 @@
              android:paddingHorizontal="10dp"
              android:layout_marginBottom="26dp"
              tools:listitem="@layout/consultant_category_list_item"/>
+
+         <TextView
+             android:layout_width="match_parent"
+             android:textAlignment="center"
+             android:layout_height="wrap_content"
+             android:text="Designed by Ashish"
+             android:layout_marginBottom="@dimen/_10sdp"
+             android:textColor="@color/black"
+             android:textSize="@dimen/_10ssp"
+             android:alpha=".5"
+             />
       </LinearLayout>
    </androidx.core.widget.NestedScrollView>
 
