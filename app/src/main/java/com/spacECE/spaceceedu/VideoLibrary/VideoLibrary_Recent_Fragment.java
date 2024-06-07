@@ -1,27 +1,6 @@
 package com.spacECE.spaceceedu.VideoLibrary;
 
-import android.content.Intent;
-import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.spacECE.spaceceedu.R;
-import com.spacECE.spaceceedu.VideoLibrary.Topic;
-import com.spacECE.spaceceedu.VideoLibrary.TopicActivity;
-import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
-import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_RecyclerViewAdapter_MAIN;
-import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_RecyclerViewAdapter_paid;
-import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_RecyclerViewAdapter_recent;
-
-import java.util.ArrayList;
 
 public class VideoLibrary_Recent_Fragment extends Fragment {
 //    private ArrayList<Topic> rlist= new ArrayList<>();
