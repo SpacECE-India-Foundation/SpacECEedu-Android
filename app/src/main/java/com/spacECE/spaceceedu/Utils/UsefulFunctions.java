@@ -1,5 +1,7 @@
 package com.spacECE.spaceceedu.Utils;
 
+import android.util.Log;
+
 import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,10 +46,22 @@ public class UsefulFunctions {
   public static class DateFunc {
 
       public static Date StringToDate(String date) throws ParseException {
-          return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
+          Log.e( "StringToDate: ", date);
+          if (date.length()==10){
+              if (date.contains(":")){
+                  date=date.replace(":","-");
+                  return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+              }else {
+                  return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+              }
+          }
+          else {
+              return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
+          }
       }
 
       public static Date StringToTime(String date) throws ParseException {
+          Log.e( "StringToTime: ",date.toString());
           return new SimpleDateFormat("HH:mm:ss").parse(date);
       }
 
@@ -56,6 +70,7 @@ public class UsefulFunctions {
       }
 
       public static String DateObjectToTime(Date date){
+          Log.e( "DateObjectToTime:--------",date+"");
           return new SimpleDateFormat("HH:mm").format(date);
       }
 

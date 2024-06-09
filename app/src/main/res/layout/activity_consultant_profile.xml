@@ -157,8 +157,7 @@
                         android:textAlignment="viewStart"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textSize="@dimen/_15ssp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_location_on_24"/>
+                        android:textColor="@color/black"/>
 
 
 

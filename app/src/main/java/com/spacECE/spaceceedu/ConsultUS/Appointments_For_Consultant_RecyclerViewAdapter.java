@@ -1,6 +1,7 @@
 package com.spacECE.spaceceedu.ConsultUS;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class Appointments_For_Consultant_RecyclerViewAdapter extends RecyclerVie
 
         public MyViewHolder(@NonNull View view) {
             super(view);
+            Log.e( "MyViewHolder: ","------------------------------------");
             name = view.findViewById(R.id.Consultant_Consultants_textView_Name);
             profile = view.findViewById(R.id.Consultant_Consultants_ImageView_ProfilePic);
             day = view.findViewById(R.id.Consultant_Consultants_textView_Day);
@@ -59,6 +61,7 @@ public class Appointments_For_Consultant_RecyclerViewAdapter extends RecyclerVie
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         String name = myConsultants.get(position).getU_name();
+        Log.e( "onBindViewHolder:12345",myConsultants.get(position).getTime()+"---------");
         SetDateTimeDay(position, myConsultants, holder.date, holder.time, holder.day);
         holder.name.setText("User "+name);
         Picasso.get().load(R.drawable.default_profilepic).into(holder.profile);
