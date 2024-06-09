@@ -52,11 +52,13 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
     private ImageView iv_profile;
     private Button b_confPay;
     private TextView clock, calendar, duration;
+    TextView Consultant_GetAppointment_c_aval_days;
     private Button add15, sub15;
     private int Duration = 0;
     private Boolean Date_picked = false;
     private Boolean Time_picked = false;
     private String BOOKING_DAY, BOOKING_TIME;
+    String c_aval_days;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -72,6 +74,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
         tv_confirmation = findViewById(R.id.Consultant_GetAppointment_TextView_Confirmation);
         b_confPay = findViewById(R.id.Consultant_GetAppointment_Button_Confirm);
         tv_time = findViewById(R.id.Consultant_GetAppointment_textView_Timing);
+        Consultant_GetAppointment_c_aval_days = findViewById(R.id.Consultant_GetAppointment_c_aval_days);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -82,12 +85,14 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
             pic_src=extras.getString("profile_pic");
             timing_from = extras.getString("startTime");
             timing_to = extras.getString("endTime");
+            c_aval_days=extras.getString("c_aval_days").replace(",",", ");
 
         }
         tv_speciality.setText(speciality);
         tv_charges.append(fee);
         tv_name.setText(name);
         tv_time.setText(timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
+        Consultant_GetAppointment_c_aval_days.setText(c_aval_days);
 
         System.out.println(pic_src);
 
@@ -142,7 +147,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
                 //tv_confirmation.setText(BOOKING_DAY+BOOKING_TIME);
                 try {
                     if(validTime(timing_from, timing_to, BOOKING_TIME)){
-                        tv_confirmation.setText("Appointment booked on " + date + time);
+                        tv_confirmation.setText("Appointment will be booked on " + date+" at " + time);
                         Instamojo.getInstance().initialize(this, Instamojo.Environment.TEST);
                         Instamojo.getInstance().initiatePayment(this, orderID, this);
                         //now book appointment in on payment success class
@@ -262,10 +267,11 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
                 RequestBody fromBody = new FormBody.Builder()
                         .add("u_id", MainActivity.ACCOUNT.getAccount_id())
                         .add("c_id", consultant_id)
-                        .add("b_time", BOOKING_DAY + BOOKING_TIME)
+                        .add("b_date", BOOKING_DAY.toString().replace(" ","").replace(":","-"))
+                        .add("time", BOOKING_TIME)
                         .add("end_time", valueOf(Duration))
                         .build();
-                Log.e( "api hit at Consult_GetAppointment: ","u_id"+"="+MainActivity.ACCOUNT.getAccount_id()+"&"+"c_id="+consultant_id+"&b_time="+BOOKING_DAY + BOOKING_TIME+"&end_time="+valueOf(Duration));
+                Log.e( "api hit at Consult_GetAppointment: ","u_id"+"="+MainActivity.ACCOUNT.getAccount_id()+"&"+"c_id="+consultant_id+"&b_date="+BOOKING_DAY.toString().replace(" ","")+"&time="+BOOKING_TIME+"&end_time="+valueOf(Duration));
 
                 Request request = new Request.Builder()
                         .url(booking)

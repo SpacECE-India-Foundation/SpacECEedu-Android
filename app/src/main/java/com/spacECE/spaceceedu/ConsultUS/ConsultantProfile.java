@@ -99,6 +99,7 @@ public class ConsultantProfile extends AppCompatActivity {
         String finalSpeciality = speciality;
         String finalTiming_from = timing_from;
         String finalTiming_to = timing_to;
+        String final_c_aval_days = c_aval_days;
 
         if(ACCOUNT==null) {
             b_appointment.setText("Login to Book!");
@@ -120,6 +121,7 @@ public class ConsultantProfile extends AppCompatActivity {
                     intent.putExtra("fee", finalFee);
                     intent.putExtra("startTime", finalTiming_from);
                     intent.putExtra("endTime", finalTiming_to);
+                    intent.putExtra("c_aval_days", final_c_aval_days);
                 }
                 startActivity(intent);
             }

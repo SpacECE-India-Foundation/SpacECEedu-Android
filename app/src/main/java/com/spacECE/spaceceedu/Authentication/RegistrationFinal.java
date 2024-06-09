@@ -31,7 +31,9 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.ParseException;
+import java.util.Arrays;
 
 public class RegistrationFinal extends AppCompatActivity {
 
@@ -215,10 +217,12 @@ public class RegistrationFinal extends AppCompatActivity {
                     }
                 }
 
+
                 OkHttpClient client = new OkHttpClient();
                 RequestBody formBody;
 
                 if (TYPE != null && LANGUAGE != null && ADDRESS != null && FEE != null && QUALIFICATION != null && START_TIME != null && END_TIME != null) {
+                    String a[]=new String[]{"Monday","Tuesday"};
                     formBody = new MultipartBody.Builder()
                             .setType(MultipartBody.FORM)
                             .addFormDataPart("name", name)
@@ -233,10 +237,13 @@ public class RegistrationFinal extends AppCompatActivity {
                             .addFormDataPart("c_to_time", END_TIME)
                             .addFormDataPart("c_language", LANGUAGE)
                             .addFormDataPart("c_fee", FEE)
+                            .addFormDataPart("selectedItem", Arrays.toString(a).toString().replace("[","").replace("]","").replace(", ",","))
                             .addFormDataPart("c_available_from", "Monday")
                             .addFormDataPart("c_available_to", "Tuesday")
                             .addFormDataPart("c_qualification", QUALIFICATION)
                             .build();
+
+                    Log.e( "run:----------",name+"--name--"+email+"--email--"+password+"--password--"+phone+"--phone--"+"consultant--consultant--"+TYPE+"--type--"+ADDRESS+"--ADDRESS--"+START_TIME+"--START_TIME--"+END_TIME+"--END_TIME--"+LANGUAGE+"--LANGUAGE--"+FEE+"--FEE--"+Arrays.toString(a).toString().replace("[","").replace("]","").replace(", ",",")+"--Arrays.toString(a)--"+QUALIFICATION+"--QUALIFICATION--");
                 } else {
                     formBody = new MultipartBody.Builder()
                             .setType(MultipartBody.FORM)
