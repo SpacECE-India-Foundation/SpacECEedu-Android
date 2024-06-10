@@ -55,7 +55,7 @@ public class VideoLibrary_RecyclerViewAdapter_recent extends RecyclerView.Adapte
         String duration = topics.get(position).getLength();
         holder.topic_name.setText(name);
         holder.duration.setText(duration);
-        Picasso.get().load("https://i.ytimg.com/vi/"+v_url+"/0.jpg").into(holder.bg_img);
+        Picasso.get().load("https://img.youtube.com/vi/"+v_url+"/0.jpg").into(holder.bg_img);
     }
 
     @Override
