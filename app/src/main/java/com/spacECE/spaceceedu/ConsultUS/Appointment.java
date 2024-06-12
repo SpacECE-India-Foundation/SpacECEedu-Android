@@ -5,6 +5,15 @@ public class Appointment {
     private String c_name, u_name, c_pic, u_pic;
     private String bookedAt;
     private String duration;
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public Appointment(String consult_id, String c_name, String u_name, String c_pic,
                        String u_pic, String bookedAt, String duration) {
