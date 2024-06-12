@@ -46,11 +46,11 @@ public class Library_main extends AppCompatActivity {
                         replaceFragment(new HomeFragmentLibForSmall());
                         return true;
 
-                    case R.id.menuBook:
+                    case R.id.menuProfile:
                         Toast.makeText(Library_main.this, "Welcome to Profile", Toast.LENGTH_SHORT).show();
                         return true;
 
-                    case R.id.menuChat:
+                    case R.id.consultUs:
                         Toast.makeText(Library_main.this, "Welcome to Help Section", Toast.LENGTH_SHORT).show();
                         return true;
 
