@@ -57,13 +57,13 @@ public class Consultant_Categories_RecyclerAdapter extends RecyclerView.Adapter<
         if (name.contains("Paediatrician")){
             holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_4));
         }else if (name.contains("Psychiatrist")){
-            holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_3));
-        }else if (name.contains("Physical Health")){
             holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_5));
+        }else if (name.contains("Physical Health")){
+            holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_3));
         }else if (name.contains("Mental Health")){
-            holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_6));
-        }else if (name.contains("Nutritionist")){
             holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_7));
+        }else if (name.contains("Nutritionist")){
+            holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_6));
         }
 
         holder.tv_category.setText(categories.get(position).getCategoryName());
