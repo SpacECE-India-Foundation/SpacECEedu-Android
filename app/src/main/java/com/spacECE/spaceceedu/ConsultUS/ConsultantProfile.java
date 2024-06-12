@@ -1,8 +1,10 @@
 package com.spacECE.spaceceedu.ConsultUS;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.hardware.camera2.params.BlackLevelPattern;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +28,7 @@ public class ConsultantProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultant_profile);
+        getWindow().setStatusBarColor(ContextCompat.getColor(ConsultantProfile.this,R.color.black));
 
         tv_name = findViewById(R.id.Consultant_Profile_textView_Name);
         iv_profilePic = findViewById(R.id.Consultant_Profile_ImageView_ProfilePic);
@@ -49,6 +52,7 @@ public class ConsultantProfile extends AppCompatActivity {
         String days_from="Any";
         String days_to="Any";
         String timing_to="All";
+        String c_aval_days="No data";
         String timing_from="All";
         String pic_src = "https://img.favpng.com/11/24/17/management-consulting-consulting-firm-consultant-business-png-favpng-jkyKzuQ3UyL0wXXCBcvk4c1fu.jpg";
 
@@ -66,20 +70,23 @@ public class ConsultantProfile extends AppCompatActivity {
             timing_to=extras.getString("timing_to");
             qualification=extras.getString("qualification");
             pic_src = extras.getString("profile_pic");
+
+            c_aval_days=extras.getString("c_aval_days()");
+            Log.e("onCreate: days",c_aval_days);
         }
 
 
-        tv_qualification.setText(qualification);
+        tv_qualification.append(qualification);
         tv_name.setText(name);
-        tv_chambers.setText(address);
+        tv_chambers.append(address);
         tv_speciality.setText(speciality);
-        tv_charges.setText(fee+" /-");
-        tv_timing.setText(timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
-        tv_language.setText(language);
-        tv_days.setText(String.valueOf(days_from.charAt(0))+days_from.charAt(1)+days_from.charAt(2)+" - "+days_to.charAt(0)+days_to.charAt(1)+days_to.charAt(2));
+        tv_charges.append(fee+" /-");
+        tv_timing.append(timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
+        tv_language.append(language);
+        tv_days.append(c_aval_days.replace(",",", "));
 
         try {
-            pic_src = "https://spacefoundation.in/test/SpacECE-PHP/img/users/" + pic_src;
+            pic_src = "http://43.205.45.96/img/users/" + pic_src;
             Picasso.get().load(pic_src.replace("https://","http://")).into(iv_profilePic);
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,6 +99,7 @@ public class ConsultantProfile extends AppCompatActivity {
         String finalSpeciality = speciality;
         String finalTiming_from = timing_from;
         String finalTiming_to = timing_to;
+        String final_c_aval_days = c_aval_days;
 
         if(ACCOUNT==null) {
             b_appointment.setText("Login to Book!");
@@ -113,6 +121,7 @@ public class ConsultantProfile extends AppCompatActivity {
                     intent.putExtra("fee", finalFee);
                     intent.putExtra("startTime", finalTiming_from);
                     intent.putExtra("endTime", finalTiming_to);
+                    intent.putExtra("c_aval_days", final_c_aval_days);
                 }
                 startActivity(intent);
             }

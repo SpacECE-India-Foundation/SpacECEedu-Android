@@ -34,7 +34,7 @@ public class Fragment_Appointments_For_Consultants extends Fragment {
         View v= inflater.inflate(R.layout.fragment_consultus_appointments_for_consultant, container, false);
 
         recyclerView=v.findViewById(R.id.Appointments_For_Consultant_RecyclerView);
-
+        Log.e("onCreateView:1","++++++++++++++++++++++++");
         setAdapter(appointmentsArrayList);
         return v;
     }

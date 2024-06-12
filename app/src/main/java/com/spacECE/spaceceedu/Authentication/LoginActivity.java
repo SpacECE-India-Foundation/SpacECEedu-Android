@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void logIn(String email, String password) {
 
-        String login = "http://spacefoundation.in/test/SpacECE-PHP/spacece_auth/login_action.php";
+        String login = "http://43.205.45.96/spacece_auth/login_action.php";
 
         new Thread(new Runnable() {
 
@@ -170,8 +170,8 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                         MainActivity.ACCOUNT = userLocalStore.getLoggedInAccount();
                                         finish();
-//                                        Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);
-//                                        startActivity(goToMainPage);
+                                        Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(goToMainPage);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

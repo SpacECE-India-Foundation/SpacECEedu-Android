@@ -10,12 +10,13 @@
 
     <LinearLayout
 
-    android:id="@+id/constraintLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".FragmentMain"
-    android:background="@color/cardview_shadow_end_color"
-    android:orientation="vertical">
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".FragmentMain"
+        android:background="@color/cardview_shadow_end_color"
+        android:orientation="vertical">
+
 
         <com.synnapps.carouselview.CarouselView
             android:id="@+id/MainFragement_NewsCarousel"
@@ -33,12 +34,11 @@
             app:strokeColor="#FF777777"
             app:strokeWidth="1dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="herejhbsdlajbcl"
-            android:id="@+id/temp"
-            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:padding="10dp"
+            android:src="@drawable/main_page_image"/>
 
         <GridLayout
             android:id="@+id/GridView"
@@ -51,6 +51,7 @@
             android:numColumns="2"
             android:padding="5sp"
             android:rowCount="3"
+            android:background="#FFE1A6"
 
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintVertical_weight="2"
@@ -58,67 +59,70 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardView_VideoLibrary"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
-                android:backgroundTint="#FAA317"
+                android:backgroundTint="#FFFFFF"
                 android:layout_gravity="fill"
                 android:layout_margin="5sp"
                 android:elevation="18dp"
                 app:cardCornerRadius="10dp">
 
                 <ImageView
-                    android:layout_width="450px"
+                    android:layout_width="match_parent"
+                    android:padding="20dp"
                     android:layout_height="400px"
                     android:layout_gravity="center"
-                    android:src="@drawable/tile_icon_1" />
+                    android:src="@drawable/space_tube_logo" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardView_Consultation"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 android:layout_margin="5sp"
-                android:backgroundTint="#FAA317"
+                android:backgroundTint="#FFFFFF"
                 android:elevation="18dp"
                 app:cardCornerRadius="10dp">
 
                 <ImageView
-                    android:layout_width="450px"
+                    android:layout_width="match_parent"
                     android:layout_height="400px"
+                    android:padding="20dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/tile_icon_4" />
+                    android:src="@drawable/consultus_logo" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardView_Library"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
-                android:backgroundTint="#FAA317"
+                android:backgroundTint="#FFFFFF"
                 android:layout_gravity="fill"
                 android:layout_margin="5sp"
                 android:elevation="18dp"
                 app:cardCornerRadius="10dp">
 
                 <ImageView
-                    android:layout_width="450px"
+                    android:layout_width="match_parent"
                     android:layout_height="400px"
+                    android:padding="20dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/tile_icon_2" />
+                    android:src="@drawable/libs_for_small" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardView_LearnOnApp"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="1"
@@ -126,19 +130,20 @@
                 android:layout_gravity="fill"
                 android:layout_margin="5sp"
                 android:elevation="18dp"
-                android:backgroundTint="#FAA317"
+                android:backgroundTint="#FFFFFF"
                 app:cardCornerRadius="10dp">
 
                 <ImageView
-                    android:layout_width="450px"
+                    android:layout_width="match_parent"
                     android:layout_height="400px"
                     android:layout_gravity="center"
-                    android:src="@drawable/tile_icon_3" />
+                    android:padding="20dp"
+                    android:src="@drawable/learn_on_app_logo" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardView_MyActivities"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_row="2"
                 android:layout_column="0"
@@ -146,16 +151,17 @@
                 android:layout_gravity="fill"
                 android:layout_margin="5sp"
                 android:elevation="18dp"
-                android:backgroundTint="#FAA317"
+                android:backgroundTint="#FFFFFF"
                 app:cardCornerRadius="10dp">
 
                 <ImageView
-                    android:layout_width="450px"
+                    android:layout_width="match_parent"
                     android:layout_height="400px"
+                    android:padding="20dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/title_icon_5" />
+                    android:src="@drawable/space_active_logo" />
             </androidx.cardview.widget.CardView>
 
         </GridLayout>
-</LinearLayout>
+    </LinearLayout>
 </ScrollView>

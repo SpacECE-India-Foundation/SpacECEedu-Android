@@ -37,7 +37,7 @@ public class VideoLibrary_Premium extends Fragment {
         recyclerView= v.findViewById(R.id.VL_premium_RecyclerView);
 
         setAdapter(list);
-       return v;
+        return v;
     }
 
     private void setAdapter(ArrayList<Topic> topicList) {

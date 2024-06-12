@@ -12,14 +12,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -27,24 +25,19 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.Location.LocationService;
-import com.spacECE.spaceceedu.Utils.Notification;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
-import com.spacECE.spaceceedu.VideoLibrary.Topic;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
 
 import com.squareup.picasso.Picasso;
-import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -103,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         userLocalStore = new UserLocalStore(getApplicationContext());
+        //FirebaseApp.initializeApp(this);
 
         Log.i("DEVICE TOKEN","In next line");
         //Android ID:
@@ -136,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Firebase Cloud Messaging for PushNotification
-        FirebaseMessaging.getInstance().subscribeToTopic("Notify");
+        //FirebaseMessaging.getInstance().subscribeToTopic("Notify");
 
         //Bottom navigation bar
         BottomNavigationView bottomNav = findViewById(R.id.Main_Bottom_Navigation);
@@ -187,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //this is not working right now but this is to know when someone installs the app for the first time
-                UsefulFunctions.UsingGetAPI("http://educationfoundation.space/ConsultUs/api_token?email="+ACCOUNT.getAccount_id()+"&token="+token);
+                UsefulFunctions.UsingGetAPI("http://43.205.45.96/ConsultUs/api_token?email="+ACCOUNT.getAccount_id()+"&token="+token);
             }
         });
         thread.start();
@@ -296,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //make it 0 if not worked
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 200, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 200, intent, PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         long time = System.currentTimeMillis();
@@ -338,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
 
-                apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/spacece/api/spaceactive_activities.php?ano=1");
+                apiCall[0] = UsefulFunctions.UsingGetAPI("http://43.205.45.96/api/spaceactive_activities.php?ano=1");
                 Log.d(TAG, "Object Obtained "+apiCall[0].toString());
 
                 GsonBuilder gsonBuilder = new GsonBuilder();

@@ -1,5 +1,6 @@
 package com.spacECE.spaceceedu.ConsultUS;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +20,11 @@ public class Consultant_Categories_RecyclerAdapter extends RecyclerView.Adapter<
     ArrayList<ConsultantCategory> categories;
 
     private RecyclerViewClickListener listener;
+    Context context;
 
-    public Consultant_Categories_RecyclerAdapter(ArrayList<ConsultantCategory> categories, Consultant_Categories_RecyclerAdapter.RecyclerViewClickListener listener) {
+    public Consultant_Categories_RecyclerAdapter(ArrayList<ConsultantCategory> categories, Consultant_Categories_RecyclerAdapter.RecyclerViewClickListener listener,Context context) {
         this.categories = categories;
+        this.context=context;
         this.listener = listener;
         Log.i("ADAPTER WORKING : ","STARTED");
     }
@@ -50,6 +53,19 @@ public class Consultant_Categories_RecyclerAdapter extends RecyclerView.Adapter<
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        String name=categories.get(position).getCategoryName();
+        if (name.contains("Paediatrician")){
+            holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_4));
+        }else if (name.contains("Psychiatrist")){
+            holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_3));
+        }else if (name.contains("Physical Health")){
+            holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_5));
+        }else if (name.contains("Mental Health")){
+            holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_6));
+        }else if (name.contains("Nutritionist")){
+            holder.iv_icon.setImageDrawable(context.getDrawable(R.drawable.img_7));
+        }
+
         holder.tv_category.setText(categories.get(position).getCategoryName());
     }
 

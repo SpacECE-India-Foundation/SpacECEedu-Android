@@ -35,8 +35,8 @@ public class LearnDetailed extends AppCompatActivity implements Instamojo.Instam
 
         Title = findViewById(R.id.Detail_Title);
         Description = findViewById(R.id.Detail_Description);
-//        Duration = findViewById(R.id.Detail_Duration);
-//        Price = findViewById(R.id.Detail_Price);
+        Duration = findViewById(R.id.ShowCourseStartingDate);
+        Price = findViewById(R.id.ShowCoursePrice);
         Mode_Type = findViewById(R.id.Detail_Mode_Type);
 
 
@@ -51,8 +51,8 @@ public class LearnDetailed extends AppCompatActivity implements Instamojo.Instam
         Title.setText(learn.getTitle());
         Description.setText(learn.getDescription());
 
-//        Duration.setText(learn.getDuration());
-//        Price.setText(learn.getPrice());
+        Duration.setText(learn.getDuration());
+        Price.setText(learn.getPrice());
         Mode_Type.setText(MessageFormat.format("{0} on {1}", learn.getMode(), learn.getType()));
 
         Buy.setOnClickListener(v -> {

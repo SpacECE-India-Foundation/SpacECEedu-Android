@@ -34,7 +34,7 @@ public class LearnOn_List_SplashScreen extends AppCompatActivity {
             public void run() {
                 final JSONObject apiCall;
                 try{
-                    apiCall = UsefulFunctions.UsingGetAPI("http://spacefoundation.in/test/SpacECE-PHP/api/learnonapp_courses.php");
+                    apiCall = UsefulFunctions.UsingGetAPI("http://43.205.45.96/api/learnonapp_courses.php");
                     JSONArray jsonArray = null;
                     try {
                         try {
