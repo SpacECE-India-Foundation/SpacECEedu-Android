@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Spacece_Yellow">#EAAE15</color>
+    <color name="Spacece_Yelloww">#FFC107</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Chat Activity -->
+    <color name="localBackground">#FFC107</color>
+    <color name="remoteBackground">#EAAE15</color>
+
+    <!-- Logs -->
+    <color name="logInfo">#4a90e2</color>
+    <color name="logWarn">#fedd56</color>
+    <color name="logError">#fe375f</color>
+    <color name="editable_text_bg">#ECEAEA</color>
+    <color name="colorSelected">#000000</color> <!-- Color for selected item -->
+    <color name="colorUnselected">#2C2C2C</color>
+
+
+
+    <color name="orange">#F8A800</color>
+
+
+</resources>

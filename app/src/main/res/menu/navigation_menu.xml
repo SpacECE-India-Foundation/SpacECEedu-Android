@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/allCourse"
+        android:title="All Course"
+        android:icon="@drawable/allcoursesicon" />
+
+    <item
+        android:id="@+id/myCourse"
+        android:title="My Course"
+        android:icon="@drawable/mylearing" />
+
+</menu>

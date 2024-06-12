@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item android:id="@+id/menuChat"
+        android:icon="@drawable/ic_baseline_support_agent_24"
+        android:title="chat"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/menuBook"
+         android:icon="@drawable/ic_baseline_menu_book_24"
+         android:title="MyBook"
+         app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/menuHome"
+        android:icon="@drawable/ic_baseline_navigation_24"
+        android:title="MyMap"
+        app:showAsAction="ifRoom"/>
+
+
+</menu>
