@@ -20,9 +20,10 @@ public class UserLocalStore {
         String contact_number = userLocalDatabase.getString("contact_number", null);
         String UID = userLocalDatabase.getString("UID", null);
         String profile_pic = userLocalDatabase.getString("profile_pic", null);
+        String user_email = userLocalDatabase.getString("user_email", null);
         boolean isConsultant = userLocalDatabase.getBoolean("isConsultant", false);
 
-        Account account = new Account(account_id, name, contact_number,isConsultant,profile_pic);
+        Account account = new Account(account_id, name, contact_number,isConsultant,profile_pic,user_email);
         return account;
     }
 
@@ -51,6 +52,7 @@ public class UserLocalStore {
             spEditor.putString("UID", account.getuId());
             spEditor.putBoolean("isConsultant", account.isCONSULTANT());
             spEditor.putString("profile_pic", account.getProfile_pic());
+            spEditor.putString("user_email", account.getUser_email()); // Store the user_email value
             spEditor.commit();
         }
 
