@@ -82,12 +82,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        G_signInButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
 
     }
 
@@ -165,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                                         } else {
                                             userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
                                                     object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
-                                                    object.getString("current_user_image")));
+                                                    object.getString("current_user_image"), object.getString("current_user_email")));
                                             System.out.println(object.getString("current_user_image"));
                                         }
                                         MainActivity.ACCOUNT = userLocalStore.getLoggedInAccount();

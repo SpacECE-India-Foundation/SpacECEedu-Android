@@ -21,6 +21,8 @@ public class FragmentProfile extends Fragment {
     private TextView nameTextView;
     private Button signOutButton;
     private Button loginButton;
+    private TextView emailTextView; // Add this line
+    private TextView phoneTextView; // Add this line
 
     @Nullable
     @Override
@@ -28,13 +30,17 @@ public class FragmentProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         nameTextView = view.findViewById(R.id.ShowName_Profile);
+        emailTextView = view.findViewById(R.id.ShowEmail_Profile); // Initialize emailTextView
+        phoneTextView = view.findViewById(R.id.ShowMobileNo_profile); // Initialize phoneTextView
         signOutButton = view.findViewById(R.id.Signout_btn_profile);
-        loginButton = view.findViewById(R.id.Login_btn_profile); // Assuming you have a button with this ID in your layout
+        loginButton = view.findViewById(R.id.Login_btn_profile);
 
         Account account = MainActivity.ACCOUNT;
         if (account != null) {
             // User is logged in
             nameTextView.setText(account.getUsername());
+            emailTextView.setText(account.getUser_email()); // Set email
+            phoneTextView.setText(account.getContact_number()); // Set phone number
             signOutButton.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);
 
@@ -42,6 +48,8 @@ public class FragmentProfile extends Fragment {
         } else {
             // User is not logged in
             nameTextView.setText("Not Logged In");
+            emailTextView.setText(""); // Clear email
+            phoneTextView.setText(""); // Clear phone number
             signOutButton.setVisibility(View.GONE);
             loginButton.setVisibility(View.VISIBLE);
 
