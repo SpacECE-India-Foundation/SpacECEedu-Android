@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_SMS" />
@@ -39,15 +46,10 @@
             android:name=".LibForSmall.ChatUS"
             android:exported="true" />
 
-        <activity android:name=".LibForSmall.library_splash_screen"
-
-            android:exported="true">
-
-        </activity>
-
         <activity
-            android:name=".LibForSmall.AddBook"
-            android:exported="true" />
+            android:name=".LibForSmall.library_splash_screen"
+            android:exported="true"/>
+
 
         <activity
             android:name=".LearnOnApp.LearnDetailed"
@@ -56,8 +58,8 @@
         <activity
             android:name=".LearnOnApp.LearnOn_Main"
             android:exported="true" />
-        <activity android:name="com.spacECE.spaceceedu.LibForSmall.libraryDetailed"></activity>
-        <activity android:name=".LibForSmall.libraryDetailed"></activity>
+        <activity android:name="com.spacECE.spaceceedu.LibForSmall.libraryDetailed" />
+        <activity android:name=".LibForSmall.libraryDetailed" />
 
 
         <activity
