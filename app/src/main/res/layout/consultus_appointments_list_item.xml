@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
-    app:cardCornerRadius="15dp">
+    android:layout_marginTop="@dimen/_4sdp"
+    app:cardCornerRadius="@dimen/_15sdp">
     <androidx.cardview.widget.CardView
         android:layout_margin="@dimen/_5sdp"
         app:cardCornerRadius="@dimen/_7sdp"

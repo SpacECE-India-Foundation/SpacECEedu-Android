@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.R;
@@ -60,7 +61,7 @@ public class ConsultantProfile extends AppCompatActivity {
 
         if (extras != null) {
             name = extras.getString("consultant_name");
-            Log.i("CONSULTANT NAME::::", name);
+
             address=extras.getString("chamber");
             fee= extras.getString("fee");
             language=extras.getString("language");
@@ -70,7 +71,10 @@ public class ConsultantProfile extends AppCompatActivity {
             timing_to=extras.getString("timing_to");
             qualification=extras.getString("qualification");
             pic_src = extras.getString("profile_pic");
-
+            Log.i("CONSULTANT NAME::::", name);
+            Log.i("Image ::::", pic_src);
+            Toast.makeText(this, pic_src, Toast.LENGTH_SHORT).show();
+            System.out.println(pic_src.replace("https://","--"));
             c_aval_days=extras.getString("c_aval_days()");
             Log.e("onCreate: days",c_aval_days);
         }
@@ -90,6 +94,7 @@ public class ConsultantProfile extends AppCompatActivity {
             Picasso.get().load(pic_src.replace("https://","http://")).into(iv_profilePic);
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e( "onCreate:-----------",e.toString());
         }
 
         String finalPic_src = pic_src;
