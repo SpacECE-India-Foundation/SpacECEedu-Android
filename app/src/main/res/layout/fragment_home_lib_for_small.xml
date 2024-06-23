@@ -63,27 +63,38 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp">
 
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
+            android:id="@+id/btn_lfs_sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sort"
-            android:textSize="13sp"
-            android:fontFamily="@font/poppins"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/frame_324"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sort"
+                android:textSize="13sp"
+                android:fontFamily="@font/poppins"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/frame_324"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="@+id/textView" />
+
+        </LinearLayout>
+
+
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/btn_lfs_filter"
             android:layout_width="34dp"
             android:layout_height="38dp"
             app:cardElevation="2dp"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -15,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.spacECE.spaceceedu.LibForSmall.AddBooks;
 import com.spacECE.spaceceedu.LibForSmall.Library_main;
@@ -37,6 +40,24 @@ public class HomeFragmentLibForSmall extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_lib_for_small, container, false);
         v.setBackgroundColor(Color.WHITE);
+
+        CardView btnfilter= v.findViewById(R.id.btn_lfs_filter);
+
+        btnfilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Filter according to your prefrences", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        LinearLayout btnsort = v.findViewById(R.id.btn_lfs_sort);
+        
+        btnsort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Sort according to your prefrences", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         ListRecyclerView = v.findViewById(R.id.recycler_view_libs_for_small_home);
         ArrayList<books> list = Library_main.list;

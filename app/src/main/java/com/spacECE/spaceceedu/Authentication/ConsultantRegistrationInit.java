@@ -57,25 +57,21 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
         b_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validateAll()) {
-
-                    Intent intent = new Intent(ConsultantRegistrationInit.this,
-                            RegistrationFinal.class);
-
-                    intent.putExtra("Type",TYPE);
+                if (validateAll()) {
+                    String selectedDays = getSelectedDays();
+                    Intent intent = new Intent(ConsultantRegistrationInit.this, RegistrationFinal.class);
+                    intent.putExtra("Type", TYPE);
                     intent.putExtra("Language", LANGUAGE);
-                    intent.putExtra("Address",ADDRESS);
+                    intent.putExtra("Address", ADDRESS);
                     intent.putExtra("Fee", FEE);
                     intent.putExtra("Qualification", QUALIFICATION);
                     intent.putExtra("StartTime", START_TIME);
                     intent.putExtra("EndTime", END_TIME);
+                    intent.putExtra("c_available_days", selectedDays);
                     startActivity(intent);
-
-                }
-                else {
+                } else {
                     Toast.makeText(ConsultantRegistrationInit.this, "Please Check Details!", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -85,12 +81,12 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
             public void onClick(View v) {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(ConsultantRegistrationInit.this,
                         new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        START_TIME = format("%02d:%02d", hourOfDay, minute);
-                        StartTime.setText(START_TIME);
-                    }
-                }, 12, 0, false);
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                START_TIME = format("%02d:%02d", hourOfDay, minute);
+                                StartTime.setText(START_TIME);
+                            }
+                        }, 12, 0, false);
                 timePickerDialog.show();
             }
         });
@@ -100,12 +96,12 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
             public void onClick(View v) {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(ConsultantRegistrationInit.this,
                         new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        END_TIME = format("%02d:%02d", hourOfDay, minute);
-                        EndTime.setText(END_TIME);
-                    }
-                }, 12, 0, false);
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                END_TIME = format("%02d:%02d", hourOfDay, minute);
+                                EndTime.setText(END_TIME);
+                            }
+                        }, 12, 0, false);
                 timePickerDialog.show();
             }
         });
@@ -194,6 +190,21 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
         if(QUALIFICATION.isEmpty())
             return false;
         else return true;
+    }
+
+    private String getSelectedDays() {
+        StringBuilder selectedDays = new StringBuilder();
+        if (Mon.isChecked()) selectedDays.append("Monday,");
+        if (Tue.isChecked()) selectedDays.append("Tuesday,");
+        if (Wed.isChecked()) selectedDays.append("Wednesday,");
+        if (Thu.isChecked()) selectedDays.append("Thursday,");
+        if (Fri.isChecked()) selectedDays.append("Friday,");
+        if (Sat.isChecked()) selectedDays.append("Saturday,");
+        if (Sun.isChecked()) selectedDays.append("Sunday,");
+        if (selectedDays.length() > 0) {
+            selectedDays.deleteCharAt(selectedDays.length() - 1); // Remove the last comma
+        }
+        return selectedDays.toString();
     }
 
 

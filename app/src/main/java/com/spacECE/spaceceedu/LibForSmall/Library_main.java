@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.spacECE.spaceceedu.FragmentAbout;
+import com.spacECE.spaceceedu.FragmentProfile;
 import com.spacECE.spaceceedu.HomeFragmentLibForSmall;
 import com.spacECE.spaceceedu.R;
 
@@ -46,12 +48,14 @@ public class Library_main extends AppCompatActivity {
                         replaceFragment(new HomeFragmentLibForSmall());
                         return true;
 
-                    case R.id.menuBook:
+                    case R.id.menuProfile:
                         Toast.makeText(Library_main.this, "Welcome to Profile", Toast.LENGTH_SHORT).show();
+                        replaceFragment(new FragmentProfile());
                         return true;
 
-                    case R.id.menuChat:
+                    case R.id.consultUs:
                         Toast.makeText(Library_main.this, "Welcome to Help Section", Toast.LENGTH_SHORT).show();
+                        replaceFragment(new FragmentAbout());
                         return true;
 
 
