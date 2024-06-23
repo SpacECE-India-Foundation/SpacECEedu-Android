@@ -17,25 +17,28 @@ public class Account {
     static private String Consultant_Language;
     static private String Consultant_Fee;
     static private String Consultant_Qualification;
+    static private String user_email=null;
 
-    public Account(String account_id, String username, String contact_number, boolean CONSULTANT, String profile_pic) {
+    // Constructor for non-consultant users
+    public Account(String account_id, String username, String contact_number, boolean CONSULTANT, String profile_pic, String user_email) {
         this.account_id = account_id;
         this.username = username;
         this.contact_number = contact_number;
         this.CONSULTANT = CONSULTANT;
-        this.profile_pic= profile_pic;
-        Log.i("ACCOUNT:", " GENERATED :- "+account_id+" / "+username+" / "+contact_number+ " / "+profile_pic+" / ");
+        this.profile_pic = profile_pic;
+        this.user_email = user_email;
+        Log.i("ACCOUNT:", " GENERATED :- "+account_id+" / "+username+" / "+contact_number+ " / "+profile_pic+" / "+user_email+"/");
     }
 
+    // Constructor for consultant users
     public Account(String account_id, String username, String contact_number, boolean CONSULTANT, String profile_pic,
                    String Consultant_Category, @Nullable String Consultant_Office, String Consultant_StartTime, String Consultant_EndTime,
                    String Consultant_Language, String Consultant_Fee, String Consultant_Qualification) {
-
         this.account_id = account_id;
         this.username = username;
         this.contact_number = contact_number;
         this.CONSULTANT = CONSULTANT;
-        this.profile_pic= profile_pic;
+        this.profile_pic = profile_pic;
         this.Consultant_Category = Consultant_Category;
         this.Consultant_Office = Consultant_Office;
         this.Consultant_StartTime = Consultant_StartTime;
@@ -47,6 +50,24 @@ public class Account {
         Log.i("ACCOUNT:", " GENERATED :- "+account_id+" / "+username+" / "+contact_number+ " /"+profile_pic+ " /"+
                 Consultant_Category+ " /"+Consultant_Office+ " /"+Consultant_StartTime+ " /"+Consultant_EndTime+ " /"+
                 Consultant_Language+ " /"+Consultant_Fee+ " /"+Consultant_Qualification);
+    }
+
+    // Constructor for updating user profile
+    public Account(String username, String email, String phone, String password) {
+        this.username = username;
+        this.user_email = email;
+        this.contact_number = phone;
+        // Assuming password is not stored in plain text, handle accordingly
+        // Log.i("ACCOUNT:", " UPDATED :- "+username+" / "+email+" / "+phone+ " / "+password);
+    }
+
+    // Getter and setter for user_email
+    public static String getUser_email() {
+        return user_email;
+    }
+
+    public static void setUser_email(String user_email) {
+        Account.user_email = user_email;
     }
 
     public String getuId() {

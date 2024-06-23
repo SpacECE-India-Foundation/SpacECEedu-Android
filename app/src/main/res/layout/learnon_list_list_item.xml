@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:textStyle="bold"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textColor="@color/black"
                 android:text="Course Name: "/>
             <LinearLayout
@@ -51,6 +51,7 @@
                 android:text="Description: "
                 android:id="@+id/ShowCourseStartingDate"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,12 +96,13 @@
                 android:text="Enroll Now"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="10dp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
 
 
 
     </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>
