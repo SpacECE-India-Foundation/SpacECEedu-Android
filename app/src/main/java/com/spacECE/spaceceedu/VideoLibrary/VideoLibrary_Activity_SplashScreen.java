@@ -22,11 +22,10 @@ public class VideoLibrary_Activity_SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        VideoLibrary_Activity.topicList.clear();
+
         VideoLibrary_Activity.freeTopicList.clear();
         VideoLibrary_Activity.paidTopicList.clear();
         VideoLibrary_Activity.trendingTopicList.clear();
-        VideoLibrary_Activity.recentTopicList.clear();
 
 
         GetLists getLists = new GetLists();
@@ -44,16 +43,21 @@ public class VideoLibrary_Activity_SplashScreen extends AppCompatActivity {
 
             try {
 
-                apiCall[0] = UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_all.php?uid=1&type=all");
+                apiCall[0] = UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_all.php?uid=1&type=free");
+                JSONArray jsonArray_free = apiCall[0].optJSONArray("data");
 
-                JSONArray jsonArray = apiCall[0].optJSONArray("data");
-                JSONArray trendingJsonArray = apiCall[0].optJSONArray("data_trending");
-                JSONArray recentJsonArray = apiCall[0].optJSONArray("data_recent");
+
+                apiCall[0] = UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_all.php?uid=1&type=trending");
+                JSONArray JsonArray_trending = apiCall[0].optJSONArray("data");
+
+
+                apiCall[0] = UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_all.php?uid=1&type=paid");
+                JSONArray JsonArray_paid = apiCall[0].optJSONArray("data");
 
                 try {
-                    if(jsonArray!=null) {
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
+                    if(jsonArray_free!=null) {
+                        for (int i = 0; i < jsonArray_free.length(); i++) {
+                            JSONObject response_element = new JSONObject(String.valueOf(jsonArray_free.getJSONObject(i)));
 
                             Topic newTopic = new Topic(response_element.getString("status"),
                                     response_element.getString("title"),
@@ -69,19 +73,13 @@ public class VideoLibrary_Activity_SplashScreen extends AppCompatActivity {
                                     response_element.getString("views"),
                                     response_element.getString("cntcomment"));
 
-                            VideoLibrary_Activity.topicList.add(newTopic);
-                            if (response_element.getString("status").equalsIgnoreCase("created")) {
-                                VideoLibrary_Activity.paidTopicList.add(newTopic);
-                            } else {
-                                VideoLibrary_Activity.freeTopicList.add(newTopic);
-                            }
+                            VideoLibrary_Activity.freeTopicList.add(newTopic);
                         }
                     }
 
-                    if(recentJsonArray!=null) {
-                        for (int i = 0; i < recentJsonArray.length(); i++) {
-
-                            JSONObject response_element = new JSONObject(String.valueOf(recentJsonArray.getJSONObject(i)));
+                    if(JsonArray_paid!=null) {
+                        for (int i = 0; i < JsonArray_paid.length(); i++) {
+                            JSONObject response_element = new JSONObject(String.valueOf(JsonArray_paid.getJSONObject(i)));
 
                             Topic newTopic = new Topic(response_element.getString("status"),
                                     response_element.getString("title"),
@@ -97,15 +95,13 @@ public class VideoLibrary_Activity_SplashScreen extends AppCompatActivity {
                                     response_element.getString("views"),
                                     response_element.getString("cntcomment"));
 
-                            VideoLibrary_Activity.recentTopicList.add(newTopic);
+                            VideoLibrary_Activity.paidTopicList.add(newTopic);
                         }
                     }
 
-
-                    if(trendingJsonArray!=null) {
-                        for (int i = 0; i < trendingJsonArray.length(); i++) {
-
-                            JSONObject response_element = new JSONObject(String.valueOf(trendingJsonArray.getJSONObject(i)));
+                    if(JsonArray_trending!=null) {
+                        for (int i = 0; i < JsonArray_trending.length(); i++) {
+                            JSONObject response_element = new JSONObject(String.valueOf(JsonArray_trending.getJSONObject(i)));
 
                             Topic newTopic = new Topic(response_element.getString("status"),
                                     response_element.getString("title"),
@@ -121,7 +117,6 @@ public class VideoLibrary_Activity_SplashScreen extends AppCompatActivity {
                                     response_element.getString("views"),
                                     response_element.getString("cntcomment"));
 
-                            VideoLibrary_Activity.topicList.add(newTopic);
                             VideoLibrary_Activity.trendingTopicList.add(newTopic);
                         }
                     }
@@ -131,7 +126,7 @@ public class VideoLibrary_Activity_SplashScreen extends AppCompatActivity {
                     Log.i("JSON Object : ", "Key not found");
                 }
                 VideoLibrary_Activity.ArrayDownloadCOMPLETED[0] = true;
-                Log.i("VIDEOS:::::", VideoLibrary_Activity.topicList.toString());
+//                Log.i("VIDEOS:::::", VideoLibrary_Activity.topicList.toString());
 
                 Intent intent = new Intent(getApplicationContext(), VideoLibrary_Activity.class);
                 startActivity(intent);

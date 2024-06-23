@@ -31,9 +31,8 @@ public class VideoLibrary_Premium extends Fragment {
         View v= inflater.inflate(R.layout.fragment_video_library__premium, container, false);
 
         list=new ArrayList<>(VideoLibrary_Activity.paidTopicList);
-//      Bundle extras = getIntent().getExtras();
-//      if(extras!= null){account_id=extras.getString("account_id");}
-//
+
+
         recyclerView= v.findViewById(R.id.VL_premium_RecyclerView);
 
         setAdapter(list);
