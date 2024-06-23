@@ -26,7 +26,7 @@ public class Account {
         this.contact_number = contact_number;
         this.CONSULTANT = CONSULTANT;
         this.profile_pic = profile_pic;
-        this.user_email = user_email; // Assign the user_email value
+        this.user_email = user_email;
         Log.i("ACCOUNT:", " GENERATED :- "+account_id+" / "+username+" / "+contact_number+ " / "+profile_pic+" / "+user_email+"/");
     }
 
@@ -50,6 +50,15 @@ public class Account {
         Log.i("ACCOUNT:", " GENERATED :- "+account_id+" / "+username+" / "+contact_number+ " /"+profile_pic+ " /"+
                 Consultant_Category+ " /"+Consultant_Office+ " /"+Consultant_StartTime+ " /"+Consultant_EndTime+ " /"+
                 Consultant_Language+ " /"+Consultant_Fee+ " /"+Consultant_Qualification);
+    }
+
+    // Constructor for updating user profile
+    public Account(String username, String email, String phone, String password) {
+        this.username = username;
+        this.user_email = email;
+        this.contact_number = phone;
+        // Assuming password is not stored in plain text, handle accordingly
+        // Log.i("ACCOUNT:", " UPDATED :- "+username+" / "+email+" / "+phone+ " / "+password);
     }
 
     // Getter and setter for user_email

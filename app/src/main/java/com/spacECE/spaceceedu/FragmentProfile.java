@@ -18,7 +18,7 @@ import com.spacECE.spaceceedu.Authentication.LoginActivity;
 
 public class FragmentProfile extends Fragment {
 
-    private TextView nameTextView;
+    private TextView nameTextView,email,name,phone;
     private Button signOutButton;
     private Button loginButton;
     private TextView emailTextView; // Add this line
@@ -34,6 +34,9 @@ public class FragmentProfile extends Fragment {
         phoneTextView = view.findViewById(R.id.ShowMobileNo_profile); // Initialize phoneTextView
         signOutButton = view.findViewById(R.id.Signout_btn_profile);
         loginButton = view.findViewById(R.id.Login_btn_profile);
+        email= view.findViewById(R.id.email);
+        name= view.findViewById(R.id.name);
+        phone= view.findViewById(R.id.mobile);
 
         Account account = MainActivity.ACCOUNT;
         if (account != null) {
@@ -48,10 +51,14 @@ public class FragmentProfile extends Fragment {
         } else {
             // User is not logged in
             nameTextView.setText("Not Logged In");
-            emailTextView.setText(""); // Clear email
-            phoneTextView.setText(""); // Clear phone number
+            nameTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            emailTextView.setVisibility(View.GONE);
+            phoneTextView.setVisibility(View.GONE);
             signOutButton.setVisibility(View.GONE);
             loginButton.setVisibility(View.VISIBLE);
+            name.setVisibility(View.GONE);
+            email.setVisibility(View.GONE);
+            phone.setVisibility(View.GONE);
 
             loginButton.setOnClickListener(v -> {
                 Toast.makeText(requireContext(), "Please log in", Toast.LENGTH_SHORT).show();
