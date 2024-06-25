@@ -247,10 +247,10 @@
                 android:layout_marginLeft="20dp"/>
 
             <Button
-                android:id="@+id/order_btn"
+                android:id="@+id/add_to_cart_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order Book Request"
+                android:text="Add to Cart"
                 android:textColor="@color/black"
                 android:ellipsize="marquee"
                 android:layout_marginLeft="60dp"/>
