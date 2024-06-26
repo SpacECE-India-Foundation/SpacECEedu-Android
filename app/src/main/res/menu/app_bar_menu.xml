@@ -5,17 +5,17 @@
 
     <item android:id="@+id/menuHome"
         android:icon="@drawable/vector"
-        android:title=""
+        android:title="Home"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/menuProfile"
         android:icon="@drawable/group__2_"
-        android:title=""
+        android:title="Profile"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/consultUs"
         android:icon="@drawable/group__1_"
-        android:title=""
+        android:title="Help"
         app:showAsAction="ifRoom"/>
 
 
