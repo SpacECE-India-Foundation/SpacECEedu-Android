@@ -117,7 +117,6 @@ public class libraryDetailed extends AppCompatActivity {
 
                         // Example of adding optional parameter
                         // params.put("end_date", "2024-07-01");
-                        Log.e("Check", params.toString());
 
                         return params;
                     }
@@ -134,3 +133,5 @@ public class libraryDetailed extends AppCompatActivity {
 
     }
 }
+
+
