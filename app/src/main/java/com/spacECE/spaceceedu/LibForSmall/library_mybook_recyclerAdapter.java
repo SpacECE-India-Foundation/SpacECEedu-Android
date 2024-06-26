@@ -141,7 +141,6 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
                 // Write the JSON data to the request
                 OutputStream os = conn.getOutputStream();
                 os.write(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
-                Log.e("tagh", Arrays.toString(jsonObject.toString().getBytes(StandardCharsets.UTF_8)));
                 os.close();
 
                 // Get the response code
@@ -156,13 +155,26 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
                     }
                     is.close();
 
-                    // Parse the JSON response
-                    JSONObject responseJson = new JSONObject(response.toString());
-                    if (responseJson.has("status") && responseJson.getString("status").equals("success")) {
-                        Log.i("API Response", "Product removed from cart successfully.");
+                    // Extract the JSON part from the response
+                    String responseStr = response.toString();
+                    int jsonStartIndex = responseStr.indexOf('{');
+                    int jsonEndIndex = responseStr.lastIndexOf('}') + 1;
+
+                    if (jsonStartIndex != -1) {
+                        String jsonResponseStr = responseStr.substring(jsonStartIndex, jsonEndIndex);
+                        try {
+                            JSONObject responseJson = new JSONObject(jsonResponseStr);
+                            if (responseJson.has("status") && responseJson.getString("status").equals("success")) {
+                                Log.i("API Response", "Product removed from cart successfully.");
+                            } else {
+                                String message = responseJson.getString("message");
+                                Log.e("API Error", message);
+                            }
+                        } catch (JSONException e) {
+                            Log.e("JSON Error", "Error parsing JSON response: " + e.getMessage());
+                        }
                     } else {
-                        String message = responseJson.getString("message");
-                        Log.e("API Error", message);
+                        Log.e("API Response", "Unexpected response format: " + responseStr);
                     }
                 } else {
                     Log.e("HTTP Error", "Response Code: " + responseCode);
@@ -174,6 +186,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
             }
         }).start();
     }
+
 
 
 
