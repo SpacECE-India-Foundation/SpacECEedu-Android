@@ -33,117 +33,93 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpacECEedu"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".space_active.second_page_for_space_active_with_image"
+            android:exported="false" />
         <activity
             android:name=".Authentication.NumberVerification"
             android:exported="true" />
-
         <activity
             android:name=".ConsultUS.ConsultUs_SplashScreen"
             android:exported="true" />
-
         <activity
             android:name=".LibForSmall.ChatUS"
             android:exported="true" />
-
         <activity
             android:name=".LibForSmall.library_splash_screen"
-            android:exported="true"/>
-
-
+            android:exported="true" />
         <activity
             android:name=".LearnOnApp.LearnDetailed"
             android:exported="true" />
-
         <activity
             android:name=".LearnOnApp.LearnOn_Main"
             android:exported="true" />
-        <activity android:name="com.spacECE.spaceceedu.LibForSmall.libraryDetailed" />
         <activity android:name=".LibForSmall.libraryDetailed" />
-
-
+        <activity android:name=".LibForSmall.libraryDetailed" />
         <activity
             android:name=".LearnOnApp.LearnOn_List_SplashScreen"
             android:exported="true" />
-
         <activity
             android:name=".LibForSmall.library_my_books"
             android:exported="true" />
-
         <activity
             android:name=".Authentication.ConsultantRegistrationInit"
             android:exported="true" />
-
         <activity
             android:name=".Authentication.RegistrationSelection"
             android:exported="true" />
-
         <activity
             android:name=".ConsultUS.Agoraa"
             android:exported="true" />
-
         <activity
             android:name=".ConsultUS.Consultant_AppointmentConfirmation"
             android:exported="true" />
-
         <activity
             android:name=".Authentication.RegistrationFinal"
             android:exported="true"
             android:theme="@style/Theme.SpacECEedu.NoActionBar" />
-
         <activity
             android:name=".ConsultUS.Consultant_GetAppointment"
             android:exported="true" />
-
         <activity
             android:name=".ConsultUS.Consultant_Main"
             android:exported="true" />
-
         <activity
             android:name=".space_active.ActivitiesListActivity"
             android:exported="true" />
-
         <activity
             android:name=".ActivityDetailsActivity"
             android:exported="true" />
-
         <activity
             android:name=".ConsultUS.ConsultantProfile"
             android:exported="true" />
-
         <activity
             android:name=".ConsultUS.ConsultantsLibrary"
             android:exported="true" />
-
         <activity
             android:name=".VideoLibrary.TopicActivity"
             android:exported="true" />
         <activity
             android:name=".VideoLibrary.VideoLibrary_Activity_SplashScreen"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".VideoLibrary.VideoLibrary_Activity"
             android:exported="true" />
-
-
         <activity
             android:name=".Authentication.LoginActivity"
             android:exported="true" />
-
         <activity
             android:name=".LibForSmall.Library_main"
             android:exported="true" />
-
         <activity
             android:name=".LibForSmall.My_books"
             android:exported="true" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -169,9 +145,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="com.instamojo.android.activities.PaymentDetailsActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
     </application>
+
 </manifest>
