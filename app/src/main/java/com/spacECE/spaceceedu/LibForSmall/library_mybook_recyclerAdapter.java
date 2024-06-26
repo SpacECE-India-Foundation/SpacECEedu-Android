@@ -1,5 +1,6 @@
 package com.spacECE.spaceceedu.LibForSmall;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -76,22 +77,9 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
             new AlertDialog.Builder(context)
                     .setMessage("Are you sure you want to remove this?")
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        Log.e("Tagp", book.product_id);
-                        removeItemFromDatabase(book.getProduct_id(),context);
+                        removeItemFromDatabase(book.getCart_id(), position); // Pass position here
 
-                        // Get the item position
-                        int adapterPosition = holder.getAdapterPosition();
-                        if (adapterPosition != RecyclerView.NO_POSITION) {
-                            // Remove the item from the list
-                            list.remove(adapterPosition);
-                            notifyItemRemoved(adapterPosition);
-                            notifyItemRangeChanged(adapterPosition, list.size());
-
-                            // Notify the listener
-                            if (onItemRemovedListener != null) {
-                                onItemRemovedListener.onItemRemoved();
-                            }
-                        }
+                        // No need to remove item here
                     })
                     .setNegativeButton(android.R.string.cancel, (dialog, which) ->
                             Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show())
@@ -99,6 +87,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
                     .show();
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -113,76 +102,68 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
         return totalPrice;
     }
 
-    private void removeItemFromDatabase(String productId, Context context) {
-        // Initialize UserLocalStore
-        UserLocalStore userLocalStore = new UserLocalStore(context);
-
-        // Get the logged-in account
-        Account account = userLocalStore.getLoggedInAccount();
-        String userId = account.getAccount_id();
-
+    private void removeItemFromDatabase(String cart_id,int position) {
+        // Make API call to remove item from database
         new Thread(() -> {
             try {
-                // Define the API URL
                 URL url = new URL("http://43.205.45.96/libforsmall/api_RemoveProductFromCart.php");
-
-                // Create the JSON object to send
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("proId", productId);
-                jsonObject.put("userId", userId); // Add userId to the JSON payload
-                Log.e("JSON Payload", jsonObject.toString());
-
-                // Open connection
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 conn.setDoOutput(true);
 
-                // Write the JSON data to the request
+                // Prepare data to send
                 OutputStream os = conn.getOutputStream();
-                os.write(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+                String params = "cart_id=" + URLEncoder.encode(cart_id, "UTF-8");
+                os.write(params.getBytes());
+                os.flush();
                 os.close();
 
-                // Get the response code
-                int responseCode = conn.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    // Read the response
-                    InputStream is = conn.getInputStream();
-                    StringBuilder response = new StringBuilder();
-                    int ch;
-                    while ((ch = is.read()) != -1) {
-                        response.append((char) ch);
-                    }
-                    is.close();
-
-                    // Extract the JSON part from the response
-                    String responseStr = response.toString();
-                    int jsonStartIndex = responseStr.indexOf('{');
-                    int jsonEndIndex = responseStr.lastIndexOf('}') + 1;
-
-                    if (jsonStartIndex != -1) {
-                        String jsonResponseStr = responseStr.substring(jsonStartIndex, jsonEndIndex);
-                        try {
-                            JSONObject responseJson = new JSONObject(jsonResponseStr);
-                            if (responseJson.has("status") && responseJson.getString("status").equals("success")) {
-                                Log.i("API Response", "Product removed from cart successfully.");
-                            } else {
-                                String message = responseJson.getString("message");
-                                Log.e("API Error", message);
-                            }
-                        } catch (JSONException e) {
-                            Log.e("JSON Error", "Error parsing JSON response: " + e.getMessage());
-                        }
-                    } else {
-                        Log.e("API Response", "Unexpected response format: " + responseStr);
-                    }
-                } else {
-                    Log.e("HTTP Error", "Response Code: " + responseCode);
+                // Read response
+                InputStream inputStream = conn.getInputStream();
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                StringBuilder response = new StringBuilder();
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    response.append(new String(buffer, 0, bytesRead));
                 }
-            } catch (JSONException e) {
-                Log.e("JSON Error", e.getMessage(), e);
+                inputStream.close();
+
+                // Handle response on UI thread if necessary
+                ((Activity) context).runOnUiThread(() -> {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response.toString());
+                        String status = jsonResponse.optString("status");
+                        String message = jsonResponse.optString("message");
+
+                        if (status.equals("success")) {
+                            // Remove item from the list
+                            list.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, list.size());
+
+                            // Notify listener
+                            if (onItemRemovedListener != null) {
+                                onItemRemovedListener.onItemRemoved();
+                            }
+
+                            // Show success message
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Show error message
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(context, "Failed to parse response", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                conn.disconnect();
+
             } catch (IOException e) {
-                Log.e("IO Error", e.getMessage(), e);
+                e.printStackTrace();
+                ((Activity) context).runOnUiThread(() ->
+                        Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             }
         }).start();
     }
