@@ -3,6 +3,7 @@ package com.spacECE.spaceceedu.LibForSmall;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.spacECE.spaceceedu.Authentication.Account;
+import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.R;
 import com.squareup.picasso.Picasso;
 
@@ -26,9 +29,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library_mybook_recyclerAdapter.MyViewHolder> {
 
@@ -71,7 +77,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
                     .setMessage("Are you sure you want to remove this?")
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                         Log.e("Tagp", book.product_id);
-                        removeItemFromDatabase(book.getProduct_id());
+                        removeItemFromDatabase(book.getProduct_id(),context);
 
                         // Get the item position
                         int adapterPosition = holder.getAdapterPosition();
@@ -107,7 +113,14 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
         return totalPrice;
     }
 
-    private void removeItemFromDatabase(String productId) {
+    private void removeItemFromDatabase(String productId, Context context) {
+        // Initialize UserLocalStore
+        UserLocalStore userLocalStore = new UserLocalStore(context);
+
+        // Get the logged-in account
+        Account account = userLocalStore.getLoggedInAccount();
+        String userId = account.getAccount_id();
+
         new Thread(() -> {
             try {
                 // Define the API URL
@@ -116,6 +129,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
                 // Create the JSON object to send
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("proId", productId);
+                jsonObject.put("userId", userId); // Add userId to the JSON payload
                 Log.e("JSON Payload", jsonObject.toString());
 
                 // Open connection
@@ -160,6 +174,9 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
             }
         }).start();
     }
+
+
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView bookName;
