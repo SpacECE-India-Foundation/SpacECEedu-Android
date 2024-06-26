@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.spacECE.spaceceedu.LibForSmall.books;
 import com.spacECE.spaceceedu.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -37,8 +38,9 @@ public class library_RecycleAdapter extends RecyclerView.Adapter<library_Recycle
         holder.book_name.setText(list.get(position).getProduct_title());
         holder.book_category.setText(list.get(position).getProduct_desc());
         holder.book_price.setText(list.get(position).getExchange_price());
-
-
+        Picasso.get()
+                .load("http://43.205.45.96/libforsmall/product_images/"+list.get(position).product_image)
+                .into(holder.book_image);
     }
 
     @Override

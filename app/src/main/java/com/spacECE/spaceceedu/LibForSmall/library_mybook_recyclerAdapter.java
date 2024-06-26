@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spacECE.spaceceedu.R;
+import com.squareup.picasso.Picasso;
 
 
 import org.json.JSONException;
@@ -61,7 +62,9 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
         holder.bookName.setText(book.getProduct_title());
         holder.bookPrice.setText(book.getProduct_price());
         holder.bookCategory.setText(book.getStatus());
-
+        Picasso.get()
+                .load("http://43.205.45.96/libforsmall/product_images/"+book.product_image)
+                .into(holder.bookImage);
         // Set click listener for remove button
         holder.removeBtn.setOnClickListener(v -> {
             new AlertDialog.Builder(context)
