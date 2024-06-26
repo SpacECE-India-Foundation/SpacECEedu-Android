@@ -19,14 +19,17 @@ import com.spacECE.spaceceedu.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RecyclerView_Adapter_activities_all_in_one extends RecyclerView.Adapter<RecyclerView_Adapter_activities_all_in_one.ViewHolder>{
     Context context;
     ArrayList<space_active_data_holder_all_in_one> arrayList_space_active_all_in_one_data_holder;
     ClickListener clickListener;
+    HashMap<String,String> activity_completed=new HashMap<>();
 
-    public RecyclerView_Adapter_activities_all_in_one(ArrayList<space_active_data_holder_all_in_one> arrayList_space_active_all_in_one_data_holder, ClickListener clickListener, Context context) {
+    public RecyclerView_Adapter_activities_all_in_one(ArrayList<space_active_data_holder_all_in_one> arrayList_space_active_all_in_one_data_holder, ClickListener clickListener, Context context,HashMap<String,String>activity_completed) {
         this.arrayList_space_active_all_in_one_data_holder = arrayList_space_active_all_in_one_data_holder;
+        this.activity_completed=activity_completed;
         this.clickListener = clickListener;
         this.context = context;
     }
@@ -43,10 +46,27 @@ public class RecyclerView_Adapter_activities_all_in_one extends RecyclerView.Ada
         holder.name.setText(arrayList_space_active_all_in_one_data_holder.get(position).activity_name);
         holder.desc.setText(arrayList_space_active_all_in_one_data_holder.get(position).activity_objectives);
         holder.level.setText("Level -"+arrayList_space_active_all_in_one_data_holder.get(position).activity_level);
-        holder.contains_video.setText("Contains videos -"+arrayList_space_active_all_in_one_data_holder.get(position).activity_video);
-        holder.completed_or_not.setText("Completed or not -"+arrayList_space_active_all_in_one_data_holder.get(position).activity_complete_status);
+        if (arrayList_space_active_all_in_one_data_holder.get(position).getActivity_video()!=null && !arrayList_space_active_all_in_one_data_holder.get(position).getActivity_video().equals("null")){
+            holder.contains_video.setText("✅ Contains videos");
+        }else {
+            holder.contains_video.setText("❌ Not Contains videos");
+        }
         if (arrayList_space_active_all_in_one_data_holder.get(position).activity_image=="null"){
             holder.img.setImageResource(R.drawable.img_1);
+        }
+        if (activity_completed.containsKey(arrayList_space_active_all_in_one_data_holder.get(position).activity_no)){
+            Integer i=Integer.parseInt(activity_completed.get(arrayList_space_active_all_in_one_data_holder.get(position).activity_no));
+            Log.e("onBindViewHolder:!!!!!!!!!!!!!!!!!!!!",i+"");
+            if (i==1){
+                holder.completed_or_not.setText("✅ Activity Completed");
+            }else if (i==0){
+                holder.completed_or_not.setText("✅ Half Completed");
+            }else if (i==-1){
+                holder.completed_or_not.setText("❌ Not Completed");
+            }
+
+        }else {
+            holder.completed_or_not.setText("❌ Not Completed");
         }
         if (arrayList_space_active_all_in_one_data_holder.get(position).activity_image!=null && !arrayList_space_active_all_in_one_data_holder.get(position).activity_image.equals("null")){
             String pic_src = "http://43.205.45.96/img/users/" + arrayList_space_active_all_in_one_data_holder.get(position).activity_image;
@@ -60,7 +80,6 @@ public class RecyclerView_Adapter_activities_all_in_one extends RecyclerView.Ada
                 @Override
                 public void onResponse(String response) {
                     String rsp=response;
-                    Log.e( "onResponse:-----------------",rsp);
                     if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
                         Log.e( "onResponse:---------","Not exist");
                         holder.img.setImageDrawable(context.getDrawable(R.drawable.img_1));
