@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".space_active.second_page_for_space_active_with_image">
+    tools:context=".space_active.second_page_for_space_active_with_video">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,14 +18,18 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="26dp">
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="380dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/image"
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/YouTubePlayerView"
                     android:src="@drawable/download"
                     android:scaleType="fitXY"
                     android:layout_margin="@dimen/_10sdp"
-                    app:shapeAppearanceOverlay="@style/circular"
+                    app:autoPlay="false"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:showFullScreenButton="true"
                     />
             </LinearLayout>
             <LinearLayout
@@ -444,5 +448,4 @@
 
 
     </ScrollView>
-
 </LinearLayout>

@@ -3,27 +3,33 @@ package com.spacECE.spaceceedu.space_active;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LifecycleObserver;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.spacECE.spaceceedu.R;
 import com.squareup.picasso.Picasso;
 
-public class second_page_for_space_active_with_image extends AppCompatActivity {
+public class second_page_for_space_active_with_video extends AppCompatActivity {
 
-    ImageView image_second_activity;
+    private YouTubePlayerView youTubePlayerView;
     TextView Activity_Name;
     TextView Objective;
     TextView Objective_Ans;
@@ -46,19 +52,18 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
     TextView Process_Ans;
     TextView Result;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_second_page_for_space_active_with_image);
+        setContentView(R.layout.activity_second_page_for_space_active_with_video);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        //getWindow().setStatusBarColor(ContextCompat.getColor(second_page_for_space_active_with_image.this,R.color.black));
+
 
         Intent intent=getIntent();
         String activity_no=intent.getStringExtra("activity_no");
@@ -81,7 +86,7 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
         String playlist_name=intent.getStringExtra("playlist_name");
         String image=intent.getStringExtra("activity_image");
 
-        image_second_activity=findViewById(R.id.image);
+        youTubePlayerView=findViewById(R.id.YouTubePlayerView);
         Activity_Name=findViewById(R.id.Activity_Name);
         Objective=findViewById(R.id.Objective);
         Objective_Ans=findViewById(R.id.Objective_Ans);
@@ -106,32 +111,14 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
 
 
         Log.e( "onCreate: ",image+"");
-        if (image!=null && !image.equals("null")){
-            String pic_src = "http://43.205.45.96/img/users/" + image;
-            try{
-                Picasso.get().load(pic_src).into(image_second_activity);
-            }catch (Exception e){
-                Log.e( "onBindViewHolder:-------------------",e.toString());
-            }
-            RequestQueue requestQueue= Volley.newRequestQueue(second_page_for_space_active_with_image.this);
-            StringRequest stringRequest=new StringRequest(pic_src, new com.android.volley.Response.Listener<String>() {
+        if (activity_video!=null && !activity_video.equals("null")){
+            getLifecycle().addObserver((LifecycleObserver) youTubePlayerView);
+            youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
                 @Override
-                public void onResponse(String response) {
-                    String rsp=response;
-                    Log.e( "onResponse:-----------------",rsp);
-                    if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
-                        Log.e( "onResponse:---------","Not exist");
-                        image_second_activity.setImageDrawable(getDrawable(R.drawable.img_1));
-                    }
-                }
-            }, new com.android.volley.Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e( "onFailure:-----------------",error.toString());
-                    image_second_activity.setImageDrawable(getDrawable(R.drawable.img_1));
+                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                    youTubePlayer.loadVideo(activity_video, 0);
                 }
             });
-            requestQueue.add(stringRequest);
         }
 
         Activity_Name.setText(activity_name);
