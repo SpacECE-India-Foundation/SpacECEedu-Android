@@ -34,6 +34,9 @@
         android:theme="@style/Theme.SpacECEedu"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".space_active.second_page_for_space_active_with_video"
+            android:exported="false" />
+        <activity
             android:name=".space_active.second_page_for_space_active_with_image"
             android:exported="false" />
         <activity
