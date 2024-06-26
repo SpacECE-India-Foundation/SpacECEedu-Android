@@ -16,9 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.ConsultUS.ConsultUs_SplashScreen;
 import com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_SplashScreen;
-import com.spacECE.spaceceedu.LibForSmall.Library_main;
 import com.spacECE.spaceceedu.LibForSmall.library_splash_screen;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity_SplashScreen;
+import com.spacECE.spaceceedu.space_active.ActivitiesListActivity;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
@@ -86,7 +86,7 @@ public class FragmentMain extends Fragment {
         cv_dailyActivities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(),ActivitiesListActivity.class);
+                Intent intent = new Intent(getContext(), ActivitiesListActivity.class);
                 startActivity(intent);
             }
         });
