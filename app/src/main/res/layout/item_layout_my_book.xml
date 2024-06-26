@@ -5,7 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -121,23 +123,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <ImageView
-            android:id="@+id/edit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_libs_for_small_edit_btn_my_books"
-            tools:layout_editor_absoluteX="304dp"
-            tools:layout_editor_absoluteY="-4dp"
-            tools:ignore="MissingConstraints" />
+            android:src="@drawable/rupee"
+            app:layout_constraintBottom_toBottomOf="@+id/price_txt"
+            app:layout_constraintEnd_toStartOf="@+id/price_txt"
+            app:layout_constraintTop_toTopOf="@+id/price_txt"
+             />
 
         <TextView
             android:id="@+id/price_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="298dp"
-            tools:layout_editor_absoluteY="76dp" />
+            android:text="100"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="#E92F2F"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
