@@ -3,6 +3,7 @@ package com.spacECE.spaceceedu.LibForSmall;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -63,7 +64,7 @@ public class libraryDetailed extends AppCompatActivity {
                 StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(libraryDetailed.this, response.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(libraryDetailed.this, "Product added to cart Successfully", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -81,6 +82,7 @@ public class libraryDetailed extends AppCompatActivity {
                         params.put("status", "Borrow");
 
                         return params;
+
                     }
                 };
 
