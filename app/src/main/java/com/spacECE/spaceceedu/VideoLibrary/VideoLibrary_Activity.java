@@ -28,8 +28,6 @@ import retrofit2.http.Tag;
 public class VideoLibrary_Activity extends AppCompatActivity {
 
     public final static boolean[] ArrayDownloadCOMPLETED = {false};
-    public static ArrayList<Topic> topicList = new ArrayList<>();
-    public static ArrayList<Topic> recentTopicList = new ArrayList<>(); //used in VideoLibrary_Free.java
     public static ArrayList<Topic> trendingTopicList = new ArrayList<>();//used in VideoLibrary_trending_Fragment.java
     public static ArrayList<Topic> paidTopicList = new ArrayList<>();//used in VideoLibrary_Premium.java
     public static ArrayList<Topic> freeTopicList = new ArrayList<>();  //used in VideoLibrary_Free.java

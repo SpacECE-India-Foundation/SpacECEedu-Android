@@ -18,9 +18,11 @@ import com.spacECE.spaceceedu.Authentication.LoginActivity;
 
 public class FragmentProfile extends Fragment {
 
-    private TextView nameTextView;
+    private TextView nameTextView,email,name,phone;
     private Button signOutButton;
     private Button loginButton;
+    private TextView emailTextView; // Add this line
+    private TextView phoneTextView; // Add this line
 
     @Nullable
     @Override
@@ -28,13 +30,20 @@ public class FragmentProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         nameTextView = view.findViewById(R.id.ShowName_Profile);
+        emailTextView = view.findViewById(R.id.ShowEmail_Profile); // Initialize emailTextView
+        phoneTextView = view.findViewById(R.id.ShowMobileNo_profile); // Initialize phoneTextView
         signOutButton = view.findViewById(R.id.Signout_btn_profile);
-        loginButton = view.findViewById(R.id.Login_btn_profile); // Assuming you have a button with this ID in your layout
+        loginButton = view.findViewById(R.id.Login_btn_profile);
+        email= view.findViewById(R.id.email);
+        name= view.findViewById(R.id.name);
+        phone= view.findViewById(R.id.mobile);
 
         Account account = MainActivity.ACCOUNT;
         if (account != null) {
             // User is logged in
             nameTextView.setText(account.getUsername());
+            emailTextView.setText(account.getUser_email()); // Set email
+            phoneTextView.setText(account.getContact_number()); // Set phone number
             signOutButton.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);
 
@@ -42,8 +51,14 @@ public class FragmentProfile extends Fragment {
         } else {
             // User is not logged in
             nameTextView.setText("Not Logged In");
+            nameTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            emailTextView.setVisibility(View.GONE);
+            phoneTextView.setVisibility(View.GONE);
             signOutButton.setVisibility(View.GONE);
             loginButton.setVisibility(View.VISIBLE);
+            name.setVisibility(View.GONE);
+            email.setVisibility(View.GONE);
+            phone.setVisibility(View.GONE);
 
             loginButton.setOnClickListener(v -> {
                 Toast.makeText(requireContext(), "Please log in", Toast.LENGTH_SHORT).show();

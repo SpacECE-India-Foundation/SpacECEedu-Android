@@ -25,20 +25,21 @@
         app:showFullScreenButton="true" />
 
     <TextView
-        android:layout_marginLeft="5dp"
         android:id="@+id/Topic_TextView_Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:text="Topic Title"
         android:textColor="@color/black"
         android:textSize="18dp" />
 
     <LinearLayout
-        android:layout_marginTop="15dp"
+        android:visibility="gone"
         android:id="@+id/Topics_Icons_Layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -164,17 +165,17 @@
     </LinearLayout>
 
     <ScrollView
-        android:padding="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="5dp">
 
         <TextView
-            android:alpha="0.7"
-            android:background="@drawable/round_background_grey"
-            android:layout_marginTop="15dp"
             android:id="@+id/Topic_TextView_Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:alpha="0.7"
+            android:background="@drawable/round_background_grey"
             android:text="TextView"
             android:textAllCaps="false"
             android:textColor="@color/black"
