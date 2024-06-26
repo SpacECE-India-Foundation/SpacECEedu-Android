@@ -129,7 +129,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
                 // Create the JSON object to send
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("proId", productId);
-                jsonObject.put("userId", userId); // Add userId to the JSON payload
+                jsonObject.put("user_id", userId); // Add userId to the JSON payload
                 Log.e("JSON Payload", jsonObject.toString());
 
                 // Open connection

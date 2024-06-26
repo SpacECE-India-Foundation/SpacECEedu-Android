@@ -1,5 +1,6 @@
 package com.spacECE.spaceceedu.LibForSmall;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,13 +16,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.spacECE.spaceceedu.Authentication.Account;
+import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.R;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.OnItemRemovedListener {
 
@@ -44,14 +46,20 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
         adapter = new library_mybook_recyclerAdapter(getContext(), list);
         adapter.setOnItemRemovedListener(this);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1, LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1, RecyclerView.VERTICAL, false);
         mybooksrclview.setLayoutManager(layoutManager);
         mybooksrclview.setItemAnimator(new DefaultItemAnimator());
         mybooksrclview.setAdapter(adapter);
 
         totalPriceTxt = v.findViewById(R.id.total_price);
 
-        fetchBooksData();
+        // Retrieve accountId from local storage
+        UserLocalStore userLocalStore = new UserLocalStore(requireContext());
+        Account account = userLocalStore.getLoggedInAccount();
+        String accountId = account.getAccount_id();
+
+        // Fetch book data using accountId
+        fetchBooksData(accountId);
 
         return v;
     }
@@ -62,10 +70,13 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
         totalPriceTxt.setText(String.valueOf(totalPrice));
     }
 
-    private void fetchBooksData() {
+    private void fetchBooksData(String accountId) {
         new Thread(() -> {
             try {
-                JSONObject apiCall = UsefulFunctions.UsingGetAPI("http://43.205.45.96/libforsmall/api_fetchCartProducts.php");
+                // Construct the API URL with accountId as user_id parameter
+                String apiUrl = "http://43.205.45.96/libforsmall/api_fetchCartProducts.php?user_id=" + accountId;
+
+                JSONObject apiCall = UsefulFunctions.UsingGetAPI(apiUrl);
                 Log.i("API Response", apiCall.toString());
 
                 if (apiCall.has("status") && apiCall.getString("status").equals("success")) {
@@ -92,9 +103,9 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
                     }
 
                     // Notify adapter on the UI thread
-                    getActivity().runOnUiThread(() -> {
+                    requireActivity().runOnUiThread(() -> {
                         adapter.notifyDataSetChanged();
-                        int totalPrice = adapter.getTotalPrice();
+                        int totalPrice = calculateTotalPrice(list); // Calculate total price
                         totalPriceTxt.setText(String.valueOf(totalPrice));
                     });
                 } else {
@@ -103,9 +114,17 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
                 }
             } catch (JSONException e) {
                 Log.e("JSON Error", e.getMessage(), e);
-            } catch (RuntimeException runtimeException) {
-                Log.e("Runtime Exception", "Server did not respond", runtimeException);
+            } catch (Exception e) {
+                Log.e("Exception", e.getMessage(), e);
             }
         }).start();
+    }
+
+    private int calculateTotalPrice(ArrayList<books2> booksList) {
+        int totalPrice = 0;
+        for (books2 book : booksList) {
+            totalPrice += Integer.parseInt(book.getProduct_price()) * Integer.parseInt(book.getQuantity());
+        }
+        return totalPrice;
     }
 }
