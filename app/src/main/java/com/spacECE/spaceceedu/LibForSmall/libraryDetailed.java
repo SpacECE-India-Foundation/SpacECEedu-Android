@@ -25,6 +25,9 @@ import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,37 +67,70 @@ public class libraryDetailed extends AppCompatActivity {
         addtocartbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Instantiate the RequestQueue.
+                RequestQueue queue = Volley.newRequestQueue(libraryDetailed.this);
+
                 // Retrieve the account_id from UserLocalStore
+
                 UserLocalStore userLocalStore = new UserLocalStore(libraryDetailed.this);
                 Account account = userLocalStore.getLoggedInAccount();
                 String accountId = account.getAccount_id();
 
-                StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(libraryDetailed.this, "Product added to cart Successfully", Toast.LENGTH_SHORT).show();
-                    }
-                }, new Response.ErrorListener() {
+                // Prepare the POST request
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Handle response from PHP backend
+                                try {
+                                    JSONObject jsonResponse = new JSONObject(response);
+                                    String status = jsonResponse.getString("status");
+                                    String message = jsonResponse.getString("message");
+
+                                    // Handle success or failure based on status
+                                    if (status.equals("success")) {
+                                        // Show success message or handle further actions
+                                        Toast.makeText(libraryDetailed.this, message, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // Show error or warning message
+                                        Toast.makeText(libraryDetailed.this, message, Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(libraryDetailed.this, "JSON Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(libraryDetailed.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        // Handle errors
+                        Toast.makeText(libraryDetailed.this, "Error: " + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
-                    @Nullable
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
+                        // Parameters to be sent in POST request
                         Map<String, String> params = new HashMap<>();
-                        params.put("proId", books.getProduct_id());
-                        params.put("status", "Borrow");
-                        params.put("userId", accountId); // Pass the account ID as user ID
+                        params.put("proId", books.getProduct_id()); // Replace with your actual product ID
+                        params.put("status", "Buy"); // Example status, modify as needed
+                        params.put("user_id", accountId); // Replace with actual user ID retrieval method
+
+                        // Example of adding optional parameter
+                        // params.put("end_date", "2024-07-01");
+                        Log.e("Check", params.toString());
+
                         return params;
                     }
                 };
 
-                RequestQueue requestQueue = Volley.newRequestQueue(libraryDetailed.this);
-                requestQueue.add(request);
+                // Add the request to the RequestQueue.
+                queue.add(stringRequest);
             }
         });
+
+
+
+
 
     }
 }
