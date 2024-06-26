@@ -98,7 +98,7 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
     @Override
     public void onclick_space_active(int position) {
         Log.e( "onclick_space_active:-----------",position+"-----------");
-        //Intent intent=new Intent(ActivitiesListActivity.this, second_page_for_space_active_with_image.class);
-        //startActivity(intent);
+        Intent intent=new Intent(ActivitiesListActivity.this, second_page_for_space_active_with_image.class);
+        startActivity(intent);
     }
 }
