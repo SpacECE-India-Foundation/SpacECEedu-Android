@@ -1,25 +1,51 @@
 package com.spacECE.spaceceedu.space_active;
 
+import static java.lang.String.valueOf;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.privacysandbox.tools.core.model.Method;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.spacECE.spaceceedu.Authentication.Account;
+import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import retrofit2.http.POST;
 
 public class second_page_for_space_active_with_image extends AppCompatActivity {
 
@@ -45,6 +71,7 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
     TextView Process;
     TextView Process_Ans;
     TextView Result;
+    String activity_no;
 
 
     @Override
@@ -61,7 +88,7 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
         //getWindow().setStatusBarColor(ContextCompat.getColor(second_page_for_space_active_with_image.this,R.color.black));
 
         Intent intent=getIntent();
-        String activity_no=intent.getStringExtra("activity_no");
+        activity_no=intent.getStringExtra("activity_no");
         String activity_name=intent.getStringExtra("activity_name");
         String activity_level=intent.getStringExtra("activity_level");
         String activity_dev_domain=intent.getStringExtra("activity_dev_domain");
@@ -118,7 +145,6 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     String rsp=response;
-                    Log.e( "onResponse:-----------------",rsp);
                     if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
                         Log.e( "onResponse:---------","Not exist");
                         image_second_activity.setImageDrawable(getDrawable(R.drawable.img_1));
@@ -144,5 +170,46 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
         Dev_Key_Ans.setText(activity_key_dev);
         Assessment_Ans.setText(activity_assessment);
         Process_Ans.setText(activity_process);
+        setCompleted(1);
+    }
+    public void setCompleted(int i){
+        Log.e("setCompleted:>>>>>>>>>>>>>>>>>>>>>>>>","");
+        RequestQueue requestQueue= Volley.newRequestQueue(second_page_for_space_active_with_image.this);
+        Log.e( "setCompleted:-----------","user_id="+MainActivity.ACCOUNT.getAccount_id()+"&activity_no="+activity_no+"&workdone="+"1");
+        String url="http://43.205.45.96/spacec_active/api_insertUserActivity.php";
+        StringRequest stringRequest=new StringRequest(com.android.volley.Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e( "onResponse:<<<<<<<<<<<<<",response.toString());
+                JsonParser jsonParser=new JsonParser();
+                JsonObject jsonObject= (JsonObject) jsonParser.parse(response);
+                try {
+                    Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("message").toString());
+                    Toast.makeText(second_page_for_space_active_with_image.this, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    try {
+                        Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("error").toString());
+                        Toast.makeText(second_page_for_space_active_with_image.this, jsonObject.get("error").toString(), Toast.LENGTH_SHORT).show();
+                    }catch (Exception ea){
+                        Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",ea.toString());
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e( "onErrorResponse:>>>>>>>>>>",error.toString());
+            }
+        }){
+            @Override
+            protected Map<String,String>getParams(){
+                Map<String,String>params=new HashMap<>();
+                params.put("user_id", MainActivity.ACCOUNT.getAccount_id());
+                params.put("activity_no", activity_no);
+                params.put("workdone", i+"");
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 }
