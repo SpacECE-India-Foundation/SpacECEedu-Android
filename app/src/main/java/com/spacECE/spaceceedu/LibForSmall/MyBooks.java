@@ -24,6 +24,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Objects;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.TextView;
+
+import com.spacECE.spaceceedu.Authentication.Account;
+import com.spacECE.spaceceedu.Authentication.UserLocalStore;
+import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.UsefulFunctions;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.ArrayList;
 
 public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.OnItemRemovedListener {
 
