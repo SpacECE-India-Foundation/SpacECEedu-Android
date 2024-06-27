@@ -364,11 +364,12 @@ public class MainActivity extends AppCompatActivity {
         userLocalStore.clearUserData();
         ACCOUNT = null;
         userLocalStore.setUserLoggedIn(false);
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
-    }
 
+        // Restart the activity to reflect the changes
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
     class GetFirstActivity extends AsyncTask<String,Void,JSONObject>{
 
         final private JSONObject[] apiCall = {null};
