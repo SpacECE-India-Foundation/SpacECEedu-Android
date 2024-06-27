@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/_110sdp"
+    android:layout_height="@dimen/_105sdp"
     android:layout_weight="1"
     android:layout_marginTop="5dp"
     android:orientation="horizontal">
@@ -24,7 +24,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_110sdp"
+            android:layout_height="135dp"
             android:orientation="vertical">
 
             <TextView
@@ -42,14 +42,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3ssp"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10ssp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/_10ssp">
 
                     <ImageView
                         android:id="@+id/imageView4"
@@ -71,11 +70,12 @@
                     android:id="@+id/contains_video"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5ssp"
                     android:layout_marginLeft="@dimen/_1ssp"
                     android:layout_weight="1"
                     android:text="Contains Videos -"
-                    android:textColor="#0E0E0E" />
+                    android:textColor="#0E0E0E"
+                    android:layout_marginStart="@dimen/_5ssp"
+                    />
 
                 <TextView
                     android:id="@+id/completed_or_not"
@@ -88,14 +88,14 @@
 
             <TextView
                 android:id="@+id/desc"
-                android:layout_width="272dp"
-                android:layout_height="wrap_content"
+                android:layout_width="290dp"
+                android:layout_height="64dp"
                 android:layout_marginLeft="@dimen/_10ssp"
                 android:text="space for outcome of the activity/description of the activity. This is a test message to test the alignment."
                 android:textColor="@color/black" />
         </LinearLayout>
 
-        </LinearLayout>
+    </LinearLayout>
 
 
 
