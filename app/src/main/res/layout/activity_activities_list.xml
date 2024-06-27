@@ -1,64 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".space_active.ActivitiesListActivity">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:background="@color/Spacece_Yellow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        tools:context=".ActivitiesListActivity"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_actvity_details_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:gravity="left"
-            android:text="Showing All Activities"
-            android:textColor="@color/white"
-            android:textSize="28dp"
-            android:textStyle="bold"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/constraintLayout2"
+            android:layout_width="407dp"
+            android:layout_height="63dp"
+            android:layout_marginBottom="6dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/actions_scrollView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/spacActiveLogo"
+                android:layout_width="60dp"
+                android:layout_height="53dp"
+                android:layout_margin="6.50dp"
+                android:layout_marginStart="61dp"
+                android:layout_marginEnd="43dp"
+                android:background="@color/white"
+                android:contentDescription="spaceActive pic"
+                android:src="@drawable/spactivelogo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/text_actvity_details_head"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_activity"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="6dp"
-        android:divider="@color/Spacece_Yellow"
-        android:dividerHeight="1dp"
-        android:footerDividersEnabled="false"
-        app:layout_constraintBottom_toTopOf="@+id/VideoLibrary_Bottom_Navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"/>
+            <TextView
+                android:id="@+id/text_actvity_details_head"
+                android:layout_width="144dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:gravity="left"
+                android:text="SpacActive"
+                android:textColor="@color/black"
+                android:textSize="28dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="@dimen/_5ssp"/>
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="40dp"
+                android:layout_height="39dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.957"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                android:layout_marginTop="@dimen/_12ssp"
+                android:layout_marginLeft="@dimen/_77ssp"
+                app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/actions_scrollView"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:foregroundTint="#F8F5F5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_free"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="@color/black"
+                    android:shadowColor="#FBFBFB"
+                    android:text="Free"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:background="@drawable/button_border"
+                    android:layout_marginEnd="@dimen/_2ssp"
+                    android:layout_marginStart="@dimen/_2ssp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_paid"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="@color/black"
+                    android:shadowColor="#FBFBFB"
+                    android:text="Paid"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:background="@drawable/button_border"
+                    android:layout_marginEnd="@dimen/_2ssp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_level"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="@color/black"
+                    android:shadowColor="#FBFBFB"
+                    android:text="Level"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:background="@drawable/button_border"
+                    android:layout_marginEnd="@dimen/_2ssp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_keyDomain"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="@color/black"
+                    android:shadowColor="#FBFBFB"
+                    android:text="Key Domain"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:background="@drawable/button_border"
+                    android:layout_marginEnd="@dimen/_2ssp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_devDomain"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="@color/black"
+                    android:shadowColor="#FBFBFB"
+                    android:text="Dev Domain"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:background="@drawable/button_border"
+                    android:layout_marginEnd="@dimen/_2ssp"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:divider="@color/white"
+            android:dividerHeight="1dp"
+            android:footerDividersEnabled="false"
+            app:layout_constraintBottom_toTopOf="@+id/VideoLibrary_Bottom_Navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+            tools:listitem="@layout/activity_activities_list_item" />
 
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/VideoLibrary_Bottom_Navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:itemTextColor="@color/Spacece_Yellow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/videolibrary_bottomoptions">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/VideoLibrary_Bottom_Navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/windowBackground"
+            app:itemTextColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/videolibrary_bottomoptions"
+            android:visibility="gone">
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

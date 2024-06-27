@@ -203,6 +203,7 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
             }
         });
         requestQueue.add(jsonObjectRequest);
+        Log.e("fetch:!@#!@#$%^&*(@#$%^&*()","user_id================"+MainActivity.ACCOUNT.getAccount_id());
         String url1="http://43.205.45.96/spacec_active/api_fetchWorkdone.php?user_id=";
         JsonObjectRequest jsonObjectRequest1=new JsonObjectRequest(url1 + MainActivity.ACCOUNT.getAccount_id(), new Response.Listener<JSONObject>() {
             @Override
