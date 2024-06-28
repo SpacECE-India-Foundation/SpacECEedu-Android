@@ -109,7 +109,6 @@ public class second_page_for_space_active_with_video extends AppCompatActivity {
         Material=findViewById(R.id.Material);
         Material_Ans=findViewById(R.id.Material_Ans);
         Instructions=findViewById(R.id.Instructions);
-        steps=findViewById(R.id.steps);
         detail=findViewById(R.id.detail);
         Activity=findViewById(R.id.Activity);
         Activity_Number=findViewById(R.id.Activity_Number);
