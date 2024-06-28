@@ -2,9 +2,12 @@ package com.spacECE.spaceceedu.space_active;
 
 import static java.lang.String.valueOf;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -27,6 +31,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ncorti.slidetoact.SlideToActView;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
@@ -72,6 +77,7 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
     TextView Process_Ans;
     TextView Result;
     String activity_no;
+    SlideToActView slider;
 
 
     @Override
@@ -109,13 +115,13 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
         String image=intent.getStringExtra("activity_image");
 
         image_second_activity=findViewById(R.id.image);
+        slider=findViewById(R.id.slider);
         Activity_Name=findViewById(R.id.Activity_Name);
         Objective=findViewById(R.id.Objective);
         Objective_Ans=findViewById(R.id.Objective_Ans);
         Material=findViewById(R.id.Material);
         Material_Ans=findViewById(R.id.Material_Ans);
         Instructions=findViewById(R.id.Instructions);
-        steps=findViewById(R.id.steps);
         detail=findViewById(R.id.detail);
         Activity=findViewById(R.id.Activity);
         Activity_Number=findViewById(R.id.Activity_Number);
@@ -170,7 +176,40 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
         Dev_Key_Ans.setText(activity_key_dev);
         Assessment_Ans.setText(activity_assessment);
         Process_Ans.setText(activity_process);
-        setCompleted(1);
+
+
+        slider.setOnSlideCompleteListener(new SlideToActView.OnSlideCompleteListener() {
+            @Override
+            public void onSlideComplete(@NonNull SlideToActView slideToActView) {
+                if (MainActivity.ACCOUNT !=null && MainActivity.ACCOUNT.getAccount_id()!=null){
+                    View view= LayoutInflater.from(second_page_for_space_active_with_image.this).inflate(R.layout.main_pop_up,null);
+                    AlertDialog.Builder alert =new AlertDialog.Builder(second_page_for_space_active_with_image.this);
+                    alert.setView(view);
+                    view.findViewById(R.id.yet_to_start).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            setCompleted(-1);
+                        }
+                    });
+                    view.findViewById(R.id.on_going).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            setCompleted(0);
+                        }
+                    });
+                    view.findViewById(R.id.completed).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            setCompleted(1);
+                        }
+                    });
+                    alert.show();
+                }
+                else {
+                    Toast.makeText(second_page_for_space_active_with_image.this, "Please Login First", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
     public void setCompleted(int i){
         Log.e("setCompleted:>>>>>>>>>>>>>>>>>>>>>>>>","");
