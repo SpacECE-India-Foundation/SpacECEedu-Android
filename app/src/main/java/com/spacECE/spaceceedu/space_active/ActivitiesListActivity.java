@@ -3,6 +3,10 @@ package com.spacECE.spaceceedu.space_active;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +42,57 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activities_list);
+
+
+
+
+        //added for testing
+        Spinner key_spinner = findViewById(R.id.key_domain_spinner);
+        ArrayAdapter<CharSequence> key_adapter = ArrayAdapter.createFromResource(this,
+                R.array.key_domain_items, android.R.layout.simple_spinner_item);
+        key_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        key_spinner.setAdapter(key_adapter);
+
+        key_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                Toast.makeText(ActivitiesListActivity.this, selectedItem, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+
+
+        //added for testing
+        Spinner dev_spinner = findViewById(R.id.dev_domain_spinner);
+        ArrayAdapter<CharSequence> dev_adapter = ArrayAdapter.createFromResource(this,
+                R.array.dev_domain_items, android.R.layout.simple_spinner_item);
+        dev_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dev_spinner.setAdapter(dev_adapter);
+
+        dev_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                Toast.makeText(ActivitiesListActivity.this, selectedItem, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+
+
+
+
+
+
+
 
         getWindow().setStatusBarColor(ContextCompat.getColor(ActivitiesListActivity.this,R.color.black));
         list_activity=findViewById(R.id.list_activity);
