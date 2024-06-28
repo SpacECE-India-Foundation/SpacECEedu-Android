@@ -15,12 +15,14 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_160sdp"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="26dp">
+                android:layout_marginTop="@dimen/_26sdp"
+                >
+
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="380dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/_300sdp"
+                    android:layout_height="@dimen/_150sdp"
                     android:id="@+id/image"
                     android:src="@drawable/download"
                     android:scaleType="fitXY"
@@ -32,70 +34,49 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp">
+                android:layout_marginTop="26dp"
+                >
 
                 <TextView
                     android:id="@+id/Activity_Name"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text=""
+                    android:text="Healthy Food"
                     android:layout_marginLeft="16dp"
                     android:textStyle="bold"
                     android:textColor="#000000"
                     android:textSize="20sp" />
+
+
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp">
-
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
                 <TextView
-                    android:id="@+id/Objective"
+                    android:id="@+id/Activity"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="Objective:"
+                    android:text="Activity Number:"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
-                    android:layout_marginLeft="16dp"
-                    android:textSize="20sp" />
+                    android:textColor="#000000"
+                    />
 
                 <TextView
-                    android:id="@+id/Objective_Ans"
+                    android:id="@+id/Activity_Number"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="16dp"
                     android:textSize="20sp"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#BEBEBE"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp" />
-
-                <TextView
-                    android:id="@+id/Material"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Material:"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="16dp"
-                    android:textSize="20sp"
-                    android:layout_marginTop="16dp" />
-
-                <TextView
-                    android:id="@+id/Material_Ans"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:textSize="20sp"
-                    android:textColor="#000000" />
             </LinearLayout>
 
             <View
@@ -107,113 +88,22 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/Instructions"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Instructions"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
+            <!--            here-->
+            <!--            -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="40sp"
-                    android:layout_height="40sp">
-                    <TextView
-                        android:id="@+id/steps"
-                        android:layout_height="wrap_content"
-                        android:layout_width="20sp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-
-                    android:layout_marginBottom="16dp">
-
-                    <TextView
-                        android:id="@+id/detail"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:textSize="20sp"
-                        android:textColor="#000000" />
-
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#BEBEBE"
-
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/Activity"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Activity Number:"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/Activity_Number"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:textSize="20sp"
-                    android:textColor="#000000" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#BEBEBE"
-                android:layout_marginTop="26dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
                 <TextView
                     android:id="@+id/Level"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="Level"
+                    android:text="Level:"
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="16dp"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
                 <TextView
                     android:id="@+id/Level_Number"
@@ -232,29 +122,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#BEBEBE"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp" />
 
             <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                >
+                android:layout_marginTop="6dp">
 
                 <TextView
-                    android:id="@+id/Dev_Domain"
+                    android:id="@+id/Objective"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="Dev_Domain:"
-                    android:layout_marginTop="16dp"
+                    android:text="Objective:"
+                    android:textStyle="bold"
                     android:layout_marginLeft="16dp"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textColor="#000000"/>
 
                 <TextView
-                    android:id="@+id/Dev_Domain_Ans"
+                    android:id="@+id/Objective_Ans"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="16dp"
@@ -262,23 +152,126 @@
                     android:textSize="20sp"
                     android:textColor="#000000"/>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#BEBEBE"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp" />
 
+                <TextView
+                    android:id="@+id/Material"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Material:"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="20sp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:id="@+id/Material_Ans"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#BEBEBE"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/Instructions"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Instructions"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+
+                <TextView
+                    android:id="@+id/steps"
+                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="20sp"
+
+
+                    android:text="Steps:"/>
+
+
+
+                <LinearLayout
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/detail"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:textSize="20sp"
+                        android:textColor="#000000"
+                        />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#BEBEBE"
+
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp" />
 
 
+
+
+
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+
+                android:orientation="vertical"
                 >
 
                 <TextView
@@ -289,7 +282,8 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="16dp"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
                 <TextView
                     android:id="@+id/Dev_Key_Ans"
@@ -314,7 +308,46 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/Dev_Domain"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Dev_Domain:"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:id="@+id/Dev_Domain_Ans"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#BEBEBE"
+                android:layout_marginTop="26dp"
                 android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
                 android:orientation="vertical"
                 >
 
@@ -326,7 +359,8 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="16dp"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
                 <TextView
                     android:id="@+id/Assessment_Ans"
@@ -363,7 +397,8 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="16dp"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
                 <TextView
                     android:id="@+id/Process_Ans"
@@ -400,7 +435,8 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="16dp"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
             </LinearLayout>
 
@@ -409,16 +445,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:orientation="vertical"
+                android:gravity="center_horizontal"
                 >
 
-                <SeekBar
-                    android:id="@+id/myseek"
-                    android:layout_width="fill_parent"
+                <com.ncorti.slidetoact.SlideToActView
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:max="100"
-                    android:progressDrawable="@android:color/transparent"
-                    android:thumb="@drawable/download" />
+                    app:text_color="@color/black"
+                    app:text_style="bold"
+                    app:text_size="@dimen/_15ssp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginBottom="@dimen/_30sdp"
+                    app:text="SLIDE HERE" />
 
 
             </LinearLayout>

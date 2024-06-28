@@ -203,77 +203,83 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
             }
         });
         requestQueue.add(jsonObjectRequest);
+
         String url1="http://43.205.45.96/spacec_active/api_fetchWorkdone.php?user_id=";
-        JsonObjectRequest jsonObjectRequest1=new JsonObjectRequest(url1 + MainActivity.ACCOUNT.getAccount_id(), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.e( "onResponse:@@@@@@@@@@@@@@",response.toString());
-                try {
-                    JSONArray jsonArray=response.getJSONArray("activities");
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject jsonObject=jsonArray.getJSONObject(i);
-                        activity_completed.put(jsonObject.getString("activity_no"),jsonObject.getString("workdone"));
+        if (MainActivity.ACCOUNT !=null && MainActivity.ACCOUNT.getAccount_id()!=null){
+            Log.e("fetch:!@#!@#$%^&*(@#$%^&*()","user_id================"+MainActivity.ACCOUNT.getAccount_id());
+            JsonObjectRequest jsonObjectRequest1=new JsonObjectRequest(url1 + MainActivity.ACCOUNT.getAccount_id(), new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.e( "onResponse:@@@@@@@@@@@@@@",response.toString());
+                    try {
+                        JSONArray jsonArray=response.getJSONArray("activities");
+                        for (int i=0;i<jsonArray.length();i++){
+                            JSONObject jsonObject=jsonArray.getJSONObject(i);
+                            activity_completed.put(jsonObject.getString("activity_no"),jsonObject.getString("workdone"));
+                        }
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
                     }
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e( "onResponse:@@@@@@@@@@@@@@",error.toString());
-            }
-        });
-        requestQueue.add(jsonObjectRequest1);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e( "onResponse:@@@@@@@@@@@@@@",error.toString());
+                }
+            });
+            requestQueue.add(jsonObjectRequest1);
+        }
+
     }
     @Override
     public void onclick_space_active(int position) {
         Log.e( "onclick_space_active:-----------",position+"-----------");
-
-
-        if (arrayList_space_active_all_in_one_data_holder.get(position).activity_video!=null && !arrayList_space_active_all_in_one_data_holder.get(position).activity_video.equals("null")){
-            Intent intent=new Intent(ActivitiesListActivity.this, second_page_for_space_active_with_video.class);
-            intent.putExtra("activity_no",arrayList_space_active_all_in_one_data_holder.get(position).activity_no);
-            intent.putExtra("activity_name",arrayList_space_active_all_in_one_data_holder.get(position).activity_name);
-            intent.putExtra("activity_level",arrayList_space_active_all_in_one_data_holder.get(position).activity_level);
-            intent.putExtra("activity_dev_domain",arrayList_space_active_all_in_one_data_holder.get(position).activity_dev_domain);
-            intent.putExtra("activity_objectives",arrayList_space_active_all_in_one_data_holder.get(position).activity_objectives);
-            intent.putExtra("activity_key_dev",arrayList_space_active_all_in_one_data_holder.get(position).activity_key_dev);
-            intent.putExtra("activity_material",arrayList_space_active_all_in_one_data_holder.get(position).activity_material);
-            intent.putExtra("activity_assessment",arrayList_space_active_all_in_one_data_holder.get(position).activity_assessment);
-            intent.putExtra("activity_process",arrayList_space_active_all_in_one_data_holder.get(position).activity_process);
-            intent.putExtra("activity_instructions",arrayList_space_active_all_in_one_data_holder.get(position).activity_instructions);
-            intent.putExtra("activity_complete_status",arrayList_space_active_all_in_one_data_holder.get(position).activity_complete_status);
-            intent.putExtra("activity_image",arrayList_space_active_all_in_one_data_holder.get(position).activity_image);
-            intent.putExtra("activity_video",arrayList_space_active_all_in_one_data_holder.get(position).activity_video);
-            intent.putExtra("activity_type_status",arrayList_space_active_all_in_one_data_holder.get(position).activity_type_status);
-            intent.putExtra("activity_date",arrayList_space_active_all_in_one_data_holder.get(position).activity_date);
-            intent.putExtra("playlist_id",arrayList_space_active_all_in_one_data_holder.get(position).activity_playlist_id);
-            intent.putExtra("playlist_descr",arrayList_space_active_all_in_one_data_holder.get(position).getActivity_playlist_description);
-            intent.putExtra("playlist_name",arrayList_space_active_all_in_one_data_holder.get(position).getActivity_playlist_name);
-            startActivity(intent);
-        }else {
-            Intent intent=new Intent(ActivitiesListActivity.this, second_page_for_space_active_with_image.class);
-            intent.putExtra("activity_no",arrayList_space_active_all_in_one_data_holder.get(position).activity_no);
-            intent.putExtra("activity_name",arrayList_space_active_all_in_one_data_holder.get(position).activity_name);
-            intent.putExtra("activity_level",arrayList_space_active_all_in_one_data_holder.get(position).activity_level);
-            intent.putExtra("activity_dev_domain",arrayList_space_active_all_in_one_data_holder.get(position).activity_dev_domain);
-            intent.putExtra("activity_objectives",arrayList_space_active_all_in_one_data_holder.get(position).activity_objectives);
-            intent.putExtra("activity_key_dev",arrayList_space_active_all_in_one_data_holder.get(position).activity_key_dev);
-            intent.putExtra("activity_material",arrayList_space_active_all_in_one_data_holder.get(position).activity_material);
-            intent.putExtra("activity_assessment",arrayList_space_active_all_in_one_data_holder.get(position).activity_assessment);
-            intent.putExtra("activity_process",arrayList_space_active_all_in_one_data_holder.get(position).activity_process);
-            intent.putExtra("activity_instructions",arrayList_space_active_all_in_one_data_holder.get(position).activity_instructions);
-            intent.putExtra("activity_complete_status",arrayList_space_active_all_in_one_data_holder.get(position).activity_complete_status);
-            intent.putExtra("activity_image",arrayList_space_active_all_in_one_data_holder.get(position).activity_image);
-            intent.putExtra("activity_video",arrayList_space_active_all_in_one_data_holder.get(position).activity_video);
-            intent.putExtra("activity_type_status",arrayList_space_active_all_in_one_data_holder.get(position).activity_type_status);
-            intent.putExtra("activity_date",arrayList_space_active_all_in_one_data_holder.get(position).activity_date);
-            intent.putExtra("playlist_id",arrayList_space_active_all_in_one_data_holder.get(position).activity_playlist_id);
-            intent.putExtra("playlist_descr",arrayList_space_active_all_in_one_data_holder.get(position).getActivity_playlist_description);
-            intent.putExtra("playlist_name",arrayList_space_active_all_in_one_data_holder.get(position).getActivity_playlist_name);
-            startActivity(intent);
+        try {
+            if (arrayList_space_active_all_in_one_data_holder.get(position).activity_video!=null && !arrayList_space_active_all_in_one_data_holder.get(position).activity_video.equals("null")){
+                Intent intent=new Intent(ActivitiesListActivity.this, second_page_for_space_active_with_video.class);
+                intent.putExtra("activity_no",arrayList_space_active_all_in_one_data_holder.get(position).activity_no);
+                intent.putExtra("activity_name",arrayList_space_active_all_in_one_data_holder.get(position).activity_name);
+                intent.putExtra("activity_level",arrayList_space_active_all_in_one_data_holder.get(position).activity_level);
+                intent.putExtra("activity_dev_domain",arrayList_space_active_all_in_one_data_holder.get(position).activity_dev_domain);
+                intent.putExtra("activity_objectives",arrayList_space_active_all_in_one_data_holder.get(position).activity_objectives);
+                intent.putExtra("activity_key_dev",arrayList_space_active_all_in_one_data_holder.get(position).activity_key_dev);
+                intent.putExtra("activity_material",arrayList_space_active_all_in_one_data_holder.get(position).activity_material);
+                intent.putExtra("activity_assessment",arrayList_space_active_all_in_one_data_holder.get(position).activity_assessment);
+                intent.putExtra("activity_process",arrayList_space_active_all_in_one_data_holder.get(position).activity_process);
+                intent.putExtra("activity_instructions",arrayList_space_active_all_in_one_data_holder.get(position).activity_instructions);
+                intent.putExtra("activity_complete_status",arrayList_space_active_all_in_one_data_holder.get(position).activity_complete_status);
+                intent.putExtra("activity_image",arrayList_space_active_all_in_one_data_holder.get(position).activity_image);
+                intent.putExtra("activity_video",arrayList_space_active_all_in_one_data_holder.get(position).activity_video);
+                intent.putExtra("activity_type_status",arrayList_space_active_all_in_one_data_holder.get(position).activity_type_status);
+                intent.putExtra("activity_date",arrayList_space_active_all_in_one_data_holder.get(position).activity_date);
+                intent.putExtra("playlist_id",arrayList_space_active_all_in_one_data_holder.get(position).activity_playlist_id);
+                intent.putExtra("playlist_descr",arrayList_space_active_all_in_one_data_holder.get(position).getActivity_playlist_description);
+                intent.putExtra("playlist_name",arrayList_space_active_all_in_one_data_holder.get(position).getActivity_playlist_name);
+                startActivity(intent);
+            }else {
+                Intent intent=new Intent(ActivitiesListActivity.this, second_page_for_space_active_with_image.class);
+                intent.putExtra("activity_no",arrayList_space_active_all_in_one_data_holder.get(position).activity_no);
+                intent.putExtra("activity_name",arrayList_space_active_all_in_one_data_holder.get(position).activity_name);
+                intent.putExtra("activity_level",arrayList_space_active_all_in_one_data_holder.get(position).activity_level);
+                intent.putExtra("activity_dev_domain",arrayList_space_active_all_in_one_data_holder.get(position).activity_dev_domain);
+                intent.putExtra("activity_objectives",arrayList_space_active_all_in_one_data_holder.get(position).activity_objectives);
+                intent.putExtra("activity_key_dev",arrayList_space_active_all_in_one_data_holder.get(position).activity_key_dev);
+                intent.putExtra("activity_material",arrayList_space_active_all_in_one_data_holder.get(position).activity_material);
+                intent.putExtra("activity_assessment",arrayList_space_active_all_in_one_data_holder.get(position).activity_assessment);
+                intent.putExtra("activity_process",arrayList_space_active_all_in_one_data_holder.get(position).activity_process);
+                intent.putExtra("activity_instructions",arrayList_space_active_all_in_one_data_holder.get(position).activity_instructions);
+                intent.putExtra("activity_complete_status",arrayList_space_active_all_in_one_data_holder.get(position).activity_complete_status);
+                intent.putExtra("activity_image",arrayList_space_active_all_in_one_data_holder.get(position).activity_image);
+                intent.putExtra("activity_video",arrayList_space_active_all_in_one_data_holder.get(position).activity_video);
+                intent.putExtra("activity_type_status",arrayList_space_active_all_in_one_data_holder.get(position).activity_type_status);
+                intent.putExtra("activity_date",arrayList_space_active_all_in_one_data_holder.get(position).activity_date);
+                intent.putExtra("playlist_id",arrayList_space_active_all_in_one_data_holder.get(position).activity_playlist_id);
+                intent.putExtra("playlist_descr",arrayList_space_active_all_in_one_data_holder.get(position).getActivity_playlist_description);
+                intent.putExtra("playlist_name",arrayList_space_active_all_in_one_data_holder.get(position).getActivity_playlist_name);
+                startActivity(intent);
+            }
+        }catch (Exception e){
+            Log.e( "onclick_space_active: ",e.toString());
         }
-
     }
 }

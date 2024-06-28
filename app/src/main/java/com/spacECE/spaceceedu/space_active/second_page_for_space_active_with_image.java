@@ -2,6 +2,7 @@ package com.spacECE.spaceceedu.space_active;
 
 import static java.lang.String.valueOf;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -27,6 +29,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ncorti.slidetoact.SlideToActView;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
@@ -72,6 +75,7 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
     TextView Process_Ans;
     TextView Result;
     String activity_no;
+    SlideToActView slider;
 
 
     @Override
@@ -109,6 +113,7 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
         String image=intent.getStringExtra("activity_image");
 
         image_second_activity=findViewById(R.id.image);
+        slider=findViewById(R.id.slider);
         Activity_Name=findViewById(R.id.Activity_Name);
         Objective=findViewById(R.id.Objective);
         Objective_Ans=findViewById(R.id.Objective_Ans);
@@ -170,7 +175,40 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
         Dev_Key_Ans.setText(activity_key_dev);
         Assessment_Ans.setText(activity_assessment);
         Process_Ans.setText(activity_process);
-        setCompleted(1);
+
+
+        slider.setOnSlideCompleteListener(new SlideToActView.OnSlideCompleteListener() {
+            @Override
+            public void onSlideComplete(@NonNull SlideToActView slideToActView) {
+                if (MainActivity.ACCOUNT !=null && MainActivity.ACCOUNT.getAccount_id()!=null){
+                    AlertDialog.Builder alert =new AlertDialog.Builder(second_page_for_space_active_with_image.this);
+                    alert.setTitle("Task Completed ?")
+                            .setMessage("Have you fully completed the task ?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    setCompleted(1);
+                                }
+                            })
+                            .setNegativeButton("Not Completed", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    setCompleted(-1);
+                                }
+                            })
+                            .setNeutralButton("Half Completed", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    setCompleted(0);
+                                }
+                            });
+                    alert.show();
+                }
+                else {
+                    Toast.makeText(second_page_for_space_active_with_image.this, "Please Login First", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
     public void setCompleted(int i){
         Log.e("setCompleted:>>>>>>>>>>>>>>>>>>>>>>>>","");
