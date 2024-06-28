@@ -22,7 +22,7 @@
         />
 
     <item
-        android:title="My Books"
+        android:title="My Cart"
         android:id="@+id/toolbar_menu_my_books"
         android:icon="@drawable/ic_toolbar_menu_my_books"
         />
