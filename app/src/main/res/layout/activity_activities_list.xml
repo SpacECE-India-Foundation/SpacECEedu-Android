@@ -126,31 +126,31 @@
                     android:background="@drawable/button_border"
                     android:layout_marginEnd="@dimen/_2ssp"/>
 
-                <androidx.appcompat.widget.AppCompatButton
+                <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/button_keyDomain"
                     android:layout_width="wrap_content"
 
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="@dimen/_2ssp"
+                    android:background="@drawable/button_border"
                     android:outlineAmbientShadowColor="@color/black"
                     android:shadowColor="#FBFBFB"
                     android:text="Key Domain"
                     android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:background="@drawable/button_border"
-                    android:layout_marginEnd="@dimen/_2ssp"/>
+                    android:textColor="@color/black" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/button_devDomain"
                     android:layout_width="wrap_content"
 
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="@dimen/_2ssp"
+                    android:background="@drawable/button_border"
                     android:outlineAmbientShadowColor="@color/black"
                     android:shadowColor="#FBFBFB"
                     android:text="Dev Domain"
                     android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:background="@drawable/button_border"
-                    android:layout_marginEnd="@dimen/_2ssp"/>
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
