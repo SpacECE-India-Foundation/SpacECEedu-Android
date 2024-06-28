@@ -79,7 +79,7 @@
                         android:layout_height="@dimen/_200sdp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/_25sdp"
-                        app:srcCompat="@drawable/consultant" />
+                        app:srcCompat="@drawable/img_1" />
                     <TextView
                         android:layout_marginTop="@dimen/_50sdp"
                         android:id="@+id/Consultant_Profile_textView_Name"
