@@ -1,6 +1,7 @@
 package com.spacECE.spaceceedu;
 
 import android.app.*;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -75,8 +76,13 @@ public class MainActivity extends AppCompatActivity {
             // find MenuItem you want to change
             ImageView nav_camara = navHead.findViewById(R.id.Main_nav_drawer_profile_pic);
             TextView nav_name = navHead.findViewById(R.id.Main_Nav_TextView_UserName);
+
             //https connection doesn't work as of now use http
             nav_name.setText(ACCOUNT.getUsername());
+            nav_name.setTextSize(20);
+            Menu menu = navigationView.getMenu();
+            MenuItem item = menu.findItem(R.id.Signout);
+            item.setVisible(true);
 
             try {
                 if(nav_camara==null){
@@ -151,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         //Navigation Drawer
         drawer = findViewById(R.id.Main_NavView_drawer);
         navigationView = (NavigationView) findViewById(R.id.Main_navView_drawer);
+
         try {
             navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -234,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
     private void getDetails() {
         ACCOUNT = userLocalStore.getLoggedInAccount();
     }
+
 
     private boolean authenticate(){
         return userLocalStore.getUserLoggedIn();
