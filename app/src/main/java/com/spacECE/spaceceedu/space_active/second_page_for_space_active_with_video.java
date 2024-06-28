@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -155,27 +156,27 @@ public class second_page_for_space_active_with_video extends AppCompatActivity {
             @Override
             public void onSlideComplete(@NonNull SlideToActView slideToActView) {
                 if (MainActivity.ACCOUNT !=null && MainActivity.ACCOUNT.getAccount_id()!=null){
+                    View view= LayoutInflater.from(second_page_for_space_active_with_video.this).inflate(R.layout.main_pop_up,null);
                     AlertDialog.Builder alert =new AlertDialog.Builder(second_page_for_space_active_with_video.this);
-                    alert.setTitle("Task Completed ?")
-                            .setMessage("Have you fully completed the task ?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    setCompleted(1);
-                                }
-                            })
-                            .setNegativeButton("Not Completed", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    setCompleted(-1);
-                                }
-                            })
-                            .setNeutralButton("Half Completed", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    setCompleted(0);
-                                }
-                            });
+                    alert.setView(view);
+                    view.findViewById(R.id.yet_to_start).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            setCompleted(-1);
+                        }
+                    });
+                    view.findViewById(R.id.on_going).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            setCompleted(0);
+                        }
+                    });
+                    view.findViewById(R.id.completed).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            setCompleted(1);
+                        }
+                    });
                     alert.show();
                 }
                 else {
