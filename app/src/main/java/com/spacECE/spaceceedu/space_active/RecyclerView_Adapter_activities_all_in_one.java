@@ -1,5 +1,6 @@
 package com.spacECE.spaceceedu.space_active;
 
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +48,7 @@ public class RecyclerView_Adapter_activities_all_in_one extends RecyclerView.Ada
         holder.desc.setText(arrayList_space_active_all_in_one_data_holder.get(position).activity_objectives);
         holder.level.setText("\uD83C\uDF82 Level -"+arrayList_space_active_all_in_one_data_holder.get(position).activity_level);
         if (arrayList_space_active_all_in_one_data_holder.get(position).getActivity_video()!=null && !arrayList_space_active_all_in_one_data_holder.get(position).getActivity_video().equals("null")){
+            holder.contains_video.setTextColor(context.getResources().getColor(R.color.green));
             holder.contains_video.setText("ദ്ദി ˉ͈̀꒳ˉ͈́ ) Contains videos");
         }else {
             holder.contains_video.setVisibility(View.GONE);
@@ -59,14 +61,18 @@ public class RecyclerView_Adapter_activities_all_in_one extends RecyclerView.Ada
             Integer i=Integer.parseInt(activity_completed.get(arrayList_space_active_all_in_one_data_holder.get(position).activity_no));
             Log.e("onBindViewHolder:!!!!!!!!!!!!!!!!!!!!",i+"");
             if (i==1){
+                holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.green));
                 holder.completed_or_not.setText("ദ്ദി(˵ •̀ ᴗ - ˵ ) Activity Completed");
             }else if (i==0){
+                holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.gray));
                 holder.completed_or_not.setText("ദ്ദി(ᵔᗜᵔ) Half Completed");
             }else if (i==-1){
+                holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.red));
                 holder.completed_or_not.setText("(¬_¬\") Not Completed");
             }
 
         }else {
+            holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.red));
             holder.completed_or_not.setText("(¬_¬\") Not Completed");
         }
         if (arrayList_space_active_all_in_one_data_holder.get(position).activity_image!=null && !arrayList_space_active_all_in_one_data_holder.get(position).activity_image.equals("null")){
