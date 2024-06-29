@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
+import com.spacECE.spaceceedu.space_active.ActivitiesListActivity;
+
 import org.json.JSONObject;
 
 public class ReminderBroadCastReciever extends BroadcastReceiver {
@@ -79,7 +81,7 @@ public class ReminderBroadCastReciever extends BroadcastReceiver {
                 GsonBuilder gsonBuilder = new GsonBuilder();
                 Gson gson = gsonBuilder.create();
                 ActivityData activityData = gson.fromJson(apiCall[0].toString(),ActivityData.class);
-                ActivitiesListActivity.InsertDataIntoSqlite(activityData);
+                //ActivitiesListActivity.InsertDataIntoSqlite(activityData);
 
             }catch (RuntimeException runtimeException){
                 Log.d(TAG, "RUNTIME EXCEPTION:::, Server did not respons");

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -26,7 +27,6 @@ public class ConsultantsLibrary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultants_library);
         getWindow().setStatusBarColor(ContextCompat.getColor(ConsultantsLibrary.this,R.color.black));
-
         recyclerView = findViewById(R.id.RecycleView);
         setUpAdapter();
     }
@@ -34,7 +34,7 @@ public class ConsultantsLibrary extends AppCompatActivity {
     private void setUpAdapter() {
         Log.i("Adapter", "Started");
         setOnClickListener();
-        Consultants_RecyclerViewAdapter adapter = new Consultants_RecyclerViewAdapter(consultantsList, listener);
+        Consultants_RecyclerViewAdapter adapter = new Consultants_RecyclerViewAdapter(consultantsList, listener,ConsultantsLibrary.this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
