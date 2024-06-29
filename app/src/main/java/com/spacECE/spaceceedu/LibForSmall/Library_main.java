@@ -84,9 +84,6 @@ public class Library_main extends AppCompatActivity {
         if(id==R.id.toolbar_menu_add_books){
             replaceFragment(new AddBooks());
         }
-        if(id==R.id.toolbar_menu_exchange_requests){
-            Toast.makeText(this, "Place your Exchange Request Here", Toast.LENGTH_SHORT).show();
-        }
         if(id==R.id.toolbar_menu_my_books){
             replaceFragment(new MyBooks());
         }
