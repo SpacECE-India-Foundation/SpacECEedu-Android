@@ -34,7 +34,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center"
                 >
 
                 <TextView
@@ -42,10 +43,12 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="Healthy Food"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="@dimen/_16ssp"
                     android:textStyle="bold"
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/_20ssp"
+                    android:justificationMode="inter_word"
+                    />
 
 
             </LinearLayout>
@@ -72,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_gravity="center_horizontal"
                         >
                         <TextView
@@ -80,22 +83,28 @@
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:text="Activity Number:"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textStyle="bold"
                             android:textColor="#000000"
+                            android:background="#2FE1B543"
+                            android:justificationMode="inter_word"
+
                             />
 
                         <TextView
                             android:id="@+id/Activity_Number"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:layout_marginRight="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textColor="#000000"
                             android:text="1"
+                            android:justificationMode="inter_word"
+
                             />
 
                     </LinearLayout>
@@ -110,7 +119,7 @@
                         android:layout_height="1dp"
                         android:background="#BEBEBE"
                         android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="6dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp" />
 
@@ -131,34 +140,41 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center">
+
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal"
+                        >
                         <TextView
                             android:id="@+id/Level"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:text="Level:"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textStyle="bold"
-                            android:textColor="#000000"/>
+                            android:textColor="#000000"
+                            android:background="#2FE1B543"
+                            android:justificationMode="inter_word"
+                            />
 
                         <TextView
                             android:id="@+id/Level_Number"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textColor="#000000"
                             android:text="1"
+                            android:justificationMode="inter_word"
+
                             />
 
 
                     </LinearLayout>
 
-                    <!--            </androidx.cardview.widget.CardView>-->
+
 
                     <View
                         android:layout_width="match_parent"
@@ -170,21 +186,12 @@
                         android:layout_marginRight="16dp" />
 
 
-                    <!--            <androidx.cardview.widget.CardView-->
-                    <!--                app:cardBackgroundColor="#F5F5DC"-->
-                    <!--                android:layout_marginEnd="@dimen/_20sdp"-->
-                    <!--                android:layout_marginStart="@dimen/_20sdp"-->
-                    <!--                android:layout_marginBottom="@dimen/_30sdp"-->
-                    <!--                app:cardCornerRadius="@dimen/_20sdp"-->
-                    <!--                android:layout_width="match_parent"-->
-                    <!--                android:layout_height="@dimen/_60sdp"-->
-                    <!--                android:layout_marginTop="@dimen/_25sdp"-->
-                    <!--                android:layout_gravity="center_vertical">-->
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_gravity="center">
                         <TextView
                             android:id="@+id/Objective"
@@ -192,19 +199,27 @@
                             android:layout_width="wrap_content"
                             android:text="Objective:"
                             android:textStyle="bold"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
-                            android:textColor="#000000"/>
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
+                            android:textColor="#000000"
+                            android:background="#2FE1B543"
+                            android:justificationMode="inter_word"
+
+                            />
 
                         <TextView
                             android:id="@+id/Objective_Ans"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:layout_marginRight="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textColor="#000000"
-                            android:text="Health and Food"/>
+                            android:text="Health and Food"
+                            android:justificationMode="inter_word"
+                            />
 
 
                     </LinearLayout>
@@ -234,7 +249,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_gravity="center">
                         <TextView
                             android:id="@+id/Material"
@@ -242,19 +257,26 @@
                             android:layout_width="wrap_content"
                             android:text="Material:"
                             android:textStyle="bold"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
-                            android:layout_marginTop="16dp"
-                            android:textColor="#000000"/>
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
+                            android:textColor="#000000"
+                            android:background="#2FE1B543"
+                            android:justificationMode="inter_word"
+
+                            />
 
                         <TextView
                             android:id="@+id/Material_Ans"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:layout_marginRight="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textColor="#000000"
+                            android:justificationMode="inter_word"
+
                             android:text="Poem"
                             />
 
@@ -290,17 +312,21 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            >
                             <TextView
                                 android:id="@+id/Instructions"
                                 android:layout_height="wrap_content"
                                 android:layout_width="wrap_content"
                                 android:text="Instructions:"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginLeft="16dp"
-                                android:textSize="20sp"
+                                android:layout_marginTop="@dimen/_16ssp"
+                                android:layout_marginLeft="@dimen/_16ssp"
+                                android:textSize="@dimen/_16ssp"
                                 android:textStyle="bold"
-                                android:textColor="#000000"/>
+                                android:textColor="#000000"
+                                android:background="#2FE1B543"
+                                android:justificationMode="inter_word"
+                                />
 
 
                         </LinearLayout>
@@ -318,21 +344,24 @@
 
 
                             <LinearLayout
-                                android:layout_width="10dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
-                                android:layout_marginBottom="16dp">
+                                android:layout_marginBottom="@dimen/_16sdp">
 
                                 <TextView
                                     android:id="@+id/detail"
                                     android:layout_height="wrap_content"
                                     android:layout_width="wrap_content"
-                                    android:layout_marginTop="16dp"
-                                    android:layout_marginLeft="16dp"
-                                    android:textSize="20sp"
+                                    android:layout_marginTop="@dimen/_16ssp"
+                                    android:layout_marginLeft="@dimen/_16ssp"
+                                    android:layout_marginRight="@dimen/_16ssp"
+                                    android:textSize="@dimen/_16ssp"
                                     android:textColor="#000000"
                                     android:text="HELLLLO"
+                                    android:justificationMode="inter_word"
+
                                     />
 
 
@@ -391,7 +420,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         >
 
                         <TextView
@@ -399,21 +428,27 @@
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:text="Key_Dev:"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textStyle="bold"
-                            android:textColor="#000000"/>
+                            android:textColor="#000000"
+                            android:background="#2FE1B543"
+                            android:justificationMode="inter_word"
+                            />
 
                         <TextView
                             android:id="@+id/Dev_Key_Ans"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:layout_marginRight="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textColor="#000000"
-                            android:text="Health and Wellness"/>
+                            android:text="Health and Wellness"
+                            android:justificationMode="inter_word"
+                            />
 
 
                     </LinearLayout>
@@ -456,7 +491,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         >
 
                         <TextView
@@ -464,21 +499,27 @@
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:text="Dev_Domain:"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textStyle="bold"
-                            android:textColor="#000000"/>
+                            android:textColor="#000000"
+                            android:background="#2FE1B543"
+                            android:justificationMode="inter_word"
+                            />
 
                         <TextView
                             android:id="@+id/Dev_Domain_Ans"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:layout_marginRight="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textColor="#000000"
                             android:text="Cognitive"
+                            android:justificationMode="inter_word"
+
                             />
 
 
@@ -515,7 +556,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         >
 
                         <TextView
@@ -523,21 +564,27 @@
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:text="Assessment:"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textStyle="bold"
-                            android:textColor="#000000"/>
+                            android:textColor="#000000"
+                            android:background="#2FE1B543"
+                            android:justificationMode="inter_word"
+                            />
 
                         <TextView
                             android:id="@+id/Assessment_Ans"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:layout_marginRight="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textColor="#000000"
-                            android:text="Write a beautiful poem"/>
+                            android:text="Write a beautiful poem"
+                            android:justificationMode="inter_word"
+                            />
 
 
                     </LinearLayout>
@@ -569,8 +616,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="horizontal"
+                        android:layout_marginBottom="@dimen/_16sdp"
+                        android:orientation="vertical"
                         >
 
                         <TextView
@@ -578,21 +625,28 @@
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:text="Process:"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textStyle="bold"
-                            android:textColor="#000000"/>
+                            android:textColor="#000000"
+                            android:background="#2FE1B543"
+
+                            />
 
                         <TextView
                             android:id="@+id/Process_Ans"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="@dimen/_16ssp"
+                            android:layout_marginLeft="@dimen/_16ssp"
+                            android:layout_marginRight="@dimen/_16ssp"
+                            android:textSize="@dimen/_16ssp"
                             android:textColor="#000000"
-                            android:text="Paper,Pen,etc."/>
+                            android:text="Paper,Pen,etc."
+                            android:justificationMode="inter_word"
+
+                            />
 
 
                     </LinearLayout>
