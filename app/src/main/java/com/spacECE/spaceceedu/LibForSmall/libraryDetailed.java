@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.R;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +37,7 @@ public class libraryDetailed extends AppCompatActivity {
 
     TextView book, author, edition, desc, price, condition, owner;
     Button callbtn, addtocartbtn;
+    ImageView productImg;
     String url = "http://43.205.45.96/libforsmall/api_addToCart.php";
 
     @Override
@@ -54,6 +57,7 @@ public class libraryDetailed extends AppCompatActivity {
         owner = findViewById(R.id.owner_name);
         callbtn = findViewById(R.id.call_btn);
         addtocartbtn = findViewById(R.id.add_to_cart_btn);
+        productImg= findViewById(R.id.lfs_product_img);
 
         Intent intent = getIntent();
         int pos = intent.getIntExtra("pos", 1);
@@ -63,6 +67,10 @@ public class libraryDetailed extends AppCompatActivity {
         desc.setText(books.getProduct_desc());
         price.setText(books.getProduct_price());
         author.setText(books.getProduct_brand());
+
+        Picasso.get()
+                .load("http://43.205.45.96/libforsmall/product_images/" + books.getProduct_image())
+                .into(productImg);
 
         addtocartbtn.setOnClickListener(new View.OnClickListener() {
             @Override
