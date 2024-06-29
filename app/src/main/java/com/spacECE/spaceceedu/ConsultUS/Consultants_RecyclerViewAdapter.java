@@ -1,5 +1,7 @@
 package com.spacECE.spaceceedu.ConsultUS;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.spacECE.spaceceedu.R;
 import com.squareup.picasso.Picasso;
 
@@ -16,11 +22,12 @@ import java.util.ArrayList;
 
 public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consultants_RecyclerViewAdapter.MyViewHolder> {
     ArrayList<Consultant> consultants;
-
+    Context context;
     private RecyclerViewClickListener listener;
 
-    public Consultants_RecyclerViewAdapter(ArrayList<Consultant> consultants, RecyclerViewClickListener listener) {
+    public Consultants_RecyclerViewAdapter(ArrayList<Consultant> consultants, RecyclerViewClickListener listener,Context context) {
         this.consultants = consultants;
+        this.context=context;
         this.listener = listener;
     }
 
@@ -59,12 +66,32 @@ public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consul
         holder.category.setText(categories);
         holder.price.setText("Fee: "+String.valueOf(price)+"/-");
         //currently, src only send image name we have to set the image path
+        profilePicSrc = "http://43.205.45.96/img/users/" + profilePicSrc;
         try {
-            profilePicSrc = "http://43.205.45.96/img/users/" + profilePicSrc;
             Picasso.get().load(profilePicSrc.replace("https://","http://")).into(holder.profile);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        String url = profilePicSrc.replace("https://","http://");
+        RequestQueue requestQueue=new Volley().newRequestQueue(context);
+        StringRequest stringRequest=new StringRequest(url, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String rsp=response;
+                Log.e( "onResponse:-----------------",rsp);
+                if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
+                    Log.e( "onResponse:---------","Not exist");
+                    holder.profile.setImageDrawable(context.getDrawable(R.drawable.img_1));
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e( "onFailure:-----------------",error.toString());
+                holder.profile.setImageDrawable(context.getDrawable(R.drawable.img_1));
+            }
+        });
+        requestQueue.add(stringRequest);
     }
 
     @Override
