@@ -1,6 +1,7 @@
 package com.spacECE.spaceceedu;
 
 import android.app.*;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -12,6 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -33,8 +37,10 @@ import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.Location.LocationService;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity;
-
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import org.json.JSONObject;
 
@@ -47,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     public static Account ACCOUNT=null;
     UserLocalStore userLocalStore;
+    NavigationView navigationView;
     DBController dbController;
     int dayNo;
     public final String TAG = "MainActivity";
@@ -62,19 +69,30 @@ public class MainActivity extends AppCompatActivity {
     private void SetAccountDetails() {
         if(ACCOUNT!=null) {
             toolbar.setTitle("Hello "+ACCOUNT.getUsername()+" !");
-            NavigationView navigationView = (NavigationView) findViewById(R.id.Main_navView_drawer);
 
             // get menu from navigationView
             View navHead = navigationView.getHeaderView(0);
 
             // find MenuItem you want to change
             ImageView nav_camara = navHead.findViewById(R.id.Main_nav_drawer_profile_pic);
+            TextView nav_name = navHead.findViewById(R.id.Main_Nav_TextView_UserName);
 
             //https connection doesn't work as of now use http
+            nav_name.setText(ACCOUNT.getUsername());
+            nav_name.setTextSize(20);
+            Menu menu = navigationView.getMenu();
+            MenuItem item = menu.findItem(R.id.Signout);
+            item.setVisible(true);
 
             try {
-                Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://","http://")).into(nav_camara);
-            } catch (Exception e) {
+                if(nav_camara==null){
+                    Picasso.get().load(ACCOUNT.getUsername().replace("https://","http://")).into((Target)nav_name);
+                }
+                else {
+                    Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://", "http://")).into(nav_camara);
+                    Picasso.get().load(ACCOUNT.getUsername().replace("https://", "http://")).into((Target) nav_name);
+                }
+                } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -138,7 +156,39 @@ public class MainActivity extends AppCompatActivity {
 
         //Navigation Drawer
         drawer = findViewById(R.id.Main_NavView_drawer);
+        navigationView = (NavigationView) findViewById(R.id.Main_navView_drawer);
 
+        try {
+            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment=null;
+                    switch (item.getItemId()) {
+                        case R.id.Home:
+                            selectedFragment=new FragmentMain();
+                            break;
+                        case R.id.profile:
+                            selectedFragment=new FragmentProfile();
+                            break;
+                        case R.id.AboutUs:
+                            selectedFragment=new FragmentAbout();
+                            break;
+                        case R.id.Signout:
+                            signOut();
+                            break;
+                        default:
+                            selectedFragment = new FragmentMain();
+                            break;
+                    }
+                    drawer.closeDrawer(GravityCompat.START);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.Main_Fragment_layout,
+                            selectedFragment).commit();
+                    return true;
+                }
+            });
+        }catch (Exception e){
+            Log.e("onCreate: ","Error" );
+        }
         //Toolbar support for navigationDrawer
         toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -192,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
         ACCOUNT = userLocalStore.getLoggedInAccount();
     }
 
+
     private boolean authenticate(){
         return userLocalStore.getUserLoggedIn();
     }
@@ -220,6 +271,9 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_help:
                             selectedFragment = new FragmentAbout();
+                            break;
+                        default:
+                            selectedFragment = new FragmentMain();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.Main_Fragment_layout,
@@ -318,11 +372,12 @@ public class MainActivity extends AppCompatActivity {
         userLocalStore.clearUserData();
         ACCOUNT = null;
         userLocalStore.setUserLoggedIn(false);
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
-    }
 
+        // Restart the activity to reflect the changes
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
     class GetFirstActivity extends AsyncTask<String,Void,JSONObject>{
 
         final private JSONObject[] apiCall = {null};

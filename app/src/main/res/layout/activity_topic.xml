@@ -25,20 +25,20 @@
         app:showFullScreenButton="true" />
 
     <TextView
-        android:layout_marginLeft="5dp"
         android:id="@+id/Topic_TextView_Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:text="Topic Title"
         android:textColor="@color/black"
         android:textSize="18dp" />
 
     <LinearLayout
-        android:layout_marginTop="15dp"
         android:id="@+id/Topics_Icons_Layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -53,7 +53,7 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
-                <Button
+                <ImageView
                     android:id="@+id/Topic_Button_LikeVideo"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -76,7 +76,7 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
-                <Button
+                <ImageView
                     android:id="@+id/Topic_Button_DislikeVideo"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -100,7 +100,7 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
-                <Button
+                <ImageView
                     android:id="@+id/Topic_Button_ViewCount"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -124,7 +124,7 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
-                <Button
+                <ImageView
                     android:id="@+id/Topic_Button_Share"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -143,6 +143,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -155,30 +157,53 @@
                 android:hint="Type Comment here...."
                 android:textSize="12sp" />
 
-            <Button
+            <ImageView
                 android:id="@+id/Topics_Button_Comment"
-                android:layout_width="50dp"
-                android:layout_height="40dp"
-                android:background="@drawable/ic_baseline_add_comment_24" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/baseline_send_24" />
         </LinearLayout>
     </LinearLayout>
 
-    <ScrollView
-        android:padding="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:padding="5dp">-->
 
-        <TextView
-            android:alpha="0.7"
-            android:background="@drawable/round_background_grey"
-            android:layout_marginTop="15dp"
-            android:id="@+id/Topic_TextView_Description"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </ScrollView>
+            android:orientation="vertical">
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/Topic_TextView_Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:alpha="0.7"
+                android:background="@drawable/round_background_grey"
+                android:text="TextView"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:textSize="13dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="left"
+                android:textColor="@color/black"
+                android:text="Comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></TextView>
+            <ListView
+                android:id="@+id/Topics_comments_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></ListView>
+
+        </LinearLayout>
+<!--    </ScrollView>-->
+
 </LinearLayout>

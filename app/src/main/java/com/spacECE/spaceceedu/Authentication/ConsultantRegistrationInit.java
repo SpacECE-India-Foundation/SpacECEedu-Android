@@ -36,6 +36,7 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultant_registration);
+
         Button b_register=findViewById(R.id.ConsultantRegistration_Button_Signup);
 
         Type = findViewById(R.id.Type);

@@ -24,9 +24,7 @@ public class UsefulFunctions {
 
       OkHttpClient client = new OkHttpClient();
 
-      Request request = new Request.Builder()
-              .url(inputURL)
-              .build();
+      Request request = new Request.Builder().url(inputURL).build();
 
       Call call = client.newCall(request);
 
@@ -34,7 +32,7 @@ public class UsefulFunctions {
           response = call.execute();
           resp = response.body().string();
           System.out.println(resp);
-          jsonObject= new  JSONObject(resp);
+          jsonObject= new JSONObject(resp);
       } catch (IOException | JSONException e) {
           e.printStackTrace();
       }
