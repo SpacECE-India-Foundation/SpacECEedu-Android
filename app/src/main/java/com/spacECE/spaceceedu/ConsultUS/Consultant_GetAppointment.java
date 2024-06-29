@@ -15,6 +15,10 @@ import androidx.core.content.ContextCompat;
 import android.os.Bundle;
 import android.view.View;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.datatransport.cct.internal.LogEvent;
 import com.instamojo.android.Instamojo;
 import com.spacECE.spaceceedu.MainActivity;
@@ -103,6 +107,27 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
         } catch (Exception e) {
             Log.e( "onCreate:2",e.toString());
         }
+
+        String url = pic_src.replace("https://","http://");
+        RequestQueue requestQueue=new Volley().newRequestQueue(this);
+        StringRequest stringRequest=new StringRequest(url, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String rsp=response;
+                Log.e( "onResponse:-----------------",rsp);
+                if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
+                    Log.e( "onResponse:---------","Not exist");
+                    setimg();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e( "onFailure:-----------------",error.toString());
+                setimg();
+            }
+        });
+        requestQueue.add(stringRequest);
 
         clock = findViewById(R.id.Clock);
         calendar = findViewById(R.id.Calendar);
@@ -346,5 +371,8 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
     @Override
     public void onInitiatePaymentFailure(String s) {
 
+    }
+    public void setimg(){
+        iv_profile.setImageDrawable(getDrawable(R.drawable.img_1));
     }
 }

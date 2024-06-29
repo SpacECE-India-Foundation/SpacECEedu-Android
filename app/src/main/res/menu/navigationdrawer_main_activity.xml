@@ -14,6 +14,7 @@
         android:icon="@drawable/ic_my_profile_nav_dra"/>
     <item android:id="@+id/Signout"
         android:title="Signout"
+        android:visible="false"
         android:icon="@drawable/ic_signout_nav_dra"/>
     <item android:id="@+id/AboutUs"
         android:title="About us"

@@ -208,8 +208,6 @@ public class Consultant_Main extends AppCompatActivity {
 
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-
-
                         try {
                             assert response.body() != null;
                             jsonObject = new JSONObject(response.body().string());
