@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LibForSmall.libraryDetailed"
+    tools:context=".LibForSmall.LibraryProductDetailed"
     android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/frame_image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="60dp"
+        android:layout_height="220dp"
         android:background="#EAEAEA" >
 
         <ImageView
@@ -26,7 +25,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="260dp"
         android:orientation="vertical"
         android:id="@+id/details_linear">
 
@@ -176,18 +174,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Book Posted At"
-        android:layout_marginTop="465dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:textSize="17sp"
         android:textColor="@color/black"
         android:textStyle="bold"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:layout_marginTop="620dp"
         android:background="#EAEAEA"
-        android:backgroundTint="#EAEAEA">
+        android:backgroundTint="#EAEAEA"
+        android:layout_marginBottom="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -246,10 +249,8 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="10dp"/>
 
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

@@ -168,10 +168,6 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
         }).start();
     }
 
-
-
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView bookName;
         private final ImageView bookImage;
