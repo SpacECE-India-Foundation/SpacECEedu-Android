@@ -1,6 +1,5 @@
 package com.spacECE.spaceceedu;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -20,13 +19,13 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.spacECE.spaceceedu.LibForSmall.AddBooks;
+import com.spacECE.spaceceedu.LibForSmall.LibraryProductDetailed;
 import com.spacECE.spaceceedu.LibForSmall.Library_main;
+import com.spacECE.spaceceedu.LibForSmall.LibraryProductDetailed;
 import com.spacECE.spaceceedu.LibForSmall.books;
-import com.spacECE.spaceceedu.LibForSmall.libraryDetailed;
 import com.spacECE.spaceceedu.LibForSmall.library_RecycleAdapter;
 
 import java.util.ArrayList;
-
 
 public class HomeFragmentLibForSmall extends Fragment {
     private ImageView addBooksbtn;
@@ -41,29 +40,29 @@ public class HomeFragmentLibForSmall extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home_lib_for_small, container, false);
         v.setBackgroundColor(Color.WHITE);
 
-        CardView btnfilter= v.findViewById(R.id.btn_lfs_filter);
+        CardView btnfilter = v.findViewById(R.id.btn_lfs_filter);
 
         btnfilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Filter according to your prefrences", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Filter according to your preferences", Toast.LENGTH_SHORT).show();
             }
         });
 
         LinearLayout btnsort = v.findViewById(R.id.btn_lfs_sort);
-        
+
         btnsort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Sort according to your prefrences", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Sort according to your preferences", Toast.LENGTH_SHORT).show();
             }
         });
 
         ListRecyclerView = v.findViewById(R.id.recycler_view_libs_for_small_home);
         ArrayList<books> list = Library_main.list;
-        setAdapter( list);
+        setAdapter(list);
 
-        addBooksbtn= v.findViewById(R.id.btn_add_books_libs_for_small);
+        addBooksbtn = v.findViewById(R.id.btn_add_books_libs_for_small);
         addBooksbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +80,7 @@ public class HomeFragmentLibForSmall extends Fragment {
 
         return v;
     }
+
     private void setAdapter(ArrayList<books> myList) {
         setOnClickListener();
         library_RecycleAdapter adapter = new library_RecycleAdapter(myList, listener);
@@ -92,9 +92,18 @@ public class HomeFragmentLibForSmall extends Fragment {
 
     private void setOnClickListener() {
         listener = (v, position) -> {
-            Intent intent = new Intent(getContext(), libraryDetailed.class);
-            intent.putExtra("pos", position);
-            startActivity(intent);
+            Fragment newFragment = new LibraryProductDetailed();
+
+            // Pass the position as an argument to the new fragment
+            Bundle args = new Bundle();
+            args.putInt("pos", position);
+            newFragment.setArguments(args);
+
+            FragmentManager fragmentManager = getParentFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.libs_for_small_fragment_container, newFragment)
+                    .addToBackStack(null)
+                    .commit();
         };
     }
 }
