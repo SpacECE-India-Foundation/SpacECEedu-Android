@@ -55,6 +55,14 @@ public class LibraryProductDetailed extends Fragment {
         callbtn = view.findViewById(R.id.call_btn);
         addtocartbtn = view.findViewById(R.id.add_to_cart_btn);
         productImg = view.findViewById(R.id.lfs_product_img);
+        callbtn= view.findViewById(R.id.call_btn);
+
+        callbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Call is placed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Get arguments passed to the fragment
         if (getArguments() != null) {
