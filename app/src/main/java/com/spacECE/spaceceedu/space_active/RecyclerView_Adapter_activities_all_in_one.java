@@ -1,5 +1,6 @@
 package com.spacECE.spaceceedu.space_active;
 
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,28 +46,34 @@ public class RecyclerView_Adapter_activities_all_in_one extends RecyclerView.Ada
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText(arrayList_space_active_all_in_one_data_holder.get(position).activity_name);
         holder.desc.setText(arrayList_space_active_all_in_one_data_holder.get(position).activity_objectives);
-        holder.level.setText("Level -"+arrayList_space_active_all_in_one_data_holder.get(position).activity_level);
+        holder.level.setText("\uD83C\uDF82 Level -"+arrayList_space_active_all_in_one_data_holder.get(position).activity_level);
         if (arrayList_space_active_all_in_one_data_holder.get(position).getActivity_video()!=null && !arrayList_space_active_all_in_one_data_holder.get(position).getActivity_video().equals("null")){
-            holder.contains_video.setText("✅ Contains videos");
+            holder.contains_video.setTextColor(context.getResources().getColor(R.color.green));
+            holder.contains_video.setText("ദ്ദി ˉ͈̀꒳ˉ͈́ ) Contains videos");
         }else {
-            holder.contains_video.setText("❌ Not Contains videos");
+            holder.contains_video.setVisibility(View.GONE);
+            holder.contains_video.setText("(¬_¬\") Not Contains videos");
         }
         if (arrayList_space_active_all_in_one_data_holder.get(position).activity_image=="null"){
-            holder.img.setImageResource(R.drawable.img_1);
+            holder.img.setImageResource(R.drawable.download);
         }
         if (activity_completed.containsKey(arrayList_space_active_all_in_one_data_holder.get(position).activity_no)){
             Integer i=Integer.parseInt(activity_completed.get(arrayList_space_active_all_in_one_data_holder.get(position).activity_no));
             Log.e("onBindViewHolder:!!!!!!!!!!!!!!!!!!!!",i+"");
             if (i==1){
-                holder.completed_or_not.setText("✅ Activity Completed");
+                holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.green));
+                holder.completed_or_not.setText("ദ്ദി(˵ •̀ ᴗ - ˵ ) Activity Completed");
             }else if (i==0){
-                holder.completed_or_not.setText("✅ Half Completed");
+                holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.gray));
+                holder.completed_or_not.setText("ദ്ദി(ᵔᗜᵔ) Half Completed");
             }else if (i==-1){
-                holder.completed_or_not.setText("❌ Not Completed");
+                holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.red));
+                holder.completed_or_not.setText("(¬_¬\") Not Completed");
             }
 
         }else {
-            holder.completed_or_not.setText("❌ Not Completed");
+            holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.red));
+            holder.completed_or_not.setText("(¬_¬\") Not Completed");
         }
         if (arrayList_space_active_all_in_one_data_holder.get(position).activity_image!=null && !arrayList_space_active_all_in_one_data_holder.get(position).activity_image.equals("null")){
             String pic_src = "http://43.205.45.96/img/users/" + arrayList_space_active_all_in_one_data_holder.get(position).activity_image;
@@ -82,14 +89,14 @@ public class RecyclerView_Adapter_activities_all_in_one extends RecyclerView.Ada
                     String rsp=response;
                     if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
                         Log.e( "onResponse:---------","Not exist");
-                        holder.img.setImageDrawable(context.getDrawable(R.drawable.img_1));
+                        holder.img.setImageDrawable(context.getDrawable(R.drawable.download));
                     }
                 }
             }, new com.android.volley.Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e( "onFailure:-----------------",error.toString());
-                    holder.img.setImageDrawable(context.getDrawable(R.drawable.img_1));
+                    holder.img.setImageDrawable(context.getDrawable(R.drawable.download));
                 }
             });
             requestQueue.add(stringRequest);

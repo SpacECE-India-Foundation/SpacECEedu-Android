@@ -24,5 +24,7 @@
 
     <color name="orange">#F8A800</color>
 
-
+    <color name="green">#008000</color>
+    <color name="gray">#4F4F4F</color>
+    <color name="red">#FF0000</color>
 </resources>

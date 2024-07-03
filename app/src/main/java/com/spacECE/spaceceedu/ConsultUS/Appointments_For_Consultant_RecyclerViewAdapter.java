@@ -1,5 +1,7 @@
 package com.spacECE.spaceceedu.ConsultUS;
 
+import static com.spacECE.spaceceedu.ConsultUS.Consultant_Main.SetDateTimeDay;
+
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +18,6 @@ import com.spacECE.spaceceedu.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import static com.spacECE.spaceceedu.ConsultUS.Consultant_Main.SetDateTimeDay;
 
 public class Appointments_For_Consultant_RecyclerViewAdapter extends RecyclerView.Adapter<Appointments_For_Consultant_RecyclerViewAdapter.MyViewHolder> {
 
@@ -52,7 +52,7 @@ public class Appointments_For_Consultant_RecyclerViewAdapter extends RecyclerVie
 
     @NonNull
     @Override
-    public Appointments_For_Consultant_RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.consultus_appointments_list_item, parent, false);
         return new MyViewHolder(itemView);
     }

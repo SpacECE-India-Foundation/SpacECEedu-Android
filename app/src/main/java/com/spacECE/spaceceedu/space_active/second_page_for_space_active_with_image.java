@@ -153,14 +153,14 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
                     String rsp=response;
                     if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
                         Log.e( "onResponse:---------","Not exist");
-                        image_second_activity.setImageDrawable(getDrawable(R.drawable.img_1));
+                        image_second_activity.setImageDrawable(getDrawable(R.drawable.download));
                     }
                 }
             }, new com.android.volley.Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e( "onFailure:-----------------",error.toString());
-                    image_second_activity.setImageDrawable(getDrawable(R.drawable.img_1));
+                    image_second_activity.setImageDrawable(getDrawable(R.drawable.download));
                 }
             });
             requestQueue.add(stringRequest);
