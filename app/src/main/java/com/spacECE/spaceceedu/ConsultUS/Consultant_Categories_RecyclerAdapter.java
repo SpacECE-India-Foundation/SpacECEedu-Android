@@ -22,7 +22,7 @@ public class Consultant_Categories_RecyclerAdapter extends RecyclerView.Adapter<
     private RecyclerViewClickListener listener;
     Context context;
 
-    public Consultant_Categories_RecyclerAdapter(ArrayList<ConsultantCategory> categories, Consultant_Categories_RecyclerAdapter.RecyclerViewClickListener listener,Context context) {
+    public Consultant_Categories_RecyclerAdapter(ArrayList<ConsultantCategory> categories, RecyclerViewClickListener listener,Context context) {
         this.categories = categories;
         this.context=context;
         this.listener = listener;
@@ -46,9 +46,9 @@ public class Consultant_Categories_RecyclerAdapter extends RecyclerView.Adapter<
 
     @NonNull
     @Override
-    public Consultant_Categories_RecyclerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.consultant_category_list_item, parent, false);
-        return new Consultant_Categories_RecyclerAdapter.MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
     @Override
