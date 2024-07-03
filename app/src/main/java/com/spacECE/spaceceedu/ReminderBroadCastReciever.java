@@ -24,8 +24,6 @@ public class ReminderBroadCastReciever extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-
         try{
             //int dayNo = intent.getExtras().getInt("EXTRA_DAY_NO");
             //Log.d(TAG, "onReceive: Extra "+dayNo);
@@ -57,10 +55,13 @@ public class ReminderBroadCastReciever extends BroadcastReceiver {
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
             notificationManagerCompat.notify(200, builder.build());
             Log.d(TAG, "onReceive:notification sent ");
-        }
-        catch (Exception e){
+        }catch (Exception e){
             e.printStackTrace();
         }
+
+
+
+
     }
 
 

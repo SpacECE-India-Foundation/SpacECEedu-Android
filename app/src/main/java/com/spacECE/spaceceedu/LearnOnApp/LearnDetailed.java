@@ -58,8 +58,8 @@ public class LearnDetailed extends AppCompatActivity implements Instamojo.Instam
         Buy.setOnClickListener(v -> {
             Toast.makeText(LearnDetailed.this, "yeah!", Toast.LENGTH_LONG).show();
 
-            Instamojo.getInstance().initialize(this, Instamojo.Environment.TEST);
-            Instamojo.getInstance().initiatePayment(this, orderID, this);
+//            Instamojo.getInstance().initialize(this, Instamojo.Environment.TEST);
+//            Instamojo.getInstance().initiatePayment(this, orderID, this);
         });
 
     }
@@ -79,7 +79,8 @@ public class LearnDetailed extends AppCompatActivity implements Instamojo.Instam
     }
 
     @Override
-    public void onInitiatePaymentFailure(String s) {
+    public void onInitiatePaymentFailure(String s){
+
 
     }
 }

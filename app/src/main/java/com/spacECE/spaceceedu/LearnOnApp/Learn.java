@@ -56,7 +56,7 @@ public class Learn {
     }
 
     public String getDuration() {
-        return duration;
+        return duration +" days";
     }
 
     public String getPrice() {
@@ -72,6 +72,6 @@ public class Learn {
                 "\ntype= " + type +
                 "\nmode= " + mode +
                 "\nduration= " + duration +
-                "\nprice= " + price ;
+                "\nprice= " +price;
     }
 }
