@@ -73,7 +73,6 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
         button_free.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ActivitiesListActivity.this,free_arrayList_space_active_all_in_one_data_holder.size()+"", Toast.LENGTH_SHORT).show();
                 set_free_activities();
                 Toast.makeText(ActivitiesListActivity.this, " Refresh Done for free ", Toast.LENGTH_SHORT).show();
             }

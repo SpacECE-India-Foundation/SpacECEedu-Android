@@ -1,14 +1,13 @@
 package com.spacECE.spaceceedu.ConsultUS;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
-import android.os.Bundle;
 
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;

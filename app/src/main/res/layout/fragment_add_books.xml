@@ -74,7 +74,7 @@
         android:hint="Price" />
 
     <ImageView
-        android:id="@+id/imageView_photo"
+        android:id="@+id/imageView_photo_add_book"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"

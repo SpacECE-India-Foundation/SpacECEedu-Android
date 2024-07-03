@@ -200,6 +200,4 @@
             android:visibility="gone">
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-    </LinearLayout>
 </androidx.core.widget.NestedScrollView>

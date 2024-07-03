@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="5dp"
     >
 
     <TextView
@@ -19,33 +19,63 @@
         android:textSize="17sp"
         android:textStyle="bold"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/cardview_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:text="Category"
-        android:textColor="#000000"
-        android:textSize="12sp"
-        android:layout_marginStart="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardview_bookname" />
 
-    <TextView
-        android:id="@+id/cardview_price"
+    <LinearLayout
+        android:id="@+id/linearLayout_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:text="Price"
-        android:textColor="#000000"
-        android:textSize="12sp"
-        android:layout_marginStart="30dp"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardview_category" />
+        app:layout_constraintTop_toBottomOf="@+id/cardview_bookname">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category:"
+            android:layout_marginStart="30dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/cardview_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/poppins"
+            android:text="Category"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_category">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price:"
+            android:layout_marginStart="30dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/cardview_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="Price"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:layout_marginStart="5dp" />
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/cardview_distance"
@@ -58,7 +88,7 @@
         android:layout_marginStart="30dp"
         android:paddingBottom="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardview_price" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_price" />
 
     <ImageView
         android:id="@+id/cardview_bookimage"

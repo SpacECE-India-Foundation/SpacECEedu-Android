@@ -14,15 +14,8 @@
         android:icon="@drawable/ic_baseline_add_24"
         />
 
-
     <item
-        android:title="Exchange Requests"
-        android:id="@+id/toolbar_menu_exchange_requests"
-        android:icon="@drawable/ic_exchange_request"
-        />
-
-    <item
-        android:title="My Books"
+        android:title="My Cart"
         android:id="@+id/toolbar_menu_my_books"
         android:icon="@drawable/ic_toolbar_menu_my_books"
         />
