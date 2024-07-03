@@ -12,6 +12,7 @@ public class Learn {
     private final String duration;
     private final String price;
 
+
     public Learn(String id, String title, String description, String type, String mode, String duration, String price) {
         this.id = id;
         this.title = title;
@@ -55,7 +56,7 @@ public class Learn {
     }
 
     public String getDuration() {
-        return duration.contains("days") ? duration : duration + " days";
+        return duration +" days";
     }
 
     public String getPrice() {
@@ -70,7 +71,7 @@ public class Learn {
                 "\ndescription= " + description +
                 "\ntype= " + type +
                 "\nmode= " + mode +
-                "\nduration= " + getDuration() +
-                "\nprice= " + price;
+                "\nduration= " + duration +
+                "\nprice= " + price ;
     }
 }
