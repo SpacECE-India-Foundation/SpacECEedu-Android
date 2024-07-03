@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,7 +62,6 @@
                 app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
 
         </LinearLayout>
-
         <HorizontalScrollView
             android:id="@+id/actions_scrollView"
             android:layout_width="wrap_content"
@@ -169,7 +169,6 @@
             </LinearLayout>
 
         </HorizontalScrollView>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_activity"
             android:layout_width="match_parent"
@@ -183,34 +182,5 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
-
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/VideoLibrary_Bottom_Navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:background="?android:attr/windowBackground"
-            app:itemTextColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/videolibrary_bottomoptions"
-            android:visibility="gone">
-
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
-        <TextView
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:textAlignment="center"
-            android:layout_height="wrap_content"
-            android:text="Designed by Khushi and Ashish"
-            android:layout_margin="@dimen/_10sdp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
-            android:alpha=".5"
-            />
     </LinearLayout>
-
 </androidx.core.widget.NestedScrollView>
