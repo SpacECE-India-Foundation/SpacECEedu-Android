@@ -56,7 +56,7 @@ public class Learn {
     }
 
     public String getDuration() {
-        return duration;
+        return duration +" days";
     }
 
     public String getPrice() {
