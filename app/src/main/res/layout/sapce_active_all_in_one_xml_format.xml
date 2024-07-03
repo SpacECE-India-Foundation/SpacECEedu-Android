@@ -9,7 +9,6 @@
     android:padding="@dimen/_5sdp"
     android:orientation="horizontal">
 
-
     <androidx.cardview.widget.CardView
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardElevation="@dimen/_6sdp"

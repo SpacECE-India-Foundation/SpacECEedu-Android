@@ -677,7 +677,6 @@
 
                         android:orientation="vertical"
                         >
-
                         <androidx.cardview.widget.CardView
                             android:padding="@dimen/_2sdp"
                             app:cardCornerRadius="@dimen/_6sdp"

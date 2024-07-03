@@ -64,7 +64,6 @@
                 android:background="@drawable/ongoing"
                 android:gravity="center"
                 android:textColor="@color/black"
-
                 android:padding="0dp"/>
 
             <Button
