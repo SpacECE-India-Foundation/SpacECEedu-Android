@@ -48,6 +48,11 @@ public class library_RecycleAdapter extends RecyclerView.Adapter<library_Recycle
         return list.size();
     }
 
+    public void setData(ArrayList<books> newList) {
+        this.list = newList;
+        notifyDataSetChanged();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView book_name;

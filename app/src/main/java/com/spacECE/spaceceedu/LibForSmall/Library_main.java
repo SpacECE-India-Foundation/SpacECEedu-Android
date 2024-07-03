@@ -24,7 +24,6 @@ public class Library_main extends AppCompatActivity {
     public static ArrayList<books> list = new ArrayList<>();
     private Fragment currentFragment = null;
     Fragment fragment=new library_list();
-    public  FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
