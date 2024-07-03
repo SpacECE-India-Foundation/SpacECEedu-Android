@@ -52,9 +52,9 @@ public class ReminderBroadCastReciever extends BroadcastReceiver {
                 .setContentText(activityName)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-            notificationManagerCompat.notify(200, builder.build());
-            Log.d(TAG, "onReceive:notification sent ");
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+        notificationManagerCompat.notify(200, builder.build());
+        Log.d(TAG, "onReceive:notification sent ");
 
 
     }
