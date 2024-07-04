@@ -321,6 +321,7 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
         });
         requestQueue.add(jsonObjectRequest);
         String url1="http://43.205.45.96/spacec_active/api_fetchWorkdone.php?user_id=";
+
         if (MainActivity.ACCOUNT !=null && MainActivity.ACCOUNT.getAccount_id()!=null){
             JsonObjectRequest jsonObjectRequest1=new JsonObjectRequest(url1 + MainActivity.ACCOUNT.getAccount_id(), new Response.Listener<JSONObject>() {
                 @Override
@@ -344,6 +345,9 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
             });
             requestQueue.add(jsonObjectRequest1);
         }
+
+
+
 
     }
     @Override
