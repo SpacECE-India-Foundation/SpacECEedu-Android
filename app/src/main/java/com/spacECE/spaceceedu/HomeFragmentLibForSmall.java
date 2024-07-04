@@ -1,5 +1,7 @@
 package com.spacECE.spaceceedu;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -28,6 +30,8 @@ import com.spacECE.spaceceedu.LibForSmall.books;
 import com.spacECE.spaceceedu.LibForSmall.library_RecycleAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class HomeFragmentLibForSmall extends Fragment {
     private ImageView addBooksbtn;
@@ -36,6 +40,8 @@ public class HomeFragmentLibForSmall extends Fragment {
     private library_RecycleAdapter adapter;
     private library_RecycleAdapter.RecyclerViewClickListener listener;
     private ArrayList<books> originalList;
+
+    private LinearLayout btnsort;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,8 +53,8 @@ public class HomeFragmentLibForSmall extends Fragment {
         CardView btnfilter = v.findViewById(R.id.btn_lfs_filter);
         btnfilter.setOnClickListener(v1 -> Toast.makeText(getContext(), "Filter according to your preferences", Toast.LENGTH_SHORT).show());
 
-        LinearLayout btnsort = v.findViewById(R.id.btn_lfs_sort);
-        btnsort.setOnClickListener(v12 -> Toast.makeText(getContext(), "Sort according to your preferences", Toast.LENGTH_SHORT).show());
+        btnsort = v.findViewById(R.id.btn_lfs_sort);
+        btnsort.setOnClickListener(v12 -> showSortOptions());
 
         ListRecyclerView = v.findViewById(R.id.recycler_view_libs_for_small_home);
         searchBar = v.findViewById(R.id.search_bar);
@@ -71,6 +77,7 @@ public class HomeFragmentLibForSmall extends Fragment {
 
         // Set up search functionality
         setupSearchBar();
+        addBooksbtn.setVisibility(View.GONE);
 
         return v;
     }
@@ -129,4 +136,38 @@ public class HomeFragmentLibForSmall extends Fragment {
                     .commit();
         };
     }
+    private void showSortOptions() {
+        final String[] options = {"Price Low to High", "Price High to Low"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Sort by Price")
+                .setItems(options, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            // Ascending order
+                            Collections.sort(originalList, new Comparator<books>() {
+                                @Override
+                                public int compare(books o1, books o2) {
+                                    double price1 = Double.parseDouble(o1.getProduct_price());
+                                    double price2 = Double.parseDouble(o2.getProduct_price());
+                                    return Double.compare(price1, price2);
+                                }
+                            });
+                        } else {
+                            // Descending order
+                            Collections.sort(originalList, new Comparator<books>() {
+                                @Override
+                                public int compare(books o1, books o2) {
+                                    double price1 = Double.parseDouble(o1.getProduct_price());
+                                    double price2 = Double.parseDouble(o2.getProduct_price());
+                                    return Double.compare(price2, price1);
+                                }
+                            });
+                        }
+                        adapter.setData(originalList); // Update RecyclerView with sorted data
+                    }
+                });
+        builder.create().show();
+    }
+
 }
