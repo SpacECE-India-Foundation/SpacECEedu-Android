@@ -55,7 +55,6 @@ public class libraryDetailed extends AppCompatActivity {
         price = findViewById(R.id.price_name);
         condition = findViewById(R.id.condition_name);
         owner = findViewById(R.id.owner_name);
-        callbtn = findViewById(R.id.call_btn);
         addtocartbtn = findViewById(R.id.add_to_cart_btn);
         productImg= findViewById(R.id.lfs_product_img);
 
