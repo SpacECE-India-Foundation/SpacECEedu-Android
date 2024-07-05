@@ -31,7 +31,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_20ssp"
                 android:layout_toEndOf="@+id/consult_us_after"
-                android:text="Consultants" />
+                android:text="Consult Us" />
         </RelativeLayout>
         <FrameLayout
             android:layout_width="match_parent"
