@@ -123,7 +123,7 @@
                         android:id="@+id/Consultant_Profile_textView_Charges"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹ Charges : "
+                        android:text="Charges : ₹ "
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:alpha=".6"
