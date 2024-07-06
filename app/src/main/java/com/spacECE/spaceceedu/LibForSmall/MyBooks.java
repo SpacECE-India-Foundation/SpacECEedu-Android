@@ -1,14 +1,7 @@
 package com.spacECE.spaceceedu.LibForSmall;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,39 +9,24 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.spacECE.spaceceedu.Authentication.Account;
-import com.spacECE.spaceceedu.Authentication.UserLocalStore;
-import com.spacECE.spaceceedu.R;
-import com.spacECE.spaceceedu.Utils.UsefulFunctions;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.Objects;
-
-import android.graphics.Color;
-import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.TextView;
 
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.R;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 
-public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.OnItemRemovedListener {
+public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.OnItemRemovedListener,
+        library_mybook_recyclerAdapter.OnTotalPriceChangeListener {
 
     private RecyclerView mybooksrclview;
     private ArrayList<books2> list;
@@ -68,6 +46,7 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
         list = new ArrayList<>();
         adapter = new library_mybook_recyclerAdapter(getContext(), list);
         adapter.setOnItemRemovedListener(this);
+        adapter.setOnTotalPriceChangeListener(this);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1, RecyclerView.VERTICAL, false);
         mybooksrclview.setLayoutManager(layoutManager);
@@ -89,7 +68,11 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
 
     @Override
     public void onItemRemoved() {
-        int totalPrice = adapter.getTotalPrice();
+        // No need to update here as handled in onTotalPriceChange
+    }
+
+    @Override
+    public void onTotalPriceChange(int totalPrice) {
         totalPriceTxt.setText(String.valueOf(totalPrice));
     }
 
