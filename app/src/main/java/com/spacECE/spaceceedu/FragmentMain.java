@@ -96,7 +96,7 @@ public class FragmentMain extends Fragment {
         cv_libraryBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), GrowthTrackerHome.class);
+                Intent intent = new Intent(getContext(), library_splash_screen.class);
                 startActivity(intent);
             }
         });
