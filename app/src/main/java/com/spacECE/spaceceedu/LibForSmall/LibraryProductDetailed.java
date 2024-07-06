@@ -81,6 +81,7 @@ public class LibraryProductDetailed extends Fragment {
 
         Picasso.get()
                 .load("http://43.205.45.96/libforsmall/product_images/" + books.getProduct_image())
+                .error(R.drawable.tile_icon_2)
                 .into(productImg);
 
         addtocartbtn.setOnClickListener(new View.OnClickListener() {
