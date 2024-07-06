@@ -3,8 +3,6 @@ package com.spacECE.spaceceedu.Authentication;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.spacECE.spaceceedu.Authentication.Account;
-
 public class UserLocalStore {
 
     public static final String DETAILS = "UserDetails";
