@@ -37,9 +37,10 @@ public class library_RecycleAdapter extends RecyclerView.Adapter<library_Recycle
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.book_name.setText(list.get(position).getProduct_title());
         holder.book_category.setText(list.get(position).getProduct_desc());
-        holder.book_price.setText(list.get(position).getExchange_price());
+        holder.book_price.setText(list.get(position).getProduct_price());
         Picasso.get()
                 .load("http://43.205.45.96/libforsmall/product_images/"+list.get(position).product_image)
+                .error(R.drawable.tile_icon_2)
                 .into(holder.book_image);
     }
 
