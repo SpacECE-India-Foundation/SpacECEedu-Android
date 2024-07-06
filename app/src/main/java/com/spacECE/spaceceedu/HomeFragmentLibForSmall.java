@@ -1,5 +1,7 @@
 package com.spacECE.spaceceedu;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -28,14 +30,16 @@ import com.spacECE.spaceceedu.LibForSmall.books;
 import com.spacECE.spaceceedu.LibForSmall.library_RecycleAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class HomeFragmentLibForSmall extends Fragment {
     private ImageView addBooksbtn;
     private RecyclerView ListRecyclerView;
     private EditText searchBar;
     private library_RecycleAdapter adapter;
-    private library_RecycleAdapter.RecyclerViewClickListener listener;
     private ArrayList<books> originalList;
+    private LinearLayout btnsort;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,10 +49,10 @@ public class HomeFragmentLibForSmall extends Fragment {
         v.setBackgroundColor(Color.WHITE);
 
         CardView btnfilter = v.findViewById(R.id.btn_lfs_filter);
-        btnfilter.setOnClickListener(v1 -> Toast.makeText(getContext(), "Filter according to your preferences", Toast.LENGTH_SHORT).show());
+        btnfilter.setOnClickListener(v1 -> showFilterOptions());
 
-        LinearLayout btnsort = v.findViewById(R.id.btn_lfs_sort);
-        btnsort.setOnClickListener(v12 -> Toast.makeText(getContext(), "Sort according to your preferences", Toast.LENGTH_SHORT).show());
+        btnsort = v.findViewById(R.id.btn_lfs_sort);
+        btnsort.setOnClickListener(v12 -> showSortOptions());
 
         ListRecyclerView = v.findViewById(R.id.recycler_view_libs_for_small_home);
         searchBar = v.findViewById(R.id.search_bar);
@@ -71,6 +75,7 @@ public class HomeFragmentLibForSmall extends Fragment {
 
         // Set up search functionality
         setupSearchBar();
+        addBooksbtn.setVisibility(View.GONE);
 
         return v;
     }
@@ -113,6 +118,8 @@ public class HomeFragmentLibForSmall extends Fragment {
         ListRecyclerView.setAdapter(adapter);
     }
 
+    private library_RecycleAdapter.RecyclerViewClickListener listener;
+
     private void setOnClickListener() {
         listener = (v, position) -> {
             Fragment newFragment = new LibraryProductDetailed();
@@ -128,5 +135,76 @@ public class HomeFragmentLibForSmall extends Fragment {
                     .addToBackStack(null)
                     .commit();
         };
+    }
+
+    private void showFilterOptions() {
+        final String[] options = {"Filter Products below Price 3", "Filter Products below Price 10", "Filter Products below Price 100"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Filter by Price")
+                .setItems(options, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        filterByPrice(which);
+                    }
+                });
+        builder.create().show();
+    }
+
+    private void filterByPrice(int option) {
+        double filterPrice = 0;
+        switch (option) {
+            case 0:
+                filterPrice = 3;
+                break;
+            case 1:
+                filterPrice = 10;
+                break;
+            case 2:
+                filterPrice = 100;
+                break;
+        }
+
+        ArrayList<books> filteredList = new ArrayList<>();
+        for (books item : originalList) {
+            double price = Double.parseDouble(item.getProduct_price());
+            if (price < filterPrice) {
+                filteredList.add(item);
+            }
+        }
+        adapter.setData(filteredList);
+    }
+
+    private void showSortOptions() {
+        final String[] options = {"Price Low to High", "Price High to Low"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Sort by Price")
+                .setItems(options, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            // Ascending order
+                            Collections.sort(originalList, new Comparator<books>() {
+                                @Override
+                                public int compare(books o1, books o2) {
+                                    double price1 = Double.parseDouble(o1.getProduct_price());
+                                    double price2 = Double.parseDouble(o2.getProduct_price());
+                                    return Double.compare(price1, price2);
+                                }
+                            });
+                        } else {
+                            // Descending order
+                            Collections.sort(originalList, new Comparator<books>() {
+                                @Override
+                                public int compare(books o1, books o2) {
+                                    double price1 = Double.parseDouble(o1.getProduct_price());
+                                    double price2 = Double.parseDouble(o2.getProduct_price());
+                                    return Double.compare(price2, price1);
+                                }
+                            });
+                        }
+                        adapter.setData(originalList); // Update RecyclerView with sorted data
+                    }
+                });
+        builder.create().show();
     }
 }
