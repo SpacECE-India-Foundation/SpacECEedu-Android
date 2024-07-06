@@ -75,6 +75,7 @@
                     android:orientation="vertical"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:scaleType="fitXY"
                         android:id="@+id/Consultant_Profile_ImageView_ProfilePic"
                         android:layout_width="@dimen/_150sdp"
                         android:layout_height="@dimen/_150sdp"
