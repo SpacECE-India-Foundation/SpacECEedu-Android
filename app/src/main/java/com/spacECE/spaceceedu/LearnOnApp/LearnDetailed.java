@@ -79,8 +79,7 @@ public class LearnDetailed extends AppCompatActivity implements Instamojo.Instam
     }
 
     @Override
-    public void onInitiatePaymentFailure(String s){
-
+    public void onInitiatePaymentFailure(String s) {
 
     }
 }

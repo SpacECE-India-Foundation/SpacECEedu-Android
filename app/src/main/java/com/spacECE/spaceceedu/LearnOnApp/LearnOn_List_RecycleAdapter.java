@@ -51,7 +51,11 @@ public class LearnOn_List_RecycleAdapter extends RecyclerView.Adapter<LearnOn_Li
 
 
         @Override
-        public void onClick(View view) {listener.onClick(view, getAdapterPosition()); }
+        public void onClick(View view) {listener.onClick(view, getAdapterPosition());
+
+
+
+        }
 
         @Override
         public void onInstamojoPaymentComplete(String s, String s1, String s2, String s3) {
