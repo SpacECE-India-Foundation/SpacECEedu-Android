@@ -26,12 +26,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="10dp"
         android:id="@+id/details_linear">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="20sp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,13 +57,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="20sp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Author : "
                 android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"/>
 
@@ -78,6 +83,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="20sp"
             android:orientation="horizontal">
 
             <TextView
@@ -85,6 +91,8 @@
                 android:layout_height="wrap_content"
                 android:text="Edition : "
                 android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"/>
 
@@ -101,13 +109,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="20sp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description : "
                 android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"/>
 
@@ -124,13 +135,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="20sp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Price : "
                 android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"/>
 
@@ -148,13 +162,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:id="@+id/last_linear">
+            android:id="@+id/last_linear"
+            android:layout_marginLeft="20sp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Condition : "
                 android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"/>
 
@@ -174,7 +191,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Book Posted At"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
         android:textSize="17sp"
         android:textColor="@color/black"
@@ -184,73 +201,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
+    <Button
+        android:id="@+id/add_to_cart_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:text="Add to Cart"
+        android:drawableLeft="@drawable/ic_add_to_cart_24"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:ellipsize="marquee"
+        android:layout_marginBottom="10dp"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:background="#EAEAEA"
         android:backgroundTint="#EAEAEA"
-        android:layout_marginBottom="20dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/owner_linear">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Owner Name:"
-                android:layout_marginLeft="20dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:layout_marginTop="8dp"/>
-
-            <TextView
-                android:id="@+id/owner_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Rajendra Patil"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="60dp"
-                android:textSize="17sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="60dp">
-
-            <Button
-                android:id="@+id/call_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Call"
-                android:ellipsize="middle"
-                android:textColor="@color/black"
-                android:layout_weight="1"
-                android:layout_marginLeft="10dp"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-
-            <Button
-                android:id="@+id/add_to_cart_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add to Cart"
-                android:textColor="@color/black"
-                android:ellipsize="marquee"
-                android:layout_weight="1"
-                android:layout_marginEnd="10dp"/>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        android:layout_marginBottom="20dp"/>
 
 </LinearLayout>

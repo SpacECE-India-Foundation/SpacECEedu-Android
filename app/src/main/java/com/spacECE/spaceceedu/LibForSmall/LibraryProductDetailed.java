@@ -34,8 +34,8 @@ import java.util.Map;
 
 public class LibraryProductDetailed extends Fragment {
 
-    private TextView book, author, edition, desc, price, condition, owner;
-    private Button callbtn, addtocartbtn;
+    private TextView book, author, edition, desc, price, condition;
+    private Button addtocartbtn;
     private ImageView productImg;
     private String url = "http://43.205.45.96/libforsmall/api_addToCart.php";
     private int pos;
@@ -51,18 +51,9 @@ public class LibraryProductDetailed extends Fragment {
         desc = view.findViewById(R.id.desc_name);
         price = view.findViewById(R.id.price_name);
         condition = view.findViewById(R.id.condition_name);
-        owner = view.findViewById(R.id.owner_name);
-        callbtn = view.findViewById(R.id.call_btn);
         addtocartbtn = view.findViewById(R.id.add_to_cart_btn);
         productImg = view.findViewById(R.id.lfs_product_img);
-        callbtn= view.findViewById(R.id.call_btn);
 
-        callbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Call is placed", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         // Get arguments passed to the fragment
         if (getArguments() != null) {
