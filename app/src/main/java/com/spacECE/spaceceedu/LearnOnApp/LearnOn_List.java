@@ -66,6 +66,9 @@ public class LearnOn_List extends Fragment {
             Intent intent = new Intent(getContext(), LearnDetailed.class);
             intent.putExtra("pos", position);
             startActivity(intent);
+
+
+
         };
     }
 
