@@ -48,6 +48,7 @@
                     android:layout_height="@dimen/_150sdp">
                 </LinearLayout>
                 <ImageView
+                    android:scaleType="fitXY"
                     android:layout_marginTop="@dimen/_100sdp"
                     android:id="@+id/Consultant_GetAppointment_ProfilePic"
                     android:layout_width="@dimen/_200sdp"
