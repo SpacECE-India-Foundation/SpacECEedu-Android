@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.window.SplashScreen;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.ConsultUS.ConsultUs_SplashScreen;
+import com.spacECE.spaceceedu.GrowthTracker.GrowthTrackerHome;
 import com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_SplashScreen;
 import com.spacECE.spaceceedu.LibForSmall.library_splash_screen;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity_SplashScreen;

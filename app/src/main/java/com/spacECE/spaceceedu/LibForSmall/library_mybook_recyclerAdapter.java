@@ -33,7 +33,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
     private final ArrayList<books2> list;
     private final Context context;
     private OnItemRemovedListener onItemRemovedListener;
-    private OnTotalPriceChangeListener onTotalPriceChangeListener; // Listener for total price change
+    private OnTotalPriceChangeListener onTotalPriceChangeListener;
 
     public interface OnItemRemovedListener {
         void onItemRemoved();
@@ -69,6 +69,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
         holder.bookName.setText(book.getProduct_title());
         holder.bookCategory.setText(book.getStatus());
         holder.bookPrice.setText(book.getProduct_price());
+        holder.tvQuantity.setText(book.getQuantity());
         Picasso.get()
                 .load("http://43.205.45.96/libforsmall/product_images/" + book.product_image)
                 .into(holder.bookImage);
@@ -91,6 +92,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
             int currentQuantity = Integer.parseInt(holder.tvQuantity.getText().toString());
             currentQuantity++;
             holder.tvQuantity.setText(String.valueOf(currentQuantity));
+            book.setQuantity(String.valueOf(currentQuantity)); // Update quantity in book object
             updateTotalPrice(holder, book, currentQuantity);
         });
 
@@ -99,6 +101,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
             if (currentQuantity > 1) {
                 currentQuantity--;
                 holder.tvQuantity.setText(String.valueOf(currentQuantity));
+                book.setQuantity(String.valueOf(currentQuantity)); // Update quantity in book object
                 updateTotalPrice(holder, book, currentQuantity);
             }
         });
@@ -126,7 +129,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
     public int getTotalPrice() {
         int totalPrice = 0;
         for (books2 book : list) {
-            int quantity = Integer.parseInt(book.getQuantity()); // Assuming getQuantity() exists in books2 class
+            int quantity = Integer.parseInt(book.getQuantity());
             int pricePerItem = Integer.parseInt(book.getProduct_price());
             totalPrice += pricePerItem * quantity;
         }
@@ -134,7 +137,6 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
     }
 
     private void removeItemFromDatabase(String cart_id, int position) {
-        // Make API call to remove item from database
         new Thread(() -> {
             try {
                 URL url = new URL("http://43.205.45.96/libforsmall/api_RemoveProductFromCart.php");
@@ -142,14 +144,12 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
 
-                // Prepare data to send
                 OutputStream os = conn.getOutputStream();
                 String params = "cart_id=" + URLEncoder.encode(cart_id, "UTF-8");
                 os.write(params.getBytes());
                 os.flush();
                 os.close();
 
-                // Read response
                 InputStream inputStream = conn.getInputStream();
                 byte[] buffer = new byte[1024];
                 int bytesRead;
@@ -159,7 +159,6 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
                 }
                 inputStream.close();
 
-                // Handle response on UI thread if necessary
                 ((Activity) context).runOnUiThread(() -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(response.toString());
@@ -167,23 +166,17 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
                         String message = jsonResponse.optString("message");
 
                         if (status.equals("success")) {
-                            // Remove item from the list
                             list.remove(position);
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, list.size());
 
-                            // Notify listener
                             if (onItemRemovedListener != null) {
                                 onItemRemovedListener.onItemRemoved();
                             }
 
-                            // Show success message
                             Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-
-                            // Update total price after removing item
                             notifyTotalPriceChange();
                         } else {
-                            // Show error message
                             Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
@@ -202,12 +195,12 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
         }).start();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView bookName;
         private final ImageView bookImage;
         private final TextView bookPrice;
         private final TextView bookCategory;
-        private final TextView removeBtn; // Button for removing item
+        private final TextView removeBtn;
         private final TextView tvQuantity;
         private final Button btnIncrease;
         private final Button btnDecrease;

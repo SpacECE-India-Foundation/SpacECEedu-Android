@@ -54,7 +54,7 @@
             android:id="@+id/awarenessTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="*Awareness*\n\nPublic Campaigns: We conduct public awareness campaigns to highlight the importance of early childhood education. These campaigns focus on the developmental benefits of quality early education and the long-term impacts on society.\n\nWorkshops and Seminars: We offer workshops and seminars for parents, educators, and community members to educate them about the latest research and best practices in early childhood education.\n\nResource Development: We develop and distribute informational materials, including brochures, videos, and online resources, to raise awareness about key issues in early childhood education."
+            android:text="Awareness\n\nPublic Campaigns: We conduct public awareness campaigns to highlight the importance of early childhood education. These campaigns focus on the developmental benefits of quality early education and the long-term impacts on society.\n\nWorkshops and Seminars: We offer workshops and seminars for parents, educators, and community members to educate them about the latest research and best practices in early childhood education.\n\nResource Development: We develop and distribute informational materials, including brochures, videos, and online resources, to raise awareness about key issues in early childhood education."
             android:textSize="16sp"
             android:padding="16dp"
             android:textAlignment="center"
@@ -64,7 +64,7 @@
             android:id="@+id/consultingServicesTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="*Consulting Services*\n\nEducational Consulting: Our team of experienced educators and child development specialists provide consulting services to schools, daycare centers, and other educational institutions. We assist in curriculum development, classroom management strategies, and the implementation of evidence-based practices.\n\nProfessional Development: We offer tailored professional development programs for educators, focusing on areas such as child psychology, instructional strategies, and inclusive education.\n\nParental Guidance: We provide consulting services to parents, helping them understand their child’s developmental stages and offering strategies to support their learning at home."
+            android:text="Consulting Services\n\nEducational Consulting: Our team of experienced educators and child development specialists provide consulting services to schools, daycare centers, and other educational institutions. We assist in curriculum development, classroom management strategies, and the implementation of evidence-based practices.\n\nProfessional Development: We offer tailored professional development programs for educators, focusing on areas such as child psychology, instructional strategies, and inclusive education.\n\nParental Guidance: We provide consulting services to parents, helping them understand their child’s developmental stages and offering strategies to support their learning at home."
             android:textSize="16sp"
             android:padding="16dp"
             android:textAlignment="center"/>
@@ -73,7 +73,7 @@
             android:id="@+id/educationalProductsTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="*Educational Products*\n\nCurriculum Kits: We design and produce curriculum kits that align with early childhood education standards. These kits include lesson plans, activity guides, and assessment tools to support educators in delivering high-quality instruction.\n\nInteractive Learning Tools: Our range of interactive learning tools, such as educational games, books, and digital apps, are designed to engage young learners and support their cognitive and social-emotional development.\n\nCustomized Resources: We create customized educational resources tailored to the specific needs of different educational settings and individual children."
+            android:text="Educational Products\n\nCurriculum Kits: We design and produce curriculum kits that align with early childhood education standards. These kits include lesson plans, activity guides, and assessment tools to support educators in delivering high-quality instruction.\n\nInteractive Learning Tools: Our range of interactive learning tools, such as educational games, books, and digital apps, are designed to engage young learners and support their cognitive and social-emotional development.\n\nCustomized Resources: We create customized educational resources tailored to the specific needs of different educational settings and individual children."
             android:textSize="16sp"
             android:padding="16dp"
             android:textAlignment="center"/>
