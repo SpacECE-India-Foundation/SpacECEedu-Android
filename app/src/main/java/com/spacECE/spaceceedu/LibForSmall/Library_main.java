@@ -24,7 +24,6 @@ public class Library_main extends AppCompatActivity {
     public static ArrayList<books> list = new ArrayList<>();
     private Fragment currentFragment = null;
     Fragment fragment=new library_list();
-    public  FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +71,9 @@ public class Library_main extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+
+        MenuItem addBooksMenuItem = menu.findItem(R.id.toolbar_menu_add_books);
+        addBooksMenuItem.setVisible(false);
         return true;
     }
 

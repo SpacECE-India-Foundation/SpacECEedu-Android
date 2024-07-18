@@ -38,7 +38,8 @@
                     android:text="Consultants" />
             </RelativeLayout>
             <TextView
-                android:layout_margin="13dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="CONSULTANT DETAILS"
@@ -74,14 +75,15 @@
                     android:orientation="vertical"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:scaleType="fitXY"
                         android:id="@+id/Consultant_Profile_ImageView_ProfilePic"
-                        android:layout_width="@dimen/_200sdp"
-                        android:layout_height="@dimen/_200sdp"
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="@dimen/_150sdp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/_25sdp"
                         app:srcCompat="@drawable/img_1" />
                     <TextView
-                        android:layout_marginTop="@dimen/_50sdp"
+                        android:layout_marginTop="@dimen/_25sdp"
                         android:id="@+id/Consultant_Profile_textView_Name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -123,7 +125,7 @@
                         android:id="@+id/Consultant_Profile_textView_Charges"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹ Charges : "
+                        android:text="Charges : ₹ "
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:alpha=".6"
@@ -196,7 +198,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginBottom="@dimen/_50sdp"
                 android:background="@drawable/round_background"
                 android:gravity="center_horizontal"

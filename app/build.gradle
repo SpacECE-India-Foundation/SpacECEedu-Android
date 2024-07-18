@@ -15,8 +15,8 @@ android {
         applicationId "com.spacECE.spaceceedu"
         minSdk 24
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "4.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -75,6 +75,12 @@ dependencies {
     implementation 'io.agora.rtc:full-sdk:3.2.1'
     implementation 'com.google.android.gms:play-services-base:18.5.0'
     implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.5'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+
+
 
     // Other dependencies...
 }

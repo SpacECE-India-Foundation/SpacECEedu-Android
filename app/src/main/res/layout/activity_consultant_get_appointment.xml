@@ -48,6 +48,7 @@
                     android:layout_height="@dimen/_150sdp">
                 </LinearLayout>
                 <ImageView
+                    android:scaleType="fitXY"
                     android:layout_marginTop="@dimen/_100sdp"
                     android:id="@+id/Consultant_GetAppointment_ProfilePic"
                     android:layout_width="@dimen/_200sdp"
@@ -107,7 +108,7 @@
                             android:layout_marginEnd="@dimen/_15sdp"
                             android:textColor="@color/black"
                             android:layout_marginTop="@dimen/_20sdp"
-                            android:text="₹ Charges :- "
+                            android:text="Charges :- ₹ "
                             android:alpha=".7"
                             android:textSize="@dimen/_15ssp" />
                         <TextView
