@@ -71,7 +71,7 @@ public class LearnOn_MyCourses extends Fragment {
         new Thread(() -> {
             try {
                 // Construct the API URL with accountId as user_id parameter
-                String apiUrl = "http://43.205.45.96/api/learnonapp_courses.php?uid=54";
+                String apiUrl = "http://43.205.45.96/api/learnonapp_courses.php?uid=" + accountId;
                 Log.d("API URL", apiUrl);
 
                 JSONObject apiCall = UsefulFunctions.UsingGetAPI(apiUrl);
