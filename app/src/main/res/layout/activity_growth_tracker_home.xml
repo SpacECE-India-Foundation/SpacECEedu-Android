@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".GrowthTracker.GrowthTrackerHome">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,24 +28,28 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/Sun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/happy"
                     android:layout_weight="1"/>
 
                 <ImageView
+                    android:id="@+id/Mon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/sad"
                     android:layout_weight="1"/>
 
                 <ImageView
+                    android:id="@+id/Tue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bad"
                     android:layout_weight="1"/>
 
                 <ImageView
+                    android:id="@+id/Wed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bad"
@@ -53,6 +57,7 @@
                     android:alpha="0"/>
 
                 <ImageView
+                    android:id="@+id/Thu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bad"
@@ -60,6 +65,7 @@
                     android:alpha="0"/>
 
                 <ImageView
+                    android:id="@+id/Fri"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bad"
@@ -67,6 +73,7 @@
                     android:alpha="0"/>
 
                 <ImageView
+                    android:id="@+id/Sat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bad"
@@ -600,12 +607,6 @@
                     app:track="@drawable/track_selector" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="vertical">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -614,17 +615,21 @@
                     android:textColor="#404040"
                     android:textStyle="bold"
                     android:textSize="16sp"
+                    android:layout_marginBottom="@dimen/_8sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!-- Repeat for each vaccination -->
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_vaccination"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content"
 
-            </LinearLayout>
+
+                    />
+
+
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
