@@ -80,7 +80,6 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 
-
-
-    // Other dependencies...
+    //for circular progress pie
+    implementation 'com.github.guilhe:circular-progress-view:2.0.0'
 }
