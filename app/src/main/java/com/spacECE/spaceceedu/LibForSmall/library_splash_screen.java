@@ -63,6 +63,7 @@ public class library_splash_screen extends AppCompatActivity {
                                                 Intent intent = new Intent(library_splash_screen.this, Library_main.class);
                                                 startActivity(intent);
                                                 finish();
+                                                //Library_main.class
                                             }
                                         })
 
