@@ -1,5 +1,6 @@
 package com.spacECE.spaceceedu.GrowthTracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.github.guilhe.views.CircularProgressView;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
+import com.spacECE.spaceceedu.ConsultUS.ConsultUs_SplashScreen;
 import com.spacECE.spaceceedu.R;
 
 import org.json.JSONArray;
@@ -56,6 +58,8 @@ public class track_food_fitness_vaccination extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO: write link to next page here
+                Intent intent = new Intent(getApplicationContext(), GrowthTrackerReport1.class);
+                startActivity(intent);
             }
         });
 

@@ -35,6 +35,12 @@
         android:theme="@style/Theme.SpacECEedu"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".GrowthTracker.GrowthTrackerTips"
+            android:exported="false" />
+        <activity
+            android:name=".GrowthTracker.GrowthTrackerReport1"
+            android:exported="false" />
+        <activity
             android:name=".GrowthTracker.track_food_fitness_vaccination"
             android:exported="false" />
         <activity
