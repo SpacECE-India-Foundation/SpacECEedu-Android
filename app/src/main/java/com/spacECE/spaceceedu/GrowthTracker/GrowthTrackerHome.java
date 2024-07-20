@@ -185,9 +185,8 @@ public class GrowthTrackerHome extends AppCompatActivity {
         barChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GrowthTrackerHome.this, LearnOn_List_SplashScreen.class);
+                Intent intent = new Intent(GrowthTrackerHome.this, track_food_fitness_vaccination.class);
                 startActivity(intent);
-                // TODO : change the activity class to your activity class
             }
         });
 
