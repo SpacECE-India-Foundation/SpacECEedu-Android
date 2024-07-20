@@ -41,6 +41,9 @@
             android:name=".GrowthTracker.GrowthTrackerReport1"
             android:exported="false" />
         <activity
+            android:name=".GrowthTracker.track_food_fitness_vaccination"
+            android:exported="false" />
+        <activity
             android:name=".GrowthTracker.GrowthTrackerHome"
             android:exported="false" />
         <activity
