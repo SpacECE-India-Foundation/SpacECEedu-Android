@@ -41,6 +41,7 @@ public class FragmentMain extends Fragment {
     CardView cv_dailyActivities;
     CardView cv_libraryBooks;
     CardView cv_learnOnApp;
+    CardView growthTracker;
 
     @Nullable
     @Override
@@ -67,6 +68,8 @@ public class FragmentMain extends Fragment {
         cv_libraryBooks = v.findViewById(R.id.CardView_Library);
 
         cv_learnOnApp = v.findViewById(R.id.CardView_LearnOnApp);
+
+        growthTracker = v.findViewById(R.id.CardView_GrowthTracker);
 
         cv_videoLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +108,14 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), LearnOn_List_SplashScreen.class);
+                startActivity(intent);
+            }
+        });
+
+        growthTracker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), GrowthTrackerHome.class);
                 startActivity(intent);
             }
         });

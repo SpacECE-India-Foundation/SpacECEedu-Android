@@ -1,6 +1,8 @@
 package com.spacECE.spaceceedu.GrowthTracker;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +37,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
+import com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_SplashScreen;
 import com.spacECE.spaceceedu.R;
 
 import org.json.JSONArray;
@@ -178,6 +181,15 @@ public class GrowthTrackerHome extends AppCompatActivity {
 
         // Refresh chart
         barChart.invalidate();
+
+        barChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GrowthTrackerHome.this, LearnOn_List_SplashScreen.class);
+                startActivity(intent);
+                // TODO : change the activity class to your activity class
+            }
+        });
 
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.recycler_view_vaccination);
