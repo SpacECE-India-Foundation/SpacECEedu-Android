@@ -75,7 +75,7 @@
                     android:padding="20dp"
                     android:layout_height="400px"
                     android:layout_gravity="center"
-                    android:src="@drawable/space_tube_logo" />
+                    android:src="@drawable/img_24" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -96,7 +96,7 @@
                     android:layout_height="400px"
                     android:padding="20dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/consultus_logo" />
+                    android:src="@drawable/img_8" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -117,7 +117,7 @@
                     android:layout_height="400px"
                     android:padding="20dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/libs_for_small" />
+                    android:src="@drawable/img_25" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -138,7 +138,7 @@
                     android:layout_height="400px"
                     android:layout_gravity="center"
                     android:padding="20dp"
-                    android:src="@drawable/learn_on_app_logo" />
+                    android:src="@drawable/img_26" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -159,7 +159,7 @@
                     android:layout_height="400px"
                     android:padding="20dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/space_active_logo" />
+                    android:src="@drawable/img_27" />
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardView_GrowthTracker"
