@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
+import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.ConsultUS.ConsultUs_SplashScreen;
 import com.spacECE.spaceceedu.GrowthTracker.GrowthTrackerHome;
 import com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_SplashScreen;
@@ -117,6 +118,8 @@ public class FragmentMain extends Fragment {
         growthTracker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UserLocalStore userLocalStore = new UserLocalStore(requireContext());
+                Account account = userLocalStore.getLoggedInAccount();
                 // Check if the user is logged in (you can replace this condition with your actual login check)
                 if (account != null) {
                     Intent intent = new Intent(getContext(), GrowthTrackerHome.class);
