@@ -70,5 +70,7 @@ public class ItemModel {
                 ", info='" + info + '\'' +
                 '}';
     }
+
+    // by Mohit
 }
 

@@ -191,5 +191,7 @@ public class vaccinationAdapter extends RecyclerView.Adapter<vaccinationAdapter.
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
         builder.show();
+
+        //by Mohit
     }
 }
