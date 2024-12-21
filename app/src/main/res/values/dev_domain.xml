@@ -1,0 +1,10 @@
+<!-- res/values/strings.xml -->
+<resources>
+    <string name="dev_domain">SpacECEedu</string>
+    <string-array name="dev_domain_items">
+        <item>Dev Domain</item>
+        <item>Dev Test 1</item>
+        <item>Dev Test 2</item>
+        <item>Dev Test 3</item>
+    </string-array>
+</resources>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context=".LearnOnApp.LearnOn_Main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4sp"
+        android:paddingLeft="15sp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:src="@drawable/tile_icon_3" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="8sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:text="Learn on app"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Course Details"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="20sp"/>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20sp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="6sp"
+                    android:background="@drawable/learnonapp_coursedetails_background"
+                    android:padding="@dimen/fragment_title_padding_10"
+
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/Detail_Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:text="Mathemattics and statistics"
+                        android:textSize="30sp"
+                        android:layout_marginBottom="20sp"
+                        android:textStyle="bold"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4sp"
+                            android:textColor="@color/black"
+                            android:text="Mode: "
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4sp"
+                            android:id="@+id/Detail_Mode_Type"
+                            android:textColor="@color/black"
+                            android:text="Online on whatsapp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4sp"
+                            android:textColor="@color/black"
+                            android:text="Duration: "
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:textColor="@color/black"
+                            android:text="Description: "
+                            android:id="@+id/ShowCourseStartingDate"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:text="Price(in Rs.): "/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4sp"
+                            android:text="20"
+                            android:textColor="@color/black"
+                            android:id="@+id/ShowCoursePrice"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="05sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="Note"/>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="250sp">
+
+                        <TextView
+                            android:id="@+id/Detail_Description"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:padding="8sp"
+                            android:text="hello world"/>
+
+                    </ScrollView>
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2sp"
+                        android:text="Happy Learning!"
+                        android:textAlignment="center"
+                        android:textColor="@color/Spacece_Yellow"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/Buy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="10sp"
+                        android:padding="12sp"
+                        android:backgroundTint="@color/Spacece_Yelloww"
+                        android:text="Enroll Now!" />
+
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+
+
+
+
+</LinearLayout>

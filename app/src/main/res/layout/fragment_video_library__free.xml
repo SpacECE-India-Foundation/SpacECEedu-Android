@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VideoLibrary.VideoLibrary_Free">
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/VL_Free_TextView_recentlyViewed"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:paddingTop="10dp"-->
+    <!--        android:text="Recently Viewed"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:translationZ="1dp"-->
+    <!--        android:visibility="invisible" />-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:padding="5dp">-->
+
+    <!--        <androidx.recyclerview.widget.RecyclerView-->
+    <!--            android:id="@+id/VL_recent_RecyclerView"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            tools:listitem="@layout/video_list_item" />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:padding="6dp"
+        android:id="@+id/VL_free_RecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--    </LinearLayout>-->
+</FrameLayout>

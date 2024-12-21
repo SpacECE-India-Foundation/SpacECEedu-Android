@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_centerInParent="true"
+    android:backgroundTint="#EDEBEB"
+    android:layout_weight="1"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/all_books">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/mybooks_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/mybooks_txtname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Book Name"
+                android:layout_toRightOf="@+id/mybooks_image"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="10dp"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/mybooks_cat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Category"
+                android:layout_toRightOf="@+id/mybooks_image"
+                android:layout_below="@+id/mybooks_txtname"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="10dp"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mybooks_cat"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/mybooks_image"
+                android:textSize="20dp"
+                tools:text="Price" />
+
+            <Button
+                android:id="@+id/edit_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mybooks_image"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:paddingStart="60dp"
+                android:paddingEnd="60dp"
+                android:text="Edit"
+                android:textColor="@color/black"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mybooks_image"
+                android:layout_toRightOf="@+id/edit_btn"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="Remove"
+                android:paddingStart="50dp"
+                android:paddingEnd="50dp"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
