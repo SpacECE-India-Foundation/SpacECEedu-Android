@@ -76,7 +76,7 @@ public class RecyclerView_Adapter_activities_all_in_one extends RecyclerView.Ada
             holder.completed_or_not.setText("(¬_¬\") Not Completed");
         }
         if (arrayList_space_active_all_in_one_data_holder.get(position).activity_image!=null && !arrayList_space_active_all_in_one_data_holder.get(position).activity_image.equals("null")){
-            String pic_src = "http://43.205.45.96/img/users/" + arrayList_space_active_all_in_one_data_holder.get(position).activity_image;
+            String pic_src = "http://13.126.66.91/spacece/img/users/" + arrayList_space_active_all_in_one_data_holder.get(position).activity_image;
             try{
                 Picasso.get().load(pic_src).into(holder.img);
             }catch (Exception e){

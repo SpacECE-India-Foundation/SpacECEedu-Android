@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void verifyUser(String email, String mobile, Dialog dialog) {
-        String url = "http://43.205.45.96/spacece_auth/api_userVerification.php";
+        String url = "http://13.126.66.91/spacece/spacece_auth/api_userVerification.php";
 
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updatePassword(String email, String mobile, String newPassword, Dialog dialog) {
-        String url = "http://43.205.45.96/spacece_auth/api_updatePassword.php";
+        String url = "http://13.126.66.91/spacece/spacece_auth/api_updatePassword.php";
 
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
@@ -233,7 +233,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void logIn(String email, String password) {
 
-        String login = "http://43.205.45.96/spacece_auth/login_action.php";
+        String login = "http://13.126.66.91/spacece/spacece_auth/login_action.php";
 
         new Thread(new Runnable() {
 

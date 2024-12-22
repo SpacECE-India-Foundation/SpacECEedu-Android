@@ -39,7 +39,7 @@ public class library_RecycleAdapter extends RecyclerView.Adapter<library_Recycle
         holder.book_category.setText(list.get(position).getProduct_desc());
         holder.book_price.setText(list.get(position).getProduct_price());
         Picasso.get()
-                .load("http://43.205.45.96/libforsmall/product_images/"+list.get(position).product_image)
+                .load("http://13.126.66.91/spacece/libforsmall/product_images/"+list.get(position).product_image)
                 .error(R.drawable.tile_icon_2)
                 .into(holder.book_image);
     }

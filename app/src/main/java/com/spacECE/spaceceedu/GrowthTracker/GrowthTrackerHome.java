@@ -239,7 +239,7 @@ public class GrowthTrackerHome extends AppCompatActivity {
 
 
     private void fetchVaccinationData() {
-        String url = "http://43.205.45.96/Growth_Tracker/api_fetchVaccineData.php"; // Replace with your API URL
+        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_fetchVaccineData.php"; // Replace with your API URL
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -572,7 +572,7 @@ public class GrowthTrackerHome extends AppCompatActivity {
     private void saveDataToDatabase() {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://43.205.45.96/Growth_Tracker/api_InsertGrowthDetails.php";
+        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_InsertGrowthDetails.php";
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
@@ -627,7 +627,7 @@ public class GrowthTrackerHome extends AppCompatActivity {
         Account account = userLocalStore.getLoggedInAccount();
         String accountId = account.getAccount_id();
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://43.205.45.96/Growth_Tracker/api_fetchGrowthDetails.php?u_id=" + accountId + "&date=" + date;
+        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_fetchGrowthDetails.php?u_id=" + accountId + "&date=" + date;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -704,7 +704,7 @@ public class GrowthTrackerHome extends AppCompatActivity {
         String date = String.valueOf(currentYear) + "/" + String.valueOf(currentMonth) + "/" + String.valueOf(currentDate);
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://43.205.45.96/Growth_Tracker/api_fetchGrowthDetails.php?u_id=" + accountId + "&date=" + date;
+        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_fetchGrowthDetails.php?u_id=" + accountId + "&date=" + date;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -880,7 +880,7 @@ public class GrowthTrackerHome extends AppCompatActivity {
         Account account = userLocalStore.getLoggedInAccount();
         String accountId = account.getAccount_id();
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://43.205.45.96/Growth_Tracker/api_fetchGrowthDetails.php?u_id=" + accountId + "&date=" + date;
+        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_fetchGrowthDetails.php?u_id=" + accountId + "&date=" + date;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,

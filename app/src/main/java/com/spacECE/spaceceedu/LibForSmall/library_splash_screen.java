@@ -37,7 +37,7 @@ public class library_splash_screen extends AppCompatActivity {
             public void run() {
                 final JSONObject apiCall;
                 try{
-                    apiCall = UsefulFunctions.UsingGetAPI("http://43.205.45.96/libforsmall/allproductlist.php");
+                    apiCall = UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/libforsmall/allproductlist.php");
                     JSONArray jsonArray = null;
                     try {
                         try {

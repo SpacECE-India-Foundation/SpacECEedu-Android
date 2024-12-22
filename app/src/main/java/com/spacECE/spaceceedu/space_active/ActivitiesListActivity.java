@@ -203,7 +203,7 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
 
     public void fetch(){
         RequestQueue requestQueue= Volley.newRequestQueue(ActivitiesListActivity.this);
-        String url="http://43.205.45.96/api/spaceactive_activities.php";
+        String url="http://13.126.66.91/spacece/api/spaceactive_activities.php";
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -320,7 +320,7 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
             }
         });
         requestQueue.add(jsonObjectRequest);
-        String url1="http://43.205.45.96/spacec_active/api_fetchWorkdone.php?user_id=";
+        String url1="http://13.126.66.91/spacece/spacec_active/api_fetchWorkdone.php?user_id=";
 
         if (MainActivity.ACCOUNT !=null && MainActivity.ACCOUNT.getAccount_id()!=null){
             JsonObjectRequest jsonObjectRequest1=new JsonObjectRequest(url1 + MainActivity.ACCOUNT.getAccount_id(), new Response.Listener<JSONObject>() {

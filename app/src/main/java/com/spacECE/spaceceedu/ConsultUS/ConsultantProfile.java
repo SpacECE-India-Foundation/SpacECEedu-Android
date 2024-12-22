@@ -90,7 +90,7 @@ public class ConsultantProfile extends AppCompatActivity {
         tv_language.append(language);
         tv_days.append(c_aval_days.replace(",",", "));
         Log.e( "onCreate:--------","1");
-        pic_src = "http://43.205.45.96/img/users/" + pic_src;
+        pic_src = "http://13.126.66.91/spacece/img/users/" + pic_src;
         Log.e( "onCreate:--------","2");
 
         try {

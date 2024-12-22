@@ -192,7 +192,7 @@ public class RegistrationFinal extends AppCompatActivity {
 
     // Send user registration data to the server
     private void sendUserRegistration(String name, String email, String password, String phone, Uri image) {
-        String register = "http://43.205.45.96/spacece_auth/register_action.php";
+        String register = "http://13.126.66.91/spacece/spacece_auth/register_action.php";
 
         new Thread(new Runnable() {
 

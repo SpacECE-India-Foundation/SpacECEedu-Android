@@ -296,7 +296,7 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
 
             JSONObject jsonObject;
 
-            final String booking = "http://43.205.45.96/ConsultUs/api_bookappointment.php";
+            final String booking = "http://13.126.66.91/spacece/ConsultUs/api_bookappointment.php";
 
             @Override
             public void run() {
