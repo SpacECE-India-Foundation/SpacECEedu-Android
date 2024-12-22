@@ -37,7 +37,7 @@ public class LibraryProductDetailed extends Fragment {
     private TextView book, author, edition, desc, price, condition;
     private Button addtocartbtn;
     private ImageView productImg;
-    private String url = "http://43.205.45.96/libforsmall/api_addToCart.php";
+    private String url = "http://13.126.66.91/spacece/libforsmall/api_addToCart.php";
     private int pos;
 
     @Nullable
@@ -80,7 +80,7 @@ public class LibraryProductDetailed extends Fragment {
         author.setText(books.getProduct_brand());
 
         Picasso.get()
-                .load("http://43.205.45.96/libforsmall/product_images/" + books.getProduct_image())
+                .load("http://13.126.66.91/spacece/libforsmall/product_images/" + books.getProduct_image())
                 .error(R.drawable.tile_icon_2)
                 .into(productImg);
 

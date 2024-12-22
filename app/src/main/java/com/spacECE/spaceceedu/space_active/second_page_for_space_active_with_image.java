@@ -140,7 +140,7 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
 
         Log.e( "onCreate: ",image+"");
         if (image!=null && !image.equals("null")){
-            String pic_src = "http://43.205.45.96/img/users/" + image;
+            String pic_src = "http://13.126.66.91/spacece/img/users/" + image;
             try{
                 Picasso.get().load(pic_src).into(image_second_activity);
             }catch (Exception e){
@@ -215,7 +215,7 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
         Log.e("setCompleted:>>>>>>>>>>>>>>>>>>>>>>>>","");
         RequestQueue requestQueue= Volley.newRequestQueue(second_page_for_space_active_with_image.this);
         Log.e( "setCompleted:-----------","user_id="+MainActivity.ACCOUNT.getAccount_id()+"&activity_no="+activity_no+"&workdone="+"1");
-        String url="http://43.205.45.96/spacec_active/api_insertUserActivity.php";
+        String url="http://13.126.66.91/spacece/spacec_active/api_insertUserActivity.php";
         StringRequest stringRequest=new StringRequest(com.android.volley.Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

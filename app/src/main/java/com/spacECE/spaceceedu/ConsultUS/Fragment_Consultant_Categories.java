@@ -90,7 +90,7 @@ public class Fragment_Consultant_Categories extends Fragment {
 
             try {
                 try {
-                    apiCall = UsefulFunctions.UsingGetAPI("http://43.205.45.96/ConsultUs/api_getconsultant.php?cat=" + URLEncoder.encode(category, "UTF-8"));
+                    apiCall = UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/ConsultUs/api_getconsultant.php?cat=" + URLEncoder.encode(category, "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }

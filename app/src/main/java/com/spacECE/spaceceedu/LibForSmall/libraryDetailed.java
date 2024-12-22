@@ -38,7 +38,7 @@ public class libraryDetailed extends AppCompatActivity {
     TextView book, author, edition, desc, price, condition, owner;
     Button callbtn, addtocartbtn;
     ImageView productImg;
-    String url = "http://43.205.45.96/libforsmall/api_addToCart.php";
+    String url = "http://13.126.66.91/spacece/libforsmall/api_addToCart.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class libraryDetailed extends AppCompatActivity {
         author.setText(books.getProduct_brand());
 
         Picasso.get()
-                .load("http://43.205.45.96/libforsmall/product_images/" + books.getProduct_image())
+                .load("http://13.126.66.91/spacece/libforsmall/product_images/" + books.getProduct_image())
                 .into(productImg);
 
         addtocartbtn.setOnClickListener(new View.OnClickListener() {

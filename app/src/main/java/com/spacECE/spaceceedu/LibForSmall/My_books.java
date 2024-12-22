@@ -33,7 +33,7 @@ public class My_books extends AppCompatActivity {
         Thread thread = new Thread(() -> {
 
             try {
-                apiCall[0] = UsefulFunctions.UsingGetAPI("http://43.205.45.96/libforsmall/api/api_bookrecords.php");
+                apiCall[0] = UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/libforsmall/api/api_bookrecords.php");
                 try {
                     Log.i("Object Obtained: ", apiCall[0].get("data").toString());
                 } catch (JSONException e) {

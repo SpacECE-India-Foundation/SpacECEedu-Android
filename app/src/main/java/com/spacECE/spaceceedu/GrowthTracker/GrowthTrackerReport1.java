@@ -94,7 +94,7 @@ public class GrowthTrackerReport1 extends AppCompatActivity {
         UserLocalStore userLocalStore = new UserLocalStore(this);
         Account account = userLocalStore.getLoggedInAccount();
         String userId = account.getAccount_id();
-        String url = "http://43.205.45.96/Growth_Tracker/api_fetchWeeklyDetails.php?u_id="+userId+"&date="+endDate;
+        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_fetchWeeklyDetails.php?u_id="+userId+"&date="+endDate;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {

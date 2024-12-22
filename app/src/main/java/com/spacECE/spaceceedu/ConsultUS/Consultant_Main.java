@@ -104,7 +104,7 @@ public class Consultant_Main extends AppCompatActivity {
             JSONObject jsonObject;
             JSONArray jsonArray;
 
-            String url = "http://43.205.45.96/ConsultUs/api_user_appoint.php";
+            String url = "http://13.126.66.91/spacece/ConsultUs/api_user_appoint.php";
 
             @Override
             public void run() {
@@ -191,7 +191,7 @@ public class Consultant_Main extends AppCompatActivity {
             JSONObject jsonObject;
             JSONArray jsonArray;
 
-            String url = "http://43.205.45.96/ConsultUs/api_user_appoint.php";
+            String url = "http://13.126.66.91/spacece/ConsultUs/api_user_appoint.php";
 
             @Override
             public void run() {

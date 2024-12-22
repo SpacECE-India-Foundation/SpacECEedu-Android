@@ -74,7 +74,7 @@ public class track_food_fitness_vaccination extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
         String todayDate = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(new Date());
         Request request = new Request.Builder()
-                .url("http://43.205.45.96/Growth_Tracker/api_fetchWeeklyDetails.php?u_id="+accountId+"&date=" + todayDate)
+                .url("http://13.126.66.91/spacece/Growth_Tracker/api_fetchWeeklyDetails.php?u_id="+accountId+"&date=" + todayDate)
                 .build();
 
         client.newCall(request).enqueue(new okhttp3.Callback() {

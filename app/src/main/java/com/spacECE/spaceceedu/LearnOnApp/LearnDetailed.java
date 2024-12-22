@@ -91,7 +91,7 @@ public class LearnDetailed extends AppCompatActivity implements Instamojo.Instam
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                URL url = new URL("http://43.205.45.96/api/api_InsertLearnOnCourseData.php");
+                URL url = new URL("http://13.126.66.91/spacece/api/api_InsertLearnOnCourseData.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");

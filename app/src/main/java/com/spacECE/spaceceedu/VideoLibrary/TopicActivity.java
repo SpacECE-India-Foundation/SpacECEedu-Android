@@ -117,7 +117,7 @@ public class TopicActivity extends AppCompatActivity {
     }
 
     private void increaseViewCount(String finalV_id) {
-        Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_UpdateViews.php?vid=" + finalV_id));
+        Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/SpacTube/api_UpdateViews.php?vid=" + finalV_id));
         thread.start();
 
 
@@ -213,7 +213,7 @@ public class TopicActivity extends AppCompatActivity {
             dislike_status_main = false;
             like_status_main = true;
         }
-        Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_likeVideo.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
+        Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/SpacTube/api_likeVideo.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
         thread.start();
 
         new Thread(() -> {
@@ -236,7 +236,7 @@ public class TopicActivity extends AppCompatActivity {
             like_status_main = false;
             dislike_status_main = true;
         }
-        Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_dislikeVideo.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
+        Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/SpacTube/api_dislikeVideo.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
         thread.start();
 
         new Thread(() -> {
@@ -251,7 +251,7 @@ public class TopicActivity extends AppCompatActivity {
 
     void update_comments_list(String vid_id) {
         OkHttpClient client = new OkHttpClient();
-        String url = "http://43.205.45.96/SpacTube/api_getAllComments.php?vid=" + vid_id;
+        String url = "http://13.126.66.91/spacece/SpacTube/api_getAllComments.php?vid=" + vid_id;
 
         Request request = new Request.Builder()
                 .url(url)
@@ -303,7 +303,7 @@ public class TopicActivity extends AppCompatActivity {
 
     void update_likes_dislike_count_onUI(String vid_id) {
         OkHttpClient client = new OkHttpClient();
-        String url = "http://43.205.45.96/SpacTube/api_getEachCount.php?vid=" + vid_id;
+        String url = "http://13.126.66.91/spacece/SpacTube/api_getEachCount.php?vid=" + vid_id;
 
         Request request = new Request.Builder()
                 .url(url)
@@ -348,7 +348,7 @@ public class TopicActivity extends AppCompatActivity {
 
     void add_comment(String comment, String uid, String vid_id) {
         OkHttpClient client = new OkHttpClient();
-        String url = "http://43.205.45.96/SpacTube/api_commentVideo.php";
+        String url = "http://13.126.66.91/spacece/SpacTube/api_commentVideo.php";
 
         RequestBody formBody = new FormBody.Builder()
                 .add("uid", uid)
@@ -389,7 +389,7 @@ public class TopicActivity extends AppCompatActivity {
         new Thread(() -> {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("http://43.205.45.96/SpacTube/api_extractlike.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + vid_id)
+                    .url("http://13.126.66.91/spacece/SpacTube/api_extractlike.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + vid_id)
                     .build();
 
             try (Response response = client.newCall(request).execute()) {
@@ -417,7 +417,7 @@ public class TopicActivity extends AppCompatActivity {
         new Thread(() -> {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("http://43.205.45.96/SpacTube/api_getDisLike.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + vid_id)
+                    .url("http://13.126.66.91/spacece/SpacTube/api_getDisLike.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + vid_id)
                     .build();
 
             try (Response response = client.newCall(request).execute()) {

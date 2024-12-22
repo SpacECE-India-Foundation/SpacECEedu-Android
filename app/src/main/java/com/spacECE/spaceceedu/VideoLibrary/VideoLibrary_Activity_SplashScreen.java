@@ -43,15 +43,15 @@ public class VideoLibrary_Activity_SplashScreen extends AppCompatActivity {
 
             try {
 
-                apiCall[0] = UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_all.php?uid=1&type=free");
+                apiCall[0] = UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/SpacTube/api_all.php?uid=1&type=free");
                 JSONArray jsonArray_free = apiCall[0].optJSONArray("data");
 
 
-                apiCall[0] = UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_all.php?uid=1&type=trending");
+                apiCall[0] = UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/SpacTube/api_all.php?uid=1&type=trending");
                 JSONArray JsonArray_trending = apiCall[0].optJSONArray("data");
 
 
-                apiCall[0] = UsefulFunctions.UsingGetAPI("http://43.205.45.96/SpacTube/api_all.php?uid=1&type=paid");
+                apiCall[0] = UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/SpacTube/api_all.php?uid=1&type=paid");
                 JSONArray JsonArray_paid = apiCall[0].optJSONArray("data");
 
                 try {

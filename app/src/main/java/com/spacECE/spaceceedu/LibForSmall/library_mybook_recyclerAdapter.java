@@ -71,7 +71,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
         holder.bookPrice.setText(book.getProduct_price());
         holder.tvQuantity.setText(book.getQuantity());
         Picasso.get()
-                .load("http://43.205.45.96/libforsmall/product_images/" + book.product_image)
+                .load("http://13.126.66.91/spacece/libforsmall/product_images/" + book.product_image)
                 .into(holder.bookImage);
 
         // Set click listener for remove button
@@ -139,7 +139,7 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
     private void removeItemFromDatabase(String cart_id, int position) {
         new Thread(() -> {
             try {
-                URL url = new URL("http://43.205.45.96/libforsmall/api_RemoveProductFromCart.php");
+                URL url = new URL("http://13.126.66.91/spacece/libforsmall/api_RemoveProductFromCart.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);

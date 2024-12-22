@@ -36,7 +36,7 @@ public class ConsultUs_SplashScreen extends AppCompatActivity {
             public void run() {
                 final JSONObject apiCall;
                 try{
-                    apiCall = UsefulFunctions.UsingGetAPI("http://43.205.45.96/ConsultUs/api_category.php?category=all");
+                    apiCall = UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/ConsultUs/api_category.php?category=all");
                     JSONArray jsonArray = null;
                     try {
                         try {

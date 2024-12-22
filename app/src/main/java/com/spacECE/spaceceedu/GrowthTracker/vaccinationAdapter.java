@@ -102,7 +102,7 @@ public class vaccinationAdapter extends RecyclerView.Adapter<vaccinationAdapter.
     private void updateVaccinationStatus(ItemModel item, String status, int doseNumber, String age) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = "http://43.205.45.96/Growth_Tracker/api_InsertUserVaccinationData.php";
+        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_InsertUserVaccinationData.php";
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
