@@ -32,6 +32,8 @@ import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -199,51 +201,63 @@ public class Agoraa extends AppCompatActivity {
             JSONObject jsonObject;
             @Override
             public void run() {
+                try {
+                    JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+                    if (config != null) {
+                        String agoraaUrl= config.getString("CONSULT_AGORAA");
 
-                OkHttpClient client = new OkHttpClient();
-                RequestBody fromBody = new FormBody.Builder()
-                        .add("consult_id", finalConsult_ID)
-                        .add("user_id", MainActivity.ACCOUNT.getAccount_id())
-                        .build();
+                        OkHttpClient client = new OkHttpClient();
+                        RequestBody fromBody = new FormBody.Builder()
+                                .add("consult_id", finalConsult_ID)
+                                .add("user_id", MainActivity.ACCOUNT.getAccount_id())
+                                .build();
 
-                Request request = new Request.Builder()
-                        .url("http://spacefoundation.in/test/SpacECE-PHP/ConsultUs/agoracallapi.php")
-                        .post(fromBody)
-                        .build();
+                        Request request = new Request.Builder()
+                                .url(agoraaUrl)
+                                .post(fromBody)
+                                .build();
 
-                Call call = client.newCall(request);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        System.out.println("Registration Error ApI " + e.getMessage());
-                    }
+                        Call call = client.newCall(request);
+                        call.enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                System.out.println("Registration Error ApI " + e.getMessage());
+                            }
 
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        String resp = response.body().string();
-                        try {
-                            jsonObject = new JSONObject(resp);
-                            System.out.println(jsonObject);
-                            token = jsonObject.getString("token");
-                            channel = jsonObject.getString("channelName");
+                            @Override
+                            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                                String resp = response.body().string();
+                                try {
+                                    jsonObject = new JSONObject(resp);
+                                    System.out.println(jsonObject);
+                                    token = jsonObject.getString("token");
+                                    channel = jsonObject.getString("channelName");
 
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
-                                            checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID)) {
-                                        initEngineAndJoinChannel();
-                                    }
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
+                                                    checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID)) {
+                                                initEngineAndJoinChannel();
+                                            }
+                                        }
+                                    });
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                            });
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                            }
+                        });
                     }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Log.i("ERROR:::", "Failed to load API URLs");
+                }
+                    }
+
                 });
-            }
-        });
+
         thread.start();
 
 

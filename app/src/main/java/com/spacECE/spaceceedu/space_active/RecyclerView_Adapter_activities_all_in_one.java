@@ -17,7 +17,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,30 +79,41 @@ public class RecyclerView_Adapter_activities_all_in_one extends RecyclerView.Ada
             holder.completed_or_not.setText("(¬_¬\") Not Completed");
         }
         if (arrayList_space_active_all_in_one_data_holder.get(position).activity_image!=null && !arrayList_space_active_all_in_one_data_holder.get(position).activity_image.equals("null")){
-            String pic_src = "http://13.126.66.91/spacece/img/users/" + arrayList_space_active_all_in_one_data_holder.get(position).activity_image;
-            try{
-                Picasso.get().load(pic_src).into(holder.img);
-            }catch (Exception e){
-                Log.e( "onBindViewHolder:-------------------",e.toString());
-            }
-            RequestQueue requestQueue= Volley.newRequestQueue(context);
-            StringRequest stringRequest=new StringRequest(pic_src, new com.android.volley.Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    String rsp=response;
-                    if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
-                        Log.e( "onResponse:---------","Not exist");
-                        holder.img.setImageDrawable(context.getDrawable(R.drawable.download));
+            try {
+                JSONObject config = ConfigUtils.loadConfig(context.getApplicationContext());
+                if (config != null) {
+                    String baseUrl= config.getString("BASE_URL");
+                    String spaceactiveInsertUserUrl = config.getString("SPACEACTIVE_INSERTUSER");
+                    String pic_src = baseUrl + spaceactiveInsertUserUrl + arrayList_space_active_all_in_one_data_holder.get(position).activity_image;
+                    try{
+                        Picasso.get().load(pic_src).into(holder.img);
+                    }catch (Exception e){
+                        Log.e( "onBindViewHolder:-------------------",e.toString());
                     }
+                    RequestQueue requestQueue= Volley.newRequestQueue(context);
+                    StringRequest stringRequest=new StringRequest(pic_src, new com.android.volley.Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            String rsp=response;
+                            if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
+                                Log.e( "onResponse:---------","Not exist");
+                                holder.img.setImageDrawable(context.getDrawable(R.drawable.download));
+                            }
+                        }
+                    }, new com.android.volley.Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e( "onFailure:-----------------",error.toString());
+                            holder.img.setImageDrawable(context.getDrawable(R.drawable.download));
+                        }
+                    });
+                    requestQueue.add(stringRequest);
                 }
-            }, new com.android.volley.Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e( "onFailure:-----------------",error.toString());
-                    holder.img.setImageDrawable(context.getDrawable(R.drawable.download));
-                }
-            });
-            requestQueue.add(stringRequest);
+            }catch (Exception e) {
+                e.printStackTrace();
+                Log.i("ERROR:::", "Failed to load API URLs");
+            }
+
         }
     }
 

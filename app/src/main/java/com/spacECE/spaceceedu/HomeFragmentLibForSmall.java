@@ -1,6 +1,7 @@
 package com.spacECE.spaceceedu;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class HomeFragmentLibForSmall extends Fragment {
     private library_RecycleAdapter adapter;
     private ArrayList<books> originalList;
     private LinearLayout btnsort;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,7 +113,7 @@ public class HomeFragmentLibForSmall extends Fragment {
 
     private void setAdapter(ArrayList<books> myList) {
         setOnClickListener();
-        adapter = new library_RecycleAdapter(myList, listener);
+        adapter = new library_RecycleAdapter(myList, listener,getContext());
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1, LinearLayoutManager.VERTICAL, false);
         ListRecyclerView.setLayoutManager(layoutManager);
         ListRecyclerView.setItemAnimator(new DefaultItemAnimator());

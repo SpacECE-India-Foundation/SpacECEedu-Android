@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -123,45 +124,56 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void verifyUser(String email, String mobile, Dialog dialog) {
-        String url = "http://13.126.66.91/spacece/spacece_auth/api_userVerification.php";
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String authVerificationUrl = config.getString("AUTH_VERIFICATION");
+                String url = baseUrl+authVerificationUrl;
 
-        OkHttpClient client = new OkHttpClient();
-        RequestBody formBody = new FormBody.Builder()
-                .add("email", email)
-                .add("u_mob", mobile)
-                .build();
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("email", email)
+                        .add("u_mob", mobile)
+                        .build();
 
-        Request request = new Request.Builder()
-                .url(url)
-                .post(formBody)
-                .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Failed to verify user", Toast.LENGTH_SHORT).show());
-            }
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Failed to verify user", Toast.LENGTH_SHORT).show());
+                    }
 
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                runOnUiThread(() -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        if (jsonObject.has("error")) {
-                            Toast.makeText(LoginActivity.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
-                        } else {
-                            dialog.dismiss();
-                            showUpdatePasswordDialog(email, mobile);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(LoginActivity.this, "Failed to verify user", Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        runOnUiThread(() -> {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.body().string());
+                                if (jsonObject.has("error")) {
+                                    Toast.makeText(LoginActivity.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    dialog.dismiss();
+                                    showUpdatePasswordDialog(email, mobile);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(LoginActivity.this, "Failed to verify user", Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
                     }
                 });
             }
-        });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     private void showUpdatePasswordDialog(String email, String mobile) {
@@ -189,139 +201,161 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updatePassword(String email, String mobile, String newPassword, Dialog dialog) {
-        String url = "http://13.126.66.91/spacece/spacece_auth/api_updatePassword.php";
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String authUpdatePasswordUrl = config.getString("AUTH_UPDATE_PASSWORD");
+                String url = baseUrl+authUpdatePasswordUrl;
 
-        OkHttpClient client = new OkHttpClient();
-        RequestBody formBody = new FormBody.Builder()
-                .add("email", email)
-                .add("u_mob", mobile)
-                .add("password", newPassword)
-                .build();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .post(formBody)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Failed to update password", Toast.LENGTH_SHORT).show());
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                runOnUiThread(() -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        if (jsonObject.has("error")) {
-                            Toast.makeText(LoginActivity.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
-                        } else {
-                            dialog.dismiss();
-                            Toast.makeText(LoginActivity.this, "Password updated successfully", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(LoginActivity.this, "Failed to update password", Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            }
-        });
-    }
-
-    public void logIn(String email, String password) {
-
-        String login = "http://13.126.66.91/spacece/spacece_auth/login_action.php";
-
-        new Thread(new Runnable() {
-
-            JSONObject jsonObject;
-
-            @Override
-            public void run() {
                 OkHttpClient client = new OkHttpClient();
-                RequestBody fromBody = new FormBody.Builder()
+                RequestBody formBody = new FormBody.Builder()
                         .add("email", email)
-                        .add("password", password)
-                        .add("type", USER)
-                        .add("isAPI", "true")
+                        .add("u_mob", mobile)
+                        .add("password", newPassword)
                         .build();
 
                 Request request = new Request.Builder()
-                        .url(login)
-                        .post(fromBody)
+                        .url(url)
+                        .post(formBody)
                         .build();
 
-
-                Call call = client.newCall(request);
-                call.enqueue(new Callback() {
+                client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        System.out.println("Registration Error ApI " + e.getMessage());
+                        runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Failed to update password", Toast.LENGTH_SHORT).show());
                     }
 
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-
-                        try {
-                            jsonObject = new JSONObject(response.body().string());
-                            Log.d("Login", "onResponse: "+jsonObject);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    if(jsonObject.getString("status").equals("error")) {
-
-                                        Log.i("Authentication:: ", "Rejected.....");
-                                        et_email.setText("");
-                                        et_email.setError("");
-                                        et_password.setError("");
-                                        et_password.setText("");
-                                        tv_invalid.setVisibility(View.VISIBLE);
-
-                                        Toast.makeText(LoginActivity.this, "Invalid email or password!", Toast.LENGTH_SHORT).show();
-
-                                    } else if(jsonObject.getString("status").equals("success")) {
-
-                                        JSONObject object = new JSONObject(jsonObject.getString("data"));
-
-                                        Log.d("TAG", "onResponse: "+object);
-
-                                        tv_invalid.setVisibility(View.INVISIBLE);
-
-                                        if(object.getString("current_user_type").equals("consultant")){
-                                            Toast.makeText(LoginActivity.this, "Consultant!", Toast.LENGTH_SHORT).show();
-                                            userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
-                                                    object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
-                                                    object.getString("current_user_image"), object.getString("consultant_category"), object.getString("consultant_office "),
-                                                    object.getString("consultant_from_time"), object.getString("consultant_to_time"), object.getString("consultant_language"),
-                                                    object.getString("consultant_fee"), object.getString("consultant_qualification")));
-                                        } else {
-                                            userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
-                                                    object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
-                                                    object.getString("current_user_image"), object.getString("current_user_email")));
-                                            System.out.println(object.getString("current_user_image"));
-                                        }
-                                        MainActivity.ACCOUNT = userLocalStore.getLoggedInAccount();
-                                        finish();
-                                        Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(goToMainPage);
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                        runOnUiThread(() -> {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.body().string());
+                                if (jsonObject.has("error")) {
+                                    Toast.makeText(LoginActivity.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    dialog.dismiss();
+                                    Toast.makeText(LoginActivity.this, "Password updated successfully", Toast.LENGTH_SHORT).show();
                                 }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(LoginActivity.this, "Failed to update password", Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
                             }
                         });
                     }
                 });
             }
-        }).start();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
+    }
+
+    public void logIn(String email, String password) {
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String authLoginUrl = config.getString("AUTH_LOGIN");
+
+                String login = baseUrl+authLoginUrl;
+
+                new Thread(new Runnable() {
+
+                    JSONObject jsonObject;
+
+                    @Override
+                    public void run() {
+                        OkHttpClient client = new OkHttpClient();
+                        RequestBody fromBody = new FormBody.Builder()
+                                .add("email", email)
+                                .add("password", password)
+                                .add("type", USER)
+                                .add("isAPI", "true")
+                                .build();
+
+                        Request request = new Request.Builder()
+                                .url(login)
+                                .post(fromBody)
+                                .build();
+
+
+                        Call call = client.newCall(request);
+                        call.enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                System.out.println("Registration Error ApI " + e.getMessage());
+                            }
+
+                            @Override
+                            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                                try {
+                                    jsonObject = new JSONObject(response.body().string());
+                                    Log.d("Login", "onResponse: "+jsonObject);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            if(jsonObject.getString("status").equals("error")) {
+
+                                                Log.i("Authentication:: ", "Rejected.....");
+                                                et_email.setText("");
+                                                et_email.setError("");
+                                                et_password.setError("");
+                                                et_password.setText("");
+                                                tv_invalid.setVisibility(View.VISIBLE);
+
+                                                Toast.makeText(LoginActivity.this, "Invalid email or password!", Toast.LENGTH_SHORT).show();
+
+                                            } else if(jsonObject.getString("status").equals("success")) {
+
+                                                JSONObject object = new JSONObject(jsonObject.getString("data"));
+
+                                                Log.d("TAG", "onResponse: "+object);
+
+                                                tv_invalid.setVisibility(View.INVISIBLE);
+
+                                                if(object.getString("current_user_type").equals("consultant")){
+                                                    Toast.makeText(LoginActivity.this, "Consultant!", Toast.LENGTH_SHORT).show();
+                                                    userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
+                                                            object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
+                                                            object.getString("current_user_image"), object.getString("consultant_category"), object.getString("consultant_office "),
+                                                            object.getString("consultant_from_time"), object.getString("consultant_to_time"), object.getString("consultant_language"),
+                                                            object.getString("consultant_fee"), object.getString("consultant_qualification")));
+                                                } else {
+                                                    userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
+                                                            object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
+                                                            object.getString("current_user_image"), object.getString("current_user_email")));
+                                                    System.out.println(object.getString("current_user_image"));
+                                                }
+                                                MainActivity.ACCOUNT = userLocalStore.getLoggedInAccount();
+                                                finish();
+                                                Intent goToMainPage = new Intent(getApplicationContext(), MainActivity.class);
+                                                startActivity(goToMainPage);
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }).start();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 }
 

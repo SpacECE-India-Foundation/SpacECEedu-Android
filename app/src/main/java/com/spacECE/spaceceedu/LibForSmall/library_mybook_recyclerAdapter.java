@@ -3,6 +3,7 @@ package com.spacECE.spaceceedu.LibForSmall;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -65,46 +67,58 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        books2 book = list.get(position);
-        holder.bookName.setText(book.getProduct_title());
-        holder.bookCategory.setText(book.getStatus());
-        holder.bookPrice.setText(book.getProduct_price());
-        holder.tvQuantity.setText(book.getQuantity());
-        Picasso.get()
-                .load("http://13.126.66.91/spacece/libforsmall/product_images/" + book.product_image)
-                .into(holder.bookImage);
+        try {
+            JSONObject config = ConfigUtils.loadConfig(context.getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String libProductimgUrl = config.getString("LIB_PRODUCTIMG");
 
-        // Set click listener for remove button
-        holder.removeBtn.setOnClickListener(v -> {
-            new AlertDialog.Builder(context)
-                    .setMessage("Are you sure you want to remove this?")
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        removeItemFromDatabase(book.getCart_id(), position); // Pass position here
-                    })
-                    .setNegativeButton(android.R.string.cancel, (dialog, which) ->
-                            Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show())
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
-        });
+                books2 book = list.get(position);
+                holder.bookName.setText(book.getProduct_title());
+                holder.bookCategory.setText(book.getStatus());
+                holder.bookPrice.setText(book.getProduct_price());
+                holder.tvQuantity.setText(book.getQuantity());
+                Picasso.get()
+                        .load(baseUrl+libProductimgUrl + book.product_image)
+                        .into(holder.bookImage);
 
-        // Handle quantity buttons
-        holder.btnIncrease.setOnClickListener(v -> {
-            int currentQuantity = Integer.parseInt(holder.tvQuantity.getText().toString());
-            currentQuantity++;
-            holder.tvQuantity.setText(String.valueOf(currentQuantity));
-            book.setQuantity(String.valueOf(currentQuantity)); // Update quantity in book object
-            updateTotalPrice(holder, book, currentQuantity);
-        });
+                // Set click listener for remove button
+                holder.removeBtn.setOnClickListener(v -> {
+                    new AlertDialog.Builder(context)
+                            .setMessage("Are you sure you want to remove this?")
+                            .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                                removeItemFromDatabase(book.getCart_id(), position); // Pass position here
+                            })
+                            .setNegativeButton(android.R.string.cancel, (dialog, which) ->
+                                    Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                });
 
-        holder.btnDecrease.setOnClickListener(v -> {
-            int currentQuantity = Integer.parseInt(holder.tvQuantity.getText().toString());
-            if (currentQuantity > 1) {
-                currentQuantity--;
-                holder.tvQuantity.setText(String.valueOf(currentQuantity));
-                book.setQuantity(String.valueOf(currentQuantity)); // Update quantity in book object
-                updateTotalPrice(holder, book, currentQuantity);
+                // Handle quantity buttons
+                holder.btnIncrease.setOnClickListener(v -> {
+                    int currentQuantity = Integer.parseInt(holder.tvQuantity.getText().toString());
+                    currentQuantity++;
+                    holder.tvQuantity.setText(String.valueOf(currentQuantity));
+                    book.setQuantity(String.valueOf(currentQuantity)); // Update quantity in book object
+                    updateTotalPrice(holder, book, currentQuantity);
+                });
+
+                holder.btnDecrease.setOnClickListener(v -> {
+                    int currentQuantity = Integer.parseInt(holder.tvQuantity.getText().toString());
+                    if (currentQuantity > 1) {
+                        currentQuantity--;
+                        holder.tvQuantity.setText(String.valueOf(currentQuantity));
+                        book.setQuantity(String.valueOf(currentQuantity)); // Update quantity in book object
+                        updateTotalPrice(holder, book, currentQuantity);
+                    }
+                });
             }
-        });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     @Override
@@ -139,59 +153,70 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
     private void removeItemFromDatabase(String cart_id, int position) {
         new Thread(() -> {
             try {
-                URL url = new URL("http://13.126.66.91/spacece/libforsmall/api_RemoveProductFromCart.php");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setDoOutput(true);
+                JSONObject config = ConfigUtils.loadConfig(context.getApplicationContext());
+                if(config != null){
+                    String baseUrl= config.getString("BASE_URL");
+                    String libRemoveFromCartUrl = config.getString("LIB_REMOVEFROMCART");
 
-                OutputStream os = conn.getOutputStream();
-                String params = "cart_id=" + URLEncoder.encode(cart_id, "UTF-8");
-                os.write(params.getBytes());
-                os.flush();
-                os.close();
+                    URL url = new URL(baseUrl+libRemoveFromCartUrl);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setDoOutput(true);
 
-                InputStream inputStream = conn.getInputStream();
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                StringBuilder response = new StringBuilder();
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    response.append(new String(buffer, 0, bytesRead));
-                }
-                inputStream.close();
+                    OutputStream os = conn.getOutputStream();
+                    String params = "cart_id=" + URLEncoder.encode(cart_id, "UTF-8");
+                    os.write(params.getBytes());
+                    os.flush();
+                    os.close();
 
-                ((Activity) context).runOnUiThread(() -> {
-                    try {
-                        JSONObject jsonResponse = new JSONObject(response.toString());
-                        String status = jsonResponse.optString("status");
-                        String message = jsonResponse.optString("message");
-
-                        if (status.equals("success")) {
-                            list.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, list.size());
-
-                            if (onItemRemovedListener != null) {
-                                onItemRemovedListener.onItemRemoved();
-                            }
-
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                            notifyTotalPriceChange();
-                        } else {
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(context, "Failed to parse response", Toast.LENGTH_SHORT).show();
+                    InputStream inputStream = conn.getInputStream();
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    StringBuilder response = new StringBuilder();
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        response.append(new String(buffer, 0, bytesRead));
                     }
-                });
+                    inputStream.close();
 
-                conn.disconnect();
+                    ((Activity) context).runOnUiThread(() -> {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response.toString());
+                            String status = jsonResponse.optString("status");
+                            String message = jsonResponse.optString("message");
+
+                            if (status.equals("success")) {
+                                list.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, list.size());
+
+                                if (onItemRemovedListener != null) {
+                                    onItemRemovedListener.onItemRemoved();
+                                }
+
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                notifyTotalPriceChange();
+                            } else {
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(context, "Failed to parse response", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    conn.disconnect();
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
                 ((Activity) context).runOnUiThread(() ->
                         Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             }
+            catch (Exception e) {
+                e.printStackTrace();
+                Log.i("ERROR:::", "Failed to load API URLs");
+            }
+
         }).start();
     }
 

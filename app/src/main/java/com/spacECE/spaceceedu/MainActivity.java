@@ -33,6 +33,7 @@ import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.Location.LocationService;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://", "http://")).into(nav_camara);
                     Picasso.get().load(ACCOUNT.getUsername().replace("https://", "http://")).into((Target) nav_name);
                 }
-                } catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -162,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.Home:
                             selectedFragment=new FragmentMain();
                             break;
+                        case R.id.payments:         //changes made for solving the payment option
+                            selectedFragment=new FragmentPayment();
+                            break;
                         case R.id.profile:
                             selectedFragment=new FragmentProfile();
                             break;
@@ -225,8 +229,20 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                //this is not working right now but this is to know when someone installs the app for the first time
-                UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/ConsultUs/api_token?email="+ACCOUNT.getAccount_id()+"&token="+token);
+                try {
+                    JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+                    if (config != null) {
+                        String baseUrl= config.getString("BASE_URL");
+                        String consultApiTokenUrl = config.getString("CONSULT_APITOKEN");
+
+                        //this is not working right now but this is to know when someone installs the app for the first time
+                        UsefulFunctions.UsingGetAPI(baseUrl+consultApiTokenUrl+ACCOUNT.getAccount_id()+"&token="+token);
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Log.i("ERROR:::", "Failed to load API URLs");
+                }
             }
         });
         thread.start();
@@ -381,23 +397,33 @@ public class MainActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... strings) {
 
             try {
+                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+                if (config != null) {
+                    String baseUrl= config.getString("BASE_URL");
+                    String spaceActiveActivityUrl = config.getString("SPACEACTIVE_SPACEACTIVITY");
 
-                apiCall[0] = UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/api/spaceactive_activities.php?ano=1");
-                Log.d(TAG, "Object Obtained "+apiCall[0].toString());
+                    apiCall[0] = UsefulFunctions.UsingGetAPI(baseUrl+spaceActiveActivityUrl);
+                    Log.d(TAG, "Object Obtained "+apiCall[0].toString());
 
-                GsonBuilder gsonBuilder = new GsonBuilder();
-                Gson gson = gsonBuilder.create();
-                ActivityData activityData = gson.fromJson(apiCall[0].toString(),ActivityData.class);
-                Log.d(TAG, "doInBackground: activity_dev_domain "+activityData.getData().get(0).getActivityDevDomain());
-                //List<Data> list = activityData.getData();
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    Gson gson = gsonBuilder.create();
+                    ActivityData activityData = gson.fromJson(apiCall[0].toString(),ActivityData.class);
+                    Log.d(TAG, "doInBackground: activity_dev_domain "+activityData.getData().get(0).getActivityDevDomain());
+                    //List<Data> list = activityData.getData();
 
-                DBController dbController = new DBController(MainActivity.this);
-                dbController.insertRecord(activityData);
-                Log.d(TAG, "doInBackground: "+dbController.isNewUser());
+                    DBController dbController = new DBController(MainActivity.this);
+                    dbController.insertRecord(activityData);
+                    Log.d(TAG, "doInBackground: "+dbController.isNewUser());
+                }
 
             }catch (RuntimeException runtimeException){
                 Log.d(TAG, "RUNTIME EXCEPTION:::, Server did not respons");
             }
+            catch (Exception e) {
+                e.printStackTrace();
+                Log.i("ERROR:::", "Failed to load API URLs");
+            }
+
 
             return null;
         }

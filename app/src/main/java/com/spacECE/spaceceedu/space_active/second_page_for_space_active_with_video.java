@@ -35,7 +35,10 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -188,40 +191,51 @@ public class second_page_for_space_active_with_video extends AppCompatActivity {
         Log.e("setCompleted:>>>>>>>>>>>>>>>>>>>>>>>>","");
         RequestQueue requestQueue= Volley.newRequestQueue(second_page_for_space_active_with_video.this);
         Log.e( "setCompleted:-----------","user_id="+ MainActivity.ACCOUNT.getAccount_id()+"&activity_no="+activity_no+"&workdone="+"1");
-        String url="http://13.126.66.91/spacece/spacec_active/api_insertUserActivity.php";
-        StringRequest stringRequest=new StringRequest(com.android.volley.Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.e( "onResponse:<<<<<<<<<<<<<",response.toString());
-                JsonParser jsonParser=new JsonParser();
-                JsonObject jsonObject= (JsonObject) jsonParser.parse(response);
-                try {
-                    Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("message").toString());
-                    Toast.makeText(second_page_for_space_active_with_video.this, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show();
-                }catch (Exception e){
-                    try {
-                        Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("error").toString());
-                        Toast.makeText(second_page_for_space_active_with_video.this, jsonObject.get("error").toString(), Toast.LENGTH_SHORT).show();
-                    }catch (Exception ea){
-                        Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",ea.toString());
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String insertUserUrl = config.getString("SPACEACTIVE_INSERTUSER");
+                String url=baseUrl+insertUserUrl;
+                StringRequest stringRequest=new StringRequest(com.android.volley.Request.Method.POST, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e( "onResponse:<<<<<<<<<<<<<",response.toString());
+                        JsonParser jsonParser=new JsonParser();
+                        JsonObject jsonObject= (JsonObject) jsonParser.parse(response);
+                        try {
+                            Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("message").toString());
+                            Toast.makeText(second_page_for_space_active_with_video.this, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception e){
+                            try {
+                                Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("error").toString());
+                                Toast.makeText(second_page_for_space_active_with_video.this, jsonObject.get("error").toString(), Toast.LENGTH_SHORT).show();
+                            }catch (Exception ea){
+                                Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",ea.toString());
+                            }
+                        }
                     }
-                }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e( "onErrorResponse:>>>>>>>>>>",error.toString());
+                    }
+                }){
+                    @Override
+                    protected Map<String,String> getParams(){
+                        Map<String,String>params=new HashMap<>();
+                        params.put("user_id", MainActivity.ACCOUNT.getAccount_id());
+                        params.put("activity_no", activity_no);
+                        params.put("workdone", i+"");
+                        return params;
+                    }
+                };
+                requestQueue.add(stringRequest);
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e( "onErrorResponse:>>>>>>>>>>",error.toString());
-            }
-        }){
-            @Override
-            protected Map<String,String> getParams(){
-                Map<String,String>params=new HashMap<>();
-                params.put("user_id", MainActivity.ACCOUNT.getAccount_id());
-                params.put("activity_no", activity_no);
-                params.put("workdone", i+"");
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 }

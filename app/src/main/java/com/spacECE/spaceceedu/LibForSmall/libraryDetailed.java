@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -38,7 +39,9 @@ public class libraryDetailed extends AppCompatActivity {
     TextView book, author, edition, desc, price, condition, owner;
     Button callbtn, addtocartbtn;
     ImageView productImg;
-    String url = "http://13.126.66.91/spacece/libforsmall/api_addToCart.php";
+
+    String baseUrl = "";
+    String libAddtoCartUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +69,23 @@ public class libraryDetailed extends AppCompatActivity {
         desc.setText(books.getProduct_desc());
         price.setText(books.getProduct_price());
         author.setText(books.getProduct_brand());
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                baseUrl= config.getString("BASE_URL");
+                libAddtoCartUrl = config.getString("LIB_ADDTOCART");
+                String libProductimgUrl = config.getString("LIB_PRODUCTIMG");
 
-        Picasso.get()
-                .load("http://13.126.66.91/spacece/libforsmall/product_images/" + books.getProduct_image())
+
+                Picasso.get()
+                .load(baseUrl + libProductimgUrl + books.getProduct_image())
                 .into(productImg);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
 
         addtocartbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +100,7 @@ public class libraryDetailed extends AppCompatActivity {
                 String accountId = account.getAccount_id();
 
                 // Prepare the POST request
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, baseUrl+libAddtoCartUrl,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {

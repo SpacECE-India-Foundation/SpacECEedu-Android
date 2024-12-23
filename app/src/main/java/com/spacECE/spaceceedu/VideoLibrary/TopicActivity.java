@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 
 import org.json.JSONArray;
@@ -117,20 +119,30 @@ public class TopicActivity extends AppCompatActivity {
     }
 
     private void increaseViewCount(String finalV_id) {
-        Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/SpacTube/api_UpdateViews.php?vid=" + finalV_id));
-        thread.start();
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String updateViewsUrl = config.getString("SPACETUBE_UPDATEVIEWS");
+                Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI( baseUrl+updateViewsUrl+ finalV_id));
+                thread.start();
 
 
-        //updating the like and dislike incase the user has liked/disliked
-        //something then pressed back and again came to same video
-        new Thread(() -> {
-            try {
-                thread.join();
-                runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                //updating the like and dislike incase the user has liked/disliked
+                //something then pressed back and again came to same video
+                new Thread(() -> {
+                    try {
+                        thread.join();
+                        runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
             }
-        }).start();
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     private void initializeUI() {
@@ -213,17 +225,27 @@ public class TopicActivity extends AppCompatActivity {
             dislike_status_main = false;
             like_status_main = true;
         }
-        Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/SpacTube/api_likeVideo.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
-        thread.start();
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl = config.getString("BASE_URL");
+                String likevideoUrl = config.getString("SPACETUBE_LIKEVIDEO");
+                Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI(baseUrl + likevideoUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
+                thread.start();
 
-        new Thread(() -> {
-            try {
-                thread.join(); // Wait for the API call thread to finish
-                runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id)); // Update UI on the main thread
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                new Thread(() -> {
+                    try {
+                        thread.join(); // Wait for the API call thread to finish
+                        runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id)); // Update UI on the main thread
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
             }
-        }).start();
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     private void handleDislikeButton(String finalV_id) {
@@ -236,148 +258,188 @@ public class TopicActivity extends AppCompatActivity {
             like_status_main = false;
             dislike_status_main = true;
         }
-        Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/SpacTube/api_dislikeVideo.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
-        thread.start();
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String dislikevideoUrl = config.getString("SPACETUBE_DISLIKEVIDEO");
+                Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI(baseUrl + dislikevideoUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
+                thread.start();
 
-        new Thread(() -> {
-            try {
-                thread.join(); // Wait for the API call thread to finish
-                runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id)); // Update UI on the main thread
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                new Thread(() -> {
+                    try {
+                        thread.join(); // Wait for the API call thread to finish
+                        runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id)); // Update UI on the main thread
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
             }
-        }).start();
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     void update_comments_list(String vid_id) {
-        OkHttpClient client = new OkHttpClient();
-        String url = "http://13.126.66.91/spacece/SpacTube/api_getAllComments.php?vid=" + vid_id;
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String getAllCommentsUrl = config.getString("SPACETUBE_GETALLCOMMENTS");
+                OkHttpClient client = new OkHttpClient();
+                String url = baseUrl + getAllCommentsUrl + vid_id;
 
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Request Failed", Toast.LENGTH_SHORT).show());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                }
-
-                commentsList.clear();
-                datesList.clear();
-                String responseData = response.body().string();
-                try {
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    String status = jsonObject.getString("status");
-
-                    if (status.equals("true")) {
-                        JSONArray commentsArray = jsonObject.getJSONArray("comments");
-
-                        for (int i = 0; i < commentsArray.length(); i++) {
-                            JSONObject commentObject = commentsArray.getJSONObject(i);
-                            String comment = commentObject.getString("u_comment");
-                            String date = commentObject.getString("Date");
-
-
-                            commentsList.add(URLDecoder.decode(comment));
-                            datesList.add(date.split(" ")[0]);
-                        }
-                        custom_comments_adapter adapter = new custom_comments_adapter(TopicActivity.this, commentsList.toArray(new String[0]), datesList.toArray(new String[0]));
-                        runOnUiThread(() -> comments_listview.setAdapter(adapter));
-
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                        runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Request Failed", Toast.LENGTH_SHORT).show());
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Failed to load comments", Toast.LENGTH_SHORT).show());
-                }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (!response.isSuccessful()) {
+                            throw new IOException("Unexpected code " + response);
+                        }
+
+                        commentsList.clear();
+                        datesList.clear();
+                        String responseData = response.body().string();
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseData);
+                            String status = jsonObject.getString("status");
+
+                            if (status.equals("true")) {
+                                JSONArray commentsArray = jsonObject.getJSONArray("comments");
+
+                                for (int i = 0; i < commentsArray.length(); i++) {
+                                    JSONObject commentObject = commentsArray.getJSONObject(i);
+                                    String comment = commentObject.getString("u_comment");
+                                    String date = commentObject.getString("Date");
+
+
+                                    commentsList.add(URLDecoder.decode(comment));
+                                    datesList.add(date.split(" ")[0]);
+                                }
+                                custom_comments_adapter adapter = new custom_comments_adapter(TopicActivity.this, commentsList.toArray(new String[0]), datesList.toArray(new String[0]));
+                                runOnUiThread(() -> comments_listview.setAdapter(adapter));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Failed to load comments", Toast.LENGTH_SHORT).show());
+                        }
+                    }
+                });
             }
-        });
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     void update_likes_dislike_count_onUI(String vid_id) {
-        OkHttpClient client = new OkHttpClient();
-        String url = "http://13.126.66.91/spacece/SpacTube/api_getEachCount.php?vid=" + vid_id;
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl = config.getString("BASE_URL");
+                String getEachCountUrl = config.getString("SPACETUBE_GETEACHCOUNT");
+                OkHttpClient client = new OkHttpClient();
+                String url = baseUrl + getEachCountUrl + vid_id;
 
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Request Failed", Toast.LENGTH_SHORT).show());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                }
-
-                commentsList.clear();
-                datesList.clear();
-                String responseData = response.body().string();
-                try {
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    String status = jsonObject.getString("status");
-
-                    if (status.equals("true")) {
-                        String likes = jsonObject.getString("cntlike");
-                        String dislikes = jsonObject.getString("cntdislike");
-                        String views = jsonObject.getString("views");
-                        runOnUiThread(() -> tv_like.setText(likes+" Likes"));
-                        runOnUiThread(() -> tv_dislike.setText(dislikes+" Dislikes"));
-                        runOnUiThread(() -> tv_views.setText(views+" Views "));
-
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                        runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Request Failed", Toast.LENGTH_SHORT).show());
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Failed to load likes and dislikes", Toast.LENGTH_SHORT).show());
-                }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (!response.isSuccessful()) {
+                            throw new IOException("Unexpected code " + response);
+                        }
+
+                        commentsList.clear();
+                        datesList.clear();
+                        String responseData = response.body().string();
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseData);
+                            String status = jsonObject.getString("status");
+
+                            if (status.equals("true")) {
+                                String likes = jsonObject.getString("cntlike");
+                                String dislikes = jsonObject.getString("cntdislike");
+                                String views = jsonObject.getString("views");
+                                runOnUiThread(() -> tv_like.setText(likes + " Likes"));
+                                runOnUiThread(() -> tv_dislike.setText(dislikes + " Dislikes"));
+                                runOnUiThread(() -> tv_views.setText(views + " Views "));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Failed to load likes and dislikes", Toast.LENGTH_SHORT).show());
+                        }
+                    }
+                });
             }
-        });
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     void add_comment(String comment, String uid, String vid_id) {
-        OkHttpClient client = new OkHttpClient();
-        String url = "http://13.126.66.91/spacece/SpacTube/api_commentVideo.php";
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String commentVideoUrl = config.getString("SPACETUBE_COMMENTVIDEO");
+                OkHttpClient client = new OkHttpClient();
+                String url = baseUrl+commentVideoUrl;
 
-        RequestBody formBody = new FormBody.Builder()
-                .add("uid", uid)
-                .add("vid", vid_id)
-                .add("u_comment", comment)
-                .build();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("uid", uid)
+                        .add("vid", vid_id)
+                        .add("u_comment", comment)
+                        .build();
 
-        Request request = new Request.Builder()
-                .url(url)
-                .post(formBody)
-                .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Network Error", Toast.LENGTH_SHORT).show());
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                        runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Network Error", Toast.LENGTH_SHORT).show());
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (!response.isSuccessful()) {
+                            throw new IOException("Unexpected code " + response);
+                        }
+
+
+                        runOnUiThread(() -> update_comments_list(vid_id));
+                    }
+                });
             }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                }
-
-
-                runOnUiThread(() -> update_comments_list(vid_id));
-            }
-        });
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     private void update_like_dislike(String vid_id) {
@@ -385,62 +447,73 @@ public class TopicActivity extends AppCompatActivity {
         //updating color
         final String[] like_status = new String[1];
         final String[] dislike_status = new String[1];
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String likeCountUrl = config.getString("SPACETUBE_LIKECOUNT");
+                String dislikeCountUrl = config.getString("SPACETUBE_DISLIKECOUNT");
 
-        new Thread(() -> {
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url("http://13.126.66.91/spacece/SpacTube/api_extractlike.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + vid_id)
-                    .build();
+                new Thread(() -> {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url(baseUrl + likeCountUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + vid_id)
+                            .build();
 
-            try (Response response = client.newCall(request).execute()) {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                }
+                    try (Response response = client.newCall(request).execute()) {
+                        if (!response.isSuccessful()) {
+                            throw new IOException("Unexpected code " + response);
+                        }
 
-                String resp = response.body().string();
-                JSONObject jsonObject = new JSONObject(resp);
-                like_status[0] = jsonObject.getString("status");
+                        String resp = response.body().string();
+                        JSONObject jsonObject = new JSONObject(resp);
+                        like_status[0] = jsonObject.getString("status");
 
-                runOnUiThread(() -> {
-                    if (like_status[0].equals("true")) {
-                        set_like_dislike_btn_status(1, 0);
-                        like_status_main = true;
-                    } else {
-                        like_status_main = false;
+                        runOnUiThread(() -> {
+                            if (like_status[0].equals("true")) {
+                                set_like_dislike_btn_status(1, 0);
+                                like_status_main = true;
+                            } else {
+                                like_status_main = false;
+                            }
+                        });
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
                     }
-                });
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            }
-        }).start();
+                }).start();
 
-        new Thread(() -> {
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url("http://13.126.66.91/spacece/SpacTube/api_getDisLike.php?uid=" + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + vid_id)
-                    .build();
+                new Thread(() -> {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url(baseUrl + dislikeCountUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + vid_id)
+                            .build();
 
-            try (Response response = client.newCall(request).execute()) {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                }
+                    try (Response response = client.newCall(request).execute()) {
+                        if (!response.isSuccessful()) {
+                            throw new IOException("Unexpected code " + response);
+                        }
 
-                String resp = response.body().string();
-                JSONObject jsonObject = new JSONObject(resp);
-                dislike_status[0] = jsonObject.getString("status");
+                        String resp = response.body().string();
+                        JSONObject jsonObject = new JSONObject(resp);
+                        dislike_status[0] = jsonObject.getString("status");
 
-                runOnUiThread(() -> {
-                    if (dislike_status[0].equals("true")) {
-                        set_like_dislike_btn_status(0, 1);
-                        dislike_status_main = true;
-                    } else {
-                        dislike_status_main = false;
+                        runOnUiThread(() -> {
+                            if (dislike_status[0].equals("true")) {
+                                set_like_dislike_btn_status(0, 1);
+                                dislike_status_main = true;
+                            } else {
+                                dislike_status_main = false;
+                            }
+                        });
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
                     }
-                });
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
+                }).start();
             }
-        }).start();
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     void set_like_dislike_btn_status(int l, int dl) {

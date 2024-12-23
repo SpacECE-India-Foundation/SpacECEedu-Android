@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,44 +101,55 @@ public class vaccinationAdapter extends RecyclerView.Adapter<vaccinationAdapter.
     }
 
     private void updateVaccinationStatus(ItemModel item, String status, int doseNumber, String age) {
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(context);
-        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_InsertUserVaccinationData.php";
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                response -> {
-                    // Handle the response from your PHP API
-                    Log.d("SaveDataResponse", response);
-                    // Optionally handle response based on your needs
-                },
-                error -> {
-                    // Handle error
-                    Log.e("SaveDataError", "Error while saving data: " + error.toString());
-                }) {
+        try {
+            JSONObject config = ConfigUtils.loadConfig(context.getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String growthInsertVaccineDataUrl = config.getString("GROWTH_INSERTVACCINEDATA");
+                // Instantiate the RequestQueue.
+                RequestQueue queue = Volley.newRequestQueue(context);
+                String url = baseUrl+growthInsertVaccineDataUrl;
+                // Request a string response from the provided URL.
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        response -> {
+                            // Handle the response from your PHP API
+                            Log.d("SaveDataResponse", response);
+                            // Optionally handle response based on your needs
+                        },
+                        error -> {
+                            // Handle error
+                            Log.e("SaveDataError", "Error while saving data: " + error.toString());
+                        }) {
 
-            @Override
-            protected Map<String, String> getParams() {
-                // Retrieve accountId from local storage
-                UserLocalStore userLocalStore = new UserLocalStore(context);
-                Account account = userLocalStore.getLoggedInAccount();
-                String accountId = account.getAccount_id();
-                int vaccineId = Integer.parseInt(item.getVaccineId()); // Get vaccine ID from item model
-
-
-                Map<String, String> params = new HashMap<>();
-                params.put("u_id", String.valueOf(accountId));
-                params.put("vaccine_id", String.valueOf(vaccineId));
-                params.put("dose_number", String.valueOf(doseNumber));
-                params.put("age", age);
-                params.put("status", String.valueOf(status));
+                    @Override
+                    protected Map<String, String> getParams() {
+                        // Retrieve accountId from local storage
+                        UserLocalStore userLocalStore = new UserLocalStore(context);
+                        Account account = userLocalStore.getLoggedInAccount();
+                        String accountId = account.getAccount_id();
+                        int vaccineId = Integer.parseInt(item.getVaccineId()); // Get vaccine ID from item model
 
 
-                return params;
+                        Map<String, String> params = new HashMap<>();
+                        params.put("u_id", String.valueOf(accountId));
+                        params.put("vaccine_id", String.valueOf(vaccineId));
+                        params.put("dose_number", String.valueOf(doseNumber));
+                        params.put("age", age);
+                        params.put("status", String.valueOf(status));
+
+
+                        return params;
+                    }
+                };
+
+                // Add the request to the RequestQueue.
+                queue.add(stringRequest);
             }
-        };
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
 

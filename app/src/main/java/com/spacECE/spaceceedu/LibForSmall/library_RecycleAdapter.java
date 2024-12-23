@@ -1,5 +1,7 @@
 package com.spacECE.spaceceedu.LibForSmall;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +13,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.spacECE.spaceceedu.LibForSmall.books;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class library_RecycleAdapter extends RecyclerView.Adapter<library_RecycleAdapter.MyViewHolder>{
 
     ArrayList<books> list;
+    private Context context;
 
     private final RecyclerViewClickListener listener;
 
-    public library_RecycleAdapter(ArrayList<books> myList, RecyclerViewClickListener listener) {
+    public library_RecycleAdapter(ArrayList<books> myList, RecyclerViewClickListener listener,Context context) {
         this.list = myList;
         this.listener = listener;
+        this.context = context;
     }
 
     @NonNull
@@ -35,14 +42,27 @@ public class library_RecycleAdapter extends RecyclerView.Adapter<library_Recycle
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.book_name.setText(list.get(position).getProduct_title());
-        holder.book_category.setText(list.get(position).getProduct_desc());
-        holder.book_price.setText(list.get(position).getProduct_price());
-        Picasso.get()
-                .load("http://13.126.66.91/spacece/libforsmall/product_images/"+list.get(position).product_image)
-                .error(R.drawable.tile_icon_2)
-                .into(holder.book_image);
+        try {
+            JSONObject config = ConfigUtils.loadConfig(context);
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String libProductimgUrl = config.getString("LIB_PRODUCTIMG");
+
+                holder.book_name.setText(list.get(position).getProduct_title());
+                holder.book_category.setText(list.get(position).getProduct_desc());
+                holder.book_price.setText(list.get(position).getProduct_price());
+                Picasso.get()
+                        .load(baseUrl+libProductimgUrl+list.get(position).product_image)
+                        .error(R.drawable.tile_icon_2)
+                        .into(holder.book_image);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
+
 
     @Override
     public int getItemCount() {

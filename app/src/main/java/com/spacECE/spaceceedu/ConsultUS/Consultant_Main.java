@@ -17,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.spacECE.spaceceedu.Utils.Notification;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 
@@ -98,179 +99,203 @@ public class Consultant_Main extends AppCompatActivity {
     }
 
     private void generateAppointmentsListForUser() {
-
-        new Thread(new Runnable() {
-
-            JSONObject jsonObject;
-            JSONArray jsonArray;
-
-            String url = "http://13.126.66.91/spacece/ConsultUs/api_user_appoint.php";
-
-            @Override
-            public void run() {
-                OkHttpClient client = new OkHttpClient();
-                RequestBody fromBody = new FormBody.Builder()
-                        .add("u_id", MainActivity.ACCOUNT.getAccount_id())
-                        .build();
-
-                Request request = new Request.Builder()
-                        .url(url)
-                        .post(fromBody)
-                        .build();
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String consultUserAppointUrl = config.getString("CONSULT_USERAPPOINT");
 
 
-                Call call = client.newCall(request);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        System.out.println("Registration Error ApI " + e.getMessage());
-                    }
+                new Thread(new Runnable() {
 
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                JSONObject jsonObject;
+                JSONArray jsonArray;
+
+                String url = baseUrl+consultUserAppointUrl;
+
+                @Override
+                public void run() {
+                    OkHttpClient client = new OkHttpClient();
+                    RequestBody fromBody = new FormBody.Builder()
+                            .add("u_id", MainActivity.ACCOUNT.getAccount_id())
+                            .build();
+
+                    Request request = new Request.Builder()
+                            .url(url)
+                            .post(fromBody)
+                            .build();
 
 
-                        try {
-                            jsonObject = new JSONObject(response.body().string());
-                            Log.d("Login", "onResponse: " + jsonObject);
-
-                            if(jsonObject.getString("status").equals("success")) {
-                                jsonArray = jsonObject.getJSONArray("data");
-
-                                Fragment_Appointments_For_User.appointmentsArrayList = new ArrayList<>();
-
-                                try {
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                                        JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
-
-                                        Appointment newAppointment = new Appointment(response_element.getString("c_id"), response_element.getString("c_name"), response_element.getString("u_name")
-                                                , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("b_date").replace("-",":")
-                                                , response_element.getString("end_time"));
-                                        Log.e( "onResponse:------------",response_element.getString("booking_time")+"---------------");
-                                        newAppointment.setTime(response_element.getString("booking_time"));
-
-                                        Intent intent = new Intent(Consultant_Main.this, Notification.class);
-                                        PendingIntent pendingIntent = PendingIntent.getBroadcast(Consultant_Main.this,
-                                                Integer.parseInt(response_element.getString("booking_id")), intent, PendingIntent.FLAG_IMMUTABLE);
-                                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                                        Date date = new Date();
-                                        Calendar calendar = Calendar.getInstance();
-                                        try {
-                                            date = UsefulFunctions.DateFunc.StringToDate(response_element.getString("b_date"));
-                                        } catch (ParseException e) {
-                                            e.printStackTrace();
-                                        }
-                                        calendar.setTime(date);
-                                        Log.d("Notification", "sendNotification: "+calendar.getTime());
-                                        alarmManager.set(AlarmManager.RTC_WAKEUP,
-                                                calendar.getTimeInMillis()-1000*60*10, pendingIntent);
-
-                                        Fragment_Appointments_For_User.appointmentsArrayList.add(newAppointment);
-                                    }
-                                    Log.i("Appointments_For_User:::::", Fragment_Appointments_For_User.appointmentsArrayList.toString());
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    Call call = client.newCall(request);
+                    call.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                            System.out.println("Registration Error ApI " + e.getMessage());
                         }
-                    }
-                });
-            }
-        }).start();
-    }
 
-    private void generateAppointmentsListForConsultant() {
-
-        new Thread(new Runnable() {
-
-            JSONObject jsonObject;
-            JSONArray jsonArray;
-
-            String url = "http://13.126.66.91/spacece/ConsultUs/api_user_appoint.php";
-
-            @Override
-            public void run() {
-                OkHttpClient client = new OkHttpClient();
-                RequestBody fromBody = new FormBody.Builder()
-                        .add("c_id", MainActivity.ACCOUNT.getAccount_id())
-                        .build();
-
-                Request request = new Request.Builder()
-                        .url(url)
-                        .post(fromBody)
-                        .build();
+                        @Override
+                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
 
-                Call call = client.newCall(request);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        System.out.println("Registration Error ApI " + e.getMessage());
-                    }
+                            try {
+                                jsonObject = new JSONObject(response.body().string());
+                                Log.d("Login", "onResponse: " + jsonObject);
 
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        try {
-                            assert response.body() != null;
-                            jsonObject = new JSONObject(response.body().string());
-                            Log.d("Login", "onResponse: " + jsonObject);
+                                if(jsonObject.getString("status").equals("success")) {
+                                    jsonArray = jsonObject.getJSONArray("data");
 
-                            if(jsonObject.getString("status").equals("success")) {
+                                    Fragment_Appointments_For_User.appointmentsArrayList = new ArrayList<>();
 
-                                jsonArray = jsonObject.getJSONArray("data");
+                                    try {
+                                        for (int i = 0; i < jsonArray.length(); i++) {
 
-                                Fragment_Appointments_For_Consultants.appointmentsArrayList = new ArrayList<>();
+                                            JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
 
-                                try {
-                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                            Appointment newAppointment = new Appointment(response_element.getString("c_id"), response_element.getString("c_name"), response_element.getString("u_name")
+                                                    , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("b_date").replace("-",":")
+                                                    , response_element.getString("end_time"));
+                                            Log.e( "onResponse:------------",response_element.getString("booking_time")+"---------------");
+                                            newAppointment.setTime(response_element.getString("booking_time"));
 
-                                        JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
-
-                                        Log.e( "onResponse: ", "hit-----------------------------------------");
-
-                                        Appointment newAppointment = new Appointment(response_element.getString("c_id"), response_element.getString("c_name"), response_element.getString("u_name")
-                                                , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("b_date")
-                                                , response_element.getString("end_time"));
-                                        newAppointment.setTime(response_element.getString("booking_time"));
-
-                                        try {
                                             Intent intent = new Intent(Consultant_Main.this, Notification.class);
                                             PendingIntent pendingIntent = PendingIntent.getBroadcast(Consultant_Main.this,
-                                                    Integer.parseInt(response_element.getString("booking_id")), intent,PendingIntent.FLAG_IMMUTABLE);
+                                                    Integer.parseInt(response_element.getString("booking_id")), intent, PendingIntent.FLAG_IMMUTABLE);
                                             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                                             Date date = new Date();
                                             Calendar calendar = Calendar.getInstance();
-                                            Log.e( "onResponse: ", "hit---------------------------------");
-                                            date = UsefulFunctions.DateFunc.StringToDate(response_element.getString("b_date"));
+                                            try {
+                                                date = UsefulFunctions.DateFunc.StringToDate(response_element.getString("b_date"));
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
                                             calendar.setTime(date);
                                             Log.d("Notification", "sendNotification: "+calendar.getTime());
                                             alarmManager.set(AlarmManager.RTC_WAKEUP,
                                                     calendar.getTimeInMillis()-1000*60*10, pendingIntent);
-                                        } catch (ParseException e) {
-                                            e.printStackTrace();
-                                            Log.e( "onResponse: ",e.toString());
+
+                                            Fragment_Appointments_For_User.appointmentsArrayList.add(newAppointment);
                                         }
-                                        Fragment_Appointments_For_Consultants.appointmentsArrayList.add(newAppointment);
+                                        Log.i("Appointments_For_User:::::", Fragment_Appointments_For_User.appointmentsArrayList.toString());
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
-                                    Log.i("Appointments_For_Consultant:::::", Fragment_Appointments_For_Consultants.appointmentsArrayList.toString());
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
                                 }
-                            }
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+            }).start();
             }
-        }).start();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
+    }
+
+    private void generateAppointmentsListForConsultant() {
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String consultUserAppointUrl = config.getString("CONSULT_USERAPPOINT");
+
+
+                new Thread(new Runnable() {
+
+                JSONObject jsonObject;
+                JSONArray jsonArray;
+
+                String url = baseUrl+consultUserAppointUrl;
+
+                @Override
+                public void run() {
+                    OkHttpClient client = new OkHttpClient();
+                    RequestBody fromBody = new FormBody.Builder()
+                            .add("c_id", MainActivity.ACCOUNT.getAccount_id())
+                            .build();
+
+                    Request request = new Request.Builder()
+                            .url(url)
+                            .post(fromBody)
+                            .build();
+
+
+                    Call call = client.newCall(request);
+                    call.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                            System.out.println("Registration Error ApI " + e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                            try {
+                                assert response.body() != null;
+                                jsonObject = new JSONObject(response.body().string());
+                                Log.d("Login", "onResponse: " + jsonObject);
+
+                                if(jsonObject.getString("status").equals("success")) {
+
+                                    jsonArray = jsonObject.getJSONArray("data");
+
+                                    Fragment_Appointments_For_Consultants.appointmentsArrayList = new ArrayList<>();
+
+                                    try {
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                                            JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
+
+                                            Log.e( "onResponse: ", "hit-----------------------------------------");
+
+                                            Appointment newAppointment = new Appointment(response_element.getString("c_id"), response_element.getString("c_name"), response_element.getString("u_name")
+                                                    , response_element.getString("c_image"), response_element.getString("u_image"), response_element.getString("b_date")
+                                                    , response_element.getString("end_time"));
+                                            newAppointment.setTime(response_element.getString("booking_time"));
+
+                                            try {
+                                                Intent intent = new Intent(Consultant_Main.this, Notification.class);
+                                                PendingIntent pendingIntent = PendingIntent.getBroadcast(Consultant_Main.this,
+                                                        Integer.parseInt(response_element.getString("booking_id")), intent,PendingIntent.FLAG_IMMUTABLE);
+                                                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                                Date date = new Date();
+                                                Calendar calendar = Calendar.getInstance();
+                                                Log.e( "onResponse: ", "hit---------------------------------");
+                                                date = UsefulFunctions.DateFunc.StringToDate(response_element.getString("b_date"));
+                                                calendar.setTime(date);
+                                                Log.d("Notification", "sendNotification: "+calendar.getTime());
+                                                alarmManager.set(AlarmManager.RTC_WAKEUP,
+                                                        calendar.getTimeInMillis()-1000*60*10, pendingIntent);
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                                Log.e( "onResponse: ",e.toString());
+                                            }
+                                            Fragment_Appointments_For_Consultants.appointmentsArrayList.add(newAppointment);
+                                        }
+                                        Log.i("Appointments_For_Consultant:::::", Fragment_Appointments_For_Consultants.appointmentsArrayList.toString());
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }).start();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
 

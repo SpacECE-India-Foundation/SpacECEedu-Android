@@ -48,7 +48,7 @@ public class library_list extends Fragment {
     }
     private void setAdapter(ArrayList<books> myList) {
         setOnClickListener();
-        library_RecycleAdapter adapter = new library_RecycleAdapter(myList, listener);
+        library_RecycleAdapter adapter = new library_RecycleAdapter(myList, listener, getContext());
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1, LinearLayoutManager.VERTICAL, false);
         ListRecyclerView.setLayoutManager(layoutManager);
         ListRecyclerView.setItemAnimator(new DefaultItemAnimator());

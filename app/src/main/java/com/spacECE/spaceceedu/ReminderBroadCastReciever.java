@@ -13,8 +13,8 @@ import androidx.core.app.NotificationManagerCompat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
-import com.spacECE.spaceceedu.space_active.ActivitiesListActivity;
 
 import org.json.JSONObject;
 
@@ -33,7 +33,7 @@ public class ReminderBroadCastReciever extends BroadcastReceiver {
             dayNo++;
 
             Log.d(TAG, "onReceive: day"+dayNo);
-            GetRecentActivity getRecentActivity = new GetRecentActivity(dayNo);
+            GetRecentActivity getRecentActivity = new GetRecentActivity(dayNo, context);
             getRecentActivity.execute();
 
             String activityNo = lastActivity.getData().get(0).getActivityNo();
@@ -69,27 +69,39 @@ public class ReminderBroadCastReciever extends BroadcastReceiver {
 
         final private JSONObject[] apiCall = {null};
         int dayNo;
+        final private Context context;
 
 
-        GetRecentActivity(int dayNo){
+        GetRecentActivity(int dayNo, Context context){
             this.dayNo = dayNo;
+            this.context = context;
         }
 
         @Override
         protected JSONObject doInBackground(String... strings) {
 
             try {
+                JSONObject config = ConfigUtils.loadConfig(context);
+                if (config != null) {
+                    String baseUrl= config.getString("BASE_URL");
+                    String reminderBroadCastReceiverUrl = config.getString("REMINDER_BROAD_CAST_RECEIVER_URL");
 
-                apiCall[0] = UsefulFunctions.UsingGetAPI("http://educationfoundation.space/spacece/api/spaceactive_activities.php?ano="+dayNo);
-                Log.d(TAG, "Object Obtained "+apiCall[0].toString());
+                    apiCall[0] = UsefulFunctions.UsingGetAPI(baseUrl+reminderBroadCastReceiverUrl+dayNo);
+                    Log.d(TAG, "Object Obtained "+apiCall[0].toString());
 
-                GsonBuilder gsonBuilder = new GsonBuilder();
-                Gson gson = gsonBuilder.create();
-                ActivityData activityData = gson.fromJson(apiCall[0].toString(),ActivityData.class);
-                //ActivitiesListActivity.InsertDataIntoSqlite(activityData);
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    Gson gson = gsonBuilder.create();
+                    ActivityData activityData = gson.fromJson(apiCall[0].toString(),ActivityData.class);
+                    //ActivitiesListActivity.InsertDataIntoSqlite(activityData);
 
-            }catch (RuntimeException runtimeException){
-                Log.d(TAG, "RUNTIME EXCEPTION:::, Server did not respons");
+                }
+            }
+            catch (RuntimeException runtimeException){
+                Log.d(TAG, "RUNTIME EXCEPTION:::, Server did not response");
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                Log.i("ERROR:::", "Failed to load API URLs");
             }
 
             return null;
