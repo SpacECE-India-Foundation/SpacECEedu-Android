@@ -12,6 +12,7 @@ import com.spacECE.spaceceedu.LibForSmall.Library_main;
 import com.spacECE.spaceceedu.LibForSmall.books;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 
 import org.json.JSONArray;
@@ -37,65 +38,70 @@ public class library_splash_screen extends AppCompatActivity {
             public void run() {
                 final JSONObject apiCall;
                 try{
-                    apiCall = UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/libforsmall/allproductlist.php");
-                    JSONArray jsonArray = null;
-                    try {
+                    JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+                    if(config != null) {
+                        String baseUrl= config.getString("BASE_URL");
+                        String libsProductListUrl = config.getString("LIB_PRODUCTLIST");
+                        apiCall = UsefulFunctions.UsingGetAPI(baseUrl+libsProductListUrl);
+//                        apiCall = UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/libforsmall/allproductlist.php");
+                        JSONArray jsonArray = null;
                         try {
-                            assert apiCall != null;
-                        } catch (AssertionError e) {
+                            try {
+                                assert apiCall != null;
+                            } catch (AssertionError e) {
 
+                                e.printStackTrace();
+
+                                runOnUiThread(() -> {
+                                    new AlertDialog.Builder(library_splash_screen.this)
+                                            .setTitle("Internet Not Working!")
+                                            .setMessage("Do you want to retry ?")
+
+                                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    LoadList();
+                                                }
+                                            })
+
+                                            .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Intent intent = new Intent(library_splash_screen.this, Library_main.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                    //Library_main.class
+                                                }
+                                            })
+
+                                            .setIcon(android.R.drawable.ic_dialog_alert)
+                                            .show();
+                                });
+
+                            }
+                            jsonArray = apiCall.getJSONArray("data");
+                        } catch (JSONException e) {
                             e.printStackTrace();
-
-                            runOnUiThread(() -> {
-                                new AlertDialog.Builder(library_splash_screen.this)
-                                        .setTitle("Internet Not Working!")
-                                        .setMessage("Do you want to retry ?")
-
-                                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                LoadList();
-                                            }
-                                        })
-
-                                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                Intent intent = new Intent(library_splash_screen.this, Library_main.class);
-                                                startActivity(intent);
-                                                finish();
-                                                //Library_main.class
-                                            }
-                                        })
-
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .show();
-                            });
-
                         }
-                        jsonArray = apiCall.getJSONArray("data");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    Library_main.list = new ArrayList<>();
-                    try {
-                        Log.d("TAG", "run: "+jsonArray.length());
-                        for (int i = 0; i < Objects.requireNonNull(jsonArray).length(); i++) {
-                            JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
-                            books temp = new books(response_element.getString("product_id"),response_element.getString("product_title"),
-                                    response_element.getString("product_price"),response_element.getString("product_keywords"),
-                                    response_element.getString("product_image"),response_element.getString("product_desc"),
-                                    response_element.getString("product_brand"), response_element.getString("rent_price"),
-                                    response_element.getString("exchange_price"),response_element.getString("deposit"));
-                            Library_main.list.add(temp);
+                        Library_main.list = new ArrayList<>();
+                        try {
+                            Log.d("TAG", "run: " + jsonArray.length());
+                            for (int i = 0; i < Objects.requireNonNull(jsonArray).length(); i++) {
+                                JSONObject response_element = new JSONObject(String.valueOf(jsonArray.getJSONObject(i)));
+                                books temp = new books(response_element.getString("product_id"), response_element.getString("product_title"),
+                                        response_element.getString("product_price"), response_element.getString("product_keywords"),
+                                        response_element.getString("product_image"), response_element.getString("product_desc"),
+                                        response_element.getString("product_brand"), response_element.getString("rent_price"),
+                                        response_element.getString("exchange_price"), response_element.getString("deposit"));
+                                Library_main.list.add(temp);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+
+                        Intent intent = new Intent(library_splash_screen.this, Library_main.class);
+                        startActivity(intent);
+                        finish();
                     }
-
-                    Intent intent = new Intent(library_splash_screen.this, Library_main.class);
-                    startActivity(intent);
-                    finish();
-
                 } catch ( Exception e) {
                     Log.i("EXCEPTION", e.toString());
                 }

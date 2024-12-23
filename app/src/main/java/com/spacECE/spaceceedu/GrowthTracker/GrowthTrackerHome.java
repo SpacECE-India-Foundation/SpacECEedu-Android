@@ -39,6 +39,7 @@ import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_SplashScreen;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -239,45 +240,56 @@ public class GrowthTrackerHome extends AppCompatActivity {
 
 
     private void fetchVaccinationData() {
-        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_fetchVaccineData.php"; // Replace with your API URL
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String growthVaccineDataUrl = config.getString("GROWTH_FETCHVACCINEDATA");
+                String url = baseUrl + growthVaccineDataUrl; // Replace with your API URL
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+                RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        itemList.clear();
-                        try {
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject jsonObject = response.getJSONObject(i);
-                                String vaccineId = jsonObject.getString("vaccine_id");
-                                String vaccineName = jsonObject.getString("vaccine_name");
-                                String protectsAgainst = jsonObject.getString("protects_against");
-                                String info = jsonObject.getString("info");
+                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                        Request.Method.GET,
+                        url,
+                        null,
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                itemList.clear();
+                                try {
+                                    for (int i = 0; i < response.length(); i++) {
+                                        JSONObject jsonObject = response.getJSONObject(i);
+                                        String vaccineId = jsonObject.getString("vaccine_id");
+                                        String vaccineName = jsonObject.getString("vaccine_name");
+                                        String protectsAgainst = jsonObject.getString("protects_against");
+                                        String info = jsonObject.getString("info");
 
-                                itemList.add(new ItemModel(vaccineId, vaccineName, protectsAgainst, info));
+                                        itemList.add(new ItemModel(vaccineId, vaccineName, protectsAgainst, info));
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(GrowthTrackerHome.this, "Error parsing data", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                            adapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(GrowthTrackerHome.this, "Error parsing data", Toast.LENGTH_SHORT).show();
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                error.printStackTrace();
+                                Toast.makeText(GrowthTrackerHome.this, "Error fetching data", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Toast.makeText(GrowthTrackerHome.this, "Error fetching data", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
+                );
 
-        requestQueue.add(jsonArrayRequest);
+                requestQueue.add(jsonArrayRequest);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
 
@@ -570,195 +582,229 @@ public class GrowthTrackerHome extends AppCompatActivity {
     }
 
     private void saveDataToDatabase() {
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_InsertGrowthDetails.php";
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                response -> {
-                    // Handle the response from your PHP API
-                    Log.d("SaveDataResponse", response);
-                    // Optionally handle response based on your needs
-                },
-                error -> {
-                    // Handle error
-                    Log.e("SaveDataError", "Error while saving data: " + error.toString());
-                }) {
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String growthInsertGrowthDataUrl = config.getString("GROWTH_INSERTGROWTHDATA");
+                // Instantiate the RequestQueue.
+                RequestQueue queue = Volley.newRequestQueue(this);
+                String url = baseUrl+growthInsertGrowthDataUrl;
+                // Request a string response from the provided URL.
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        response -> {
+                            // Handle the response from your PHP API
+                            Log.d("SaveDataResponse", response);
+                            // Optionally handle response based on your needs
+                        },
+                        error -> {
+                            // Handle error
+                            Log.e("SaveDataError", "Error while saving data: " + error.toString());
+                        }) {
 
-            @Override
-            protected Map<String, String> getParams() {
-                // Parameters to be sent to the PHP API
-                // Retrieve accountId from local storage
-                UserLocalStore userLocalStore = new UserLocalStore(getApplicationContext());
-                Account account = userLocalStore.getLoggedInAccount();
-                String accountId = account.getAccount_id();
-                Calendar calendar = Calendar.getInstance();
-                Date date2 = calendar.getTime();
-                // 3 letter name form of the day
-                String day = (new SimpleDateFormat("EE", Locale.ENGLISH).format(date2.getTime()));
+                    @Override
+                    protected Map<String, String> getParams() {
+                        // Parameters to be sent to the PHP API
+                        // Retrieve accountId from local storage
+                        UserLocalStore userLocalStore = new UserLocalStore(getApplicationContext());
+                        Account account = userLocalStore.getLoggedInAccount();
+                        String accountId = account.getAccount_id();
+                        Calendar calendar = Calendar.getInstance();
+                        Date date2 = calendar.getTime();
+                        // 3 letter name form of the day
+                        String day = (new SimpleDateFormat("EE", Locale.ENGLISH).format(date2.getTime()));
 
-                String date = String.valueOf(currentYear) + "/" + String.valueOf(currentMonth) + "/" + String.valueOf(currentDate);
+                        String date = String.valueOf(currentYear) + "/" + String.valueOf(currentMonth) + "/" + String.valueOf(currentDate);
 
-                Map<String, String> params = new HashMap<>();
-                params.put("u_id", accountId);
-                params.put("date", date);
-                params.put("water_intake", String.valueOf(growthFactors.get("Water_Intake")));
-                params.put("outdoor_play", String.valueOf(growthFactors.get("Outdoor_Play")));
-                params.put("fruits", String.valueOf(growthFactors.get("Fruits")));
-                params.put("vegetables", String.valueOf(growthFactors.get("Vegetables")));
-                params.put("screen_time", String.valueOf(growthFactors.get("Screen_Time")));
-                params.put("sleep_time", String.valueOf(growthFactors.get("Sleep_Time")));
-                params.put("day", day);
-                params.put("average", String.valueOf(convertToPercentageAndCalculateAverage(growthFactors)));
+                        Map<String, String> params = new HashMap<>();
+                        params.put("u_id", accountId);
+                        params.put("date", date);
+                        params.put("water_intake", String.valueOf(growthFactors.get("Water_Intake")));
+                        params.put("outdoor_play", String.valueOf(growthFactors.get("Outdoor_Play")));
+                        params.put("fruits", String.valueOf(growthFactors.get("Fruits")));
+                        params.put("vegetables", String.valueOf(growthFactors.get("Vegetables")));
+                        params.put("screen_time", String.valueOf(growthFactors.get("Screen_Time")));
+                        params.put("sleep_time", String.valueOf(growthFactors.get("Sleep_Time")));
+                        params.put("day", day);
+                        params.put("average", String.valueOf(convertToPercentageAndCalculateAverage(growthFactors)));
 
 
-                return params;
+                        return params;
+                    }
+                };
+
+                // Add the request to the RequestQueue.
+                queue.add(stringRequest);
             }
-        };
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
 
     private void fetchDataFromApi(String date) {
-        // Instantiate the RequestQueue.
-        UserLocalStore userLocalStore = new UserLocalStore(getApplicationContext());
-        Account account = userLocalStore.getLoggedInAccount();
-        String accountId = account.getAccount_id();
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_fetchGrowthDetails.php?u_id=" + accountId + "&date=" + date;
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String growthFetchGrowthDataUrl = config.getString("GROWTH_FETCHGROWTHDATA");
+                // Instantiate the RequestQueue.
+                UserLocalStore userLocalStore = new UserLocalStore(getApplicationContext());
+                Account account = userLocalStore.getLoggedInAccount();
+                String accountId = account.getAccount_id();
+                RequestQueue queue = Volley.newRequestQueue(this);
+                String url = baseUrl + growthFetchGrowthDataUrl + accountId + "&date=" + date;
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    // Handle the response from your PHP API
-                    Log.d("FetchDataResponse", response);
-                    // Parse the JSON response
-                    try {
-                        JSONObject jsonResponse = new JSONObject(response);
-                        String status = jsonResponse.getString("status");
-                        if (status.equals("success")) {
-                            JSONArray dataArray = jsonResponse.getJSONArray("data");
+                // Request a string response from the provided URL.
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        response -> {
+                            // Handle the response from your PHP API
+                            Log.d("FetchDataResponse", response);
+                            // Parse the JSON response
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                String status = jsonResponse.getString("status");
+                                if (status.equals("success")) {
+                                    JSONArray dataArray = jsonResponse.getJSONArray("data");
 
-                            for (int i = 0; i < dataArray.length(); i++) {
-                                JSONObject dataObject = dataArray.getJSONObject(i);
+                                    for (int i = 0; i < dataArray.length(); i++) {
+                                        JSONObject dataObject = dataArray.getJSONObject(i);
 
-                                float waterIntake = dataObject.getInt("water_intake");
-                                float outdoorPlayTime = dataObject.getInt("outdoor_play");
-                                float fruits = dataObject.getInt("fruits");
-                                float vegetables = dataObject.getInt("vegetables");
-                                float screenTime = dataObject.getInt("screen_time");
-                                float sleepTime = dataObject.getInt("sleep_time");
+                                        float waterIntake = dataObject.getInt("water_intake");
+                                        float outdoorPlayTime = dataObject.getInt("outdoor_play");
+                                        float fruits = dataObject.getInt("fruits");
+                                        float vegetables = dataObject.getInt("vegetables");
+                                        float screenTime = dataObject.getInt("screen_time");
+                                        float sleepTime = dataObject.getInt("sleep_time");
 
-                                // Calculate percentages
-                                float waterIntakePercentage = (waterIntake / 1000f) * 100;
-                                float outdoorPlayPercentage = (outdoorPlayTime / 6f) * 100;
-                                float fruitsPercentage = (fruits / 40f) * 100;
-                                float vegetablesPercentage = (vegetables / 300f) * 100;
-                                float screenTimePercentage = (screenTime / 6f) * 100;
-                                float sleepTimePercentage = (sleepTime / 8f) * 100;
+                                        // Calculate percentages
+                                        float waterIntakePercentage = (waterIntake / 1000f) * 100;
+                                        float outdoorPlayPercentage = (outdoorPlayTime / 6f) * 100;
+                                        float fruitsPercentage = (fruits / 40f) * 100;
+                                        float vegetablesPercentage = (vegetables / 300f) * 100;
+                                        float screenTimePercentage = (screenTime / 6f) * 100;
+                                        float sleepTimePercentage = (sleepTime / 8f) * 100;
 
-                                // Update dataList with new percentages
-                                dataList.put("WaterIntake", waterIntakePercentage);
-                                dataList.put("OutdoorPlayTime", outdoorPlayPercentage);
-                                dataList.put("Fruits", fruitsPercentage);
-                                dataList.put("Vegetables", vegetablesPercentage);
-                                dataList.put("ScreenTime", screenTimePercentage);
-                                dataList.put("SleepTime", sleepTimePercentage);
+                                        // Update dataList with new percentages
+                                        dataList.put("WaterIntake", waterIntakePercentage);
+                                        dataList.put("OutdoorPlayTime", outdoorPlayPercentage);
+                                        dataList.put("Fruits", fruitsPercentage);
+                                        dataList.put("Vegetables", vegetablesPercentage);
+                                        dataList.put("ScreenTime", screenTimePercentage);
+                                        dataList.put("SleepTime", sleepTimePercentage);
 
-                                growthFactors.put("Water_Intake", waterIntake);
-                                growthFactors.put("Outdoor_Play", outdoorPlayTime);
-                                growthFactors.put("Fruits", fruits);
-                                growthFactors.put("Vegetables", vegetables);
-                                growthFactors.put("Screen_Time", screenTime);
-                                growthFactors.put("Sleep_Time", sleepTime);
+                                        growthFactors.put("Water_Intake", waterIntake);
+                                        growthFactors.put("Outdoor_Play", outdoorPlayTime);
+                                        growthFactors.put("Fruits", fruits);
+                                        growthFactors.put("Vegetables", vegetables);
+                                        growthFactors.put("Screen_Time", screenTime);
+                                        growthFactors.put("Sleep_Time", sleepTime);
 
+                                    }
+
+                                } else {
+                                    String errorMessage = jsonResponse.getString("message");
+                                    resetDataList();
+                                    Log.e("FetchDataError", errorMessage);
+                                    // Handle error case if needed
+                                }
+                                // Update the bar chart with new data
+                                updateBarChart();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
+                        },
+                        error -> {
+                            // Handle error
+                            Log.e("FetchDataError", "Error while fetching data: " + error.toString());
+                        });
 
-                        } else {
-                            String errorMessage = jsonResponse.getString("message");
-                            resetDataList();
-                            Log.e("FetchDataError", errorMessage);
-                            // Handle error case if needed
-                        }
-                        // Update the bar chart with new data
-                        updateBarChart();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                error -> {
-                    // Handle error
-                    Log.e("FetchDataError", "Error while fetching data: " + error.toString());
-                });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+                // Add the request to the RequestQueue.
+                queue.add(stringRequest);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     private void fetchSwitchStateFromApi(String switchKey, SwitchStateCallback callback) {
-        UserLocalStore userLocalStore = new UserLocalStore(getApplicationContext());
-        Account account = userLocalStore.getLoggedInAccount();
-        String accountId = account.getAccount_id();
-        String date = String.valueOf(currentYear) + "/" + String.valueOf(currentMonth) + "/" + String.valueOf(currentDate);
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String growthFetchGrowthDataUrl = config.getString("GROWTH_FETCHGROWTHDATA");
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_fetchGrowthDetails.php?u_id=" + accountId + "&date=" + date;
+                UserLocalStore userLocalStore = new UserLocalStore(getApplicationContext());
+                Account account = userLocalStore.getLoggedInAccount();
+                String accountId = account.getAccount_id();
+                String date = String.valueOf(currentYear) + "/" + String.valueOf(currentMonth) + "/" + String.valueOf(currentDate);
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    // Handle the response from your PHP API
-                    Log.d("FetchSwitchStateResponse", response);
-                    // Parse the JSON response
-                    try {
-                        JSONObject jsonResponse = new JSONObject(response);
-                        String status = jsonResponse.getString("status");
-                        if (status.equals("success")) {
-                            JSONArray dataArray = jsonResponse.getJSONArray("data");
+                RequestQueue queue = Volley.newRequestQueue(this);
+                String url = baseUrl + growthFetchGrowthDataUrl + accountId + "&date=" + date;
 
-                            for (int i = 0; i < dataArray.length(); i++) {
-                                JSONObject dataObject = dataArray.getJSONObject(i);
+                // Request a string response from the provided URL.
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        response -> {
+                            // Handle the response from your PHP API
+                            Log.d("FetchSwitchStateResponse", response);
+                            // Parse the JSON response
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                String status = jsonResponse.getString("status");
+                                if (status.equals("success")) {
+                                    JSONArray dataArray = jsonResponse.getJSONArray("data");
 
-                                int waterIntake = dataObject.getInt("water_intake");
+                                    for (int i = 0; i < dataArray.length(); i++) {
+                                        JSONObject dataObject = dataArray.getJSONObject(i);
 
-                                applySavedWaterIntakeState(waterIntake);
+                                        int waterIntake = dataObject.getInt("water_intake");
+
+                                        applySavedWaterIntakeState(waterIntake);
+                                    }
+
+                                    if (dataArray.length() > 0) {
+                                        JSONObject dataObject = dataArray.getJSONObject(0); // Assuming one entry per day
+
+                                        // Check the value for the switch key
+                                        int switchValue = dataObject.getInt(switchKey.toLowerCase()); // Assuming API response key is lowercase
+
+                                        // Update switch state based on fetched data
+                                        boolean isChecked = switchValue > 0; // Set switch to true if value is greater than 0
+                                        callback.onSwitchStateReceived(isChecked);
+                                    } else {
+                                        // No data found for the day, set switch state to false
+                                        callback.onSwitchStateReceived(false);
+                                    }
+                                } else {
+                                    String errorMessage = jsonResponse.getString("message");
+                                    Log.e("FetchSwitchStateError", errorMessage);
+                                    applySavedWaterIntakeState(0);
+                                    // Handle error case if needed
+                                    callback.onSwitchStateReceived(false); // Set switch state to false on error
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                callback.onSwitchStateReceived(false); // Set switch state to false on JSON exception
                             }
-
-                            if (dataArray.length() > 0) {
-                                JSONObject dataObject = dataArray.getJSONObject(0); // Assuming one entry per day
-
-                                // Check the value for the switch key
-                                int switchValue = dataObject.getInt(switchKey.toLowerCase()); // Assuming API response key is lowercase
-
-                                // Update switch state based on fetched data
-                                boolean isChecked = switchValue > 0; // Set switch to true if value is greater than 0
-                                callback.onSwitchStateReceived(isChecked);
-                            } else {
-                                // No data found for the day, set switch state to false
-                                callback.onSwitchStateReceived(false);
-                            }
-                        } else {
-                            String errorMessage = jsonResponse.getString("message");
-                            Log.e("FetchSwitchStateError", errorMessage);
-                            applySavedWaterIntakeState(0);
-                            // Handle error case if needed
+                        },
+                        error -> {
+                            // Handle error
+                            Log.e("FetchSwitchStateError", "Error while fetching switch state: " + error.toString());
                             callback.onSwitchStateReceived(false); // Set switch state to false on error
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        callback.onSwitchStateReceived(false); // Set switch state to false on JSON exception
-                    }
-                },
-                error -> {
-                    // Handle error
-                    Log.e("FetchSwitchStateError", "Error while fetching switch state: " + error.toString());
-                    callback.onSwitchStateReceived(false); // Set switch state to false on error
-                });
+                        });
 
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+                // Add the request to the RequestQueue.
+                queue.add(stringRequest);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     // Interface to handle switch state callback
@@ -875,62 +921,73 @@ public class GrowthTrackerHome extends AppCompatActivity {
     }
 
     private void fetchDataAvgFromApi(String date, DataFetchCallback callback) {
-        // Instantiate the RequestQueue.
-        UserLocalStore userLocalStore = new UserLocalStore(getApplicationContext());
-        Account account = userLocalStore.getLoggedInAccount();
-        String accountId = account.getAccount_id();
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_fetchGrowthDetails.php?u_id=" + accountId + "&date=" + date;
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String growthFetchGrowthDataUrl = config.getString("GROWTH_FETCHGROWTHDATA");
+                // Instantiate the RequestQueue.
+                UserLocalStore userLocalStore = new UserLocalStore(getApplicationContext());
+                Account account = userLocalStore.getLoggedInAccount();
+                String accountId = account.getAccount_id();
+                RequestQueue queue = Volley.newRequestQueue(this);
+                String url = baseUrl + growthFetchGrowthDataUrl + accountId + "&date=" + date;
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    // Handle the response from your PHP API
-                    Log.d("FetchDataResponse", response);
-                    // Parse the JSON response
-                    try {
-                        JSONObject jsonResponse = new JSONObject(response);
-                        String status = jsonResponse.getString("status");
-                        if (status.equals("success")) {
-                            JSONArray dataArray = jsonResponse.getJSONArray("data");
+                // Request a string response from the provided URL.
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        response -> {
+                            // Handle the response from your PHP API
+                            Log.d("FetchDataResponse", response);
+                            // Parse the JSON response
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                String status = jsonResponse.getString("status");
+                                if (status.equals("success")) {
+                                    JSONArray dataArray = jsonResponse.getJSONArray("data");
 
-                            for (int i = 0; i < dataArray.length(); i++) {
-                                JSONObject dataObject = dataArray.getJSONObject(i);
+                                    for (int i = 0; i < dataArray.length(); i++) {
+                                        JSONObject dataObject = dataArray.getJSONObject(i);
 
-                                String day = dataObject.getString("day");
-                                float avg = (float) dataObject.getDouble("average");
+                                        String day = dataObject.getString("day");
+                                        float avg = (float) dataObject.getDouble("average");
 
-                                Log.d("FetchDataAverage", "Day: " + day + ", Average: " + avg);
+                                        Log.d("FetchDataAverage", "Day: " + day + ", Average: " + avg);
 
-                                avgPercent.put(day, avg);
+                                        avgPercent.put(day, avg);
+                                    }
+
+                                    // Log avgPercent after adding values
+                                    Log.d("FetchDataAvgPercent", "avgPercent: " + avgPercent);
+
+                                } else {
+                                    String errorMessage = jsonResponse.getString("message");
+                                    Log.e("FetchDataError", errorMessage);
+                                    // Handle error case if needed
+                                }
+
+                                // Call the callback to indicate data fetched
+                                callback.onDataFetched();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
+                        },
+                        error -> {
+                            // Handle error
+                            Log.e("FetchDataError", "Error while fetching data: " + error.toString());
 
-                            // Log avgPercent after adding values
-                            Log.d("FetchDataAvgPercent", "avgPercent: " + avgPercent);
+                            // Call the callback to indicate data fetched (even if error occurs)
+                            callback.onDataFetched();
+                        });
 
-                        } else {
-                            String errorMessage = jsonResponse.getString("message");
-                            Log.e("FetchDataError", errorMessage);
-                            // Handle error case if needed
-                        }
-
-                        // Call the callback to indicate data fetched
-                        callback.onDataFetched();
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                error -> {
-                    // Handle error
-                    Log.e("FetchDataError", "Error while fetching data: " + error.toString());
-
-                    // Call the callback to indicate data fetched (even if error occurs)
-                    callback.onDataFetched();
-                });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+                // Add the request to the RequestQueue.
+                queue.add(stringRequest);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 
     // Interface for callback

@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId "com.spacECE.spaceceedu"
         minSdk 24
-        targetSdk 34
+        targetSdk 30
         versionCode 7
         versionName "7.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

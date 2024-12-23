@@ -35,6 +35,7 @@ import com.ncorti.slidetoact.SlideToActView;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -140,30 +141,43 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
 
         Log.e( "onCreate: ",image+"");
         if (image!=null && !image.equals("null")){
-            String pic_src = "http://13.126.66.91/spacece/img/users/" + image;
-            try{
-                Picasso.get().load(pic_src).into(image_second_activity);
-            }catch (Exception e){
-                Log.e( "onBindViewHolder:-------------------",e.toString());
-            }
-            RequestQueue requestQueue= Volley.newRequestQueue(second_page_for_space_active_with_image.this);
-            StringRequest stringRequest=new StringRequest(pic_src, new com.android.volley.Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    String rsp=response;
-                    if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
-                        Log.e( "onResponse:---------","Not exist");
-                        image_second_activity.setImageDrawable(getDrawable(R.drawable.download));
+            try {
+                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+                if (config != null) {
+                    String baseUrl= config.getString("BASE_URL");
+                    String spaceactiveInsertUserUrl = config.getString("SPACEACTIVE_INSERTUSER");
+
+
+                    String pic_src = baseUrl + spaceactiveInsertUserUrl + image;
+                    try{
+                        Picasso.get().load(pic_src).into(image_second_activity);
+                    }catch (Exception e){
+                        Log.e( "onBindViewHolder:-------------------",e.toString());
                     }
+                    RequestQueue requestQueue= Volley.newRequestQueue(second_page_for_space_active_with_image.this);
+                    StringRequest stringRequest=new StringRequest(pic_src, new com.android.volley.Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            String rsp=response;
+                            if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
+                                Log.e( "onResponse:---------","Not exist");
+                                image_second_activity.setImageDrawable(getDrawable(R.drawable.download));
+                            }
+                        }
+                    }, new com.android.volley.Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e( "onFailure:-----------------",error.toString());
+                            image_second_activity.setImageDrawable(getDrawable(R.drawable.download));
+                        }
+                    });
+                    requestQueue.add(stringRequest);
                 }
-            }, new com.android.volley.Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e( "onFailure:-----------------",error.toString());
-                    image_second_activity.setImageDrawable(getDrawable(R.drawable.download));
-                }
-            });
-            requestQueue.add(stringRequest);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                Log.i("ERROR:::", "Failed to load API URLs");
+            }
         }
 
         Activity_Name.setText(activity_name);
@@ -215,40 +229,53 @@ public class second_page_for_space_active_with_image extends AppCompatActivity {
         Log.e("setCompleted:>>>>>>>>>>>>>>>>>>>>>>>>","");
         RequestQueue requestQueue= Volley.newRequestQueue(second_page_for_space_active_with_image.this);
         Log.e( "setCompleted:-----------","user_id="+MainActivity.ACCOUNT.getAccount_id()+"&activity_no="+activity_no+"&workdone="+"1");
-        String url="http://13.126.66.91/spacece/spacec_active/api_insertUserActivity.php";
-        StringRequest stringRequest=new StringRequest(com.android.volley.Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.e( "onResponse:<<<<<<<<<<<<<",response.toString());
-                JsonParser jsonParser=new JsonParser();
-                JsonObject jsonObject= (JsonObject) jsonParser.parse(response);
-                try {
-                    Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("message").toString());
-                    Toast.makeText(second_page_for_space_active_with_image.this, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show();
-                }catch (Exception e){
-                    try {
-                        Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("error").toString());
-                        Toast.makeText(second_page_for_space_active_with_image.this, jsonObject.get("error").toString(), Toast.LENGTH_SHORT).show();
-                    }catch (Exception ea){
-                        Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",ea.toString());
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String spaceactiveInsertUserUrl = config.getString("SPACEACTIVE_INSERTUSER");
+
+
+                String url=baseUrl+spaceactiveInsertUserUrl;
+                StringRequest stringRequest=new StringRequest(com.android.volley.Request.Method.POST, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e( "onResponse:<<<<<<<<<<<<<",response.toString());
+                        JsonParser jsonParser=new JsonParser();
+                        JsonObject jsonObject= (JsonObject) jsonParser.parse(response);
+                        try {
+                            Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("message").toString());
+                            Toast.makeText(second_page_for_space_active_with_image.this, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception e){
+                            try {
+                                Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("error").toString());
+                                Toast.makeText(second_page_for_space_active_with_image.this, jsonObject.get("error").toString(), Toast.LENGTH_SHORT).show();
+                            }catch (Exception ea){
+                                Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",ea.toString());
+                            }
+                        }
                     }
-                }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e( "onErrorResponse:>>>>>>>>>>",error.toString());
+                    }
+                }){
+                    @Override
+                    protected Map<String,String>getParams(){
+                        Map<String,String>params=new HashMap<>();
+                        params.put("user_id", MainActivity.ACCOUNT.getAccount_id());
+                        params.put("activity_no", activity_no);
+                        params.put("workdone", i+"");
+                        return params;
+                    }
+                };
+                requestQueue.add(stringRequest);
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e( "onErrorResponse:>>>>>>>>>>",error.toString());
-            }
-        }){
-            @Override
-            protected Map<String,String>getParams(){
-                Map<String,String>params=new HashMap<>();
-                params.put("user_id", MainActivity.ACCOUNT.getAccount_id());
-                params.put("activity_no", activity_no);
-                params.put("workdone", i+"");
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 }

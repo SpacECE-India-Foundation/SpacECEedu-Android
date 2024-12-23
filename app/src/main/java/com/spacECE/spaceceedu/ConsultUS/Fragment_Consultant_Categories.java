@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 
 import org.json.JSONArray;
@@ -90,9 +91,20 @@ public class Fragment_Consultant_Categories extends Fragment {
 
             try {
                 try {
-                    apiCall = UsefulFunctions.UsingGetAPI("http://13.126.66.91/spacece/ConsultUs/api_getconsultant.php?cat=" + URLEncoder.encode(category, "UTF-8"));
-                } catch (UnsupportedEncodingException e) {
+                    JSONObject config = ConfigUtils.loadConfig(getContext().getApplicationContext());
+                    if(config != null){
+                        String baseUrl= config.getString("BASE_URL");
+                        String consultGetConsultantUrl = config.getString("CONSULT_GETCONSULTANT");
+
+                        apiCall = UsefulFunctions.UsingGetAPI(baseUrl+ consultGetConsultantUrl + URLEncoder.encode(category, "UTF-8"));
+                    }
+                }
+                catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Log.i("ERROR:::", "Failed to load API URLs");
                 }
 
                 JSONArray jsonArray = null;

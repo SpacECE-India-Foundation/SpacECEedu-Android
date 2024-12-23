@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,38 +71,44 @@ public class LearnOn_MyCourses extends Fragment {
     private void fetchCoursesData(String accountId) {
         new Thread(() -> {
             try {
-                // Construct the API URL with accountId as user_id parameter
-                String apiUrl = "http://13.126.66.91/spacece/api/learnonapp_courses.php?uid=" + accountId;
-                Log.d("API URL", apiUrl);
+                JSONObject config = ConfigUtils.loadConfig(getContext().getApplicationContext());
+                if (config != null) {
+                    String baseUrl= config.getString("BASE_URL");
+                    String learnCourseFetchCourseUrl = config.getString("LEARNCOURSE_FETCHCOURSEDATA");
 
-                JSONObject apiCall = UsefulFunctions.UsingGetAPI(apiUrl);
-                Log.d("API Response", apiCall.toString());
+                    // Construct the API URL with accountId as user_id parameter
+                    String apiUrl = baseUrl + learnCourseFetchCourseUrl + accountId;
+                    Log.d("API URL", apiUrl);
 
-                if (apiCall.has("status") && apiCall.getString("status").equals("success")) {
-                    JSONArray jsonArray = apiCall.getJSONArray("data");
-                    Log.d("API Data Array", jsonArray.toString());
+                    JSONObject apiCall = UsefulFunctions.UsingGetAPI(apiUrl);
+                    Log.d("API Response", apiCall.toString());
 
-                    list.clear(); // Clear the list before adding new items
+                    if (apiCall.has("status") && apiCall.getString("status").equals("success")) {
+                        JSONArray jsonArray = apiCall.getJSONArray("data");
+                        Log.d("API Data Array", jsonArray.toString());
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject responseElement = jsonArray.getJSONObject(i);
-                        Learn temp = new Learn(
-                                responseElement.getString("id"),
-                                responseElement.getString("title"),
-                                responseElement.getString("description"),
-                                responseElement.getString("type"),
-                                responseElement.getString("mode"),
-                                responseElement.getString("duration"),
-                                responseElement.getString("price")
-                        );
-                        list.add(temp);
+                        list.clear(); // Clear the list before adding new items
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject responseElement = jsonArray.getJSONObject(i);
+                            Learn temp = new Learn(
+                                    responseElement.getString("id"),
+                                    responseElement.getString("title"),
+                                    responseElement.getString("description"),
+                                    responseElement.getString("type"),
+                                    responseElement.getString("mode"),
+                                    responseElement.getString("duration"),
+                                    responseElement.getString("price")
+                            );
+                            list.add(temp);
+                        }
+
+                        // Notify adapter on the UI thread
+                        requireActivity().runOnUiThread(() -> adapter.notifyDataSetChanged());
+                    } else {
+                        String message = apiCall.getString("message");
+                        Log.e("API Error", message);
                     }
-
-                    // Notify adapter on the UI thread
-                    requireActivity().runOnUiThread(() -> adapter.notifyDataSetChanged());
-                } else {
-                    String message = apiCall.getString("message");
-                    Log.e("API Error", message);
                 }
             } catch (JSONException e) {
                 Log.e("JSON Error", e.getMessage(), e);

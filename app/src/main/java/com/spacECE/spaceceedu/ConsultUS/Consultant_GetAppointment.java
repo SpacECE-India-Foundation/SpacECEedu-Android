@@ -31,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import com.instamojo.android.Instamojo;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 import com.squareup.picasso.Picasso;
 
@@ -287,84 +288,96 @@ public class Consultant_GetAppointment extends AppCompatActivity implements Inst
     }
 
     private void BookAppointment() {
-
-        System.out.println(MainActivity.ACCOUNT.getAccount_id()+consultant_id+ BOOKING_DAY + BOOKING_TIME);
-        System.out.println(String.valueOf(Duration));
-        Log.e( "BookAppointment: 1",MainActivity.ACCOUNT.getAccount_id()+consultant_id+ BOOKING_DAY + BOOKING_TIME);
-        Log.e( "BookAppointment: 2",String.valueOf(Duration));
-        new Thread(new Runnable() {
-
-            JSONObject jsonObject;
-
-            final String booking = "http://13.126.66.91/spacece/ConsultUs/api_bookappointment.php";
-
-            @Override
-            public void run() {
-                OkHttpClient client = new OkHttpClient();
-                RequestBody fromBody = new FormBody.Builder()
-                        .add("u_id", MainActivity.ACCOUNT.getAccount_id())
-                        .add("c_id", consultant_id)
-                        .add("b_date", BOOKING_DAY.toString().replace(" ","").replace(":","-"))
-                        .add("time", BOOKING_TIME)
-                        .add("end_time", valueOf(Duration))
-                        .build();
-                Log.e( "api hit at Consult_GetAppointment: ","u_id"+"="+MainActivity.ACCOUNT.getAccount_id()+"&"+"c_id="+consultant_id+"&b_date="+BOOKING_DAY.toString().replace(" ","")+"&time="+BOOKING_TIME+"&end_time="+valueOf(Duration));
-
-                Request request = new Request.Builder()
-                        .url(booking)
-                        .post(fromBody)
-                        .build();
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String consultBookAppointUrl = config.getString("CONSULT_BOOKAPPOINT");
 
 
-                Call call = client.newCall(request);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        System.out.println("Registration Error ApI " + e.getMessage());
-                        Log.e( "onFailure: 1",e.toString());
-                    }
+                System.out.println(MainActivity.ACCOUNT.getAccount_id()+consultant_id+ BOOKING_DAY + BOOKING_TIME);
+                System.out.println(String.valueOf(Duration));
+                Log.e( "BookAppointment: 1",MainActivity.ACCOUNT.getAccount_id()+consultant_id+ BOOKING_DAY + BOOKING_TIME);
+                Log.e( "BookAppointment: 2",String.valueOf(Duration));
+                new Thread(new Runnable() {
+
+                    JSONObject jsonObject;
+
+                    final String booking = baseUrl+consultBookAppointUrl;
 
                     @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    public void run() {
+                        OkHttpClient client = new OkHttpClient();
+                        RequestBody fromBody = new FormBody.Builder()
+                                .add("u_id", MainActivity.ACCOUNT.getAccount_id())
+                                .add("c_id", consultant_id)
+                                .add("b_date", BOOKING_DAY.toString().replace(" ","").replace(":","-"))
+                                .add("time", BOOKING_TIME)
+                                .add("end_time", valueOf(Duration))
+                                .build();
+                        Log.e( "api hit at Consult_GetAppointment: ","u_id"+"="+MainActivity.ACCOUNT.getAccount_id()+"&"+"c_id="+consultant_id+"&b_date="+BOOKING_DAY.toString().replace(" ","")+"&time="+BOOKING_TIME+"&end_time="+valueOf(Duration));
 
-                        runOnUiThread(new Runnable() {
+                        Request request = new Request.Builder()
+                                .url(booking)
+                                .post(fromBody)
+                                .build();
+
+
+                        Call call = client.newCall(request);
+                        call.enqueue(new Callback() {
                             @Override
-                            public void run() {
-                                try {
-                                    assert response.body() != null;
-                                    jsonObject = new JSONObject(response.body().string());
-                                    System.out.println(jsonObject);
-                                    if(jsonObject.getString("status").equals("success")){
-                                        Toast.makeText(Consultant_GetAppointment.this,"Booking Confirmed",
-                                                Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(getApplicationContext(), Consultant_AppointmentConfirmation.class));
-                                        finishAffinity();
-                                    } else {
-                                        Log.e( "run: 3","failed");
-                                        Toast.makeText(Consultant_GetAppointment.this,"Booking Failed",
-                                                Toast.LENGTH_LONG).show();
-                                        new Handler().postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                try {
-                                                    Toast.makeText(Consultant_GetAppointment.this,jsonObject.getString("msg").toString(), Toast.LENGTH_SHORT).show();
-                                                } catch (JSONException e) {
-                                                    Log.e( "run: 6", e.toString());
-                                                    throw new RuntimeException(e);
-                                                }
+                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                System.out.println("Registration Error ApI " + e.getMessage());
+                                Log.e( "onFailure: 1",e.toString());
+                            }
+
+                            @Override
+                            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            assert response.body() != null;
+                                            jsonObject = new JSONObject(response.body().string());
+                                            System.out.println(jsonObject);
+                                            if(jsonObject.getString("status").equals("success")){
+                                                Toast.makeText(Consultant_GetAppointment.this,"Booking Confirmed",
+                                                        Toast.LENGTH_LONG).show();
+                                                startActivity(new Intent(getApplicationContext(), Consultant_AppointmentConfirmation.class));
+                                                finishAffinity();
+                                            } else {
+                                                Log.e( "run: 3","failed");
+                                                Toast.makeText(Consultant_GetAppointment.this,"Booking Failed",
+                                                        Toast.LENGTH_LONG).show();
+                                                new Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        try {
+                                                            Toast.makeText(Consultant_GetAppointment.this,jsonObject.getString("msg").toString(), Toast.LENGTH_SHORT).show();
+                                                        } catch (JSONException e) {
+                                                            Log.e( "run: 6", e.toString());
+                                                            throw new RuntimeException(e);
+                                                        }
+                                                    }
+                                                },2500);
                                             }
-                                        },2500);
+                                        } catch (JSONException | IOException e) {
+                                            Log.e( "run: instamojo1",e.toString());
+                                            e.printStackTrace();
+                                        }
                                     }
-                                } catch (JSONException | IOException e) {
-                                    Log.e( "run: instamojo1",e.toString());
-                                    e.printStackTrace();
-                                }
+                                });
                             }
                         });
                     }
-                });
+                }).start();
             }
-        }).start();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
 
     }
 

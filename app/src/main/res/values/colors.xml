@@ -45,4 +45,10 @@
     <color name="growth_tracker_play_time">#55FBFB</color>
     <color name="growth_tracker_sleep_time">#7762F8</color>
     <color name="growth_tracker_screen_time">#FB381D</color>
+
+    <!--    Payment-->
+    <color name="orange_dark">#FF8833</color>
+    <color name="blue_500">#2196F3</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_400">#BDBDBD</color>
 </resources>

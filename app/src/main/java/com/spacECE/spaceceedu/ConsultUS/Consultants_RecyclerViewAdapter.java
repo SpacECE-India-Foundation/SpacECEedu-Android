@@ -16,7 +16,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -65,8 +68,21 @@ public class Consultants_RecyclerViewAdapter extends RecyclerView.Adapter<Consul
         holder.name.setText(name);
         holder.category.setText(categories);
         holder.price.setText("Fee: "+String.valueOf(price)+"/-");
-        //currently, src only send image name we have to set the image path
-        profilePicSrc = "http://13.126.66.91/spacece/img/users/" + profilePicSrc;
+
+        try {
+            JSONObject config = ConfigUtils.loadConfig(context.getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String userImgUrl = config.getString("USER_IMG");
+
+                //currently, src only send image name we have to set the image path
+                profilePicSrc = baseUrl+userImgUrl + profilePicSrc;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
         try {
             Picasso.get().load(profilePicSrc.replace("https://","http://")).into(holder.profile);
         } catch (Exception e) {

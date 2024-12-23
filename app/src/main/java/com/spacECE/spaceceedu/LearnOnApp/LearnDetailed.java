@@ -14,6 +14,8 @@ import com.instamojo.android.Instamojo;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
+
 import org.json.JSONObject;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -91,44 +93,51 @@ public class LearnDetailed extends AppCompatActivity implements Instamojo.Instam
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                URL url = new URL("http://13.126.66.91/spacece/api/api_InsertLearnOnCourseData.php");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                conn.setDoOutput(true);
+                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+                if(config != null) {
+                    String baseUrl= config.getString("BASE_URL");
+                    String learnCourseInsertDataUrl = config.getString("LEARNCOURSE_INSERTDATA");
+                    URL url = new URL(baseUrl+learnCourseInsertDataUrl);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                    conn.setDoOutput(true);
 
-                JSONObject jsonParam = new JSONObject();
-                jsonParam.put("uid", userId);
-                jsonParam.put("cid", courseId);
-                jsonParam.put("payment_status", "initiated");
-                jsonParam.put("payment_details", orderID);
+                    JSONObject jsonParam = new JSONObject();
+                    jsonParam.put("uid", userId);
+                    jsonParam.put("cid", courseId);
+                    jsonParam.put("payment_status", "initiated");
+                    jsonParam.put("payment_details", orderID);
 
-                OutputStream os = new BufferedOutputStream(conn.getOutputStream());
-                os.write(jsonParam.toString().getBytes());
-                os.flush();
-                os.close();
+                    OutputStream os = new BufferedOutputStream(conn.getOutputStream());
+                    os.write(jsonParam.toString().getBytes());
+                    os.flush();
+                    os.close();
 
-                // Log request data
-                Log.d("API_REQUEST", jsonParam.toString());
+                    // Log request data
+                    Log.d("API_REQUEST", jsonParam.toString());
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String output;
-                while ((output = br.readLine()) != null) {
-                    sb.append(output);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String output;
+                    while ((output = br.readLine()) != null) {
+                        sb.append(output);
+                    }
+
+                    conn.disconnect();
+
+                    // Log response data
+                    Log.d("API_RESPONSE", sb.toString());
+
+                    return sb.toString();
                 }
-
-                conn.disconnect();
-
-                // Log response data
-                Log.d("API_RESPONSE", sb.toString());
-
-                return sb.toString();
-
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
+            // Return null or a default value if something goes wrong
+            return null;
         }
 
         @Override

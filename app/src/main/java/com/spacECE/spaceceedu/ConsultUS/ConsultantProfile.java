@@ -19,7 +19,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 public class ConsultantProfile extends AppCompatActivity {
 
@@ -90,7 +93,19 @@ public class ConsultantProfile extends AppCompatActivity {
         tv_language.append(language);
         tv_days.append(c_aval_days.replace(",",", "));
         Log.e( "onCreate:--------","1");
-        pic_src = "http://13.126.66.91/spacece/img/users/" + pic_src;
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String userImgUrl = config.getString("USER_IMG");
+
+                pic_src = baseUrl + userImgUrl + pic_src;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
         Log.e( "onCreate:--------","2");
 
         try {

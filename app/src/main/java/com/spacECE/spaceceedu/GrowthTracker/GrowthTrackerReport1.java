@@ -16,6 +16,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -89,67 +91,78 @@ public class GrowthTrackerReport1 extends AppCompatActivity {
     }
 
     private void fetchDataForCurrentWeek() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String endDate = dateFormat.format(currentWeek.getTime());
-        UserLocalStore userLocalStore = new UserLocalStore(this);
-        Account account = userLocalStore.getLoggedInAccount();
-        String userId = account.getAccount_id();
-        String url = "http://13.126.66.91/spacece/Growth_Tracker/api_fetchWeeklyDetails.php?u_id="+userId+"&date="+endDate;
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String growthFetchWeeklyDataUrl = config.getString("GROWTH_FETCHWEEKLYDATA");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String endDate = dateFormat.format(currentWeek.getTime());
+                UserLocalStore userLocalStore = new UserLocalStore(this);
+                Account account = userLocalStore.getLoggedInAccount();
+                String userId = account.getAccount_id();
+                String url = baseUrl+growthFetchWeeklyDataUrl+userId+"&date="+endDate;
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            if (response.getString("status").equals("success")) {
-                                sectionList.clear();
-                                JSONArray dataArray = response.getJSONArray("data");
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    if (response.getString("status").equals("success")) {
+                                        sectionList.clear();
+                                        JSONArray dataArray = response.getJSONArray("data");
 
-                                // Initialize the arrays with default values of 0
-                                int[] waterIntake = new int[7];
-                                int[] fruits = new int[7];
-                                int[] vegetables = new int[7];
-                                int[] outdoorPlay = new int[7];
-                                int[] sleepTime = new int[7];
-                                int[] screenTime = new int[7];
+                                        // Initialize the arrays with default values of 0
+                                        int[] waterIntake = new int[7];
+                                        int[] fruits = new int[7];
+                                        int[] vegetables = new int[7];
+                                        int[] outdoorPlay = new int[7];
+                                        int[] sleepTime = new int[7];
+                                        int[] screenTime = new int[7];
 
-                                for (int i = 0; i < dataArray.length(); i++) {
-                                    JSONObject dataObject = dataArray.getJSONObject(i);
-                                    // Extract the day index from the date (assuming data is ordered by date)
-                                    Calendar date = Calendar.getInstance();
-                                    date.setTime(dateFormat.parse(dataObject.getString("date")));
-                                    int dayIndex = date.get(Calendar.DAY_OF_WEEK) - Calendar.SUNDAY;
+                                        for (int i = 0; i < dataArray.length(); i++) {
+                                            JSONObject dataObject = dataArray.getJSONObject(i);
+                                            // Extract the day index from the date (assuming data is ordered by date)
+                                            Calendar date = Calendar.getInstance();
+                                            date.setTime(dateFormat.parse(dataObject.getString("date")));
+                                            int dayIndex = date.get(Calendar.DAY_OF_WEEK) - Calendar.SUNDAY;
 
-                                    // Update the arrays with actual data
-                                    waterIntake[dayIndex] = dataObject.getInt("water_intake");
-                                    fruits[dayIndex] = dataObject.getInt("fruits");
-                                    vegetables[dayIndex] = dataObject.getInt("vegetables");
-                                    outdoorPlay[dayIndex] = dataObject.getInt("outdoor_play");
-                                    sleepTime[dayIndex] = dataObject.getInt("sleep_time");
-                                    screenTime[dayIndex] = dataObject.getInt("screen_time");
+                                            // Update the arrays with actual data
+                                            waterIntake[dayIndex] = dataObject.getInt("water_intake");
+                                            fruits[dayIndex] = dataObject.getInt("fruits");
+                                            vegetables[dayIndex] = dataObject.getInt("vegetables");
+                                            outdoorPlay[dayIndex] = dataObject.getInt("outdoor_play");
+                                            sleepTime[dayIndex] = dataObject.getInt("sleep_time");
+                                            screenTime[dayIndex] = dataObject.getInt("screen_time");
+                                        }
+
+                                        sectionList.add(new ReportDetails("Water Intake", waterIntake));
+                                        sectionList.add(new ReportDetails("Fruit Intake", fruits));
+                                        sectionList.add(new ReportDetails("Vegetable Intake", vegetables));
+                                        sectionList.add(new ReportDetails("Outdoor Play", outdoorPlay));
+                                        sectionList.add(new ReportDetails("Sleep Time", sleepTime));
+                                        sectionList.add(new ReportDetails("Screen Time", screenTime));
+
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                } catch (JSONException | ParseException e) {
+                                    e.printStackTrace();
                                 }
-
-                                sectionList.add(new ReportDetails("Water Intake", waterIntake));
-                                sectionList.add(new ReportDetails("Fruit Intake", fruits));
-                                sectionList.add(new ReportDetails("Vegetable Intake", vegetables));
-                                sectionList.add(new ReportDetails("Outdoor Play", outdoorPlay));
-                                sectionList.add(new ReportDetails("Sleep Time", sleepTime));
-                                sectionList.add(new ReportDetails("Screen Time", screenTime));
-
-                                adapter.notifyDataSetChanged();
                             }
-                        } catch (JSONException | ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error
-                    }
-                });
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // Handle error
+                            }
+                        });
 
-        requestQueue.add(jsonObjectRequest);
+                requestQueue.add(jsonObjectRequest);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
     }
 }

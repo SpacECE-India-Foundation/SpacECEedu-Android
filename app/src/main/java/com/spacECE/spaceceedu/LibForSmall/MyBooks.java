@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
 
 import org.json.JSONArray;
@@ -79,44 +80,49 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
     private void fetchBooksData(String accountId) {
         new Thread(() -> {
             try {
-                // Construct the API URL with accountId as user_id parameter
-                String apiUrl = "http://13.126.66.91/spacece/libforsmall/api_fetchCartProducts.php?user_id=" + accountId;
+                JSONObject config = ConfigUtils.loadConfig(getContext().getApplicationContext());
+                if(config != null){
+                    String baseUrl= config.getString("BASE_URL");
+                    String libCartProductDataUrl = config.getString("LIB_CARTPRODUCTDATA");
+                    // Construct the API URL with accountId as user_id parameter
+                    String apiUrl = baseUrl + libCartProductDataUrl + "?user_id=" + accountId;
 
-                JSONObject apiCall = UsefulFunctions.UsingGetAPI(apiUrl);
-                Log.i("API Response", apiCall.toString());
+                    JSONObject apiCall = UsefulFunctions.UsingGetAPI(apiUrl);
+                    Log.i("API Response", apiCall.toString());
 
-                if (apiCall.has("status") && apiCall.getString("status").equals("success")) {
-                    JSONArray jsonArray = apiCall.getJSONArray("cart");
-                    Log.i("API Data Array", jsonArray.toString());
+                    if (apiCall.has("status") && apiCall.getString("status").equals("success")) {
+                        JSONArray jsonArray = apiCall.getJSONArray("cart");
+                        Log.i("API Data Array", jsonArray.toString());
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject responseElement = jsonArray.getJSONObject(i);
-                        books2 temp = new books2(
-                                responseElement.getString("cart_id"),
-                                responseElement.getString("product_id"),
-                                responseElement.getString("user_id"),
-                                responseElement.getString("quantity"),
-                                responseElement.getString("status"),
-                                responseElement.getString("exchange_product"),
-                                responseElement.getString("exchange_price"),
-                                responseElement.getString("product_title"),
-                                responseElement.getString("product_quantity"),
-                                responseElement.getString("product_price"),
-                                responseElement.getString("product_brand"),
-                                responseElement.getString("product_image"),
-                                responseElement.getString("product_cat"));
-                        list.add(temp);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject responseElement = jsonArray.getJSONObject(i);
+                            books2 temp = new books2(
+                                    responseElement.getString("cart_id"),
+                                    responseElement.getString("product_id"),
+                                    responseElement.getString("user_id"),
+                                    responseElement.getString("quantity"),
+                                    responseElement.getString("status"),
+                                    responseElement.getString("exchange_product"),
+                                    responseElement.getString("exchange_price"),
+                                    responseElement.getString("product_title"),
+                                    responseElement.getString("product_quantity"),
+                                    responseElement.getString("product_price"),
+                                    responseElement.getString("product_brand"),
+                                    responseElement.getString("product_image"),
+                                    responseElement.getString("product_cat"));
+                            list.add(temp);
+                        }
+
+                        // Notify adapter on the UI thread
+                        requireActivity().runOnUiThread(() -> {
+                            adapter.notifyDataSetChanged();
+                            int totalPrice = calculateTotalPrice(list); // Calculate total price
+                            totalPriceTxt.setText(String.valueOf(totalPrice));
+                        });
+                    } else {
+                        String message = apiCall.getString("message");
+                        Log.e("API Error", message);
                     }
-
-                    // Notify adapter on the UI thread
-                    requireActivity().runOnUiThread(() -> {
-                        adapter.notifyDataSetChanged();
-                        int totalPrice = calculateTotalPrice(list); // Calculate total price
-                        totalPriceTxt.setText(String.valueOf(totalPrice));
-                    });
-                } else {
-                    String message = apiCall.getString("message");
-                    Log.e("API Error", message);
                 }
             } catch (JSONException e) {
                 Log.e("JSON Error", e.getMessage(), e);

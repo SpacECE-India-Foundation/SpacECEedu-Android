@@ -2,6 +2,7 @@ package com.spacECE.spaceceedu.LibForSmall;
 
 import android.os.Bundle;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -37,7 +39,8 @@ public class LibraryProductDetailed extends Fragment {
     private TextView book, author, edition, desc, price, condition;
     private Button addtocartbtn;
     private ImageView productImg;
-    private String url = "http://13.126.66.91/spacece/libforsmall/api_addToCart.php";
+    private String baseUrl ="";
+    private String libAddtoCartUrl ="";
     private int pos;
 
     @Nullable
@@ -78,11 +81,24 @@ public class LibraryProductDetailed extends Fragment {
         desc.setText(books.getProduct_desc());
         price.setText(books.getProduct_price());
         author.setText(books.getProduct_brand());
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getContext().getApplicationContext());
+            if (config != null) {
+                baseUrl= config.getString("BASE_URL");
+                String libProductimgUrl = config.getString("LIB_PRODUCTIMG");
+                libAddtoCartUrl = config.getString("LIB_ADDTOCART");
 
-        Picasso.get()
-                .load("http://13.126.66.91/spacece/libforsmall/product_images/" + books.getProduct_image())
+
+                Picasso.get()
+                .load(baseUrl+ libProductimgUrl + books.getProduct_image())
                 .error(R.drawable.tile_icon_2)
                 .into(productImg);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
 
         addtocartbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +112,7 @@ public class LibraryProductDetailed extends Fragment {
                 String accountId = account.getAccount_id();
 
                 // Prepare the POST request
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, baseUrl+libAddtoCartUrl,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
