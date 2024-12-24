@@ -655,7 +655,8 @@ public class GrowthTrackerHome extends AppCompatActivity {
                 Account account = userLocalStore.getLoggedInAccount();
                 String accountId = account.getAccount_id();
                 RequestQueue queue = Volley.newRequestQueue(this);
-                String url = baseUrl + growthFetchGrowthDataUrl + accountId + "&date=" + date;
+                String url = baseUrl + growthFetchGrowthDataUrl + 381 + "&date=" + "2024-07-10";
+//                String url = baseUrl + growthFetchGrowthDataUrl + accountId + "&date=" + date;
 
                 // Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
