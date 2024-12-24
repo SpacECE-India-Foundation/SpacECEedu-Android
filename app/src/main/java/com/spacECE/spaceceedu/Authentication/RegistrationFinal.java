@@ -315,7 +315,6 @@ public class RegistrationFinal extends AppCompatActivity {
                                 .addFormDataPart("type", "customer")
                                 .build();
                     }
-
                     Request request = new Request.Builder()
                             .url(register)
                             .post(formBody)
