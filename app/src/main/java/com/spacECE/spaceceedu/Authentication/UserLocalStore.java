@@ -19,6 +19,7 @@ public class UserLocalStore {
         String contact_number = userLocalDatabase.getString("contact_number", null);
         String UID = userLocalDatabase.getString("UID", null);
         String profile_pic = userLocalDatabase.getString("profile_pic", null);
+        System.out.println("TESTTTT"+profile_pic);
         String user_email = userLocalDatabase.getString("user_email", null);
         boolean isConsultant = userLocalDatabase.getBoolean("isConsultant", false);
 
