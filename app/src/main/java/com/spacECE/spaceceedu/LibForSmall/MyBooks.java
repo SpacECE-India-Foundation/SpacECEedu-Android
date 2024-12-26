@@ -85,7 +85,7 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
                     String baseUrl= config.getString("BASE_URL");
                     String libCartProductDataUrl = config.getString("LIB_CARTPRODUCTDATA");
                     // Construct the API URL with accountId as user_id parameter
-                    String apiUrl = baseUrl + libCartProductDataUrl + "?user_id=" + accountId;
+                    String apiUrl = baseUrl + libCartProductDataUrl + accountId;
                     JSONObject apiCall = UsefulFunctions.UsingGetAPI(apiUrl);
                     Log.i("API Response", apiCall.toString());
 
