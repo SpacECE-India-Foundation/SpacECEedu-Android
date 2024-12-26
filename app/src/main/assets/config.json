@@ -48,8 +48,6 @@
   "SPACEACTIVE_INSERTUSER": "spacec_active/api_insertUserActivity.php",
   "SPACEACTIVE_DATA_FETCH": "api/spaceactive_activities.php",
   "SPACEACTIVE_DATA_FETCH_USER": "spacec_active/api_fetchWorkdone.php?user_id=",
-  "SPACEACTIVE_SPACEACTIVITY" : "api/spaceactive_activities.php?ano=1",
-
-  "CICDTEST": "testing"
+  "SPACEACTIVE_SPACEACTIVITY" : "api/spaceactive_activities.php?ano=1"
 
 }
