@@ -286,7 +286,6 @@ public class RegistrationFinal extends AppCompatActivity {
 
                     if (TYPE != null && LANGUAGE != null && ADDRESS != null && FEE != null && QUALIFICATION != null && START_TIME != null && END_TIME != null) {
                         String[] selectedDaysArray = c_available_days.split(",");
-                        System.out.println("Inside if");
                         formBody = new MultipartBody.Builder()
                                 .setType(MultipartBody.FORM)
                                 .addFormDataPart("name", name)
@@ -305,7 +304,6 @@ public class RegistrationFinal extends AppCompatActivity {
                                 .addFormDataPart("c_qualification", QUALIFICATION)
                                 .build();
                     } else {
-                        System.out.println("Inside else");
                         formBody = new MultipartBody.Builder()
                                 .setType(MultipartBody.FORM)
                                 .addFormDataPart("name", name)
