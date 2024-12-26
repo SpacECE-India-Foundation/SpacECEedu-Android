@@ -61,11 +61,6 @@
     <string name="re_enter_pa">Re-Enter Password</string>
     <string name="register_si">REGISTER</string>
 
-    <string name="yearly_plan_text">Yearly Plan</string>
-    <string name="three_month_plan_text">Three-Month Plan</string>
-    <string name="one_month_plan_text">One-Month Plan</string>
-
-=======
     <!-- Strings used for Payment Plans -->
     <string name="yearly_plan_text">
     <font color="#FF000000" alhpa="0.87"><b> <big>₹ 1899</big></b></font>
