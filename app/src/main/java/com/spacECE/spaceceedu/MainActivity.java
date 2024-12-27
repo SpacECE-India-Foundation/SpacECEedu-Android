@@ -3,6 +3,7 @@ package com.spacECE.spaceceedu;
 import android.app.*;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,6 +43,21 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.Date;
+/////////////////////////////////////////////////
+import android.os.Handler;
+import android.os.Looper;
+
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+
+////////////////////////////////////////////////////////////////////////
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             TextView nav_name = navHead.findViewById(R.id.Main_Nav_TextView_UserName);
 
             //https connection doesn't work as of now use http
+
             nav_name.setText(ACCOUNT.getUsername());
             nav_name.setTextSize(20);
             Menu menu = navigationView.getMenu();
@@ -85,18 +102,15 @@ public class MainActivity extends AppCompatActivity {
                     Picasso.get().load(ACCOUNT.getUsername().replace("https://","http://")).into((Target)nav_name);
                 }
                 else {
-                    Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://", "http://")).into(nav_camara);
+                    //Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://", "http://")).into(nav_camara);
+                    Picasso.get().load("https://drive.google.com/uc?id=1euwFojCEAStP9mXVaUH3eLZDx39nW7eg").into(nav_camara);
                     Picasso.get().load(ACCOUNT.getUsername().replace("https://", "http://")).into((Target) nav_name);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-
             invalidateOptionsMenu();
-
-
-
 
         }
     }
@@ -389,44 +403,129 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    class GetFirstActivity extends AsyncTask<String,Void,JSONObject>{
 
-        final private JSONObject[] apiCall = {null};
+    ///////////////////////////////////////////////////////////////////////////////////
+//    class GetFirstActivity extends AsyncTask<String,Void,JSONObject>{
+//
+//        final private JSONObject[] apiCall = {null};
+//
+//        @Override
+//        protected JSONObject doInBackground(String... strings) {
+//
+//            try {
+//                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+//                if (config != null) {
+//                    String baseUrl= config.getString("BASE_URL");
+//                    String spaceActiveActivityUrl = config.getString("SPACEACTIVE_SPACEACTIVITY");
+//
+//                    apiCall[0] = UsefulFunctions.UsingGetAPI(baseUrl+spaceActiveActivityUrl);
+//                    Log.d(TAG, "Object Obtained "+apiCall[0].toString());
+//
+//                    GsonBuilder gsonBuilder = new GsonBuilder();
+//                    Gson gson = gsonBuilder.create();
+//                    ActivityData activityData = gson.fromJson(apiCall[0].toString(),ActivityData.class);
+//                    Log.d(TAG, "doInBackground: activity_dev_domain "+activityData.getData().get(0).getActivityDevDomain());
+//                    //List<Data> list = activityData.getData();
+//
+//                    DBController dbController = new DBController(MainActivity.this);
+//                    dbController.insertRecord(activityData);
+//                    Log.d(TAG, "doInBackground: "+dbController.isNewUser());
+//                }
+//
+//            }catch (RuntimeException runtimeException){
+//                Log.d(TAG, "RUNTIME EXCEPTION:::, Server did not respons");
+//            }
+//            catch (Exception e) {
+//                e.printStackTrace();
+//                Log.i("ERROR:::", "Failed to load API URLs");
+//            }
+//
+//
+//            return null;
+//        }
+//    }
+/////////////////////////////////////////////////////////////////////////////////////////
 
-        @Override
-        protected JSONObject doInBackground(String... strings) {
 
-            try {
-                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
-                if (config != null) {
-                    String baseUrl= config.getString("BASE_URL");
-                    String spaceActiveActivityUrl = config.getString("SPACEACTIVE_SPACEACTIVITY");
+    public class GetFirstActivity {
+        private static final String TAG = "GetFirstActivity";
 
-                    apiCall[0] = UsefulFunctions.UsingGetAPI(baseUrl+spaceActiveActivityUrl);
-                    Log.d(TAG, "Object Obtained "+apiCall[0].toString());
+        private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+        private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
-                    GsonBuilder gsonBuilder = new GsonBuilder();
-                    Gson gson = gsonBuilder.create();
-                    ActivityData activityData = gson.fromJson(apiCall[0].toString(),ActivityData.class);
-                    Log.d(TAG, "doInBackground: activity_dev_domain "+activityData.getData().get(0).getActivityDevDomain());
-                    //List<Data> list = activityData.getData();
+        public void execute() {
+            executorService.execute(() -> {
+                JSONObject apiResponse = null;
 
-                    DBController dbController = new DBController(MainActivity.this);
-                    dbController.insertRecord(activityData);
-                    Log.d(TAG, "doInBackground: "+dbController.isNewUser());
+                try {
+                    // Load configuration
+                    JSONObject config = ConfigUtils.loadConfig(MainActivity.this.getApplicationContext());
+                    if (config != null) {
+                        String baseUrl = config.getString("BASE_URL");
+                        String spaceActiveActivityUrl = config.getString("SPACEACTIVE_SPACEACTIVITY");
+                        String fullUrl = baseUrl + spaceActiveActivityUrl;
+
+                        // Log the full URL
+                        Log.d(TAG, "Testing API call to: " + fullUrl);
+
+                        // Check if the URL is reachable (optional, for debugging)
+                        if (!isUrlReachable(fullUrl)) {
+                            Log.e(TAG, "URL is not reachable: " + fullUrl);
+                            return;
+                        }
+
+                        // Make API call
+                        apiResponse = UsefulFunctions.UsingGetAPI(fullUrl);
+                        Log.d(TAG, "Object Obtained: " + apiResponse.toString());
+
+                        // Parse API response
+                        Gson gson = new GsonBuilder().create();
+                        ActivityData activityData = gson.fromJson(apiResponse.toString(), ActivityData.class);
+                        Log.d(TAG, "Activity Dev Domain: " + activityData.getData().get(0).getActivityDevDomain());
+
+                        // Save to database
+                        DBController dbController = new DBController(MainActivity.this);
+                        dbController.insertRecord(activityData);
+                        Log.d(TAG, "Is new user: " + dbController.isNewUser());
+                    } else {
+                        Log.e(TAG, "Config is null. Unable to proceed.");
+                    }
+                } catch (RuntimeException e) {
+                    Log.e(TAG, "Runtime Exception: Server did not respond", e);
+                } catch (Exception e) {
+                    Log.e(TAG, "Error: Failed to load API URLs", e);
                 }
 
-            }catch (RuntimeException runtimeException){
-                Log.d(TAG, "RUNTIME EXCEPTION:::, Server did not respons");
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-                Log.i("ERROR:::", "Failed to load API URLs");
-            }
+                // Handle UI updates on the main thread
+                final JSONObject finalApiResponse = apiResponse;
+                mainHandler.post(() -> {
+                    if (finalApiResponse != null) {
+                        Log.d(TAG, "UI update with API response");
+                        // Update UI here if necessary
+                    } else {
+                        Log.d(TAG, "API response is null, no UI update");
+                    }
+                });
+            });
+        }
 
+        public void shutDown() {
+            executorService.shutdown();
+        }
 
-            return null;
+        private boolean isUrlReachable(String url) {
+            try {
+                URL testUrl = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) testUrl.openConnection();
+                connection.setRequestMethod("HEAD");
+                connection.setConnectTimeout(3000); // Timeout in milliseconds
+                connection.setReadTimeout(3000);
+                int responseCode = connection.getResponseCode();
+                return (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT);
+            } catch (IOException e) {
+                Log.e(TAG, "Error checking URL reachability: " + e.getMessage());
+                return false;
+            }
         }
     }
-
 }

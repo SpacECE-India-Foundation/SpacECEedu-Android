@@ -12,46 +12,54 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profile_pic"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
             android:src="@drawable/profile"
-            android:layout_marginTop="50dp"/>
+            android:contentDescription="Profile Image"
+            app:shapeAppearanceOverlay="@style/CircularImage"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
+            android:paddingTop="15dp"
+            android:paddingStart="15dp"
+            android:layout_marginEnd="16dp" />
 
         <TextView
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/name"
             android:text="Name"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:textSize="25dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp" />
 
         <TextView
+            android:id="@+id/ShowName_Profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Name"
-            android:id="@+id/ShowName_Profile"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:textSize="25dp"
             android:textColor="@color/black" />
 
         <TextView
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email ID"
-            android:id="@+id/email"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:textSize="25dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:id="@+id/ShowEmail_Profile"
@@ -64,16 +72,16 @@
             android:textColor="@color/black" />
 
         <TextView
+            android:id="@+id/mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mobile No."
-            android:id= "@+id/mobile"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:textSize="25dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:id="@+id/ShowMobileNo_profile"
@@ -94,7 +102,7 @@
             android:text="Sign out"
             android:textSize="25dp"
             android:padding="10dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/Login_btn_profile"
@@ -105,7 +113,7 @@
             android:text="Login"
             android:textSize="25dp"
             android:padding="10dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </ScrollView>

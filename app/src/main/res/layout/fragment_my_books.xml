@@ -37,7 +37,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginBottom="30dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/button_checkout"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
@@ -71,7 +71,7 @@
 
 
     <Button
-        android:id="@+id/button_checkout"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
