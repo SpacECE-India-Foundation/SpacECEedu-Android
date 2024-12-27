@@ -45,10 +45,9 @@
 
                 <EditText
                     android:id="@+id/UserRegistration_editTextText_Name"
-                    android:layout_width="300dp"
-                    android:layout_height="54dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/logintextview"
                     android:fontFamily="@font/poppins"
                     android:hint="@string/enter_user_"
                     android:textColor="@color/black"
@@ -64,10 +63,9 @@
 
                 <EditText
                     android:id="@+id/UserRegistration_editTextText_PhoneNumber"
-                    android:layout_width="300dp"
-                    android:layout_height="54dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/logintextview"
                     android:fontFamily="@font/poppins"
                     android:hint="@string/enter_phone"
                     android:textColor="@color/black"/>
@@ -83,8 +81,7 @@
                 <EditText
                     android:id="@+id/UserRegistration_editTextText_Email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/logintextview"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
@@ -103,8 +100,7 @@
                 <EditText
                     android:id="@+id/UserRegistration_editTextText_Password"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/logintextview"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
@@ -123,8 +119,7 @@
                 <EditText
                     android:id="@+id/UserRegistration_editTextText_Re_Password"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="@drawable/logintextview"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/poppins"
                     android:inputType="textPassword"
                     android:hint="@string/re_enter_pa"
