@@ -27,6 +27,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/consultus_appointments_list_item"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:text="Designed by Ashish"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:alpha=".5"
+                />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

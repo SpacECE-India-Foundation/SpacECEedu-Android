@@ -462,7 +462,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Outdoor Play timed"
+                    android:text="Outdoor Play time"
                     android:textColor="#404040"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -273,6 +273,16 @@
                     </LinearLayout>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:text="Designed by Ashish"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:alpha=".5"
+                />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
