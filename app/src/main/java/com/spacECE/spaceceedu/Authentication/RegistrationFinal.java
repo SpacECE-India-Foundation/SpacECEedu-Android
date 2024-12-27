@@ -293,7 +293,6 @@ public class RegistrationFinal extends AppCompatActivity {
 
                     if (TYPE != null && LANGUAGE != null && ADDRESS != null && FEE != null && QUALIFICATION != null && START_TIME != null && END_TIME != null) {
                         String[] selectedDaysArray = c_available_days.split(",");
-
                         formBody = new MultipartBody.Builder()
                                 .setType(MultipartBody.FORM)
                                 .addFormDataPart("name", name)
@@ -442,22 +441,22 @@ public class RegistrationFinal extends AppCompatActivity {
             showToast("Field cannot be empty");
             return false;
         }
-        else if (password.length() < 8) {
-            showToast("Password must be at least 8 characters long");
-            return false;
-        } else if (!password.matches(".*[A-Z].*")) {
-            showToast("Password must contain at least one uppercase letter");
-            return false;
-        } else if (!password.matches(".*[a-z].*")) {
-            showToast("Password must contain at least one lowercase letter");
-            return false;
-        } else if (!password.matches(".*\\d.*")) {
-            showToast("Password must contain at least one digit");
-            return false;
-        } else if (!password.matches(".*[@#$%^&+=!].*")) {
-            showToast("Password must contain at least one special character");
-            return false;
-        }
+//        else if (password.length() < 8) {
+//            showToast("Password must be at least 8 characters long");
+//            return false;
+//        } else if (!password.matches(".*[A-Z].*")) {
+//            showToast("Password must contain at least one uppercase letter");
+//            return false;
+//        } else if (!password.matches(".*[a-z].*")) {
+//            showToast("Password must contain at least one lowercase letter");
+//            return false;
+//        } else if (!password.matches(".*\\d.*")) {
+//            showToast("Password must contain at least one digit");
+//            return false;
+//        } else if (!password.matches(".*[@#$%^&+=!].*")) {
+//            showToast("Password must contain at least one special character");
+//            return false;
+//        }
         return true;
     }
 
