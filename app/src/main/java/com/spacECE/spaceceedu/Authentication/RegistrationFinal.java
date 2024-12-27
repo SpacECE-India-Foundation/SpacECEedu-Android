@@ -83,6 +83,10 @@ public class RegistrationFinal extends AppCompatActivity {
         END_TIME = intent.getStringExtra("EndTime");
         c_available_days = intent.getStringExtra("c_available_days");
 
+        int number = Integer.parseInt(TYPE);
+        number+=1;
+        TYPE = String.valueOf(number);
+
         Log.d("RegistrationFinal", "TYPE: " + TYPE);
         Log.d("RegistrationFinal", "LANGUAGE: " + LANGUAGE);
         Log.d("RegistrationFinal", "ADDRESS: " + ADDRESS);
@@ -91,6 +95,9 @@ public class RegistrationFinal extends AppCompatActivity {
         Log.d("RegistrationFinal", "START_TIME: " + START_TIME);
         Log.d("RegistrationFinal", "END_TIME: " + END_TIME);
         Log.d("RegistrationFinal", "c_available_days: " + c_available_days);
+
+
+
 
         Log.d("TAG", "onCreate: " + TYPE + " " + LANGUAGE + " " + ADDRESS + " " + FEE + " " + QUALIFICATION + " " + START_TIME + " " + END_TIME);
 
@@ -312,7 +319,7 @@ public class RegistrationFinal extends AppCompatActivity {
                                 .addFormDataPart("password", password)
                                 .addFormDataPart("phone", phone)
                                 .addFormDataPart("image", name + ".jpg", RequestBody.create(MediaType.parse("image/*jpg"), encodedImage))
-                                .addFormDataPart("type", "customer")
+                                .addFormDataPart("type", "consultant")
                                 .build();
                     }
                     Request request = new Request.Builder()
