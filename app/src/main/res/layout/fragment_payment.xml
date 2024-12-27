@@ -31,72 +31,53 @@
             android:textSize="20sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:alpha="0.5"
-        android:background="@color/gray_400"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="1dp"
         android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-
             android:padding="16dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Price Display -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="1dp"
-                android:background="@color/gray_200"
-                android:padding="0dp">
-                <!-- Price Display -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="₹ 499"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="36sp"
-                    android:textStyle="bold" />
+                android:text="₹ 499"
+                android:textSize="36sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="/mo"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="16sp" />
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.5"
-                android:background="@color/gray_400"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/mo"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="16sp" />
 
             <!-- Features Layout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="@color/gray_200"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal"
                 android:weightSum="4">
 
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_weight="1"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="vertical">-->
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:contentDescription="star"
-                    android:src="@drawable/ic_star"
-
+                    android:src="@drawable/baseline_star_24"
                     app:tint="@color/orange" />
 
                 <TextView
@@ -105,15 +86,13 @@
                     android:layout_marginTop="4dp"
                     android:padding="6dp"
                     android:text="Unlimited calls"
-                    android:layout_marginRight="10dp"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:contentDescription="star1"
-                    android:src="@drawable/ic_star"
-                    android:layout_marginTop="5dp"
+                    android:src="@drawable/baseline_star_24"
                     app:tint="@color/orange" />
 
                 <TextView
@@ -122,14 +101,12 @@
                     android:layout_marginTop="4dp"
                     android:padding="6dp"
                     android:text="5 users"
-                    android:layout_marginRight="10dp"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginTop="5dp"
                     android:contentDescription="star"
-                    android:src="@drawable/ic_star"
+                    android:src="@drawable/baseline_star_24"
                     app:tint="@color/orange" />
 
                 <TextView
@@ -138,14 +115,12 @@
                     android:layout_marginTop="4dp"
                     android:padding="6dp"
                     android:text="IVR"
-                    android:layout_marginRight="10dp"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:contentDescription="star"
-                    android:src="@drawable/ic_star"
-                    android:layout_marginTop="5dp"
+                    android:src="@drawable/baseline_star_24"
                     app:tint="@color/orange" />
 
                 <TextView
@@ -154,9 +129,19 @@
                     android:layout_marginTop="4dp"
                     android:padding="6dp"
                     android:text="WhatsApp"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
+
+
+
+
+
+
 
                 <!--                </LinearLayout>-->
+
+                <!-- Repeat for other features -->
+                <!-- Similar LinearLayout blocks for 5 users, IVR, and WhatsApp -->
+
             </LinearLayout>
 
             <!-- Plan Selection Title -->
@@ -180,8 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    app:cardUseCompatPadding="true"
-                    app:cardCornerRadius="12dp"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <RadioButton
@@ -191,7 +175,7 @@
                         android:padding="16dp"
                         android:button="@null"
                         android:drawableEnd="@drawable/custom_radio_button"
-                        android:text="@string/yearly_plan_text"
+                        android:text="₹ 1899 12 months\n(₹ 158.25/month)"
                         android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
 
@@ -200,8 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:cardCornerRadius="12dp"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <RadioButton
@@ -212,7 +195,7 @@
                         android:button="@null"
 
                         android:drawableEnd="@drawable/custom_radio_button"
-                        android:text="@string/three_month_plan_text"
+                        android:text="₹ 1250 3 months\n(₹ 416.67/month)"
                         android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
 
@@ -221,8 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:cardCornerRadius="12dp"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <RadioButton
@@ -233,7 +215,7 @@
 
                         android:button="@null"
                         android:drawableEnd="@drawable/custom_radio_button"
-                        android:text="@string/one_month_plan_text"
+                        android:text="₹ 499 / months"
                         android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
 
@@ -244,18 +226,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                app:cardUseCompatPadding="true"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="2dp">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:gravity="center"
                     android:text="* Once upgraded, you will not be able to restore previous plan"
-                    android:textColor="@android:color/black"
-                    android:padding="5dp"
+                    android:textColor="@android:color/holo_red_light"
                     android:textSize="14sp" />
             </androidx.cardview.widget.CardView>
 
@@ -264,10 +244,9 @@
                 android:id="@+id/upgradeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="14dp"
                 android:background="@drawable/orange_button_background"
-                android:backgroundTint="@color/orange"
-                android:padding="13dp"
+                android:padding="16dp"
                 android:text="UPGRADE PLAN"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
