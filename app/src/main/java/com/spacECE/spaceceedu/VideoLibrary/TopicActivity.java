@@ -101,10 +101,6 @@ public class TopicActivity extends AppCompatActivity {
 
         // Update like/dislike status if user is logged in
         if (MainActivity.ACCOUNT != null) {
-            // Ensure buttons are in their default (non-selected) state
-            like_status_main = false;
-            dislike_status_main = false;
-            set_like_dislike_btn_status(0, 0); // Deselect both like and dislike by default
             update_like_dislike(finalV_id);
         }
 
@@ -221,101 +217,67 @@ public class TopicActivity extends AppCompatActivity {
     }
 
     private void handleLikeButton(String finalV_id) {
-        if (MainActivity.ACCOUNT == null) {
-            Toast.makeText(TopicActivity.this, "Sign-in to Like Video", Toast.LENGTH_SHORT).show();
+
+        if (like_status_main) {
+            set_like_dislike_btn_status(0, 0);
         } else {
-            if (like_status_main) {
-                set_like_dislike_btn_status(0, 0); // Deselect like and dislike
-                like_status_main = false; // Reset like status
-            } else {
-                set_like_dislike_btn_status(1, 0); // Select like, deselect dislike
-                dislike_status_main = false; // Reset dislike status
-                like_status_main = true; // Set like status
+            set_like_dislike_btn_status(1, 0);
+            dislike_status_main = false;
+            like_status_main = true;
+        }
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl = config.getString("BASE_URL");
+                String likevideoUrl = config.getString("SPACETUBE_LIKEVIDEO");
+                Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI(baseUrl + likevideoUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
+                thread.start();
+
+                new Thread(() -> {
+                    try {
+                        thread.join(); // Wait for the API call thread to finish
+                        runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id)); // Update UI on the main thread
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
             }
-
-            try {
-                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
-                if (config != null) {
-                    String baseUrl = config.getString("BASE_URL");
-                    String likevideoUrl = config.getString("SPACETUBE_LIKEVIDEO");
-                    // Make the API call asynchronously using OkHttp's enqueue method
-                    OkHttpClient client = new OkHttpClient();
-                    String url = baseUrl + likevideoUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id;
-                    Request request = new Request.Builder().url(url).build();
-
-                    client.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            e.printStackTrace();
-                            runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Request Failed", Toast.LENGTH_SHORT).show());
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            if (!response.isSuccessful()) {
-                                Log.d("API not responding","not responding");
-                                throw new IOException("Unexpected code " + response);
-                            }
-                            // After the request finishes, update the like and dislike count
-                            String responseBody = response.body().string();
-                            Log.d("API_RESPONSE", responseBody); // Print response
-
-                            runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id));
-                        }
-                    });
-                }
-            }catch (Exception e) {
-                e.printStackTrace();
-                Log.i("ERROR:::", "Failed to load API URLs");
-            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
         }
     }
+
     private void handleDislikeButton(String finalV_id) {
-        if (MainActivity.ACCOUNT == null) {
-            Toast.makeText(TopicActivity.this, "Sign-in to Dislike Video", Toast.LENGTH_SHORT).show();
+
+
+        if (dislike_status_main) {
+            set_like_dislike_btn_status(0, 0);
         } else {
-            if (dislike_status_main) {
-                set_like_dislike_btn_status(0, 0); // Deselect like and dislike
-                dislike_status_main = false; // Reset dislike status
-            } else {
-                set_like_dislike_btn_status(0, 1); // Select dislike, deselect like
-                like_status_main = false; // Reset like status
-                dislike_status_main = true; // Set dislike status
+            set_like_dislike_btn_status(0, 1);
+            like_status_main = false;
+            dislike_status_main = true;
+        }
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String dislikevideoUrl = config.getString("SPACETUBE_DISLIKEVIDEO");
+                Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI(baseUrl + dislikevideoUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
+                thread.start();
+
+                new Thread(() -> {
+                    try {
+                        thread.join(); // Wait for the API call thread to finish
+                        runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id)); // Update UI on the main thread
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
             }
-
-            try {
-                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
-                if (config != null) {
-                    String baseUrl= config.getString("BASE_URL");
-                    String dislikevideoUrl = config.getString("SPACETUBE_DISLIKEVIDEO");
-
-                    OkHttpClient client = new OkHttpClient();
-                    String url = baseUrl+ dislikevideoUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id;
-                    Request request = new Request.Builder().url(url).build();
-
-                    client.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            e.printStackTrace();
-                            runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Request Failed", Toast.LENGTH_SHORT).show());
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            if (!response.isSuccessful()) {
-                                Log.d("===================","not responding");
-                                throw new IOException("Unexpected code " + response);
-
-                            }
-                            // After the request finishes, update the like and dislike count
-                            runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id));
-                        }
-                    });
-                }
-            }catch (Exception e) {
-                e.printStackTrace();
-                Log.i("ERROR:::", "Failed to load API URLs");
-            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
         }
     }
 
@@ -554,21 +516,16 @@ public class TopicActivity extends AppCompatActivity {
         }
     }
 
-    void set_like_dislike_btn_status(int like, int dislike) {
-        if (like == 0) {
-            b_likeVideo.setImageResource(R.drawable.ic_baseline_thumb_up_24); // Set to default like icon
-            like_status_main = false;  // Ensure like status is false
+    void set_like_dislike_btn_status(int l, int dl) {
+        if (l == 0) {
+            b_likeVideo.setImageResource(R.drawable.ic_baseline_thumb_up_24);
         } else {
-            b_likeVideo.setImageResource(R.drawable.ic_baseline_thumb_up_highlighted); // Set to selected like icon
-            like_status_main = true;   // Ensure like status is true
+            b_likeVideo.setImageResource(R.drawable.ic_baseline_thumb_up_highlighted);
         }
-
-        if (dislike == 0) {
-            b_dislikeVideo.setImageResource(R.drawable.ic_baseline_thumb_down_alt_24); // Set to default dislike icon
-            dislike_status_main = false; // Ensure dislike status is false
+        if (dl == 0) {
+            b_dislikeVideo.setImageResource(R.drawable.ic_baseline_thumb_down_alt_24);
         } else {
-            b_dislikeVideo.setImageResource(R.drawable.ic_baseline_thumb_down_highlighted); // Set to selected dislike icon
-            dislike_status_main = true;  // Ensure dislike status is true
+            b_dislikeVideo.setImageResource(R.drawable.ic_baseline_thumb_down_highlighted);
         }
     }
 

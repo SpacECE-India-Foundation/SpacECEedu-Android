@@ -171,21 +171,21 @@
                             android:textColor="@color/black"/>
 
                         <TextView
-                            android:background="@drawable/cover_edges"
-                            android:padding="@dimen/_5sdp"
-                            android:layout_gravity="start"
-                            android:drawableLeft="@drawable/calendar_icon"
+                            android:id="@+id/Calendar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="start"
                             android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_15sdp"
                             android:layout_marginTop="@dimen/_20sdp"
-                            android:textSize="@dimen/_15ssp"
-                            android:textColor="@color/black"
-                            android:id="@+id/Calendar"
-                            android:text="Click Here to slect Date"
+                            android:layout_marginEnd="@dimen/_15sdp"
+                            android:background="@drawable/cover_edges"
+                            android:drawableLeft="@drawable/calendar_icon"
+                            android:padding="@dimen/_5sdp"
+                            android:text="Click Here to select Date"
                             android:textAlignment="viewStart"
-                            android:textStyle="bold"/>
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15ssp"
+                            android:textStyle="bold" />
 
 
                         <TextView
