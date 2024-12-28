@@ -82,14 +82,6 @@ public class RegistrationFinal extends AppCompatActivity {
         END_TIME = intent.getStringExtra("EndTime");
         c_available_days = intent.getStringExtra("c_available_days");
 
-//        System.out.println("b1");
-//        System.out.println(TYPE);
-//        int number = Integer.parseInt(TYPE);
-//        System.out.println(number);
-//        number+=1;
-//        TYPE = String.valueOf(number);
-//        System.out.println(TYPE);
-
         Log.d("RegistrationFinal", "TYPE: " + TYPE);
         Log.d("RegistrationFinal", "LANGUAGE: " + LANGUAGE);
         Log.d("RegistrationFinal", "ADDRESS: " + ADDRESS);
@@ -292,7 +284,6 @@ public class RegistrationFinal extends AppCompatActivity {
 
                     if (TYPE != null && LANGUAGE != null && ADDRESS != null && FEE != null && QUALIFICATION != null && START_TIME != null && END_TIME != null) {
                         String[] selectedDaysArray = c_available_days.split(",");
-
                         formBody = new MultipartBody.Builder()
                                 .setType(MultipartBody.FORM)
                                 .addFormDataPart("name", name)
@@ -318,10 +309,9 @@ public class RegistrationFinal extends AppCompatActivity {
                                 .addFormDataPart("password", password)
                                 .addFormDataPart("phone", phone)
                                 .addFormDataPart("image", name + ".jpg", RequestBody.create(MediaType.parse("image/*jpg"), encodedImage))
-                                .addFormDataPart("type", "consultant")
+                                .addFormDataPart("type", "customer")
                                 .build();
                     }
-
                     Request request = new Request.Builder()
                             .url(register)
                             .post(formBody)
