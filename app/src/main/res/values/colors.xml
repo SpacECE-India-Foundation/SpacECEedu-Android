@@ -23,15 +23,17 @@
 
 
     <color name="orange">#F8A800</color>
+
     <color name="green">#008000</color>
     <color name="gray">#4F4F4F</color>
     <color name="red">#FF0000</color>
+
+
     <color name="blue">#2390F3</color>
     <color name="yellow">#FAF115</color>
     <color name="red2">#F36C6A</color>
 
 
-    <!--    Growth Tracker-->
     <color name="growth_tracker_water">#2390F3</color>
     <color name="growth_tracker_fruit">#FC58A7</color>
     <color name="growth_tracker_vegitable">#73E969</color>
