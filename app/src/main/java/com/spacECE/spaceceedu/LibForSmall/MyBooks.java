@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.R;
@@ -64,6 +66,23 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
         // Fetch book data using accountId
         fetchBooksData(accountId);
 
+        Button checkoutButton = v.findViewById(R.id.button_checkout);
+        checkoutButton.setOnClickListener(view -> {
+            ArrayList<String> bookNames = new ArrayList<>();
+            for (books2 book : list) {
+                bookNames.add(book.getProduct_title());
+            }
+
+            OrderTrackingFragment orderTrackingFragment = OrderTrackingFragment.newInstance(bookNames);
+
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.libs_for_small_fragment_container, orderTrackingFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
         return v;
     }
 
@@ -85,8 +104,7 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
                     String baseUrl= config.getString("BASE_URL");
                     String libCartProductDataUrl = config.getString("LIB_CARTPRODUCTDATA");
                     // Construct the API URL with accountId as user_id parameter
-                    String apiUrl = baseUrl + libCartProductDataUrl + "?user_id=" + accountId;
-
+                    String apiUrl = baseUrl + libCartProductDataUrl + accountId;
                     JSONObject apiCall = UsefulFunctions.UsingGetAPI(apiUrl);
                     Log.i("API Response", apiCall.toString());
 
