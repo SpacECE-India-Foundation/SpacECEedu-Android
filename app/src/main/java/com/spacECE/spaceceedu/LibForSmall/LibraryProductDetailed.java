@@ -110,6 +110,10 @@ public class LibraryProductDetailed extends Fragment {
                 UserLocalStore userLocalStore = new UserLocalStore(getActivity());
                 Account account = userLocalStore.getLoggedInAccount();
                 String accountId = account.getAccount_id();
+                if(accountId==null){
+                    Toast.makeText(getActivity(), "Login First", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 // Prepare the POST request
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, baseUrl+libAddtoCartUrl,
