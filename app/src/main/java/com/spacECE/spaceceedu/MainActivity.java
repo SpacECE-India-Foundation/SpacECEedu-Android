@@ -3,7 +3,6 @@ package com.spacECE.spaceceedu;
 import android.app.*;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -43,21 +42,6 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.Date;
-/////////////////////////////////////////////////
-import android.os.Handler;
-import android.os.Looper;
-
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-
-////////////////////////////////////////////////////////////////////////
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,15 +50,13 @@ public class MainActivity extends AppCompatActivity {
     public static Account ACCOUNT=null;
     UserLocalStore userLocalStore;
     NavigationView navigationView;
-    DBController dbController;
-    int dayNo;
     public final String TAG = "MainActivity";
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
         SetAccountDetails();
-
 
     }
 
@@ -90,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
             TextView nav_name = navHead.findViewById(R.id.Main_Nav_TextView_UserName);
 
             //https connection doesn't work as of now use http
-
             nav_name.setText(ACCOUNT.getUsername());
             nav_name.setTextSize(20);
             Menu menu = navigationView.getMenu();
@@ -102,15 +83,18 @@ public class MainActivity extends AppCompatActivity {
                     Picasso.get().load(ACCOUNT.getUsername().replace("https://","http://")).into((Target)nav_name);
                 }
                 else {
-                    //Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://", "http://")).into(nav_camara);
-                    Picasso.get().load("https://drive.google.com/uc?id=1euwFojCEAStP9mXVaUH3eLZDx39nW7eg").into(nav_camara);
+                    Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://", "http://")).into(nav_camara);
                     Picasso.get().load(ACCOUNT.getUsername().replace("https://", "http://")).into((Target) nav_name);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
+
             invalidateOptionsMenu();
+
+
+
 
         }
     }
@@ -123,8 +107,9 @@ public class MainActivity extends AppCompatActivity {
         //disabled night mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        userLocalStore = new UserLocalStore(getApplicationContext());
+        userLocalStore = new UserLocalStore(this);
         //FirebaseApp.initializeApp(this);
+        fragmentManager = getSupportFragmentManager();
 
         Log.i("DEVICE TOKEN","In next line");
         //Android ID:
@@ -166,9 +151,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Navigation Drawer
         drawer = findViewById(R.id.Main_NavView_drawer);
-        navigationView = (NavigationView) findViewById(R.id.Main_navView_drawer);
+        navigationView = findViewById(R.id.Main_navView_drawer);
 
-        try {
+        //navigationDrawer listener
+        navigationView.setNavigationItemSelectedListener(drawerListener);
+
+         /*try {
             navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -201,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }catch (Exception e){
             Log.e("onCreate: ","Error" );
-        }
+        } */
         //Toolbar support for navigationDrawer
         toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -281,14 +269,66 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    NavigationBarView.OnItemSelectedListener navListener =
+    private final NavigationBarView.OnItemSelectedListener navListener = item -> {
+        androidx.fragment.app.Fragment selectedFragment = null;
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                selectedFragment = new FragmentMain();
+                break;
+            case R.id.nav_profile:
+                selectedFragment = new FragmentProfile();
+                break;
+            case R.id.nav_help:
+                selectedFragment = new FragmentAbout();
+                break;
+        }
+        showFragment(selectedFragment);
+        return true;
+    };
+
+    private final NavigationView.OnNavigationItemSelectedListener drawerListener = item -> {
+        androidx.fragment.app.Fragment selectedFragment = null;
+        switch (item.getItemId()) {
+            case R.id.Home:
+                selectedFragment = new FragmentMain();
+                break;
+            case R.id.payments:
+                selectedFragment = new FragmentPayment();
+                break;
+            case R.id.profile:
+                selectedFragment = new FragmentProfile();
+                break;
+            case R.id.AboutUs:
+                selectedFragment = new FragmentAbout();
+                break;
+            case R.id.Signout:
+                signOut();
+                return true;
+            // Add other drawer navigation items here...
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        showFragment(selectedFragment);
+        return true;
+    };
+
+    private void showFragment(androidx.fragment.app.Fragment fragment) {
+        if (fragment != null) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.Main_Fragment_layout, fragment)
+                    .commitAllowingStateLoss();
+        }
+    }
+
+    /*NavigationBarView.OnItemSelectedListener navListener =
             new NavigationBarView.OnItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
+                    Log.d("BottomNav", "Item selected: " + item.getItemId());
 
                     switch (item.getItemId()) {
                         case R.id.nav_home:
+                            Log.d("BottomNav", "nav_home selected");
                             selectedFragment = new FragmentMain();
                             break;
                         case R.id.nav_profile:
@@ -301,12 +341,23 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new FragmentMain();
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.Main_Fragment_layout,
-                            selectedFragment).commit();
+                    if(selectedFragment != null){
+                        try {
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.Main_Fragment_layout, selectedFragment)
+                                    .commit();
+                            Log.d("BottomNav", "Fragment transaction committed");
+                        } catch (IllegalStateException e) {
+                            Log.e("BottomNav", "Fragment transaction failed: " + e.getMessage());
+                            // Handle the exception appropriately, perhaps by showing an error message.
+                        }
+                    }else {
+                        Log.e("BottomNav", "Selected fragment is null");
+                    }
 
                     return true;
                 }
-            };
+            }; */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -403,129 +454,43 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    class GetFirstActivity extends AsyncTask<String,Void,JSONObject>{
 
-    ///////////////////////////////////////////////////////////////////////////////////
-//    class GetFirstActivity extends AsyncTask<String,Void,JSONObject>{
-//
-//        final private JSONObject[] apiCall = {null};
-//
-//        @Override
-//        protected JSONObject doInBackground(String... strings) {
-//
-//            try {
-//                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
-//                if (config != null) {
-//                    String baseUrl= config.getString("BASE_URL");
-//                    String spaceActiveActivityUrl = config.getString("SPACEACTIVE_SPACEACTIVITY");
-//
-//                    apiCall[0] = UsefulFunctions.UsingGetAPI(baseUrl+spaceActiveActivityUrl);
-//                    Log.d(TAG, "Object Obtained "+apiCall[0].toString());
-//
-//                    GsonBuilder gsonBuilder = new GsonBuilder();
-//                    Gson gson = gsonBuilder.create();
-//                    ActivityData activityData = gson.fromJson(apiCall[0].toString(),ActivityData.class);
-//                    Log.d(TAG, "doInBackground: activity_dev_domain "+activityData.getData().get(0).getActivityDevDomain());
-//                    //List<Data> list = activityData.getData();
-//
-//                    DBController dbController = new DBController(MainActivity.this);
-//                    dbController.insertRecord(activityData);
-//                    Log.d(TAG, "doInBackground: "+dbController.isNewUser());
-//                }
-//
-//            }catch (RuntimeException runtimeException){
-//                Log.d(TAG, "RUNTIME EXCEPTION:::, Server did not respons");
-//            }
-//            catch (Exception e) {
-//                e.printStackTrace();
-//                Log.i("ERROR:::", "Failed to load API URLs");
-//            }
-//
-//
-//            return null;
-//        }
-//    }
-/////////////////////////////////////////////////////////////////////////////////////////
+        final private JSONObject[] apiCall = {null};
 
+        @Override
+        protected JSONObject doInBackground(String... strings) {
 
-    public class GetFirstActivity {
-        private static final String TAG = "GetFirstActivity";
+            try {
+                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+                if (config != null) {
+                    String baseUrl= config.getString("BASE_URL");
+                    String spaceActiveActivityUrl = config.getString("SPACEACTIVE_SPACEACTIVITY");
 
-        private final ExecutorService executorService = Executors.newSingleThreadExecutor();
-        private final Handler mainHandler = new Handler(Looper.getMainLooper());
+                    apiCall[0] = UsefulFunctions.UsingGetAPI(baseUrl+spaceActiveActivityUrl);
+                    Log.d(TAG, "Object Obtained "+apiCall[0].toString());
 
-        public void execute() {
-            executorService.execute(() -> {
-                JSONObject apiResponse = null;
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    Gson gson = gsonBuilder.create();
+                    ActivityData activityData = gson.fromJson(apiCall[0].toString(),ActivityData.class);
+                    Log.d(TAG, "doInBackground: activity_dev_domain "+activityData.getData().get(0).getActivityDevDomain());
+                    //List<Data> list = activityData.getData();
 
-                try {
-                    // Load configuration
-                    JSONObject config = ConfigUtils.loadConfig(MainActivity.this.getApplicationContext());
-                    if (config != null) {
-                        String baseUrl = config.getString("BASE_URL");
-                        String spaceActiveActivityUrl = config.getString("SPACEACTIVE_SPACEACTIVITY");
-                        String fullUrl = baseUrl + spaceActiveActivityUrl;
-
-                        // Log the full URL
-                        Log.d(TAG, "Testing API call to: " + fullUrl);
-
-                        // Check if the URL is reachable (optional, for debugging)
-                        if (!isUrlReachable(fullUrl)) {
-                            Log.e(TAG, "URL is not reachable: " + fullUrl);
-                            return;
-                        }
-
-                        // Make API call
-                        apiResponse = UsefulFunctions.UsingGetAPI(fullUrl);
-                        Log.d(TAG, "Object Obtained: " + apiResponse.toString());
-
-                        // Parse API response
-                        Gson gson = new GsonBuilder().create();
-                        ActivityData activityData = gson.fromJson(apiResponse.toString(), ActivityData.class);
-                        Log.d(TAG, "Activity Dev Domain: " + activityData.getData().get(0).getActivityDevDomain());
-
-                        // Save to database
-                        DBController dbController = new DBController(MainActivity.this);
-                        dbController.insertRecord(activityData);
-                        Log.d(TAG, "Is new user: " + dbController.isNewUser());
-                    } else {
-                        Log.e(TAG, "Config is null. Unable to proceed.");
-                    }
-                } catch (RuntimeException e) {
-                    Log.e(TAG, "Runtime Exception: Server did not respond", e);
-                } catch (Exception e) {
-                    Log.e(TAG, "Error: Failed to load API URLs", e);
+                    DBController dbController = new DBController(MainActivity.this);
+                    dbController.insertRecord(activityData);
+                    Log.d(TAG, "doInBackground: "+dbController.isNewUser());
                 }
 
-                // Handle UI updates on the main thread
-                final JSONObject finalApiResponse = apiResponse;
-                mainHandler.post(() -> {
-                    if (finalApiResponse != null) {
-                        Log.d(TAG, "UI update with API response");
-                        // Update UI here if necessary
-                    } else {
-                        Log.d(TAG, "API response is null, no UI update");
-                    }
-                });
-            });
-        }
-
-        public void shutDown() {
-            executorService.shutdown();
-        }
-
-        private boolean isUrlReachable(String url) {
-            try {
-                URL testUrl = new URL(url);
-                HttpURLConnection connection = (HttpURLConnection) testUrl.openConnection();
-                connection.setRequestMethod("HEAD");
-                connection.setConnectTimeout(3000); // Timeout in milliseconds
-                connection.setReadTimeout(3000);
-                int responseCode = connection.getResponseCode();
-                return (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT);
-            } catch (IOException e) {
-                Log.e(TAG, "Error checking URL reachability: " + e.getMessage());
-                return false;
+            }catch (RuntimeException runtimeException){
+                Log.d(TAG, "RUNTIME EXCEPTION:::, Server did not respons");
             }
+            catch (Exception e) {
+                e.printStackTrace();
+                Log.i("ERROR:::", "Failed to load API URLs");
+            }
+
+
+            return null;
         }
     }
 }

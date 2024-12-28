@@ -165,45 +165,53 @@
         </LinearLayout>
     </LinearLayout>
 
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="5dp">-->
+    <!--    <ScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:padding="5dp">-->
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/Topic_TextView_Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="15dp"
+            android:alpha="0.7"
+            android:background="@drawable/round_background_grey"
+            android:text="TextView"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/Topic_TextView_Description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:alpha="0.7"
-                android:background="@drawable/round_background_grey"
-                android:text="TextView"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView
+            android:layout_marginTop="15dp"
+            android:textSize="13dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="left"
+            android:textColor="@color/black"
+            android:text="Comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TextView>
+        <TextView
+            android:id="@+id/tv_no_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text=""  />
+        <ListView
+            android:id="@+id/Topics_comments_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
 
-            <TextView
-                android:layout_marginTop="15dp"
-                android:textSize="13dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="left"
-                android:textColor="@color/black"
-                android:text="Comments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></TextView>
-            <ListView
-                android:id="@+id/Topics_comments_listview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ListView>
-
-        </LinearLayout>
-<!--    </ScrollView>-->
+    </LinearLayout>
+    <!--    </ScrollView>-->
 
 </LinearLayout>

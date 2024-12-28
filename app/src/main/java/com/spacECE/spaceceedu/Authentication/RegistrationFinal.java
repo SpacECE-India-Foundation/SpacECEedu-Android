@@ -82,9 +82,13 @@ public class RegistrationFinal extends AppCompatActivity {
         END_TIME = intent.getStringExtra("EndTime");
         c_available_days = intent.getStringExtra("c_available_days");
 
-        int number = Integer.parseInt(TYPE);
-        number+=1;
-        TYPE = String.valueOf(number);
+//        System.out.println("b1");
+//        System.out.println(TYPE);
+//        int number = Integer.parseInt(TYPE);
+//        System.out.println(number);
+//        number+=1;
+//        TYPE = String.valueOf(number);
+//        System.out.println(TYPE);
 
         Log.d("RegistrationFinal", "TYPE: " + TYPE);
         Log.d("RegistrationFinal", "LANGUAGE: " + LANGUAGE);

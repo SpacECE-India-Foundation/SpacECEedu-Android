@@ -101,6 +101,10 @@ public class TopicActivity extends AppCompatActivity {
 
         // Update like/dislike status if user is logged in
         if (MainActivity.ACCOUNT != null) {
+            // Ensure buttons are in their default (non-selected) state
+            like_status_main = false;
+            dislike_status_main = false;
+            set_like_dislike_btn_status(0, 0); // Deselect both like and dislike by default
             update_like_dislike(finalV_id);
         }
 
@@ -110,7 +114,7 @@ public class TopicActivity extends AppCompatActivity {
 
         // Increase view count
         increaseViewCount(finalV_id);
-        
+
         // Setup YouTube player
         setupYouTubePlayer(v_url);
 
@@ -217,75 +221,111 @@ public class TopicActivity extends AppCompatActivity {
     }
 
     private void handleLikeButton(String finalV_id) {
-
-        if (like_status_main) {
-            set_like_dislike_btn_status(0, 0);
+        if (MainActivity.ACCOUNT == null) {
+            Toast.makeText(TopicActivity.this, "Sign-in to Like Video", Toast.LENGTH_SHORT).show();
         } else {
-            set_like_dislike_btn_status(1, 0);
-            dislike_status_main = false;
-            like_status_main = true;
-        }
-        try {
-            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
-            if (config != null) {
-                String baseUrl = config.getString("BASE_URL");
-                String likevideoUrl = config.getString("SPACETUBE_LIKEVIDEO");
-                Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI(baseUrl + likevideoUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
-                thread.start();
-
-                new Thread(() -> {
-                    try {
-                        thread.join(); // Wait for the API call thread to finish
-                        runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id)); // Update UI on the main thread
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
+            if (like_status_main) {
+                set_like_dislike_btn_status(0, 0); // Deselect like and dislike
+                like_status_main = false; // Reset like status
+            } else {
+                set_like_dislike_btn_status(1, 0); // Select like, deselect dislike
+                dislike_status_main = false; // Reset dislike status
+                like_status_main = true; // Set like status
             }
-        }catch (Exception e) {
-            e.printStackTrace();
-            Log.i("ERROR:::", "Failed to load API URLs");
+
+            try {
+                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+                if (config != null) {
+                    String baseUrl = config.getString("BASE_URL");
+                    String likevideoUrl = config.getString("SPACETUBE_LIKEVIDEO");
+                    // Make the API call asynchronously using OkHttp's enqueue method
+                    OkHttpClient client = new OkHttpClient();
+                    String url = baseUrl + likevideoUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id;
+                    Request request = new Request.Builder().url(url).build();
+
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
+                            runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Request Failed", Toast.LENGTH_SHORT).show());
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (!response.isSuccessful()) {
+                                Log.d("API not responding","not responding");
+                                throw new IOException("Unexpected code " + response);
+                            }
+                            // After the request finishes, update the like and dislike count
+                            String responseBody = response.body().string();
+                            Log.d("API_RESPONSE", responseBody); // Print response
+
+                            runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id));
+                        }
+                    });
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+                Log.i("ERROR:::", "Failed to load API URLs");
+            }
         }
     }
-
     private void handleDislikeButton(String finalV_id) {
-
-
-        if (dislike_status_main) {
-            set_like_dislike_btn_status(0, 0);
+        if (MainActivity.ACCOUNT == null) {
+            Toast.makeText(TopicActivity.this, "Sign-in to Dislike Video", Toast.LENGTH_SHORT).show();
         } else {
-            set_like_dislike_btn_status(0, 1);
-            like_status_main = false;
-            dislike_status_main = true;
-        }
-        try {
-            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
-            if (config != null) {
-                String baseUrl= config.getString("BASE_URL");
-                String dislikevideoUrl = config.getString("SPACETUBE_DISLIKEVIDEO");
-                Thread thread = new Thread(() -> UsefulFunctions.UsingGetAPI(baseUrl + dislikevideoUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id));
-                thread.start();
-
-                new Thread(() -> {
-                    try {
-                        thread.join(); // Wait for the API call thread to finish
-                        runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id)); // Update UI on the main thread
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
+            if (dislike_status_main) {
+                set_like_dislike_btn_status(0, 0); // Deselect like and dislike
+                dislike_status_main = false; // Reset dislike status
+            } else {
+                set_like_dislike_btn_status(0, 1); // Select dislike, deselect like
+                like_status_main = false; // Reset like status
+                dislike_status_main = true; // Set dislike status
             }
-        }catch (Exception e) {
-            e.printStackTrace();
-            Log.i("ERROR:::", "Failed to load API URLs");
+
+            try {
+                JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+                if (config != null) {
+                    String baseUrl= config.getString("BASE_URL");
+                    String dislikevideoUrl = config.getString("SPACETUBE_DISLIKEVIDEO");
+
+                    OkHttpClient client = new OkHttpClient();
+                    String url = baseUrl+ dislikevideoUrl + MainActivity.ACCOUNT.getAccount_id() + "&vid=" + finalV_id;
+                    Request request = new Request.Builder().url(url).build();
+
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
+                            runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Request Failed", Toast.LENGTH_SHORT).show());
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (!response.isSuccessful()) {
+                                Log.d("===================","not responding");
+                                throw new IOException("Unexpected code " + response);
+
+                            }
+                            // After the request finishes, update the like and dislike count
+                            runOnUiThread(() -> update_likes_dislike_count_onUI(finalV_id));
+                        }
+                    });
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+                Log.i("ERROR:::", "Failed to load API URLs");
+            }
         }
     }
 
     void update_comments_list(String vid_id) {
+        final TextView tv_no_comments = findViewById(R.id.tv_no_comments);
+
         try {
             JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
             if (config != null) {
-                String baseUrl= config.getString("BASE_URL");
+                String baseUrl = config.getString("BASE_URL");
                 String getAllCommentsUrl = config.getString("SPACETUBE_GETALLCOMMENTS");
                 OkHttpClient client = new OkHttpClient();
                 String url = baseUrl + getAllCommentsUrl + vid_id;
@@ -297,49 +337,72 @@ public class TopicActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        e.printStackTrace();
-                        runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Request Failed", Toast.LENGTH_SHORT).show());
+                        Log.e("Comment API", "Network Failure: " + e.getMessage(), e);
+                        runOnUiThread(() -> tv_no_comments.setText("Network Error")); // Update TextView
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
+                        Log.d("Comment API", "Response Code: " + response.code());
                         if (!response.isSuccessful()) {
-                            throw new IOException("Unexpected code " + response);
+                            String errorMessage = response.body().string();
+                            Log.e("Comment API", "HTTP Error: " + response.code() + ", Message: " + errorMessage);
+                            runOnUiThread(() -> tv_no_comments.setText("HTTP Error: " + response.code())); // Update TextView
+                            return;
                         }
 
-                        commentsList.clear();
-                        datesList.clear();
-                        String responseData = response.body().string();
-                        try {
-                            JSONObject jsonObject = new JSONObject(responseData);
-                            String status = jsonObject.getString("status");
+                        final String responseData = response.body().string();
+                        Log.d("Comment API", "Response Data: " + responseData);
 
-                            if (status.equals("true")) {
-                                JSONArray commentsArray = jsonObject.getJSONArray("comments");
+                        runOnUiThread(() -> {
+                            commentsList.clear();
+                            datesList.clear();
 
-                                for (int i = 0; i < commentsArray.length(); i++) {
-                                    JSONObject commentObject = commentsArray.getJSONObject(i);
-                                    String comment = commentObject.getString("u_comment");
-                                    String date = commentObject.getString("Date");
+                            try {
+                                JSONObject jsonObject = new JSONObject(responseData);
+                                String status = jsonObject.getString("status");
+                                Log.d("Comment API Status:", status);
 
+                                if (status.equals("true")) {
+                                    if (jsonObject.has("comments") && jsonObject.get("comments") instanceof JSONArray) {
+                                        JSONArray commentsArray = jsonObject.getJSONArray("comments");
+                                        Log.d("Comments Array Length:", String.valueOf(commentsArray.length()));
 
-                                    commentsList.add(URLDecoder.decode(comment));
-                                    datesList.add(date.split(" ")[0]);
+                                        for (int i = 0; i < commentsArray.length(); i++) {
+                                            JSONObject commentObject = commentsArray.getJSONObject(i);
+                                            String comment = commentObject.getString("u_comment");
+                                            String date = commentObject.getString("date");
+
+                                            commentsList.add(comment);
+                                            datesList.add(date.split(" ")[0]);
+                                        }
+
+                                        if (commentsList.isEmpty()) {
+                                            tv_no_comments.setText("No comments"); //Show "No comments" if list is empty
+                                        } else {
+                                            tv_no_comments.setText(""); //Clear the text if comments are available
+                                            custom_comments_adapter adapter = new custom_comments_adapter(TopicActivity.this, commentsList.toArray(new String[0]), datesList.toArray(new String[0]));
+                                            comments_listview.setAdapter(adapter);
+                                        }
+                                    } else {
+                                        Log.e("Comment API", "No comments array found in JSON response");
+                                        tv_no_comments.setText("No comments"); // Update TextView
+                                    }
+                                } else {
+                                    Log.e("Comment API", "Status: " + status);
+                                    tv_no_comments.setText("No comments"); // Update TextView
                                 }
-                                custom_comments_adapter adapter = new custom_comments_adapter(TopicActivity.this, commentsList.toArray(new String[0]), datesList.toArray(new String[0]));
-                                runOnUiThread(() -> comments_listview.setAdapter(adapter));
-
+                            } catch (JSONException e) {
+                                Log.e("Comment API", "JSON Exception: " + e.getMessage(), e);
+                                tv_no_comments.setText("No comments"); // Update TextView
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            runOnUiThread(() -> Toast.makeText(TopicActivity.this, "Failed to load comments", Toast.LENGTH_SHORT).show());
-                        }
+                        });
                     }
                 });
             }
-        }catch (Exception e) {
-            e.printStackTrace();
-            Log.i("ERROR:::", "Failed to load API URLs");
+        } catch (JSONException e) {
+            Log.e("Comment API", "Error loading API URLs: " + e.getMessage(), e);
+            runOnUiThread(() -> tv_no_comments.setText("No comments")); // Update TextView
         }
     }
 
@@ -431,6 +494,9 @@ public class TopicActivity extends AppCompatActivity {
                             throw new IOException("Unexpected code " + response);
                         }
 
+                        //check if correct from server side
+                        String responseBody = response.body().string();
+                        Log.d("Comment API Response:", responseBody);
 
                         runOnUiThread(() -> update_comments_list(vid_id));
                     }
@@ -516,16 +582,21 @@ public class TopicActivity extends AppCompatActivity {
         }
     }
 
-    void set_like_dislike_btn_status(int l, int dl) {
-        if (l == 0) {
-            b_likeVideo.setImageResource(R.drawable.ic_baseline_thumb_up_24);
+    void set_like_dislike_btn_status(int like, int dislike) {
+        if (like == 0) {
+            b_likeVideo.setImageResource(R.drawable.ic_baseline_thumb_up_24); // Set to default like icon
+            like_status_main = false;  // Ensure like status is false
         } else {
-            b_likeVideo.setImageResource(R.drawable.ic_baseline_thumb_up_highlighted);
+            b_likeVideo.setImageResource(R.drawable.ic_baseline_thumb_up_highlighted); // Set to selected like icon
+            like_status_main = true;   // Ensure like status is true
         }
-        if (dl == 0) {
-            b_dislikeVideo.setImageResource(R.drawable.ic_baseline_thumb_down_alt_24);
+
+        if (dislike == 0) {
+            b_dislikeVideo.setImageResource(R.drawable.ic_baseline_thumb_down_alt_24); // Set to default dislike icon
+            dislike_status_main = false; // Ensure dislike status is false
         } else {
-            b_dislikeVideo.setImageResource(R.drawable.ic_baseline_thumb_down_highlighted);
+            b_dislikeVideo.setImageResource(R.drawable.ic_baseline_thumb_down_highlighted); // Set to selected dislike icon
+            dislike_status_main = true;  // Ensure dislike status is true
         }
     }
 
