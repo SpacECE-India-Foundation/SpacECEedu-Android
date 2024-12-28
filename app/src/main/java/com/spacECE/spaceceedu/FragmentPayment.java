@@ -1,64 +1,142 @@
 package com.spacECE.spaceceedu;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentPayment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
+
 public class FragmentPayment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    RadioButton oneMonthPlan;
+    RadioButton threeMonthPlan;
+    RadioButton oneYearPlan;
+    Button upgradeButton;
+    ImageButton backButton;
+    TextView selectText;
+    Toolbar toolbar;
 
     public FragmentPayment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentPayment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentPayment newInstance(String param1, String param2) {
-        FragmentPayment fragment = new FragmentPayment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_payment, container, false);
+        View view = inflater.inflate(R.layout.fragment_payment, container, false);
+        oneMonthPlan = view.findViewById(R.id.OneMonthPlan);
+        threeMonthPlan = view.findViewById(R.id.ThreeMonthPlan);
+        oneYearPlan = view.findViewById(R.id.yearlyPlan);
+        upgradeButton = view.findViewById(R.id.upgradeButton);
+        selectText = view.findViewById(R.id.textselected);
+        backButton = view.findViewById(R.id.backButton);
+
+        if (getActivity() != null && getActivity() instanceof AppCompatActivity) {
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            if (activity.getSupportActionBar() != null) {
+                activity.getSupportActionBar().hide();
+            }
+        }
+
+        if (getActivity() != null) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+            if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Plan & Invoices");
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24);
+            }
+        }
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Check if the activity is not null
+                if (getActivity() != null) {
+                    // Create an Intent to navigate to the HomeActivity
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    // Clear the activity stack so the user cannot return to the current fragment
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    // Optionally finish the current activity if desired
+                    getActivity().finish();
+                }
+            }
+        });
+
+
+        oneMonthPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (oneMonthPlan.isChecked()) {
+                    threeMonthPlan.setChecked(false);
+                    oneYearPlan.setChecked(false);
+                    selectText.setText("499");
+
+                    //String selectedPlan = oneMonthPlan.getText().toString();
+                    //Toast.makeText(getContext(), "Selected plan is " + selectedPlan, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        threeMonthPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (threeMonthPlan.isChecked()) {
+                    oneMonthPlan.setChecked(false);
+                    oneYearPlan.setChecked(false);
+                    selectText.setText("416.67");
+                    //String selectedPlan = threeMonthPlan.getText().toString();
+                    //Toast.makeText(getContext(), "Selected plan is " + selectedPlan, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        oneYearPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (oneYearPlan.isChecked()) {
+                    oneMonthPlan.setChecked(false);
+                    threeMonthPlan.setChecked(false);
+                    selectText.setText("158.25");
+                    //String selectedPlan = oneYearPlan.getText().toString();
+                    //Toast.makeText(getContext(), "Selected plan is " + selectedPlan, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        upgradeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String selectedPlan = null;
+
+                if (oneMonthPlan.isChecked()) {
+                    selectedPlan = oneMonthPlan.getText().toString();
+                } else if (threeMonthPlan.isChecked()) {
+                    selectedPlan = threeMonthPlan.getText().toString();
+                } else if (oneYearPlan.isChecked()) {
+                    selectedPlan = oneYearPlan.getText().toString();
+                }
+
+                if (selectedPlan != null) {
+                    Toast.makeText(getContext(), "Upgrading to: " + selectedPlan, Toast.LENGTH_SHORT).show();
+                    // Add logic here for upgrading to the selected plan.
+                } else {
+                    Toast.makeText(getContext(), "Please select a plan before upgrading.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        return view;
     }
 }
