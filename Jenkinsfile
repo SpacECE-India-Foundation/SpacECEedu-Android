@@ -16,8 +16,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sed -i "s/BUILD_ID:.*/BUILD_ID: ${BUILD_ID}/g" /var/www/html/SpacECEedu-Android/app/src/main/res/values/about.xml
-                    git add /var/www/html/SpacECEedu-Android/app/src/main/res/values/about.xml
+                    sed -i "s/BUILD_ID:.*/BUILD_ID: ${BUILD_ID}/g" /var/www/html/SpacECEedu-Android/app/src/main/res/values/ids.xml
+                    git add /var/www/html/SpacECEedu-Android/app/src/main/res/values/ids.xml
                     git commit -m "Auto-update build ID to ${BUILD_ID}"
                     '''
                 }
