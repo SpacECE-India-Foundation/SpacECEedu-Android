@@ -79,6 +79,8 @@ public class LearnOn_MyCourses extends Fragment {
                     // Construct the API URL with accountId as user_id parameter
                     String apiUrl = baseUrl + learnCourseFetchCourseUrl + accountId;
                     Log.d("API URL", apiUrl);
+                    System.out.println(apiUrl);
+                    
 
                     JSONObject apiCall = UsefulFunctions.UsingGetAPI(apiUrl);
                     Log.d("API Response", apiCall.toString());
