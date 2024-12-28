@@ -1,5 +1,6 @@
 package com.spacECE.spaceceedu.LibForSmall;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.spacECE.spaceceedu.FragmentAbout;
 import com.spacECE.spaceceedu.FragmentProfile;
 import com.spacECE.spaceceedu.HomeFragmentLibForSmall;
+import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 
 import java.util.ArrayList;
@@ -81,7 +83,11 @@ public class Library_main extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id= item.getItemId();
         if(id==R.id.toolbar_menu_home){
-            replaceFragment(new HomeFragmentLibForSmall());
+            //nav back to home screen
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
         }
         if(id==R.id.toolbar_menu_add_books){
             replaceFragment(new AddBooks());
