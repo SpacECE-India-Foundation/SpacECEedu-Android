@@ -235,104 +235,98 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
                         key_domain.clear();
                         JSONArray jsonArray= null;
                         try {
-                            if(response.getString("status").equals("failure")){
-                                Toast.makeText(ActivitiesListActivity.this, "Error Fetching data, Status: Failure", Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                jsonArray = response.getJSONArray("data");
-                                for(int i=0;i<jsonArray.length();i++) {
-                                    JSONObject jsonObject=jsonArray.getJSONObject(i);
-                                    String activity_no=jsonObject.getString("activity_no");
-                                    String activity_name=jsonObject.getString("activity_name");
-                                    String activity_level=jsonObject.getString("activity_level");
-                                    String activity_dev_domain=jsonObject.getString("activity_dev_domain");
-                                    String activity_objectives=jsonObject.getString("activity_objectives");
-                                    String activity_key_dev=jsonObject.getString("activity_key_dev");
-                                    String activity_material=jsonObject.getString("activity_material");
-                                    String activity_assessment=jsonObject.getString("activity_assessment");
-                                    String activity_process=jsonObject.getString("activity_process");
-                                    String activity_instructions=jsonObject.getString("activity_instructions");
-                                    //String activity_complete_status=jsonObject.getString("work_done");
-                                    //String activity_image=jsonObject.getString("image_url");
-                                    //String activity_video=jsonObject.getString("v_id");
-                                    String activity_type_status=jsonObject.getString("status");
-                                    String activity_date=jsonObject.getString("activity_date");
-                                    String activity_playlist_id=jsonObject.getString("playlist_id");
-                                    String getActivity_playlist_description=jsonObject.getString("playlist_descr");
-                                    String getActivity_playlist_name=jsonObject.getString("playlist_name");
-                                    arrayList_space_active_all_in_one_data_holder.add(new space_active_data_holder_all_in_one(activity_assessment,activity_date,activity_dev_domain,activity_instructions,activity_key_dev,activity_level,activity_material,activity_name,activity_no,activity_objectives,activity_playlist_id,activity_process,activity_type_status,getActivity_playlist_description,getActivity_playlist_name));
-                                    if (jsonObject.getString("v_id")!=null){
-                                        arrayList_space_active_all_in_one_data_holder.get(i).setActivity_video(jsonObject.getString("v_id"));
-                                    }
-                                    if (jsonObject.getString("image_url")!=null){
-                                        arrayList_space_active_all_in_one_data_holder.get(i).setActivity_image(jsonObject.getString("image_url"));
-                                    }
-                                    if (jsonObject.getString("work_done")!=null){
-                                        arrayList_space_active_all_in_one_data_holder.get(i).setActivity_complete_status(jsonObject.getString("work_done"));
-                                    }
-                                    arrayList_space_active_all_in_one_data_holder.get(i).print_All();
-                                    if (arrayList_space_active_all_in_one_data_holder.get(i).activity_type_status.equals("free")){
-                                        free_arrayList_space_active_all_in_one_data_holder.add(arrayList_space_active_all_in_one_data_holder.get(i));
-                                        Log.e( "Free:>>>>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_no);
-                                    }else if (arrayList_space_active_all_in_one_data_holder.get(i).activity_type_status.equals("paid")){
-                                        paid_arrayList_space_active_all_in_one_data_holder.add(arrayList_space_active_all_in_one_data_holder.get(i));
-                                        Log.e( "paid:>>>>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_no);
-                                    }
-                                    if (level.containsKey(arrayList_space_active_all_in_one_data_holder.get(i).activity_level)){
-                                        Log.e( "Old okok :!!!!!!!!!!!!!!!!!!!!!!!!!",arrayList_space_active_all_in_one_data_holder.get(i).activity_level);
-                                        level.get(arrayList_space_active_all_in_one_data_holder.get(i).activity_level).add(arrayList_space_active_all_in_one_data_holder.get(i));
-                                    }else {
-                                        ArrayList<space_active_data_holder_all_in_one>arrayList=new ArrayList<>();
-                                        arrayList.add(arrayList_space_active_all_in_one_data_holder.get(i));
-                                        level.put(arrayList_space_active_all_in_one_data_holder.get(i).activity_level,arrayList);
-                                        Log.e( "New okokokok :!!!!!!!!!!!!!!",arrayList_space_active_all_in_one_data_holder.get(i).activity_level);
-                                    }
-
-                                    if (domain.containsKey(arrayList_space_active_all_in_one_data_holder.get(i).activity_dev_domain)){
-                                        Log.e( "Old okok :>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_dev_domain);
-                                        domain.get(arrayList_space_active_all_in_one_data_holder.get(i).activity_dev_domain).add(arrayList_space_active_all_in_one_data_holder.get(i));
-                                    }else {
-                                        ArrayList<space_active_data_holder_all_in_one>arrayList=new ArrayList<>();
-                                        arrayList.add(arrayList_space_active_all_in_one_data_holder.get(i));
-                                        Log.e( "New okok :>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_dev_domain);
-                                        domain.put(arrayList_space_active_all_in_one_data_holder.get(i).activity_dev_domain,arrayList);
-                                    }
-
-                                    if (key_domain.containsKey(arrayList_space_active_all_in_one_data_holder.get(i).activity_key_dev)){
-                                        Log.e( "Old okok :>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_key_dev);
-                                        key_domain.get(arrayList_space_active_all_in_one_data_holder.get(i).activity_key_dev).add(arrayList_space_active_all_in_one_data_holder.get(i));
-                                    } else {
-                                        ArrayList<space_active_data_holder_all_in_one>arrayList=new ArrayList<>();
-                                        arrayList.add(arrayList_space_active_all_in_one_data_holder.get(i));
-                                        Log.e( "New okok :>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_key_dev);
-                                        key_domain.put(arrayList_space_active_all_in_one_data_holder.get(i).activity_key_dev,arrayList);
-                                    }
+                            jsonArray = response.getJSONArray("data");
+                            for(int i=0;i<jsonArray.length();i++) {
+                                JSONObject jsonObject=jsonArray.getJSONObject(i);
+                                String activity_no=jsonObject.getString("activity_no");
+                                String activity_name=jsonObject.getString("activity_name");
+                                String activity_level=jsonObject.getString("activity_level");
+                                String activity_dev_domain=jsonObject.getString("activity_dev_domain");
+                                String activity_objectives=jsonObject.getString("activity_objectives");
+                                String activity_key_dev=jsonObject.getString("activity_key_dev");
+                                String activity_material=jsonObject.getString("activity_material");
+                                String activity_assessment=jsonObject.getString("activity_assessment");
+                                String activity_process=jsonObject.getString("activity_process");
+                                String activity_instructions=jsonObject.getString("activity_instructions");
+                                //String activity_complete_status=jsonObject.getString("work_done");
+                                //String activity_image=jsonObject.getString("image_url");
+                                //String activity_video=jsonObject.getString("v_id");
+                                String activity_type_status=jsonObject.getString("status");
+                                String activity_date=jsonObject.getString("activity_date");
+                                String activity_playlist_id=jsonObject.getString("playlist_id");
+                                String getActivity_playlist_description=jsonObject.getString("playlist_descr");
+                                String getActivity_playlist_name=jsonObject.getString("playlist_name");
+                                arrayList_space_active_all_in_one_data_holder.add(new space_active_data_holder_all_in_one(activity_assessment,activity_date,activity_dev_domain,activity_instructions,activity_key_dev,activity_level,activity_material,activity_name,activity_no,activity_objectives,activity_playlist_id,activity_process,activity_type_status,getActivity_playlist_description,getActivity_playlist_name));
+                                if (jsonObject.getString("v_id")!=null){
+                                    arrayList_space_active_all_in_one_data_holder.get(i).setActivity_video(jsonObject.getString("v_id"));
                                 }
-                                RecyclerView_Adapter_activities_all_in_one recyclerViewAdapterActivitiesAllInOne=new RecyclerView_Adapter_activities_all_in_one(arrayList_space_active_all_in_one_data_holder,ActivitiesListActivity.this,ActivitiesListActivity.this,activity_completed);
-                                RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(ActivitiesListActivity.this);
-                                list_activity.setLayoutManager(layoutManager);
-                                list_activity.setAdapter(recyclerViewAdapterActivitiesAllInOne);
-                                key_domain_list=new ArrayList<>(key_domain.keySet());
-                                key_domain_list.add(0,"All");
-                                ArrayAdapter<String>arrayAdapter=new ArrayAdapter<>(ActivitiesListActivity.this,R.layout.support_simple_spinner_dropdown_item,key_domain_list);
-                                key_spinner.setAdapter(arrayAdapter);
+                                if (jsonObject.getString("image_url")!=null){
+                                    arrayList_space_active_all_in_one_data_holder.get(i).setActivity_image(jsonObject.getString("image_url"));
+                                }
+                                if (jsonObject.getString("work_done")!=null){
+                                    arrayList_space_active_all_in_one_data_holder.get(i).setActivity_complete_status(jsonObject.getString("work_done"));
+                                }
+                                arrayList_space_active_all_in_one_data_holder.get(i).print_All();
+                                if (arrayList_space_active_all_in_one_data_holder.get(i).activity_type_status.equals("free")){
+                                    free_arrayList_space_active_all_in_one_data_holder.add(arrayList_space_active_all_in_one_data_holder.get(i));
+                                    Log.e( "Free:>>>>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_no);
+                                }else if (arrayList_space_active_all_in_one_data_holder.get(i).activity_type_status.equals("paid")){
+                                    paid_arrayList_space_active_all_in_one_data_holder.add(arrayList_space_active_all_in_one_data_holder.get(i));
+                                    Log.e( "paid:>>>>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_no);
+                                }
+                                if (level.containsKey(arrayList_space_active_all_in_one_data_holder.get(i).activity_level)){
+                                    Log.e( "Old okok :!!!!!!!!!!!!!!!!!!!!!!!!!",arrayList_space_active_all_in_one_data_holder.get(i).activity_level);
+                                    level.get(arrayList_space_active_all_in_one_data_holder.get(i).activity_level).add(arrayList_space_active_all_in_one_data_holder.get(i));
+                                }else {
+                                    ArrayList<space_active_data_holder_all_in_one>arrayList=new ArrayList<>();
+                                    arrayList.add(arrayList_space_active_all_in_one_data_holder.get(i));
+                                    level.put(arrayList_space_active_all_in_one_data_holder.get(i).activity_level,arrayList);
+                                    Log.e( "New okokokok :!!!!!!!!!!!!!!",arrayList_space_active_all_in_one_data_holder.get(i).activity_level);
+                                }
 
+                                if (domain.containsKey(arrayList_space_active_all_in_one_data_holder.get(i).activity_dev_domain)){
+                                    Log.e( "Old okok :>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_dev_domain);
+                                    domain.get(arrayList_space_active_all_in_one_data_holder.get(i).activity_dev_domain).add(arrayList_space_active_all_in_one_data_holder.get(i));
+                                }else {
+                                    ArrayList<space_active_data_holder_all_in_one>arrayList=new ArrayList<>();
+                                    arrayList.add(arrayList_space_active_all_in_one_data_holder.get(i));
+                                    Log.e( "New okok :>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_dev_domain);
+                                    domain.put(arrayList_space_active_all_in_one_data_holder.get(i).activity_dev_domain,arrayList);
+                                }
 
-                                dev_domain_list=new ArrayList<>(domain.keySet());
-                                dev_domain_list.add(0,"All");
-                                ArrayAdapter<String>dev_domain_adapter=new ArrayAdapter<>(ActivitiesListActivity.this,R.layout.support_simple_spinner_dropdown_item,dev_domain_list);
-                                dev_spinner.setAdapter(dev_domain_adapter);
-
-
-
-                                level_list=new ArrayList<>(level.keySet());
-                                level_list.add(0,"All");
-                                ArrayAdapter<String>level_adapter=new ArrayAdapter<>(ActivitiesListActivity.this,R.layout.support_simple_spinner_dropdown_item,level_list);
-                                level_spinner.setAdapter(level_adapter);
+                                if (key_domain.containsKey(arrayList_space_active_all_in_one_data_holder.get(i).activity_key_dev)){
+                                    Log.e( "Old okok :>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_key_dev);
+                                    key_domain.get(arrayList_space_active_all_in_one_data_holder.get(i).activity_key_dev).add(arrayList_space_active_all_in_one_data_holder.get(i));
+                                } else {
+                                    ArrayList<space_active_data_holder_all_in_one>arrayList=new ArrayList<>();
+                                    arrayList.add(arrayList_space_active_all_in_one_data_holder.get(i));
+                                    Log.e( "New okok :>>>>>>>>>>>>>>>>>",arrayList_space_active_all_in_one_data_holder.get(i).activity_key_dev);
+                                    key_domain.put(arrayList_space_active_all_in_one_data_holder.get(i).activity_key_dev,arrayList);
+                                }
                             }
+                            RecyclerView_Adapter_activities_all_in_one recyclerViewAdapterActivitiesAllInOne=new RecyclerView_Adapter_activities_all_in_one(arrayList_space_active_all_in_one_data_holder,ActivitiesListActivity.this,ActivitiesListActivity.this,activity_completed);
+                            RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(ActivitiesListActivity.this);
+                            list_activity.setLayoutManager(layoutManager);
+                            list_activity.setAdapter(recyclerViewAdapterActivitiesAllInOne);
+                            key_domain_list=new ArrayList<>(key_domain.keySet());
+                            key_domain_list.add(0,"All");
+                            ArrayAdapter<String>arrayAdapter=new ArrayAdapter<>(ActivitiesListActivity.this,R.layout.support_simple_spinner_dropdown_item,key_domain_list);
+                            key_spinner.setAdapter(arrayAdapter);
 
+
+                            dev_domain_list=new ArrayList<>(domain.keySet());
+                            dev_domain_list.add(0,"All");
+                            ArrayAdapter<String>dev_domain_adapter=new ArrayAdapter<>(ActivitiesListActivity.this,R.layout.support_simple_spinner_dropdown_item,dev_domain_list);
+                            dev_spinner.setAdapter(dev_domain_adapter);
+
+
+
+                            level_list=new ArrayList<>(level.keySet());
+                            level_list.add(0,"All");
+                            ArrayAdapter<String>level_adapter=new ArrayAdapter<>(ActivitiesListActivity.this,R.layout.support_simple_spinner_dropdown_item,level_list);
+                            level_spinner.setAdapter(level_adapter);
                         } catch (JSONException e) {
-//                            throw new RuntimeException(e);
+                            throw new RuntimeException(e);
                         }
 
                     }
@@ -344,11 +338,11 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
                 });
                 requestQueue.add(jsonObjectRequest);
 
+
                 String url1=baseUrl+spaceactiveDataFetchUserUrl;
 
                 if (MainActivity.ACCOUNT !=null && MainActivity.ACCOUNT.getAccount_id()!=null){
-                    JsonObjectRequest jsonObjectRequest1=new JsonObjectRequest(url1 + "308",  new Response.Listener<JSONObject>() {
-//                    JsonObjectRequest jsonObjectRequest1=new JsonObjectRequest(url1 + MainActivity.ACCOUNT.getAccount_id(),  new Response.Listener<JSONObject>() {
+                    JsonObjectRequest jsonObjectRequest1=new JsonObjectRequest(url1 + MainActivity.ACCOUNT.getAccount_id(), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             activity_completed.clear();
@@ -371,12 +365,7 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
                     requestQueue.add(jsonObjectRequest1);
                 }
             }
-        }
-        catch (JSONException e){
-            Log.e("JSON_ERROR_CONFIG", "Error loading config JSON: " + e.getMessage());
-            Toast.makeText(this, "Error fetching data. Check configuration", Toast.LENGTH_LONG).show();
-        }
-        catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
             Log.i("ERROR:::", "Failed to load API URLs");
         }

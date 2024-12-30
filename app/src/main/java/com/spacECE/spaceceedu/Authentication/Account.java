@@ -90,6 +90,7 @@ public class Account {
         return profile_pic;
     }
 
+
     public boolean isCONSULTANT() {
         return CONSULTANT;
     }

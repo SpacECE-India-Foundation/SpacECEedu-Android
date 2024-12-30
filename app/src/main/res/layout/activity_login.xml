@@ -73,7 +73,6 @@
                 android:hint="Email"
                 android:shadowDx="-3"
                 android:shadowDy="-33"
-                android:background="@drawable/logintextview"
                 android:textColor="@color/black"
                 android:fontFamily="@font/poppins_semibold"
                 android:textColorHint="@color/black" />
@@ -92,10 +91,9 @@
                 android:id="@+id/editTextText_Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/logintextview"
+                android:fontFamily="@font/poppins_semibold"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>

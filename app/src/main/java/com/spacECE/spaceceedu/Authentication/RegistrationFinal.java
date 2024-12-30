@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -95,10 +94,6 @@ public class RegistrationFinal extends AppCompatActivity {
         Log.d("RegistrationFinal", "START_TIME: " + START_TIME);
         Log.d("RegistrationFinal", "END_TIME: " + END_TIME);
         Log.d("RegistrationFinal", "c_available_days: " + c_available_days);
-
-
-
-
         Log.d("TAG", "onCreate: " + TYPE + " " + LANGUAGE + " " + ADDRESS + " " + FEE + " " + QUALIFICATION + " " + START_TIME + " " + END_TIME);
 
 
@@ -293,6 +288,7 @@ public class RegistrationFinal extends AppCompatActivity {
 
                     if (TYPE != null && LANGUAGE != null && ADDRESS != null && FEE != null && QUALIFICATION != null && START_TIME != null && END_TIME != null) {
                         String[] selectedDaysArray = c_available_days.split(",");
+
                         formBody = new MultipartBody.Builder()
                                 .setType(MultipartBody.FORM)
                                 .addFormDataPart("name", name)
@@ -321,6 +317,7 @@ public class RegistrationFinal extends AppCompatActivity {
                                 .addFormDataPart("type", "consultant")
                                 .build();
                     }
+
                     Request request = new Request.Builder()
                             .url(register)
                             .post(formBody)

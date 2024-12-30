@@ -34,7 +34,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_user_registration">UserRegistration</string>
-
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -61,6 +60,7 @@
     <string name="re_enter_pa">Re-Enter Password</string>
     <string name="register_si">REGISTER</string>
 
+<<<<<<< HEAD
 <!--    <string name="yearly_plan_text">Yearly Plan</string>-->
 <!--    <string name="three_month_plan_text">Three-Month Plan</string>-->
 <!--    <string name="one_month_plan_text">One-Month Plan</string>-->
@@ -84,5 +84,7 @@
         <font color="#000000" alhpa="0.60">/ month</font>
 
     </string>
+=======
+>>>>>>> 490506b267c84e7dfdd879cc3f8a82318e98045d
 
 </resources>

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.R;
@@ -66,6 +64,7 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
         // Fetch book data using accountId
         fetchBooksData(accountId);
 
+<<<<<<< HEAD
         Button checkoutButton = v.findViewById(R.id.button_checkout);
         checkoutButton.setOnClickListener(view -> {
             ArrayList<String> bookNames = new ArrayList<>();
@@ -87,6 +86,8 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
                     .commit();
         });
 
+=======
+>>>>>>> 490506b267c84e7dfdd879cc3f8a82318e98045d
         return v;
     }
 
@@ -108,7 +109,8 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
                     String baseUrl= config.getString("BASE_URL");
                     String libCartProductDataUrl = config.getString("LIB_CARTPRODUCTDATA");
                     // Construct the API URL with accountId as user_id parameter
-                    String apiUrl = baseUrl + libCartProductDataUrl + accountId;
+                    String apiUrl = baseUrl + libCartProductDataUrl + "?user_id=" + accountId;
+
                     JSONObject apiCall = UsefulFunctions.UsingGetAPI(apiUrl);
                     Log.i("API Response", apiCall.toString());
 
