@@ -52,10 +52,10 @@ public class RecyclerView_Adapter_activities_all_in_one extends RecyclerView.Ada
         holder.level.setText("\uD83C\uDF82 Level -"+arrayList_space_active_all_in_one_data_holder.get(position).activity_level);
         if (arrayList_space_active_all_in_one_data_holder.get(position).getActivity_video()!=null && !arrayList_space_active_all_in_one_data_holder.get(position).getActivity_video().equals("null")){
             holder.contains_video.setTextColor(context.getResources().getColor(R.color.green));
-            holder.contains_video.setText("ദ്ദി ˉ͈̀꒳ˉ͈́ ) Contains videos");
+            holder.contains_video.setText("Contains videos");
         }else {
             holder.contains_video.setVisibility(View.GONE);
-            holder.contains_video.setText("(¬_¬\") Not Contains videos");
+            holder.contains_video.setText("Not Contains videos");
         }
         if (arrayList_space_active_all_in_one_data_holder.get(position).activity_image=="null"){
             holder.img.setImageResource(R.drawable.download);
@@ -65,18 +65,18 @@ public class RecyclerView_Adapter_activities_all_in_one extends RecyclerView.Ada
             Log.e("onBindViewHolder:!!!!!!!!!!!!!!!!!!!!",i+"");
             if (i==1){
                 holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.green));
-                holder.completed_or_not.setText("ദ്ദി(˵ •̀ ᴗ - ˵ ) Activity Completed");
+                holder.completed_or_not.setText("Activity Completed");
             }else if (i==0){
                 holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.gray));
-                holder.completed_or_not.setText("ദ്ദി(ᵔᗜᵔ) Half Completed");
+                holder.completed_or_not.setText("Half Completed");
             }else if (i==-1){
                 holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.red));
-                holder.completed_or_not.setText("(¬_¬\") Not Completed");
+                holder.completed_or_not.setText("Not Completed");
             }
 
         }else {
             holder.completed_or_not.setTextColor(context.getResources().getColor(R.color.red));
-            holder.completed_or_not.setText("(¬_¬\") Not Completed");
+            holder.completed_or_not.setText("Not Completed");
         }
         if (arrayList_space_active_all_in_one_data_holder.get(position).activity_image!=null && !arrayList_space_active_all_in_one_data_holder.get(position).activity_image.equals("null")){
             try {
