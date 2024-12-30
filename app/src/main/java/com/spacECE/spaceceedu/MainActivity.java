@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void SetAccountDetails() {
-        if(ACCOUNT!=null) {
+        if(ACCOUNT!=null && ACCOUNT.getUsername() != null) {
             toolbar.setTitle("Hello "+ACCOUNT.getUsername()+" !");
 
             // get menu from navigationView
@@ -79,12 +79,14 @@ public class MainActivity extends AppCompatActivity {
             item.setVisible(true);
 
             try {
-                if(nav_camara==null){
+                if(ACCOUNT.getUsername() != null){
+                    if(nav_camara==null){
                     Picasso.get().load(ACCOUNT.getUsername().replace("https://","http://")).into((Target)nav_name);
                 }
                 else {
                     Picasso.get().load(ACCOUNT.getProfile_pic().replace("https://", "http://")).into(nav_camara);
                     Picasso.get().load(ACCOUNT.getUsername().replace("https://", "http://")).into((Target) nav_name);
+                }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
