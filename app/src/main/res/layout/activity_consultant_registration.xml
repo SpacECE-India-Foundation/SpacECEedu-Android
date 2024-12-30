@@ -178,7 +178,7 @@
             <ToggleButton
                 android:id="@+id/Mon"
                 style="@style/toggleButton"
-                android:layout_width="35dp"
+                android:layout_width="40dp"
                 android:layout_height="35dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
