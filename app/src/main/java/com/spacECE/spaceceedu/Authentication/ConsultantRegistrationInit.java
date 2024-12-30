@@ -121,7 +121,7 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
         Type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                TYPE = String.valueOf(position);
+                TYPE = String.valueOf(position + 1);
             }
 
             @Override
@@ -209,4 +209,3 @@ public class ConsultantRegistrationInit extends AppCompatActivity {
 
 
 }
-
