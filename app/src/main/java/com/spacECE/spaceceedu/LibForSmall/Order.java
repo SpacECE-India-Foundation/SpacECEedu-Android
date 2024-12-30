@@ -1,34 +1,34 @@
 package com.spacECE.spaceceedu.LibForSmall;
 
 public class Order {
-    private String orderId;
-    private String orderStatus;
-    private String orderDate;
+    private String bookName;
+    private String orderQuantity;
+    private String orderPrice;
 
-    public Order(String orderId, String orderStatus, String orderDate){
-        this.orderId = orderId;
-        this.orderStatus = orderStatus;
-        this.orderDate = orderDate;
+    public Order(String bookName, String orderQuantity, String orderPrice){
+        this.bookName = bookName;
+        this.orderQuantity = orderQuantity;
+        this.orderPrice = orderPrice;
     }
-    public String getOrderId(){
-        return orderId;
+    public String getBookName(){
+        return bookName;
     }
-    public void setOrderId(String orderId){
-        this.orderId = orderId;
+    public void setBookName(String bookName){
+        this.bookName = bookName;
     }
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
+    public String getOrderQuantity() {
+        return orderQuantity;
     }
 
-    public String getOrderDate() {
-        return orderDate;
+    public void setOrderQuantity(String orderQuantity) {
+        this.orderQuantity = orderQuantity;
     }
 
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
+    public String getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(String orderPrice) {
+        this.orderPrice = orderPrice;
     }
 }

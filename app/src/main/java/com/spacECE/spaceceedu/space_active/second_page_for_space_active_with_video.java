@@ -185,6 +185,8 @@ public class second_page_for_space_active_with_video extends AppCompatActivity {
                     Toast.makeText(second_page_for_space_active_with_video.this, "Please Login First", Toast.LENGTH_SHORT).show();
                 }
             }
+
+
         });
     }
     public void setCompleted(int i){
@@ -197,6 +199,8 @@ public class second_page_for_space_active_with_video extends AppCompatActivity {
                 String baseUrl= config.getString("BASE_URL");
                 String insertUserUrl = config.getString("SPACEACTIVE_INSERTUSER");
                 String url=baseUrl+insertUserUrl;
+
+
                 StringRequest stringRequest=new StringRequest(com.android.volley.Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -206,6 +210,11 @@ public class second_page_for_space_active_with_video extends AppCompatActivity {
                         try {
                             Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("message").toString());
                             Toast.makeText(second_page_for_space_active_with_video.this, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show();
+
+                            // Redirect to new activity
+                            Intent intent = new Intent(second_page_for_space_active_with_video.this, ActivitiesListActivity.class);
+                            intent.putExtra("activity_no", activity_no);
+                            startActivity(intent);
                         }catch (Exception e){
                             try {
                                 Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("error").toString());
@@ -218,7 +227,19 @@ public class second_page_for_space_active_with_video extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        String errorMessage = error.getMessage();
+                        int statusCode = -1; // Default status code
+                        if (error.networkResponse != null) {
+                            statusCode = error.networkResponse.statusCode;
+                        }
+                        Log.e("API_URL", "Failed API: " + url);
+                        Log.e("API_URL", "Error Message: " + errorMessage);
+                        Log.e("API_URL", "Status Code: " + statusCode);
                         Log.e( "onErrorResponse:>>>>>>>>>>",error.toString());
+                        Log.e("API_URL", "Base URL: " + baseUrl); // Log the base URL
+                        Log.e("API_URL", "Endpoint: " + insertUserUrl); // Log the endpoint
+                        Log.e("API_URL", "Final URL: " + url); // Log the complete URL being sent
+
                     }
                 }){
                     @Override

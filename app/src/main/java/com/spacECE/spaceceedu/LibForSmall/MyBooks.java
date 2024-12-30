@@ -69,11 +69,15 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
         Button checkoutButton = v.findViewById(R.id.button_checkout);
         checkoutButton.setOnClickListener(view -> {
             ArrayList<String> bookNames = new ArrayList<>();
+            ArrayList<String> bookQuantities = new ArrayList<>();
+            ArrayList<String> bookPrices = new ArrayList<>();
             for (books2 book : list) {
                 bookNames.add(book.getProduct_title());
+                bookQuantities.add(book.getQuantity());
+                bookPrices.add(String.valueOf(book.getItemTotalPrice()));
             }
 
-            OrderTrackingFragment orderTrackingFragment = OrderTrackingFragment.newInstance(bookNames);
+            OrderTrackingFragment orderTrackingFragment = OrderTrackingFragment.newInstance(bookNames, bookQuantities, bookPrices);
 
             requireActivity()
                     .getSupportFragmentManager()

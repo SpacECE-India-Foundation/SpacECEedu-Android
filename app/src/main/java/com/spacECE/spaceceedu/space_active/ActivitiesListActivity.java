@@ -60,6 +60,11 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activities_list);
 
+        // Fetch activity number passed from the previous activity
+        String activityNo = getIntent().getStringExtra("activity_no");
+
+        // Call method to fetch updated data
+        fetchUpdatedData(activityNo);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(ActivitiesListActivity.this,R.color.black));
         key_spinner = findViewById(R.id.key_domain_spinner);dev_spinner = findViewById(R.id.dev_domain_spinner);
@@ -139,6 +144,10 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
 
 
     }
+
+    private void fetchUpdatedData(String activityNo) {
+    }
+
     public void set_level_activities(String string) {
         if (string.equals("All")){
             set_all_activities();

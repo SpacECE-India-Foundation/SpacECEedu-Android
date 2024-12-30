@@ -25,10 +25,19 @@ public class OrderTrackingFragment extends Fragment {
 
         ordersTrackRv = v.findViewById(R.id.ordersTrackRv);
 
+        // Fetching arguments passed to this fragment
         ArrayList<String> bookNames = getArguments() != null ? getArguments().getStringArrayList("bookNames") : new ArrayList<>();
+        ArrayList<String> bookQuantities = getArguments() != null ? getArguments().getStringArrayList("bookQuantities") : new ArrayList<>();
+        ArrayList<String> bookPrices = getArguments() != null ? getArguments().getStringArrayList("bookPrices") : new ArrayList<>();
+
         orderTrackList = new ArrayList<>();
-        for (String bookName : bookNames) {
-            orderTrackList.add(new Order(bookName, "Booked", "25 Dec 2024"));
+
+        // Populate the orderTrackList by combining book details
+        for (int i = 0; i < bookNames.size(); i++) {
+            String bookName = bookNames.get(i);
+            String bookQuantity = i < bookQuantities.size() ? bookQuantities.get(i) : "N/A";
+            String bookPrice = i < bookPrices.size() ? bookPrices.get(i) : "N/A";
+            orderTrackList.add(new Order(bookName, bookQuantity+" pcs","₹ " + bookPrice));
         }
 
         orderTrackingAdapter = new OrderTrackingAdapter(orderTrackList);
@@ -37,10 +46,12 @@ public class OrderTrackingFragment extends Fragment {
         return v;
     }
 
-    public static OrderTrackingFragment newInstance(ArrayList<String> bookNames) {
+    public static OrderTrackingFragment newInstance(ArrayList<String> bookNames, ArrayList<String> bookQuantities, ArrayList<String> bookPrices) {
         OrderTrackingFragment fragment = new OrderTrackingFragment();
         Bundle args = new Bundle();
         args.putStringArrayList("bookNames", bookNames);
+        args.putStringArrayList("bookQuantities", bookQuantities);
+        args.putStringArrayList("bookPrices", bookPrices);
         fragment.setArguments(args);
         return fragment;
     }
