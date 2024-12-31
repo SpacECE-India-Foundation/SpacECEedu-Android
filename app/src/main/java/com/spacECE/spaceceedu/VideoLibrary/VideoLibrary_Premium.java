@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -47,6 +48,9 @@ public class VideoLibrary_Premium extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        if(topicList.size()==0){
+            Toast.makeText(getActivity(), "No Paid Content Available", Toast.LENGTH_SHORT).show();
+        }
         Log.i("Adapter", "Executed");
     }
 

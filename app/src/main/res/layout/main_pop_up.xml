@@ -39,32 +39,31 @@
             android:gravity="center_horizontal">
 
             <Button
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="wrap_content"
-                android:text="  Not Done  "
                 android:id="@+id/yet_to_start"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_100sdp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10ssp"
-                android:textStyle="bold"
                 android:background="@drawable/yettostart"
                 android:gravity="center"
                 android:padding="0dp"
-                />
+                android:text="  Not Done  "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold" />
 
             <Button
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="wrap_content"
-                android:text="  On Going  "
                 android:id="@+id/on_going"
-                android:layout_marginLeft="@dimen/_15sdp"
-                android:layout_marginRight="@dimen/_15sdp"
-                android:textSize="@dimen/_10ssp"
-                android:textStyle="bold"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:background="@drawable/ongoing"
                 android:gravity="center"
+                android:padding="0dp"
+                android:text="  On Going  "
                 android:textColor="@color/black"
-                android:padding="0dp"/>
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold" />
 
             <Button
                 android:layout_width="@dimen/_60sdp"

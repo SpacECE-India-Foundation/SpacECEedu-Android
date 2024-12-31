@@ -87,8 +87,12 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
         button_paid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ActivitiesListActivity.this,paid_arrayList_space_active_all_in_one_data_holder.size()+"", Toast.LENGTH_SHORT).show();
                 set_paid_activities();
+
+                if(paid_arrayList_space_active_all_in_one_data_holder.size()==0){
+                    Toast.makeText(ActivitiesListActivity.this, "No Paid Activities", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Toast.makeText(ActivitiesListActivity.this, " Refresh Done for paid ", Toast.LENGTH_SHORT).show();
             }
         });
@@ -183,12 +187,14 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(ActivitiesListActivity.this);
         list_activity.setLayoutManager(layoutManager);
         list_activity.setAdapter(recyclerViewAdapterActivitiesAllInOne);
+        System.out.println("List:"+list_activity);
     }
     public void set_paid_activities() {
         RecyclerView_Adapter_activities_all_in_one recyclerViewAdapterActivitiesAllInOne=new RecyclerView_Adapter_activities_all_in_one(paid_arrayList_space_active_all_in_one_data_holder,ActivitiesListActivity.this,ActivitiesListActivity.this,activity_completed);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(ActivitiesListActivity.this);
         list_activity.setLayoutManager(layoutManager);
         list_activity.setAdapter(recyclerViewAdapterActivitiesAllInOne);
+        System.out.println("List:"+list_activity);
     }
     @Override
     protected void onRestart() {
