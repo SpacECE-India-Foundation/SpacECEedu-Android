@@ -29,7 +29,6 @@
                     android:layout_margin="@dimen/_10sdp"
                     android:scaleType="fitXY"
                     android:src="@drawable/download"
-                    android:visibility="gone"
                     app:autoPlay="false"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -887,17 +886,6 @@
                     android:layout_marginBottom="@dimen/_30sdp"
                     app:text="SLIDE HERE" />
 
-                <TextView
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="match_parent"
-                    android:textAlignment="center"
-                    android:layout_height="wrap_content"
-                    android:text="Designed by Supreet and Ashish"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp"
-                    android:alpha=".5"
-                    />
             </LinearLayout>
 
 

@@ -87,7 +87,9 @@ public class vaccinationAdapter extends RecyclerView.Adapter<vaccinationAdapter.
 
     private void showVaccinationDialog(ItemModel item) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Has your child received the " + item.getVaccineName() + " vaccine?" + "\n" + "(" + item.getInfo() + ")" )
+        builder.setMessage("Has your child received the " + item.getVaccineName() + " vaccine?")
+                //Getting null in item.getInfo() from API
+//        builder.setMessage("Has your child received the " + item.getVaccineName() + " vaccine?" + "\n" + "(" + item.getInfo() + ")" )
                 .setPositiveButton("Yes", (dialog, id) -> {
                     // Handle Yes option
                     showDoseNumberDialog(item);
