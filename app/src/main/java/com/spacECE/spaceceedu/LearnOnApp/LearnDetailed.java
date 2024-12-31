@@ -65,9 +65,11 @@ public class LearnDetailed extends AppCompatActivity implements Instamojo.Instam
         Mode_Type.setText(MessageFormat.format("{0} on {1}", learn.getMode(), learn.getType()));
 
         Buy.setOnClickListener(v -> {
-            new CallAPI().execute();
-            Instamojo.getInstance().initialize(LearnDetailed.this, Instamojo.Environment.TEST);
-            Instamojo.getInstance().initiatePayment(LearnDetailed.this, orderID, LearnDetailed.this);
+            Toast.makeText(this, "Enrollment Coming Soon", Toast.LENGTH_SHORT).show();
+            //PAYMENT NOT WORKING
+//            new CallAPI().execute();
+//            Instamojo.getInstance().initialize(LearnDetailed.this, Instamojo.Environment.TEST);
+//            Instamojo.getInstance().initiatePayment(LearnDetailed.this, orderID, LearnDetailed.this);
 
         });
     }

@@ -42,9 +42,11 @@ public class LearnOn_List_RecycleAdapter extends RecyclerView.Adapter<LearnOn_Li
             view.setOnClickListener(this);
             tv_enroll = view.findViewById(R.id.Enroll);
             tv_enroll.setOnClickListener(v -> {
+                Toast.makeText(view.getContext(), "Enrollment Coming Soon", Toast.LENGTH_SHORT).show();
 
-                Instamojo.getInstance().initialize(view.getContext(), Instamojo.Environment.TEST);
-                Instamojo.getInstance().initiatePayment((Activity) view.getContext(), orderID, this);
+                //PAYMENT NOT WORKING
+//                Instamojo.getInstance().initialize(view.getContext(), Instamojo.Environment.TEST);
+//                Instamojo.getInstance().initiatePayment((Activity) view.getContext(), orderID, this);
 
             });
         }
