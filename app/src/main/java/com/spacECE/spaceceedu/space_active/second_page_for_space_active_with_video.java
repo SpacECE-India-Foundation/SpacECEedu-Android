@@ -205,7 +205,10 @@ public class second_page_for_space_active_with_video extends AppCompatActivity {
                         JsonObject jsonObject= (JsonObject) jsonParser.parse(response);
                         try {
                             Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("message").toString());
-                            Toast.makeText(second_page_for_space_active_with_video.this, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(second_page_for_space_active_with_video.this, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(second_page_for_space_active_with_video.this, "Status Changed", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(second_page_for_space_active_with_video.this,ActivitiesListActivity.class);
+                            startActivity(intent);
                         }catch (Exception e){
                             try {
                                 Log.e( "onResponse:!!!!!!!!!!!!!!!!!!!!!!!",jsonObject.get("error").toString());
