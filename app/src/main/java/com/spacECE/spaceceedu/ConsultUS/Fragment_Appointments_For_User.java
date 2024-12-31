@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -53,6 +54,9 @@ public class Fragment_Appointments_For_User extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        if(list.size()==0){
+            Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
+        }
         Log.i("Adapter", "Executed");
     }
 

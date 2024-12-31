@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -66,6 +67,9 @@ public class Fragment_Consultant_Categories extends Fragment {
         categoryRecyclerView.setLayoutManager(layoutManager);
         categoryRecyclerView.setItemAnimator(new DefaultItemAnimator());
         categoryRecyclerView.setAdapter(adapter);
+        if(myList.size()==0){
+            Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
+        }
         Log.i("Adapter", "Executed");
     }
 
