@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -64,7 +65,7 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
         // Fetch book data using accountId
         fetchBooksData(accountId);
 
-<<<<<<< HEAD
+
         Button checkoutButton = v.findViewById(R.id.button_checkout);
         checkoutButton.setOnClickListener(view -> {
             ArrayList<String> bookNames = new ArrayList<>();
@@ -76,7 +77,8 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
                 bookPrices.add(String.valueOf(book.getItemTotalPrice()));
             }
 
-            OrderTrackingFragment orderTrackingFragment = OrderTrackingFragment.newInstance(bookNames, bookQuantities, bookPrices);
+            int totalPrice = calculateTotalPrice(list);
+            OrderTrackingFragment orderTrackingFragment = OrderTrackingFragment.newInstance(bookNames, bookQuantities, bookPrices, totalPrice);
 
             requireActivity()
                     .getSupportFragmentManager()
@@ -86,8 +88,7 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
                     .commit();
         });
 
-=======
->>>>>>> 490506b267c84e7dfdd879cc3f8a82318e98045d
+
         return v;
     }
 
@@ -109,7 +110,8 @@ public class MyBooks extends Fragment implements library_mybook_recyclerAdapter.
                     String baseUrl= config.getString("BASE_URL");
                     String libCartProductDataUrl = config.getString("LIB_CARTPRODUCTDATA");
                     // Construct the API URL with accountId as user_id parameter
-                    String apiUrl = baseUrl + libCartProductDataUrl + "?user_id=" + accountId;
+                    String apiUrl = baseUrl + libCartProductDataUrl + accountId;
+
 
                     JSONObject apiCall = UsefulFunctions.UsingGetAPI(apiUrl);
                     Log.i("API Response", apiCall.toString());

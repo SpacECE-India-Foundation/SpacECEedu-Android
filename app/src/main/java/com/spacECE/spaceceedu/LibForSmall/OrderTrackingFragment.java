@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.spacECE.spaceceedu.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderTrackingFragment extends Fragment {
     private RecyclerView ordersTrackRv;
@@ -29,6 +29,10 @@ public class OrderTrackingFragment extends Fragment {
         ArrayList<String> bookNames = getArguments() != null ? getArguments().getStringArrayList("bookNames") : new ArrayList<>();
         ArrayList<String> bookQuantities = getArguments() != null ? getArguments().getStringArrayList("bookQuantities") : new ArrayList<>();
         ArrayList<String> bookPrices = getArguments() != null ? getArguments().getStringArrayList("bookPrices") : new ArrayList<>();
+        int totalPrice = getArguments() != null ? getArguments().getInt("totalPrice"): 0;
+
+        TextView totalPriceTextView = v.findViewById(R.id.ordersTotal);
+        totalPriceTextView.setText("Total: ₹ " + totalPrice);
 
         orderTrackList = new ArrayList<>();
 
@@ -46,12 +50,13 @@ public class OrderTrackingFragment extends Fragment {
         return v;
     }
 
-    public static OrderTrackingFragment newInstance(ArrayList<String> bookNames, ArrayList<String> bookQuantities, ArrayList<String> bookPrices) {
+    public static OrderTrackingFragment newInstance(ArrayList<String> bookNames, ArrayList<String> bookQuantities, ArrayList<String> bookPrices, int totalPrice) {
         OrderTrackingFragment fragment = new OrderTrackingFragment();
         Bundle args = new Bundle();
         args.putStringArrayList("bookNames", bookNames);
         args.putStringArrayList("bookQuantities", bookQuantities);
         args.putStringArrayList("bookPrices", bookPrices);
+        args.putInt("totalPrice", totalPrice);
         fragment.setArguments(args);
         return fragment;
     }
