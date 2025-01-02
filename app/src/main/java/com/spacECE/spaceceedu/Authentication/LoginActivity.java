@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(LoginActivity.this, "Failed to verify user", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,  "Failed to verify user", Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -329,7 +329,7 @@ public class LoginActivity extends AppCompatActivity {
                                                             object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
                                                             object.getString("current_user_image"), object.getString("consultant_category"), object.getString("consultant_office "),
                                                             object.getString("consultant_from_time"), object.getString("consultant_to_time"), object.getString("consultant_language"),
-                                                            object.getString("consultant_fee"), object.getString("consultant_qualification")));
+                                                            object.getString("consultant_fee"), object.getString("consultant_qualification"), object.getString("current_user_email")));
                                                 } else {
                                                     userLocalStore.setUserLoggedIn(true, new Account(object.getString("current_user_id"), object.getString("current_user_name"),
                                                             object.getString("current_user_mob"), object.getString("current_user_type").equals("consultant"),
