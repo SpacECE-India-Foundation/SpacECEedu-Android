@@ -31,6 +31,7 @@ public class UserLocalStore {
             spEditor.putBoolean("loggedIn", loggedIn);
             spEditor.putString("account_id", account.getAccount_id());
             spEditor.putString("username", account.getUsername());
+            spEditor.putString("user_email", account.getUser_email());
             spEditor.putString("contact_number", account.getContact_number());
             spEditor.putString("UID", account.getuId());
             spEditor.putBoolean("isConsultant", account.isCONSULTANT());

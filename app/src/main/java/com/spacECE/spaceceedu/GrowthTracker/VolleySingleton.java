@@ -10,7 +10,8 @@ public class VolleySingleton {
     private static Context ctx;
 
     private VolleySingleton(Context context) {
-        ctx = context;
+        // Used application context to avoid leaking activities
+        ctx = context.getApplicationContext();
         requestQueue = getRequestQueue();
     }
 
@@ -23,7 +24,7 @@ public class VolleySingleton {
 
     public RequestQueue getRequestQueue() {
         if (requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
+            requestQueue = Volley.newRequestQueue(ctx);
         }
         return requestQueue;
     }

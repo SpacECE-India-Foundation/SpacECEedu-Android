@@ -201,7 +201,7 @@ public class GrowthTrackerHome extends AppCompatActivity {
         itemList = new ArrayList<>();
 
         //Api call
-       fetchVaccinationData();
+        fetchVaccinationData();
 
         // Initialize the adapter
         adapter = new vaccinationAdapter(itemList,this);
@@ -246,8 +246,8 @@ public class GrowthTrackerHome extends AppCompatActivity {
                 String baseUrl= config.getString("BASE_URL");
                 String growthVaccineDataUrl = config.getString("GROWTH_FETCHVACCINEDATA");
                 String url = baseUrl + growthVaccineDataUrl; // Replace with your API URL
-
-                RequestQueue requestQueue = Volley.newRequestQueue(this);
+                // Replaced all the "Volley.newRequestQueue(this)" with this new call , it ensure we reuse the existing RequestQueue instead of creating new ones.
+                RequestQueue requestQueue = VolleySingleton.getInstance(this).getRequestQueue();
 
                 JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                         Request.Method.GET,
@@ -588,7 +588,7 @@ public class GrowthTrackerHome extends AppCompatActivity {
                 String baseUrl= config.getString("BASE_URL");
                 String growthInsertGrowthDataUrl = config.getString("GROWTH_INSERTGROWTHDATA");
                 // Instantiate the RequestQueue.
-                RequestQueue queue = Volley.newRequestQueue(this);
+                RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
                 String url = baseUrl+growthInsertGrowthDataUrl;
                 // Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -654,7 +654,7 @@ public class GrowthTrackerHome extends AppCompatActivity {
                 UserLocalStore userLocalStore = new UserLocalStore(getApplicationContext());
                 Account account = userLocalStore.getLoggedInAccount();
                 String accountId = account.getAccount_id();
-                RequestQueue queue = Volley.newRequestQueue(this);
+                RequestQueue queue =VolleySingleton.getInstance(this).getRequestQueue();
                 String url = baseUrl + growthFetchGrowthDataUrl + accountId + "&date=" + date;
 
                 // Request a string response from the provided URL.
@@ -743,7 +743,7 @@ public class GrowthTrackerHome extends AppCompatActivity {
                 String accountId = account.getAccount_id();
                 String date = String.valueOf(currentYear) + "/" + String.valueOf(currentMonth) + "/" + String.valueOf(currentDate);
 
-                RequestQueue queue = Volley.newRequestQueue(this);
+                RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
                 String url = baseUrl + growthFetchGrowthDataUrl + accountId + "&date=" + date;
 
                 // Request a string response from the provided URL.
@@ -930,7 +930,7 @@ public class GrowthTrackerHome extends AppCompatActivity {
                 UserLocalStore userLocalStore = new UserLocalStore(getApplicationContext());
                 Account account = userLocalStore.getLoggedInAccount();
                 String accountId = account.getAccount_id();
-                RequestQueue queue = Volley.newRequestQueue(this);
+                RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
                 String url = baseUrl + growthFetchGrowthDataUrl + accountId + "&date=" + date;
 
                 // Request a string response from the provided URL.

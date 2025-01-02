@@ -33,7 +33,7 @@ public class Account {
     // Constructor for consultant users
     public Account(String account_id, String username, String contact_number, boolean CONSULTANT, String profile_pic,
                    String Consultant_Category, @Nullable String Consultant_Office, String Consultant_StartTime, String Consultant_EndTime,
-                   String Consultant_Language, String Consultant_Fee, String Consultant_Qualification) {
+                   String Consultant_Language, String Consultant_Fee, String Consultant_Qualification, String user_email) {
         this.account_id = account_id;
         this.username = username;
         this.contact_number = contact_number;
@@ -46,10 +46,11 @@ public class Account {
         this.Consultant_Language = Consultant_Language;
         this.Consultant_Fee = Consultant_Fee;
         this.Consultant_Qualification = Consultant_Qualification;
+        this.user_email = user_email;
 
         Log.i("ACCOUNT:", " GENERATED :- "+account_id+" / "+username+" / "+contact_number+ " /"+profile_pic+ " /"+
                 Consultant_Category+ " /"+Consultant_Office+ " /"+Consultant_StartTime+ " /"+Consultant_EndTime+ " /"+
-                Consultant_Language+ " /"+Consultant_Fee+ " /"+Consultant_Qualification);
+                Consultant_Language+ " /"+Consultant_Fee+ " /"+Consultant_Qualification+ " /"+user_email);
     }
 
     // Constructor for updating user profile
