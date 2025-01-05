@@ -2,56 +2,63 @@ pipeline {
     agent any
 
     environment {
-        BUILD_ID = "${BUILD_NUMBER}" // Auto-incremented build number
+        REMOTE_SERVER = 'android-server-space'  // SSH server configuration name in Jenkins
+        REMOTE_DIR = '/var/www/html/apk/'        // Directory on the remote server to store APK
+        GIT_REPO_URL = 'https://github.com/SpacECE-India-Foundation/SpacECEedu-Android.git'  // Git repository URL
+        BRANCH_NAME = 'SpacECEQ324-NewUI'        // Branch name to build from
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/SpacECE-India-Foundation/SpacECEedu-Android.git'
-            }
-        }
-
-        stage('Update Build ID in About Section') {
-            steps {
-                script {
-                    sh '''
-                    sed -i "s/BUILD_ID:.*/BUILD_ID: ${BUILD_ID}/g" /var/www/html/SpacECEedu-Android/app/src/main/res/values/about.xml
-                    git add /var/www/html/SpacECEedu-Android/app/src/main/res/values/about.xml
-                    git commit -m "Auto-update build ID to ${BUILD_ID}"
-                    '''
-                }
+                // Clone the Android app code from the specified Git repository and branch
+                git branch: BRANCH_NAME, url: GIT_REPO_URL
             }
         }
 
         stage('Build APK') {
             steps {
+                // Run Gradle build to generate APK (for debug build in this example)
                 sh './gradlew assembleDebug'
             }
         }
 
         stage('Archive APK') {
             steps {
-                archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*.apk', fingerprint: true
+                // Archive the APK to make it accessible as a Jenkins artifact
+                archiveArtifacts artifacts: '**/app/build/outputs/apk/debug/*.apk', fingerprint: true
             }
         }
 
-        stage('Deliver APK') {
+        stage('Deploy to Remote Server') {
             steps {
-                script {
-                    def apkPath = "app/build/outputs/apk/debug/app-debug.apk"
-                    sh "curl -X POST -F 'file=@${apkPath}' http://3.109.206.67/SpacECEedu-Android/"
-                }
+                // Transfer the APK to the remote server
+                sshPublisher(
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: REMOTE_SERVER,
+                            transfers: [
+                                sshTransfer(
+                                    sourceFiles: '**/app/build/outputs/apk/debug/*.apk',  // Path to the APK file in Jenkins workspace
+                                    remoteDirectory: REMOTE_DIR,  // Remote directory where APK will be uploaded
+                                    removePrefix: '',  // Optional: Remove any prefix from source path
+                                    flatten: true       // Optional: Upload files directly without folder structure
+                                )
+                            ],
+                            usePromotionTimestamp: false,
+                            useWorkspaceInPromotion: false,
+                            verbose: true
+                        )
+                    ]
+                )
             }
         }
-    }
 
-    post {
-        success {
-            echo "Build and deployment successful!"
-        }
-        failure {
-            echo "Build failed!"
+        stage('Notify QA') {
+            steps {
+                // Notify QA team about the APK availability
+                echo "APK is available at: http://65.0.243.45/apk/"
+            }
         }
     }
 }
