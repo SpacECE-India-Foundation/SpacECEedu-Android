@@ -16,6 +16,13 @@ pipeline {
             }
         }
 
+        stage('Set Permissions for gradlew') {
+            steps {
+                // Add execute permission to gradlew
+                sh 'chmod +x gradlew'
+            }
+        }
+
         stage('Build APK') {
             steps {
                 // Run Gradle build to generate APK (for debug build in this example)
