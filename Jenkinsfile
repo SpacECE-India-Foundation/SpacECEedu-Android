@@ -26,7 +26,7 @@ pipeline {
         stage('Build APK') {
             steps {
                 // Run Gradle build to generate APK (for debug build in this example)
-                sh './gradlew assembleDebug'
+                sh './gradlew --no-daemon assembleDebug'  // Added --no-daemon flag to avoid Gradle daemon
             }
         }
 
