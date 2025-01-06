@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:layout_weight="1"
+    android:elevation="6.5dp"
+    app:cardCornerRadius="10dp"
+    android:background="@color/white"
+    android:layout_margin="9.10dp">
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <ImageView
+            android:background="@color/white"
+            android:id="@+id/Consultant_Categories_ListItem_Icon"
+            android:layout_width="match_parent"
+            android:contentDescription="consult type pic"
+            android:scaleType="fitXY"
+            android:layout_height="195dp"
+            android:src="@drawable/img_5" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/Consultant_Categories_ListItem_TextView_CategoryName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:gravity="left"
+            android:textSize="26sp"
+            android:layout_gravity="center"
+            android:text="Category" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

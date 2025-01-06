@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+    <item android:id="@+id/Home"
+        android:title="Home"
+        android:icon="@drawable/ic_baseline_home_24"/>
+    <item android:id="@+id/payments"
+        android:title="Payments"
+        android:icon="@drawable/ic_payment"/>
+    <item android:id="@+id/profile"
+        android:title="My Profile"
+        android:icon="@drawable/ic_my_profile_nav_dra"/>
+    <item android:id="@+id/Signout"
+        android:title="Signout"
+        android:visible="false"
+        android:icon="@drawable/ic_signout_nav_dra"/>
+    <item android:id="@+id/AboutUs"
+        android:title="About us"
+        android:icon="@drawable/ic_aboutus_nav_dra"/>
+
+</menu>

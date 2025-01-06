@@ -1,0 +1,96 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android' version '1.8.22'
+    id 'com.google.gms.google-services'
+}
+
+ext {
+    kotlinVersion = '1.8.22'
+}
+
+android {
+    compileSdk 34
+    namespace "com.spacECE.spaceceedu"
+
+    defaultConfig {
+        applicationId "com.spacECE.spaceceedu"
+        minSdk 24
+        targetSdk 30
+        versionCode 7
+        versionName "7.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+        buildConfig = true
+    }
+    namespace 'com.spacECE.spaceceedu'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    implementation ("com.ncorti:slidetoact:0.11.0")
+
+    implementation("com.android.volley:volley:1.2.1")
+    implementation ("com.intuit.ssp:ssp-android:1.1.1")
+    implementation ("com.intuit.sdp:sdp-android:1.1.1")
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'androidx.annotation:annotation:1.9.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.firebase:firebase-messaging:24.1.0'
+    implementation 'androidx.navigation:navigation-fragment:2.8.5'
+    implementation 'androidx.navigation:navigation-ui:2.8.5'
+    implementation 'com.google.ar.sceneform:filament-android:1.17.1'
+    implementation 'androidx.activity:activity:1.9.3'
+    implementation 'androidx.privacysandbox.tools:tools-core:1.0.0-alpha10'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    implementation 'com.google.android.gms:play-services-auth:21.3.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+//    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'  //Deprecated
+    implementation 'com.github.PierfrancescoSoffritti.android-youtube-player:core:10.0.5'
+    implementation 'com.github.thiago-you:carouselview:1.0.0'
+    implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.instamojo:android-sdk:3.5.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+//    implementation 'io.agora.rtc:full-sdk:3.2.1'  //Deprecated
+    implementation 'io.agora.rtc:full-sdk:3.5.2'
+    implementation 'com.google.android.gms:play-services-base:18.5.0'
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.5'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+
+    //for circular progress pie
+    implementation 'com.github.guilhe:circular-progress-view:2.0.0'
+
+
+    implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+
+
+}

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Authentication.ConsultantRegistrationInit"
+        android:background="#F4F1F1">
+
+        <Button
+            android:id="@+id/ConsultantRegistration_Button_Signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_box"
+            android:text="Next Page"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Consultant_Qualification"
+            app:layout_constraintVertical_bias="0.404" />
+
+        <Spinner
+            android:id="@+id/Type"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="56dp"
+            android:prompt="@string/acs_filename"
+            android:background="@drawable/rounded_edittext"
+            android:textAlignment="center"
+            android:padding="8dp"
+            android:elevation="10dp"
+            android:drawableLeft="@android:drawable/ic_menu_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/TimeStart"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:cursorVisible="false"
+            android:drawableLeft="@android:drawable/ic_menu_edit"
+            android:elevation="10dp"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:hint="Start time"
+            android:padding="8dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Consultant_Address" />
+
+        <EditText
+            android:id="@+id/TimeEnd"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:cursorVisible="false"
+            android:drawableLeft="@android:drawable/ic_menu_edit"
+            android:elevation="10dp"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:hint="End Time"
+            android:padding="8dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TimeStart" />
+
+        <Spinner
+            android:id="@+id/Consultant_Language"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawableLeft="@android:drawable/ic_menu_edit"
+            android:elevation="10dp"
+            android:padding="8dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Consultant_Day" />
+
+        <TextView
+            android:id="@+id/Announcement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Select Days You are availiable"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TimeEnd" />
+
+        <EditText
+            android:id="@+id/Consultant_Fee"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawableLeft="@android:drawable/ic_menu_edit"
+            android:elevation="10dp"
+            android:ems="10"
+            android:hint="Fee"
+            android:inputType="numberSigned"
+            android:padding="8dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Consultant_Language" />
+
+        <EditText
+            android:id="@+id/Consultant_Qualification"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawableLeft="@android:drawable/ic_menu_edit"
+            android:elevation="10dp"
+            android:ems="10"
+            android:hint="Qualification"
+            android:inputType="textPersonName"
+            android:padding="8dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Consultant_Fee" />
+
+
+        <EditText
+            android:id="@+id/Consultant_Address"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawableLeft="@android:drawable/ic_menu_edit"
+            android:elevation="10dp"
+            android:ems="10"
+            android:hint="Office Address"
+            android:inputType="textPostalAddress"
+            android:padding="8dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Type" />
+
+        <LinearLayout
+            android:id="@+id/Consultant_Day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Announcement">
+
+            <ToggleButton
+                android:id="@+id/Mon"
+                style="@style/toggleButton"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/select_toggle_btn"
+                android:textOff="Mon"
+                android:textOn="Mon" />
+
+            <ToggleButton
+                android:id="@+id/Tue"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/select_toggle_btn"
+                android:textOff="Tue"
+                android:textOn="Tue" />
+
+            <ToggleButton
+                android:id="@+id/Wed"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/select_toggle_btn"
+                android:textOff="Wed"
+                android:textOn="Wed" />
+
+            <ToggleButton
+                android:id="@+id/Thu"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/select_toggle_btn"
+                android:textOff="Thu"
+                android:textOn="Thu" />
+
+            <ToggleButton
+                android:id="@+id/Fri"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/select_toggle_btn"
+                android:textOff="Fri"
+                android:textOn="Fri" />
+
+            <ToggleButton
+                android:id="@+id/Sat"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/select_toggle_btn"
+                android:textOff="Sat"
+                android:textOn="Sat" />
+
+            <ToggleButton
+                android:id="@+id/Sun"
+                style="@style/toggleButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/select_toggle_btn"
+                android:textOff="Sun"
+                android:textOn="Sun" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout></ScrollView>
