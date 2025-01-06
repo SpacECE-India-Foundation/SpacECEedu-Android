@@ -59,7 +59,10 @@ public class Consultant_AppointmentConfirmation extends AppCompatActivity {
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Consultant_AppointmentConfirmation.this, MainActivity.class));
+                Intent intent = new Intent(Consultant_AppointmentConfirmation.this, Consultant_Main.class);
+                intent.putExtra("show_appointments", true);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 finishAffinity();
             }
         });
