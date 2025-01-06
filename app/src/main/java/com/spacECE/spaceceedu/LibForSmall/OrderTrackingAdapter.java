@@ -21,13 +21,13 @@ public class OrderTrackingAdapter extends RecyclerView.Adapter<OrderTrackingAdap
     }
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView orderId, orderStatus, orderDate;
+        TextView bookName, orderQuantity, orderPrice;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
-            orderId = itemView.findViewById(R.id.textView_orderId);
-            orderStatus = itemView.findViewById(R.id.textView_orderStatus);
-            orderDate = itemView.findViewById(R.id.textView_orderDate);
+            bookName = itemView.findViewById(R.id.textView_bookName);
+            orderQuantity = itemView.findViewById(R.id.textView_orderQuantity);
+            orderPrice = itemView.findViewById(R.id.textView_orderPrice);
         }
     }
 
@@ -41,9 +41,9 @@ public class OrderTrackingAdapter extends RecyclerView.Adapter<OrderTrackingAdap
     @Override
     public void onBindViewHolder(@NonNull OrderTrackingAdapter.OrderViewHolder holder, int position) {
         Order order = orderList.get(position);
-        holder.orderId.setText(order.getOrderId());
-        holder.orderStatus.setText(order.getOrderStatus());
-        holder.orderDate.setText(order.getOrderDate());
+        holder.bookName.setText(order.getBookName());
+        holder.orderQuantity.setText(order.getOrderQuantity());
+        holder.orderPrice.setText(order.getOrderPrice());
     }
 
     @Override

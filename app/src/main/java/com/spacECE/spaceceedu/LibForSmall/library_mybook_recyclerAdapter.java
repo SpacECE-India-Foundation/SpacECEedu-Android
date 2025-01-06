@@ -22,8 +22,10 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -70,16 +72,20 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
         try {
             JSONObject config = ConfigUtils.loadConfig(context.getApplicationContext());
             if (config != null) {
-                String baseUrl= config.getString("BASE_URL");
+                String baseUrl = config.getString("BASE_URL");
                 String libProductimgUrl = config.getString("LIB_PRODUCTIMG");
 
                 books2 book = list.get(position);
+
+                // Restore data
                 holder.bookName.setText(book.getProduct_title());
                 holder.bookCategory.setText(book.getStatus());
-                holder.bookPrice.setText(book.getProduct_price());
+                holder.bookPrice.setText(String.valueOf(
+                        Integer.parseInt(book.getProduct_price()) * Integer.parseInt(book.getQuantity())
+                ));
                 holder.tvQuantity.setText(book.getQuantity());
                 Picasso.get()
-                        .load(baseUrl+libProductimgUrl + book.product_image)
+                        .load(baseUrl + libProductimgUrl + book.product_image)
                         .into(holder.bookImage);
 
                 // Set click listener for remove button
@@ -87,39 +93,45 @@ public class library_mybook_recyclerAdapter extends RecyclerView.Adapter<library
                     new AlertDialog.Builder(context)
                             .setMessage("Are you sure you want to remove this?")
                             .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                                removeItemFromDatabase(book.getCart_id(), position); // Pass position here
+                                removeItemFromDatabase(book.getCart_id(), position);
                             })
                             .setNegativeButton(android.R.string.cancel, (dialog, which) ->
-                                    Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show())
+                                    Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show()
+                            )
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                 });
 
                 // Handle quantity buttons
                 holder.btnIncrease.setOnClickListener(v -> {
-                    int currentQuantity = Integer.parseInt(holder.tvQuantity.getText().toString());
+                    int currentQuantity = Integer.parseInt(book.getQuantity());
                     currentQuantity++;
                     holder.tvQuantity.setText(String.valueOf(currentQuantity));
                     book.setQuantity(String.valueOf(currentQuantity)); // Update quantity in book object
-                    updateTotalPrice(holder, book, currentQuantity);
+                    updateTotalPrice(holder, book, currentQuantity);  // Update total price
+
                 });
 
                 holder.btnDecrease.setOnClickListener(v -> {
-                    int currentQuantity = Integer.parseInt(holder.tvQuantity.getText().toString());
+                    int currentQuantity = Integer.parseInt(book.getQuantity());
                     if (currentQuantity > 1) {
                         currentQuantity--;
                         holder.tvQuantity.setText(String.valueOf(currentQuantity));
                         book.setQuantity(String.valueOf(currentQuantity)); // Update quantity in book object
-                        updateTotalPrice(holder, book, currentQuantity);
+                        updateTotalPrice(holder, book, currentQuantity);  // Update total price
+
+
                     }
                 });
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Log.i("ERROR:::", "Failed to load API URLs");
         }
     }
+
+
+
 
     @Override
     public int getItemCount() {

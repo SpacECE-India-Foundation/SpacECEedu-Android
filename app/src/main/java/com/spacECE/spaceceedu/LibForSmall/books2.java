@@ -64,13 +64,7 @@ public class books2 {
         this.user_id = user_id;
     }
 
-    public String getQuantity() {
-        return quantity;
-    }
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
 
     public String getProduct_id() {
         return product_id;
@@ -95,6 +89,15 @@ public class books2 {
     private void setProduct_price(String product_price) {
         this.product_price = product_price;
     }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
 
     public String getStatus() {
         return status;
@@ -153,5 +156,9 @@ public class books2 {
                 "\nproduct_image= " + product_image +
                 "\nproduct_cat= "+product_cat;
 
+    }
+
+    public int getItemTotalPrice() {
+        return Integer.parseInt(product_price) * Integer.parseInt(quantity);
     }
 }

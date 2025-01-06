@@ -78,8 +78,8 @@ public class libraryDetailed extends AppCompatActivity {
 
 
                 Picasso.get()
-                .load(baseUrl + libProductimgUrl + books.getProduct_image())
-                .into(productImg);
+                        .load(baseUrl + libProductimgUrl + books.getProduct_image())
+                        .into(productImg);
             }
         }
         catch (Exception e) {

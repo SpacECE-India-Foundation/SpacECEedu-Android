@@ -2,6 +2,7 @@ package com.spacECE.spaceceedu.GrowthTracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,9 +86,18 @@ public class ReportDetailsAdapter extends RecyclerView.Adapter<ReportDetailsAdap
         holder.getTipsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 // Start the GrowthTrackerReportTipsActivity
-                Intent intent = new Intent(context, GrowthTrackerTips.class);
-                context.startActivity(intent);
+                int currentPosition = holder.getAbsoluteAdapterPosition();
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    ReportDetails clickedItem = sectionList.get(currentPosition);
+                    // Log the title or any other detail of the clicked item
+                    Log.d("RecyclerView", "Item pressed: " + clickedItem.getTitle());
+
+                    Intent intent = new Intent(context, GrowthTrackerTips.class);
+                    intent.putExtra("Category clicked", clickedItem.getTitle());
+                    context.startActivity(intent);
+                }
             }
         });
     }

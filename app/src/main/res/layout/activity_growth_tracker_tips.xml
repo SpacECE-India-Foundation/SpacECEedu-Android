@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Keep Hydrated your Kid"
+            android:text="Tips"
             android:fontFamily="@font/poppins"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -28,9 +28,9 @@
             android:src="@drawable/growth_tracker_tips_image"/>
 
         <TextView
+            android:id="@+id/growth_tracker_tips_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recommended Water Intake for kids"
             android:fontFamily="@font/poppins"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -38,10 +38,10 @@
             android:layout_gravity="center_horizontal"/>
 
         <TextView
+            android:id="@+id/growth_tracker_tips_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="How much water does your child need to drink in a day? A good rule of thumb is take half their body weight and drink that many ounces of water. For instance, if your child weighs 25 pounds aim for around 12-13 ounces of water a day. If they weigh 100 pounds, they would need around 50 ounces a day."
             android:fontFamily="@font/poppins"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -50,7 +50,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            />
 
         <Button
             android:id="@+id/growth_tracker_tips_back_btn"
