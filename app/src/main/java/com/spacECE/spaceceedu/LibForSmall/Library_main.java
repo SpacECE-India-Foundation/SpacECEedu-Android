@@ -45,13 +45,16 @@ public class Library_main extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.menuHome:
+                    case R.id.toolbar_menu_home:
                         replaceFragment(new HomeFragmentLibForSmall());
+//                        Intent intent = new Intent(Library_main.this, MainActivity.class);
+//                        startActivity(intent);
                         return true;
 
-                    case R.id.menuProfile:
-                        Toast.makeText(Library_main.this, "Welcome to Profile", Toast.LENGTH_SHORT).show();
-                        replaceFragment(new FragmentProfile());
+                    case R.id.toolbar_menu_my_cart:
+                        //  Toast.makeText(Library_main.this, "Welcome to Profile", Toast.LENGTH_SHORT).show();
+                        // replaceFragment(new FragmentProfile());
+                        replaceFragment(new MyBooks());
                         return true;
 
                     case R.id.consultUs:
@@ -72,31 +75,31 @@ public class Library_main extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        //   getMenuInflater().inflate(R.menu.toolbar_menu, menu);
 
-        MenuItem addBooksMenuItem = menu.findItem(R.id.toolbar_menu_add_books);
-        addBooksMenuItem.setVisible(false);
-        return true;
+        //  MenuItem addBooksMenuItem = menu.findItem(R.id.toolbar_menu_add_books);
+        //  addBooksMenuItem.setVisible(false);
+        return false;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id= item.getItemId();
-        if(id==R.id.toolbar_menu_home){
-            //nav back to home screen
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
-        }
-        if(id==R.id.toolbar_menu_add_books){
-            replaceFragment(new AddBooks());
-        }
-        if(id==R.id.toolbar_menu_my_books){
-            replaceFragment(new MyBooks());
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        int id= item.getItemId();
+//        if(id==R.id.toolbar_menu_home){
+//            //nav back to home screen
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//            return true;
+//        }
+//        if(id==R.id.toolbar_menu_add_books){
+//            replaceFragment(new AddBooks());
+//        }
+//        if(id==R.id.toolbar_menu_my_books){
+//            replaceFragment(new MyBooks());
+//        }
+//        return true;
+//    }
 
     private void replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.libs_for_small_fragment_container, fragment).commit();
