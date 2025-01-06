@@ -96,6 +96,22 @@ public class Consultant_Main extends AppCompatActivity {
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.ConsultantMain_Frame,
                 new Fragment_Consultant_Categories()).commit();
+
+        // Check if we should show appointments screen changes (new code added 03/01/2025)..........
+        boolean showAppointments = getIntent().getBooleanExtra("show_appointments", false);
+        if (showAppointments) {
+            // Show appropriate appointments fragment based on user type
+            Fragment selectedFragment;
+            if (MainActivity.ACCOUNT != null && MainActivity.ACCOUNT.isCONSULTANT()) {
+                selectedFragment = new Fragment_Appointments_For_Consultants();
+            } else {
+                selectedFragment = new Fragment_Appointments_For_User();
+            }
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.ConsultantMain_Frame, selectedFragment)
+                    .commit();
+        }
+
     }
 
     private void generateAppointmentsListForUser() {

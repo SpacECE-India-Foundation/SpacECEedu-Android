@@ -60,10 +60,11 @@ public class Appointments_For_Consultant_RecyclerViewAdapter extends RecyclerVie
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        String name = myConsultants.get(position).getU_name();
+        String customerName = myConsultants.get(position).getC_name();
         Log.e( "onBindViewHolder:12345",myConsultants.get(position).getTime()+"---------");
         SetDateTimeDay(position, myConsultants, holder.date, holder.time, holder.day);
-        holder.name.setText("User "+name);
+        holder.name.setText(customerName);
+
         Picasso.get().load(R.drawable.default_profilepic).into(holder.profile);
 
 
