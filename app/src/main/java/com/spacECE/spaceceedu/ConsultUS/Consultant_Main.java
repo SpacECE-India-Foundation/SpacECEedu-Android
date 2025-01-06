@@ -77,7 +77,7 @@ public class Consultant_Main extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.Consultant_Main_BottomNav);
         bottomNav.setOnItemSelectedListener(navListener);
 
-        //generated the list based on user type and expanded the fragments accordingly
+        // Remove the duplicate initialization of Fragment_Consultant_Categories
         if(MainActivity.ACCOUNT!=null){
             if (MainActivity.ACCOUNT.isCONSULTANT()) {
                 bottomNav.inflateMenu(R.menu.consultant_main_consultants_bottomnav);
@@ -87,29 +87,34 @@ public class Consultant_Main extends AppCompatActivity {
                 bottomNav.inflateMenu(R.menu.consultant_main_user_bottomnav);
                 generateAppointmentsListForUser();
             }
-        }else{
+        } else {
             bottomNav.inflateMenu(R.menu.consultant_main_nouser_bottomnav);
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.ConsultantMain_Frame,
                         new Fragment_Consultant_Categories()).commit();
             }
+            return; // Return early if no user is logged in
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.ConsultantMain_Frame,
-                new Fragment_Consultant_Categories()).commit();
 
-        // Check if we should show appointments screen changes (new code added 03/01/2025)..........
+        // Check if we should show appointments screen
         boolean showAppointments = getIntent().getBooleanExtra("show_appointments", false);
         if (showAppointments) {
-            // Show appropriate appointments fragment based on user type
-            Fragment selectedFragment;
-            if (MainActivity.ACCOUNT != null && MainActivity.ACCOUNT.isCONSULTANT()) {
-                selectedFragment = new Fragment_Appointments_For_Consultants();
-            } else {
-                selectedFragment = new Fragment_Appointments_For_User();
-            }
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.ConsultantMain_Frame, selectedFragment)
-                    .commit();
+            // Show appropriate appointments fragment after a short delay to allow data to load
+            new android.os.Handler().postDelayed(() -> {
+                Fragment selectedFragment;
+                if (MainActivity.ACCOUNT != null && MainActivity.ACCOUNT.isCONSULTANT()) {
+                    selectedFragment = new Fragment_Appointments_For_Consultants();
+                } else {
+                    selectedFragment = new Fragment_Appointments_For_User();
+                }
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.ConsultantMain_Frame, selectedFragment)
+                        .commit();
+            }, 1000); // 1 second delay to allow API call to complete
+        } else {
+            // Only show categories if not showing appointments
+            getSupportFragmentManager().beginTransaction().replace(R.id.ConsultantMain_Frame,
+                    new Fragment_Consultant_Categories()).commit();
         }
 
     }
@@ -131,6 +136,9 @@ public class Consultant_Main extends AppCompatActivity {
 
                 @Override
                 public void run() {
+                    // Clear existing appointments list before making the API call
+                    Fragment_Appointments_For_User.appointmentsArrayList.clear();
+
                     OkHttpClient client = new OkHttpClient();
                     RequestBody fromBody = new FormBody.Builder()
                             .add("u_id", MainActivity.ACCOUNT.getAccount_id())
@@ -230,6 +238,8 @@ public class Consultant_Main extends AppCompatActivity {
 
                 @Override
                 public void run() {
+                    // Clear existing appointments list before making the API call
+                    Fragment_Appointments_For_Consultants.appointmentsArrayList.clear();
                     OkHttpClient client = new OkHttpClient();
                     RequestBody fromBody = new FormBody.Builder()
                             .add("c_id", MainActivity.ACCOUNT.getAccount_id())
