@@ -62,6 +62,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:id="@+id/email_icon"
             android:layout_gravity="center"
             android:padding="4dp"
             app:startIconDrawable="@drawable/ic_baseline_person_24">
@@ -82,9 +83,11 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:id="@+id/pass_icon"
             android:layout_centerHorizontal="true"
             android:padding="4dp"
             app:endIconMode="password_toggle"
+            app:errorIconDrawable="@null"
             app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
             <EditText
@@ -137,14 +140,14 @@
             android:visibility="invisible" />
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:textSize="17dp"
-        android:text="Don't have account yet?"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:textSize="17dp"
+            android:text="Don't have account yet?"/>
 
         <TextView
             android:id="@+id/TextView_Register"
