@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
 import com.spacECE.spaceceedu.Utils.ConfigUtils;
@@ -43,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     TextView tv_invalid;
     ToggleButton is_Consultant;
     TextView tv_forgotPassword;
+    TextInputLayout pass_toggle;
+    TextInputLayout email_icon;
 
     String USER;
 
@@ -64,19 +68,68 @@ public class LoginActivity extends AppCompatActivity {
         tv_invalid = findViewById(R.id.TextView_InvalidCredentials);
         is_Consultant = findViewById(R.id.isConsultant);
         tv_forgotPassword = findViewById(R.id.ForgetPassword);
+        pass_toggle = findViewById(R.id.pass_icon);
+        email_icon = findViewById(R.id.email_icon);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
+        // Clear error icon when the user focuses on the email field
+        et_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    et_email.setError(null); // Remove the error icon when the user focuses on the field
+                    pass_toggle.setError(null); // Remove the error icon
+
+                    et_password.setError(null); // Remove the error icon when the user focuses on the field
+                    pass_toggle.setError(null);
+                    pass_toggle.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
+                }
+            }
+        });
+
+        // Clear error icon when the user focuses on the password field
+        et_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    et_password.setError(null); // Remove the error icon when the user focuses on the field
+                    pass_toggle.setError(null); // Remove the error icon
+                    et_email.setError(null); // Remove the error icon when the user focuses on the field
+                    pass_toggle.setError(null);
+                    pass_toggle.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
+
+
+                }
+            }
+
+
+        });
+
+        // testing
+        et_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pass_toggle.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
+                et_password.setError(null);
+            }
+        });
+
+
+
         b_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                et_password.clearFocus();
+                et_email.clearFocus();
                 if (is_Consultant.isChecked()) {
                     USER = "consultant";
                 } else {
                     USER = "customer";
                 }
+
 
                 logIn(et_email.getText().toString(), et_password.getText().toString());
             }
@@ -305,13 +358,14 @@ public class LoginActivity extends AppCompatActivity {
                                     public void run() {
                                         try {
                                             if(jsonObject.getString("status").equals("error")) {
-
+                                                pass_toggle.setEndIconMode(TextInputLayout.END_ICON_NONE);
                                                 Log.i("Authentication:: ", "Rejected.....");
                                                 et_email.setText("");
-                                                et_email.setError("");
-                                                et_password.setError("");
+                                                et_email.setError(" "); // Remove any previous error message
                                                 et_password.setText("");
+                                                et_password.setError(" "); // Pass a single space to show only the icon
                                                 tv_invalid.setVisibility(View.VISIBLE);
+
 
                                                 Toast.makeText(LoginActivity.this, "Invalid email or password!", Toast.LENGTH_SHORT).show();
 
@@ -358,4 +412,3 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
-

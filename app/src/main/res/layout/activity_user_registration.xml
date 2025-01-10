@@ -83,6 +83,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:fadeScrollbars="false"
+                    android:scrollbars="horizontal"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
                     android:hint="@string/enter_email" />
