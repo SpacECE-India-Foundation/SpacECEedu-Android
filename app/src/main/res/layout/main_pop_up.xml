@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:color="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:background="@drawable/popupbg"
+        android:layout_margin="@dimen/_10sdp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How Is The Activity Going?"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textColor="@color/black"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:textSize="@dimen/_16ssp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kindly press a button as per your progress?"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:textSize="@dimen/_14ssp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:background="@drawable/popupbg"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/yet_to_start"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_100sdp"
+                android:background="@drawable/yettostart"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="  Not Done  "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/on_going"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/ongoing"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="  On Going  "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold" />
+
+            <Button
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="wrap_content"
+                android:text="Done"
+
+                android:layout_marginRight="@dimen/_100sdp"
+                android:textSize="@dimen/_10ssp"
+                android:id="@+id/completed"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+
+                android:background="@drawable/completed"
+                android:gravity="center"
+                android:padding="0dp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

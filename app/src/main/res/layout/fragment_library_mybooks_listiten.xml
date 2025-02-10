@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/library_MyBooks_RecyclerView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:paddingHorizontal="10dp"
+        tools:listitem="@layout/library_item_myooks"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

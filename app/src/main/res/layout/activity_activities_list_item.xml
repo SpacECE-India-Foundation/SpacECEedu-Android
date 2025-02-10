@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/_105sdp"
+    android:layout_weight="1"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal">
+
+
+    <ImageView
+
+        android:id="@+id/img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_12ssp"
+                android:layout_marginTop="@dimen/_5ssp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Activity Name"
+                android:textColor="#050505"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/_10ssp">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="34dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/age_icon" />
+
+                    <TextView
+                        android:id="@+id/level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_weight="1"
+                        android:text="Age 5 to 10"
+                        android:textColor="#0E0E0E" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/contains_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_1ssp"
+                    android:layout_weight="1"
+                    android:text="Contains Videos -"
+                    android:textColor="#0E0E0E"
+                    android:layout_marginStart="@dimen/_5ssp"
+                    />
+
+                <TextView
+                    android:id="@+id/completed_or_not"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Completed -"
+                    android:textColor="#0E0E0E" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="290dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="@dimen/_10ssp"
+                android:text="space for outcome of the activity/description of the activity. This is a test message to test the alignment."
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

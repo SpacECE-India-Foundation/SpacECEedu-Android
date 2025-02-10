@@ -1,0 +1,10 @@
+<!-- res/values/strings.xml -->
+<resources>
+    <string name="key_domain">SpacECEedu</string>
+    <string-array name="key_domain_items">
+        <item>Key Domain</item>
+        <item>Key Test 1</item>
+        <item>Key Test 2</item>
+        <item>Key Test 3</item>
+    </string-array>
+</resources>

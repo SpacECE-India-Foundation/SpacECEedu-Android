@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white"
+        android:elevation="4dp">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back Arrow"
+            android:padding="8dp"
+            android:src="@drawable/baseline_arrow_back_ios_24" />
+
+        <TextView
+            android:id="@+id/toptext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Plan &amp; Invoices"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.5"
+        android:background="@color/gray_400"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="1dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="1dp"
+                android:background="@color/gray_200"
+                android:padding="0dp">
+                <!-- Price Display -->
+                <TextView
+                    android:id="@+id/textselected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 499"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/mo"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="@color/gray_400"/>
+
+            <!-- Features Layout -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/gray_200"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="star"
+                    android:src="@drawable/ic_star"
+
+                    app:tint="@color/orange" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:padding="6dp"
+                    android:text="Unlimited calls"
+                    android:layout_marginRight="10dp"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="star1"
+                    android:src="@drawable/ic_star"
+                    android:layout_marginTop="5dp"
+                    app:tint="@color/orange" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:padding="6dp"
+                    android:text="5 users"
+                    android:layout_marginRight="10dp"
+                    android:textSize="10sp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="star"
+                    android:src="@drawable/ic_star"
+                    app:tint="@color/orange" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:padding="6dp"
+                    android:text="IVR"
+                    android:layout_marginRight="10dp"
+                    android:textSize="10sp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="star"
+                    android:src="@drawable/ic_star"
+                    android:layout_marginTop="5dp"
+                    app:tint="@color/orange" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:padding="6dp"
+                    android:text="WhatsApp"
+                    android:textSize="10sp" />
+
+                <!--                </LinearLayout>-->
+            </LinearLayout>
+
+            <!-- Plan Selection Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Select the plan"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- Plan Radio Group -->
+            <RadioGroup
+                android:id="@+id/planRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <!-- Yearly Plan Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp">
+
+                    <RadioButton
+                        android:id="@+id/yearlyPlan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:button="@null"
+                        android:drawableEnd="@drawable/custom_radio_button"
+                        android:text="₹ 1899 12 months\n(₹ 158.25/month)"
+                        android:textSize="20sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp">
+
+                    <RadioButton
+                        android:id="@+id/ThreeMonthPlan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:button="@null"
+                        android:drawableEnd="@drawable/custom_radio_button"
+                        android:text="₹ 1250 3 months\n(₹ 416.67/month)"
+                        android:textSize="20sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp">
+
+                    <RadioButton
+                        android:id="@+id/OneMonthPlan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:button="@null"
+                        android:drawableEnd="@drawable/custom_radio_button"
+                        android:text="₹ 499 / months"
+                        android:textSize="20sp" />
+                </androidx.cardview.widget.CardView>
+
+            </RadioGroup>
+
+            <!-- Warning Message -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="* Once upgraded, you will not be able to restore previous plan"
+                    android:textColor="@android:color/black"
+                    android:padding="5dp"
+                    android:textSize="14sp" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Upgrade Button -->
+            <Button
+                android:id="@+id/upgradeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/orange_button_background"
+                android:backgroundTint="@color/orange"
+                android:padding="13dp"
+                android:text="UPGRADE PLAN"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

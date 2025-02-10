@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ConsultUS.Fragment_Consultant_Categories"
+    android:background="@color/white">
+   <androidx.core.widget.NestedScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+         <TextView
+             android:layout_margin="13dp"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="TOP SPECIALIST"
+             android:textAlignment="center"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:textSize="@dimen/_26ssp"
+             />
+         <TextView
+             android:layout_marginBottom="@dimen/_20sdp"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginStart="@dimen/_20sdp"
+             android:layout_marginEnd="@dimen/_20sdp"
+             android:text="Connect with India’s top doctor consultant for your child"
+             android:textAlignment="center"
+             android:textStyle="normal"
+             android:textColor="@color/black"
+             android:textSize="@dimen/_20ssp"
+             />
+         <ImageView
+             android:background="@color/white"
+             android:layout_width="@dimen/_100sdp"
+             android:layout_height="@dimen/_100sdp"
+             android:layout_marginBottom="@dimen/_45sdp"
+             android:layout_gravity="center"
+             android:src="@drawable/doctor_pic_consultus_main_view"/>
+
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/Consultant_Category_RecyclerView"
+             android:layout_height="match_parent"
+             android:layout_width="match_parent"
+             android:paddingHorizontal="@dimen/_10sdp"
+             android:layout_marginBottom="@dimen/_26sdp"
+             tools:listitem="@layout/consultant_category_list_item"/>
+
+      </LinearLayout>
+   </androidx.core.widget.NestedScrollView>
+
+   <ProgressBar
+       android:id="@+id/Loading_Consultants"
+       style="?android:attr/progressBarStyle"
+       android:layout_gravity="center"
+       android:visibility="invisible"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
+</LinearLayout>

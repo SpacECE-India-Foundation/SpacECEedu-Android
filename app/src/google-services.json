@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "144318608772",
+    "firebase_url": "https://spacecemobileapp-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "spacecemobileapp",
+    "storage_bucket": "spacecemobileapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144318608772:android:f3076c5cf7dcbf019719d1",
+        "android_client_info": {
+          "package_name": "com.example.chatapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144318608772-lnmrm3l9acninha12ultd7gjslrq0tdm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnL0OvJPM8kE2i2S3_ezGa_v36HNIsf_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144318608772-lnmrm3l9acninha12ultd7gjslrq0tdm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144318608772:android:6600d5153302e39f9719d1",
+        "android_client_info": {
+          "package_name": "com.example.firebase1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144318608772-lnmrm3l9acninha12ultd7gjslrq0tdm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnL0OvJPM8kE2i2S3_ezGa_v36HNIsf_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144318608772-lnmrm3l9acninha12ultd7gjslrq0tdm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144318608772:android:eb71072c844942949719d1",
+        "android_client_info": {
+          "package_name": "com.spacECE.spaceceedu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144318608772-lnmrm3l9acninha12ultd7gjslrq0tdm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnL0OvJPM8kE2i2S3_ezGa_v36HNIsf_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144318608772-lnmrm3l9acninha12ultd7gjslrq0tdm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

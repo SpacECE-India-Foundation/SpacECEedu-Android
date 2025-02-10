@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/LogoIMG"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/AboutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:text="About"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/aboutText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:text="SPACE (Supporting Positive Awareness in Childhood Education) is dedicated to advancing early childhood education through a comprehensive approach that includes awareness, consulting services, and educational products. Our mission is to create an enriching environment for young learners by equipping educators, parents, and caregivers with the tools and knowledge they need to foster positive development in children."
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            android:text="Our Focus Areas"
+            />
+
+        <TextView
+            android:id="@+id/awarenessTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Awareness\n\nPublic Campaigns: We conduct public awareness campaigns to highlight the importance of early childhood education. These campaigns focus on the developmental benefits of quality early education and the long-term impacts on society.\n\nWorkshops and Seminars: We offer workshops and seminars for parents, educators, and community members to educate them about the latest research and best practices in early childhood education.\n\nResource Development: We develop and distribute informational materials, including brochures, videos, and online resources, to raise awareness about key issues in early childhood education."
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:id="@+id/consultingServicesTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Consulting Services\n\nEducational Consulting: Our team of experienced educators and child development specialists provide consulting services to schools, daycare centers, and other educational institutions. We assist in curriculum development, classroom management strategies, and the implementation of evidence-based practices.\n\nProfessional Development: We offer tailored professional development programs for educators, focusing on areas such as child psychology, instructional strategies, and inclusive education.\n\nParental Guidance: We provide consulting services to parents, helping them understand their child’s developmental stages and offering strategies to support their learning at home."
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/educationalProductsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Educational Products\n\nCurriculum Kits: We design and produce curriculum kits that align with early childhood education standards. These kits include lesson plans, activity guides, and assessment tools to support educators in delivering high-quality instruction.\n\nInteractive Learning Tools: Our range of interactive learning tools, such as educational games, books, and digital apps, are designed to engage young learners and support their cognitive and social-emotional development.\n\nCustomized Resources: We create customized educational resources tailored to the specific needs of different educational settings and individual children."
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            android:text="Our Approach"
+            />
+
+        <TextView
+            android:id="@+id/educationalPracticesTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Research-Based Practices: All our services and products are grounded in the latest research in early childhood education and developmental psychology. We continuously update our offerings to reflect new findings and emerging best practices.\n\nInclusive Education: We are committed to promoting inclusive education that respects and embraces diversity. Our resources and training programs emphasize strategies for supporting children with diverse backgrounds and learning needs.\n\nCollaborative Partnerships: We collaborate with educational institutions, community organizations, and policymakers to create a supportive ecosystem for early childhood education."
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            android:text="Why Choose SPACE?"
+            />
+
+        <TextView
+            android:id="@+id/educationalServicesTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Expertise: Our team comprises seasoned professionals with extensive experience in early childhood education, child development, and educational consulting.\n\nCustomized Solutions: We understand that every educational setting is unique. We offer customized solutions that address specific needs and challenges.\n\nComprehensive Support: From awareness campaigns to hands-on consulting and innovative educational products, we provide comprehensive support to all stakeholders in early childhood education."
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            android:text="Get Involved"
+            />
+
+        <TextView
+            android:id="@+id/partnerWithUsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Partner with Us: We are always looking for new partners to help expand our reach and impact. Whether you are an educational institution, a community organization, or a business, we invite you to collaborate with us.\n\nJoin Our Programs: Participate in our workshops, seminars, and training programs to enhance your knowledge and skills in early childhood education.\n\nSupport Our Mission: Consider donating to support our initiatives and help us make a difference in the lives of young children."
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            android:text="Contact Us"
+            />
+
+
+        <TextView
+            android:id="@+id/contactInfoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="For more information about SPACE and our services, please visit our website or contact us at:\n\nWebsite: www.space-education.org\nEmail: info@space-education.org\nPhone: (123) 456-7890\n\nTogether, we can create a brighter future for our children through quality early childhood education."
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:textAlignment="center"/>
+
+
+
+    </LinearLayout></ScrollView>

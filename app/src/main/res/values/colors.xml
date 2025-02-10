@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Spacece_Yellow">#EAAE15</color>
+    <color name="Spacece_Yelloww">#FFC107</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Chat Activity -->
+    <color name="localBackground">#FFC107</color>
+    <color name="remoteBackground">#EAAE15</color>
+
+    <!-- Logs -->
+    <color name="logInfo">#4a90e2</color>
+    <color name="logWarn">#fedd56</color>
+    <color name="logError">#fe375f</color>
+    <color name="editable_text_bg">#ECEAEA</color>
+    <color name="colorSelected">#000000</color> <!-- Color for selected item -->
+    <color name="colorUnselected">#2C2C2C</color>
+
+
+
+    <color name="orange">#F8A800</color>
+
+    <color name="green">#008000</color>
+    <color name="gray">#4F4F4F</color>
+    <color name="red">#FF0000</color>
+
+
+    <color name="blue">#2390F3</color>
+    <color name="yellow">#FAF115</color>
+    <color name="red2">#F36C6A</color>
+
+
+    <color name="growth_tracker_water">#2390F3</color>
+    <color name="growth_tracker_fruit">#FC58A7</color>
+    <color name="growth_tracker_vegitable">#73E969</color>
+
+    <color name="growth_tracker_upcoming_vaccine">#FAF115</color>
+    <color name="growth_tracker_not_vaccine">#FE3D49</color>
+    <color name="growth_tracker_vaccinated">#098807</color>
+
+    <color name="growth_tracker_play_time">#55FBFB</color>
+    <color name="growth_tracker_sleep_time">#7762F8</color>
+    <color name="growth_tracker_screen_time">#FB381D</color>
+
+    <!--    Payment-->
+    <color name="orange_dark">#FF8833</color>
+    <color name="blue_500">#2196F3</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_400">#BDBDBD</color>
+</resources>

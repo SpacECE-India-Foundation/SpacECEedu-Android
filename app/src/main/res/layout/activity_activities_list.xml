@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ActivitiesListActivity"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/constraintLayout2"
+            android:layout_width="407dp"
+            android:layout_height="63dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/actions_scrollView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/spacActiveLogo"
+                android:layout_width="60dp"
+                android:layout_height="53dp"
+                android:layout_margin="6.50dp"
+                android:background="@color/white"
+                android:src="@drawable/spactivelogo"/>
+
+            <TextView
+                android:id="@+id/text_actvity_details_head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left |center"
+                android:text="SpaceActive"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_26ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="@dimen/_5ssp"/>
+
+            <SearchView
+                android:visibility="gone"
+                android:id="@+id/searchView"
+                android:layout_width="40dp"
+                android:layout_height="39dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.957"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                android:layout_marginTop="@dimen/_12ssp"
+                android:layout_marginLeft="@dimen/_77ssp"
+                app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+
+        </LinearLayout>
+        <HorizontalScrollView
+            android:id="@+id/actions_scrollView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/all_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    android:textColor="@color/black"
+                    android:background="@drawable/button_border"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:alpha=".8"
+                    android:textSize="@dimen/_10sdp"
+                    />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_free"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="@color/black"
+                    android:shadowColor="#FBFBFB"
+                    android:text="Free"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:background="@drawable/button_border"
+
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:alpha=".8"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_paid"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="@color/black"
+                    android:shadowColor="#FBFBFB"
+                    android:text="Paid"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:background="@drawable/button_border"
+
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:alpha=".8"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <Spinner
+                    android:id="@+id/level_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:alpha=".8"
+                    android:textSize="@dimen/_10sdp"
+
+                    android:background="@drawable/button_border"
+                    />
+                <Spinner
+                    android:id="@+id/key_domain_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:alpha=".8"
+                    android:textSize="@dimen/_10sdp"
+                    android:background="@drawable/button_border"
+                    />
+
+                <Spinner
+                    android:id="@+id/dev_domain_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:alpha=".8"
+                    android:textSize="@dimen/_10sdp"
+                    android:background="@drawable/button_border"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:divider="@color/white"
+            android:dividerHeight="1dp"
+            android:footerDividersEnabled="false"
+            app:layout_constraintBottom_toTopOf="@+id/VideoLibrary_Bottom_Navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

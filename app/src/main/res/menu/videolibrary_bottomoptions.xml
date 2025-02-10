@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/videolibrary_nav_free"
+        android:title="Free"
+        android:icon="@drawable/ic_baseline_new_free_24"/>
+    <item
+        android:id="@+id/videolibrary_nav_trending"
+        android:title="Trending"
+        android:icon="@drawable/ic_baseline_trending_24"/>
+    <item
+        android:id="@+id/videolibrary_nav_paid"
+        android:title="Premium"
+        android:icon="@drawable/ic_baseline_paid_24"/>
+
+</menu>

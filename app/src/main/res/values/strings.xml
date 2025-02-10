@@ -1,0 +1,82 @@
+<resources>
+    // Replace #YOUR APP ID# with your App ID in the string format
+    <string name="agora_app_id">464ff3e49fb3409494c0956edcec52e7</string>
+    <string name="Rs">\u20B9</string>
+    <string name="app_name">SpacECEedu</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string-array name="Categories">
+        <item>Categories</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
+    <string-array name="ratings">
+        <item>Rating</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_user_registration">UserRegistration</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_new_login">NewLoginActivity</string>
+    <string name="title_activity_login2">LoginActivity2</string>
+    <string name="login">Login</string>
+    <string name="user_name_e">User Name/Email</string>
+    <string name="password">Password</string>
+    <string name="new_registr">New Registration</string>
+    <string name="back">Back</string>
+    <string name="skip">Skip</string>
+
+    <string name="spaceece">SpaceECE</string>
+    <string name="registration">REGISTRATION DETAILS</string>
+    <string name="enter_user_">Enter User Name</string>
+    <string name="enter_phone">Enter Phone Number</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_passw">Enter Password</string>
+    <string name="re_enter_pa">Re-Enter Password</string>
+    <string name="register_si">REGISTER</string>
+
+    <!-- Strings used for Payment Plans -->
+    <string name="yearly_plan_text">
+    <font alhpa="0.87" color="#FF000000"><b> <big>₹ 1899</big></b></font>
+        <font alhpa="0.5" color="#00000">12 months</font>\n
+        <font alhpa="0.38" color="#00000">(₹ 158.25/month)</font>
+    </string>
+
+    <string name="three_month_plan_text">
+    <font alhpa="0.87" color="#FF000000"><b> <big>₹ 1250</big></b></font>
+        <font alhpa="0.60" color="#00000">3 months</font>\n
+        <font alhpa="0.38" color="#00000">(₹ 416.67/month)</font>
+    </string>
+
+    <string name="one_month_plan_text">
+    <font alhpa="0.87" color="#FF000000"><b> <big>₹ 499</big></b></font>
+        <font alhpa="0.60" color="#000000">/ month</font>
+
+    </string>
+
+</resources>
