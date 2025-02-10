@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class library_myBooks_list extends Fragment {
     private RecyclerView mybooksrclview;
 
-    private library_mybook_recyclerAdapter.RecyclerViewClickListener listener;
+
 
 
     @Override
@@ -44,25 +44,19 @@ public class library_myBooks_list extends Fragment {
 
         mybooksrclview = v.findViewById(R.id.library_MyBooks_RecyclerView);
         ArrayList<books> list = Library_main.list;
-        setAdapter(list);
+
 
         return v;
     }
-    private void setAdapter(ArrayList<books> mylist) {
-        setOnClickListener();
-        library_mybook_recyclerAdapter adapter = new library_mybook_recyclerAdapter(mylist, listener);
+    private void setAdapter(ArrayList<books2> mylist) {
+        library_mybook_recyclerAdapter adapter = new library_mybook_recyclerAdapter(requireContext(),mylist);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1, LinearLayoutManager.VERTICAL, false);
         mybooksrclview.setLayoutManager(layoutManager);
         mybooksrclview.setItemAnimator(new DefaultItemAnimator());
         mybooksrclview.setAdapter(adapter);
     }
 
-    private void setOnClickListener() {
-        listener = (v, position) -> {
-            Intent intent = new Intent(getContext(), libraryDetailed.class);
-            intent.putExtra("pos", position);
-            startActivity(intent);
-        };
-    }
+
+
 
 }

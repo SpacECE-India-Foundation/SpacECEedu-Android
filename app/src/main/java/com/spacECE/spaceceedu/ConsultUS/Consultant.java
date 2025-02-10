@@ -3,8 +3,32 @@ package com.spacECE.spaceceedu.ConsultUS;
 public class Consultant {
     private String name,consultant_id,profilePic_src,categories,address,language,timing_start,timing_end,qualification;
     private String price;
+    private String c_available_from,c_available_to,c_aval_days;
 
-    //TODO in this class days on which consultant is available is missing and needs to implemented from the server side and proper string array to be added.
+    public String getC_available_from() {
+        return c_available_from;
+    }
+
+    public void setC_available_from(String c_available_from) {
+        this.c_available_from = c_available_from;
+    }
+
+    public String getC_available_to() {
+        return c_available_to;
+    }
+
+    public void setC_available_to(String c_available_to) {
+        this.c_available_to = c_available_to;
+    }
+
+    public String getC_aval_days() {
+        return c_aval_days;
+    }
+
+    public void setC_aval_days(String c_aval_days) {
+        this.c_aval_days = c_aval_days;
+    }
+//TODO in this class days on which consultant is available is missing and needs to implemented from the server side and proper string array to be added.
 
     public Consultant(String name, String consultant_id, String profilePic_src, String categories
             , String address, String language, String timing_start, String timing_end,

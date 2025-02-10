@@ -5,6 +5,19 @@ public class Appointment {
     private String c_name, u_name, c_pic, u_pic;
     private String bookedAt;
     private String duration;
+    private String time;
+    private String mobile;
+
+    //get phone number
+    private String consultantPhoneNumber;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public Appointment(String consult_id, String c_name, String u_name, String c_pic,
                        String u_pic, String bookedAt, String duration) {
@@ -15,6 +28,7 @@ public class Appointment {
         this.u_pic = u_pic;
         this.bookedAt = bookedAt;
         this.duration = duration;
+        this.mobile = mobile;
     }
 
     public String getConsult_id() {
@@ -43,5 +57,18 @@ public class Appointment {
 
     public String getDuration() {
         return duration;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    //get consultant phone number
+    public String getConsultantPhoneNumber() {
+        return consultantPhoneNumber;
+    }
+
+    public void setConsultantPhoneNumber(String consultantPhoneNumber){
+        this.consultantPhoneNumber = consultantPhoneNumber;
     }
 }

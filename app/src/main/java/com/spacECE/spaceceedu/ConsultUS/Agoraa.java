@@ -3,6 +3,7 @@ package com.spacECE.spaceceedu.ConsultUS;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -18,18 +19,29 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import com.spacECE.spaceceedu.MainActivity;
 import com.spacECE.spaceceedu.R;
-import io.agora.rtc.IRtcEngineEventHandler;
-import io.agora.rtc.RtcEngine;
-import io.agora.rtc.video.VideoCanvas;
-import io.agora.rtc.video.VideoEncoderConfiguration;
-import okhttp3.*;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+
+import io.agora.rtc.IRtcEngineEventHandler;
+import io.agora.rtc.RtcEngine;
+import io.agora.rtc.video.VideoCanvas;
+import io.agora.rtc.video.VideoEncoderConfiguration;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class Agoraa extends AppCompatActivity {
     private static final String TAG = "Agora";
@@ -190,51 +202,66 @@ public class Agoraa extends AppCompatActivity {
             JSONObject jsonObject;
             @Override
             public void run() {
+                try {
+                    JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+                    if (config != null) {
+                        String agoraaUrl= config.getString("CONSULT_AGORAA");
 
-                OkHttpClient client = new OkHttpClient();
-                RequestBody fromBody = new FormBody.Builder()
-                        .add("consult_id", finalConsult_ID)
-                        .add("user_id", MainActivity.ACCOUNT.getAccount_id())
-                        .build();
+                        OkHttpClient client = new OkHttpClient();
+                        RequestBody fromBody = new FormBody.Builder()
+                                .add("consult_id", finalConsult_ID)
+                                .add("user_id", MainActivity.ACCOUNT.getAccount_id())
+                                .build();
 
-                Request request = new Request.Builder()
-                        .url("http://spacefoundation.in/test/SpacECE-PHP/ConsultUs/agoracallapi.php")
-                        .post(fromBody)
-                        .build();
+                        Request request = new Request.Builder()
+                                .url(agoraaUrl)
+                                .post(fromBody)
+                                .build();
 
-                Call call = client.newCall(request);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        System.out.println("Registration Error ApI " + e.getMessage());
-                    }
+                        Call call = client.newCall(request);
+                        call.enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                System.out.println("Registration Error ApI " + e.getMessage());
+                            }
 
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        String resp = response.body().string();
-                        try {
-                            jsonObject = new JSONObject(resp);
-                            System.out.println(jsonObject);
-                            token = jsonObject.getString("token");
-                            channel = jsonObject.getString("channelName");
+                            @Override
+                            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                                String resp = response.body().string();
+                                try {
+                                    jsonObject = new JSONObject(resp);
+                                    System.out.println(jsonObject);
+                                    token = jsonObject.getString("token");
+                                    channel = jsonObject.getString("channelName");
+                                    Log.d("the token is ","token"+token);
+                                    Log.d("the channel is ","channel"+channel);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
+                                                    checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID)) {
+                                                Log.d("the token is ","token"+token);
+                                                Log.d("the channel is ","channel"+channel);
+                                                   initEngineAndJoinChannel();
+                                            }
+                                        }
+                                    });
 
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
-                                            checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID)) {
-                                        initEngineAndJoinChannel();
-                                    }
+                                } catch (JSONException e) {
+                                    Log.d("errorrr","==" + e.getMessage());
                                 }
-                            });
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                            }
+                        });
                     }
-                });
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Log.i("ERROR:::", "Failed to load API URLs");
+                }
             }
+
         });
+
         thread.start();
 
 
@@ -254,13 +281,13 @@ public class Agoraa extends AppCompatActivity {
         mLogView = findViewById(R.id.log_recycler_view);
 
         // Sample logs are optional.
-        showSampleLogs();
+        //showSampleLogs();
 
     }
 
-    private void showSampleLogs() {
-        mLogView.logI("Welcome to SpaceECE");
-    }
+//    private void showSampleLogs() {
+//        mLogView.logI("Welcome to SpaceECE");
+//    }
 
 
     private boolean checkSelfPermission(String permission, int requestCode) {
@@ -269,7 +296,6 @@ public class Agoraa extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, requestCode);
             return false;
         }
-
         return true;
     }
 
@@ -286,13 +312,11 @@ public class Agoraa extends AppCompatActivity {
                 finish();
                 return;
             }
-
             // Here we continue only if all permissions are granted.
             // The permissions can also be granted in the system settings manually.
             initEngineAndJoinChannel();
         }
     }
-
     private void showShortToast(final String msg) {
         this.runOnUiThread(new Runnable() {
             @Override
@@ -301,6 +325,8 @@ public class Agoraa extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void initEngineAndJoinChannel() {
         // This is our usual steps for joining
@@ -357,9 +383,6 @@ public class Agoraa extends AppCompatActivity {
         // same channel successfully using the same app id.
         // 2. One token is only valid for the channel name that
         // you use to generate this token.
-
-
-
         mRtcEngine.joinChannel(token, channel, "Extra Optional Data", 0);
 
     }

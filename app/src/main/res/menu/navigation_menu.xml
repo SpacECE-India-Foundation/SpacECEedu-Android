@@ -3,10 +3,12 @@
 
     <item
         android:id="@+id/allCourse"
-        android:title="All Course"/>
+        android:title="All Course"
+        android:icon="@drawable/allcoursesicon" />
 
     <item
         android:id="@+id/myCourse"
-        android:title="My Course"/>
+        android:title="My Course"
+        android:icon="@drawable/mylearing" />
 
 </menu>

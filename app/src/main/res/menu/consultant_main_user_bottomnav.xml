@@ -3,7 +3,7 @@
     <item
         android:id="@+id/consultant_main_navButton_all"
         android:title="All"
-        android:icon="@drawable/ic_baseline_search_24"/>
+        android:icon="@drawable/ic_baseline_home_24"/>
     <item
         android:id="@+id/consultant_main_navButton_my"
         android:title="My Consultants"

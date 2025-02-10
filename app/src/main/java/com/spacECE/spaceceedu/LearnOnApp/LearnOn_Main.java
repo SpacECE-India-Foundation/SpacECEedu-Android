@@ -1,68 +1,83 @@
 package com.spacECE.spaceceedu.LearnOnApp;
 
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-
+import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
+import androidx.fragment.app.Fragment;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.spacECE.spaceceedu.MainActivity;
+import com.razorpay.PaymentData;
+import com.razorpay.PaymentResultWithDataListener;
 import com.spacECE.spaceceedu.R;
-import com.spacECE.spaceceedu.Utils.UsefulFunctions;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class LearnOn_Main extends AppCompatActivity {
+public class LearnOn_Main extends AppCompatActivity implements PaymentResultWithDataListener {
 
     public static ArrayList<Learn> Llist = new ArrayList<>();
-    Fragment fragment = new LearnOn_List();
     BottomNavigationView bottomNavigationView;
+    TextView showCourseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_on_main);
-        getSupportFragmentManager().beginTransaction().replace(R.id.LearnOnMain_Frame, fragment).commit();
 
-//        BottomNavigationView
-        bottomNavigationView=findViewById(R.id.bottom_navigation_learn);
+        // Initialize fragments
+        Fragment allCoursesFragment = new LearnOn_List();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("course_list", Llist);
+        allCoursesFragment.setArguments(bundle);
+
+        Fragment myCoursesFragment = new LearnOn_MyCourses();
+
+        // Default fragment
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.LearnOnMain_Frame, allCoursesFragment)
+                .commit();
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation_learn);
+        showCourseList = findViewById(R.id.ShowWhichListIsSelected);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-
+                Fragment selectedFragment = null;
+                switch (item.getItemId()) {
                     case R.id.allCourse:
-//                          You Just Attach Here Fragment Manager Here Of All Course
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.LearnOnMain_Frame, fragment).commit();
-                            Toast.makeText(getApplicationContext(), "All Course", Toast.LENGTH_SHORT).show();
-                            break;
+                        selectedFragment = allCoursesFragment;
+                        showCourseList.setText("All Course");
+                        Toast.makeText(getApplicationContext(), "All Course", Toast.LENGTH_SHORT).show();
+                        break;
 
                     case R.id.myCourse:
-//                          You just Attach Here Fragment Manager Here Of My Course
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.LearnOnMain_Frame, fragment).commit();
-                            Toast.makeText(getApplicationContext(), "My Course", Toast.LENGTH_SHORT).show();
-                            break;
+                        selectedFragment = myCoursesFragment;
+                        showCourseList.setText("My Course");
+                        Toast.makeText(getApplicationContext(), "My Course", Toast.LENGTH_SHORT).show();
+                        break;
                 }
-                return false;
+                if (selectedFragment != null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.LearnOnMain_Frame, selectedFragment).commit();
+                }
+                return true;
+
             }
         });
 
+
+
     }
 
+    @Override
+    public void onPaymentSuccess(String s, PaymentData paymentData) {
+        Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void onPaymentError(int i, String s, PaymentData paymentData) {
+        Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show();
+    }
 }

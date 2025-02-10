@@ -2,6 +2,7 @@ package com.spacECE.spaceceedu.LearnOnApp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.JsonObject;
 import com.instamojo.android.Instamojo;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentData;
+import com.razorpay.PaymentResultWithDataListener;
 import com.spacECE.spaceceedu.R;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class LearnOn_List_RecycleAdapter extends RecyclerView.Adapter<LearnOn_List_RecycleAdapter.MyViewHolder> {
+public class LearnOn_List_RecycleAdapter extends RecyclerView.Adapter<LearnOn_List_RecycleAdapter.MyViewHolder>{
 
     ArrayList<Learn> Llist;
 
@@ -30,41 +37,62 @@ public class LearnOn_List_RecycleAdapter extends RecyclerView.Adapter<LearnOn_Li
         this.listener = listener;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, Instamojo.InstamojoPaymentCallback {
-        private final TextView tv_category;
+
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private final TextView tv_category, duration, price;
         private final Button tv_enroll;
+        private final View view;
 
-        public MyViewHolder(@NonNull View view) {
-            super(view);
-            tv_category = view.findViewById(R.id.LearnOn_List_ListItem_TextView_CategoryName);
-            view.setOnClickListener(this);
-            tv_enroll = view.findViewById(R.id.Enroll);
-            tv_enroll.setOnClickListener(v -> {
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.view = itemView;
+            tv_category = itemView.findViewById(R.id.LearnOn_List_ListItem_TextView_CategoryName);
+            duration = itemView.findViewById(R.id.ShowCourseStartingDate);
+            price = itemView.findViewById(R.id.ShowCoursePrice);
+            tv_enroll = itemView.findViewById(R.id.Enroll);
 
-                Instamojo.getInstance().initialize(view.getContext(), Instamojo.Environment.TEST);
-                Instamojo.getInstance().initiatePayment((Activity) view.getContext(), orderID, this);
+            itemView.setOnClickListener(this);
+            tv_enroll.setOnClickListener(v -> startPayment());
+        }
 
-            });
+        private void startPayment() {
+            Checkout checkout = new Checkout();
+            checkout.setKeyID("rzp_test_KQpgNv8PbMeQk1");
+
+            Activity activity = (Activity) view.getContext();
+
+            try {
+                JSONObject options = new JSONObject();
+                options.put("name", "SpacECEedu");
+                options.put("description", "Education Platform");
+                options.put("image", "http://example.com/image/rzp.jpg");
+                options.put("theme.color", "#EAAE15");
+                options.put("currency", "INR");
+
+                double amount = Double.parseDouble(price.getText().toString());
+                int amountInPaise = (int) amount * 100;
+                options.put("amount", amountInPaise);
+
+                options.put("prefill.email", "spaceece@gmail.com");
+                options.put("prefill.contact", "9988776655");
+
+                JSONObject retryObj = new JSONObject();
+                retryObj.put("enabled", true);
+                retryObj.put("max_count", 4);
+                options.put("retry", retryObj);
+
+                checkout.open(activity, options);
+
+            } catch (Exception e) {
+                Log.e("Checkout Error", "Error in starting Razorpay Checkout", e);
+            }
         }
 
 
-        @Override
-        public void onClick(View view) {listener.onClick(view, getAdapterPosition()); }
 
         @Override
-        public void onInstamojoPaymentComplete(String s, String s1, String s2, String s3) {
-
-        }
-
-        @Override
-        public void onPaymentCancelled() {
-
-        }
-
-        @Override
-        public void onInitiatePaymentFailure(String s) {
-
-        }
+        public void onClick(View view) {listener.onClick(view, getAdapterPosition());}
     }
 
 
@@ -78,6 +106,8 @@ public class LearnOn_List_RecycleAdapter extends RecyclerView.Adapter<LearnOn_Li
     @Override
     public void onBindViewHolder(@NonNull @NotNull MyViewHolder holder, int position) {
         holder.tv_category.setText(Llist.get(position).getTitle());
+        holder.price.setText(Llist.get(position).getPrice());
+        holder.duration.setText(Llist.get(position).getDuration());
     }
 
     @Override

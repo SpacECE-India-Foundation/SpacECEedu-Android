@@ -23,12 +23,8 @@
             android:textStyle="bold"/>
 
         <ImageView
-            android:id="@+id/growth_tracker_tips_image"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="40dp"
-            android:scaleType="fitCenter"
+            android:layout_height="wrap_content"
             android:src="@drawable/growth_tracker_tips_image"/>
 
         <TextView
