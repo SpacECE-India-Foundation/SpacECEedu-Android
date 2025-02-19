@@ -472,6 +472,7 @@ public class RegistrationFinal extends AppCompatActivity {
                     startActivity(intent);
                     finish(); // Close the registration activity
 
+
                 } else if (status.equals("error")) {
                     // Handle different error messages
                     if (message.equals("Email already exists!")) {
@@ -550,16 +551,19 @@ public class RegistrationFinal extends AppCompatActivity {
     // Validate re-entered password
     private boolean validateRepass() {
         if (!ev_password.getText().toString().equals(ev_re_password.getText().toString())) {
-            ev_re_password.setError("Reentered Password does not match");
-            ev_re_password.setText("");
+            showToast("Re-entered password does not match"); // Use showToast() instead of setError()
+            ev_re_password.setText(""); // Clear the re-entered password field
             ev_password.setText("");
+            // ev_re_password.setText("");  //Optional:Remove this line if you don't want to clear the field.
+            // ev_password.setText("");    //Optional:Remove this line if you don't want to clear the field.
             return false;
         } else if (ev_re_password.getText().toString().isEmpty()) {
-            ev_re_password.setError("Field cannot be empty");
+            showToast("Re-entered password field cannot be empty"); // Use showToast() instead of setError()
             return false;
         }
         return true;
     }
+
     private void showToast(String message) {
         if (currentToast != null) {
             currentToast.cancel();

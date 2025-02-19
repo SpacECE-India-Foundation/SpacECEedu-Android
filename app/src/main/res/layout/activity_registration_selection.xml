@@ -21,11 +21,11 @@
 
     <Button
         android:id="@+id/Registration_Selection_Button_User"
-        android:layout_width="180dp"
+        android:layout_width="190dp"
         android:layout_height="80dp"
         android:text="User"
         android:fontFamily="@font/poppins_medium"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:textColor="@color/colorSelected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,11 +35,12 @@
 
     <Button
         android:id="@+id/Registration_Selection_Button_Consultant"
-        android:layout_width="180dp"
+        android:layout_width="190dp"
         android:layout_height="80dp"
         android:layout_marginTop="40dp"
         android:text="Consultant"
-        android:textSize="20dp"
+        android:textSize="18dp"
+        android:fontFamily="@font/poppins_medium"
         android:textColor="@color/colorSelected"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

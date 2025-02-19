@@ -1,6 +1,8 @@
 package com.spacECE.spaceceedu;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -18,7 +20,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.bumptech.glide.Glide;
 import com.spacECE.spaceceedu.Authentication.Account;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 
@@ -33,6 +37,8 @@ public class FragmentProfile extends Fragment {
     private TextView nameTextView, emailTextView, phoneTextView;
     private ImageView profileImageView;
     private Button signOutButton, loginButton;
+    private LoadProfilePicture loadProfilePicture; // Make loadProfilePicture a class member
+    private BroadcastReceiver profilePictureUpdatedReceiver;
 
     @Nullable
     @Override
@@ -45,6 +51,7 @@ public class FragmentProfile extends Fragment {
         profileImageView = view.findViewById(R.id.profile_pic);
         signOutButton = view.findViewById(R.id.Signout_btn_profile);
         loginButton = view.findViewById(R.id.Login_btn_profile);
+        loadProfilePicture = new LoadProfilePicture();
 
         Account account = MainActivity.ACCOUNT;
         if (account != null) {
@@ -53,14 +60,10 @@ public class FragmentProfile extends Fragment {
             emailTextView.setText(account.getUser_email());
             phoneTextView.setText(account.getContact_number());
 
-            // Test loading image from Google Drive (public URL)
-            String profilePicUrl = "https://drive.google.com/uc?export=view&id=1euwFojCEAStP9mXVaUH3eLZDx39nW7eg"; // Replace with your actual image ID
-            if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
-                LoadProfilePicture loadProfilePicture = new LoadProfilePicture();
-                loadProfilePicture.loadImage(profilePicUrl, profileImageView);
-            } else {
-                profileImageView.setImageResource(R.drawable.profile); // Default profile picture
-            }
+            String profilePic = account.getProfile_pic();
+            Glide.with(this).load(profilePic).into(profileImageView);
+
+
 
             signOutButton.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);
@@ -72,6 +75,19 @@ public class FragmentProfile extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(profilePictureUpdatedReceiver, new IntentFilter("PROFILE_PICTURE_UPDATED"));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(profilePictureUpdatedReceiver);
+    }
+
 
     private void signOut() {
         MainActivity.ACCOUNT = null;

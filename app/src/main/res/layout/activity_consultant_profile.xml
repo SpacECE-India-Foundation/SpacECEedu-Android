@@ -88,7 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAlignment="viewStart"
-                        android:textSize="@dimen/_26ssp"
+                        android:textSize="@dimen/_24ssp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:layout_marginStart="@dimen/_15sdp"
@@ -104,7 +104,7 @@
                         android:alpha=".8"
                         android:textAlignment="viewStart"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:textSize="@dimen/_26ssp"
+                        android:textSize="@dimen/_22ssp"
                         android:textColor="@color/black"
                         android:text="Neuro Medicine Specialist" />
 
@@ -117,7 +117,7 @@
                         android:alpha=".6"
                         android:textAlignment="viewStart"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:textSize="@dimen/_26ssp"
+                        android:textSize="@dimen/_18ssp"
                         android:textColor="@color/black"
                         android:text="Qualification : "/>
 
@@ -131,7 +131,7 @@
                         android:alpha=".6"
                         android:textAlignment="viewStart"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:textSize="@dimen/_26ssp"
+                        android:textSize="@dimen/_18ssp"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -144,7 +144,7 @@
                         android:alpha=".6"
                         android:textAlignment="viewStart"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:textSize="@dimen/_26ssp"
+                        android:textSize="@dimen/_18ssp"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -158,7 +158,7 @@
                         android:alpha=".6"
                         android:textAlignment="viewStart"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:textSize="@dimen/_26ssp"
+                        android:textSize="@dimen/_18ssp"
                         android:textColor="@color/black"/>
 
 
@@ -173,7 +173,7 @@
                         android:alpha=".6"
                         android:textAlignment="viewStart"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:textSize="@dimen/_26ssp"
+                        android:textSize="@dimen/_18ssp"
                         android:textColor="@color/black"
                         android:text="Available Days : "/>
 
@@ -186,7 +186,7 @@
                         android:alpha=".6"
                         android:textAlignment="viewStart"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:textSize="@dimen/_26ssp"
+                        android:textSize="@dimen/_18ssp"
                         android:textColor="@color/black"
                         android:layout_marginBottom="@dimen/_25sdp"
                         android:text="Available Time : "/>
