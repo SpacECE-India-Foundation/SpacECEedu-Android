@@ -20,15 +20,15 @@ public class Appointment {
     }
 
     public Appointment(String consult_id, String c_name, String u_name, String c_pic,
-                       String u_pic, String bookedAt, String duration) {
+                       String u_pic, String Mobile, String bookedAt, String duration) {
         this.consult_id = consult_id;
         this.c_name = c_name;
         this.u_name = u_name;
         this.c_pic = c_pic;
         this.u_pic = u_pic;
+        this.mobile = Mobile;
         this.bookedAt = bookedAt;
         this.duration = duration;
-        this.mobile = mobile;
     }
 
     public String getConsult_id() {
