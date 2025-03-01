@@ -2,33 +2,40 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:layout_weight="1"
-    android:elevation="5dp"
+    android:elevation="6.5dp"
     app:cardCornerRadius="10dp"
-    android:layout_marginTop="16dp">
+    android:background="@color/white"
+    android:layout_margin="9.10dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:background="@color/white"
+        android:orientation="horizontal">
         <ImageView
-            android:id="@+id/Consultant_Categories_ListItem_Icon"
-            android:layout_width="170dp"
-            android:layout_height="100dp"
-            android:padding="4dp"
             android:background="@color/white"
-            android:src="@drawable/ic_baseline_medical_services_24" />
+            android:id="@+id/Consultant_Categories_ListItem_Icon"
+            android:layout_width="match_parent"
+            android:contentDescription="consult type pic"
+            android:scaleType="fitXY"
+            android:layout_height="195dp"
+            android:src="@drawable/img_5" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/Consultant_Categories_ListItem_TextView_CategoryName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:layout_gravity="center_horizontal"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:gravity="left"
+            android:textSize="26sp"
+            android:layout_gravity="center"
             android:text="Category" />
 
     </LinearLayout>

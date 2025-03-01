@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:text="Hi this is my first comemnt"
+        android:id="@+id/item_comments_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></TextView>
+
+    <TextView
+        android:textColor="#D3000000"
+        android:id="@+id/item_comments_date"
+        android:layout_marginLeft="10dp"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></TextView>
+
+</LinearLayout>

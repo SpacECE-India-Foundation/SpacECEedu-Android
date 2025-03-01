@@ -28,8 +28,8 @@
 
         <Spinner
             android:id="@+id/Type"
-            android:layout_width="350dp"
-            android:layout_height="30dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
             android:layout_marginTop="56dp"
             android:prompt="@string/acs_filename"
             android:background="@drawable/rounded_edittext"
@@ -83,8 +83,8 @@
 
         <Spinner
             android:id="@+id/Consultant_Language"
-            android:layout_width="350dp"
-            android:layout_height="30dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/rounded_edittext"
             android:drawableLeft="@android:drawable/ic_menu_edit"
@@ -178,11 +178,11 @@
             <ToggleButton
                 android:id="@+id/Mon"
                 style="@style/toggleButton"
-                android:layout_width="35dp"
+                android:layout_width="40dp"
                 android:layout_height="35dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
-                android:background="@drawable/toggle_bg"
+                android:background="@drawable/select_toggle_btn"
                 android:textOff="Mon"
                 android:textOn="Mon" />
 
@@ -193,7 +193,7 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
-                android:background="@drawable/toggle_bg"
+                android:background="@drawable/select_toggle_btn"
                 android:textOff="Tue"
                 android:textOn="Tue" />
 
@@ -204,7 +204,7 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
-                android:background="@drawable/toggle_bg"
+                android:background="@drawable/select_toggle_btn"
                 android:textOff="Wed"
                 android:textOn="Wed" />
 
@@ -215,7 +215,7 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
-                android:background="@drawable/toggle_bg"
+                android:background="@drawable/select_toggle_btn"
                 android:textOff="Thu"
                 android:textOn="Thu" />
 
@@ -226,7 +226,7 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
-                android:background="@drawable/toggle_bg"
+                android:background="@drawable/select_toggle_btn"
                 android:textOff="Fri"
                 android:textOn="Fri" />
 
@@ -237,7 +237,7 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
-                android:background="@drawable/toggle_bg"
+                android:background="@drawable/select_toggle_btn"
                 android:textOff="Sat"
                 android:textOn="Sat" />
 
@@ -248,7 +248,7 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
-                android:background="@drawable/toggle_bg"
+                android:background="@drawable/select_toggle_btn"
                 android:textOff="Sun"
                 android:textOn="Sun" />
 

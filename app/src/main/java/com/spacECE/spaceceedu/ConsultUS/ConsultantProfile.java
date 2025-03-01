@@ -1,6 +1,6 @@
 package com.spacECE.spaceceedu.ConsultUS;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static com.spacECE.spaceceedu.MainActivity.ACCOUNT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,22 +10,32 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.R;
+import com.spacECE.spaceceedu.Utils.ConfigUtils;
 import com.squareup.picasso.Picasso;
 
-import static com.spacECE.spaceceedu.MainActivity.ACCOUNT;
+import org.json.JSONObject;
 
 public class ConsultantProfile extends AppCompatActivity {
 
     Button b_appointment;
     ImageView iv_profilePic;
+    String pic_src = "https://img.favpng.com/11/24/17/management-consulting-consulting-firm-consultant-business-png-favpng-jkyKzuQ3UyL0wXXCBcvk4c1fu.jpg";
     private TextView tv_name,tv_speciality,tv_chambers,tv_charges,tv_timing,tv_language,tv_days,tv_qualification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultant_profile);
+        getWindow().setStatusBarColor(ContextCompat.getColor(ConsultantProfile.this,R.color.black));
 
         tv_name = findViewById(R.id.Consultant_Profile_textView_Name);
         iv_profilePic = findViewById(R.id.Consultant_Profile_ImageView_ProfilePic);
@@ -49,14 +59,14 @@ public class ConsultantProfile extends AppCompatActivity {
         String days_from="Any";
         String days_to="Any";
         String timing_to="All";
+        String c_aval_days="No data";
         String timing_from="All";
-        String pic_src = "https://img.favpng.com/11/24/17/management-consulting-consulting-firm-consultant-business-png-favpng-jkyKzuQ3UyL0wXXCBcvk4c1fu.jpg";
 
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
             name = extras.getString("consultant_name");
-            Log.i("CONSULTANT NAME::::", name);
+
             address=extras.getString("chamber");
             fee= extras.getString("fee");
             language=extras.getString("language");
@@ -66,25 +76,67 @@ public class ConsultantProfile extends AppCompatActivity {
             timing_to=extras.getString("timing_to");
             qualification=extras.getString("qualification");
             pic_src = extras.getString("profile_pic");
+            Log.i("CONSULTANT NAME::::", name);
+            Log.i("Image ::::", pic_src);
+            System.out.println(pic_src.replace("https://","--"));
+            c_aval_days=extras.getString("c_aval_days()");
+            Log.e("onCreate: days",c_aval_days);
         }
 
 
-        tv_qualification.setText(qualification);
+        tv_qualification.append(qualification);
         tv_name.setText(name);
-        tv_chambers.setText(address);
+        tv_chambers.append(address);
         tv_speciality.setText(speciality);
-        tv_charges.setText(fee+" /-");
-        tv_timing.setText(timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
-        tv_language.setText(language);
-        tv_days.setText(String.valueOf(days_from.charAt(0))+days_from.charAt(1)+days_from.charAt(2)+" - "+days_to.charAt(0)+days_to.charAt(1)+days_to.charAt(2));
+        tv_charges.append(fee+" /-");
+        tv_timing.append(timing_from.substring(0,5)+" - "+timing_to.substring(0,5));
+        tv_language.append(language);
+        tv_days.append(c_aval_days.replace(",",", "));
+        Log.e( "onCreate:--------","1");
+        try {
+            JSONObject config = ConfigUtils.loadConfig(getApplicationContext());
+            if (config != null) {
+                String baseUrl= config.getString("BASE_URL");
+                String userImgUrl = config.getString("USER_IMG");
+
+                pic_src = baseUrl + userImgUrl + pic_src;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.i("ERROR:::", "Failed to load API URLs");
+        }
+        Log.e( "onCreate:--------","2");
 
         try {
-            pic_src = "https://spacefoundation.in/test/SpacECE-PHP/img/users/" + pic_src;
+            Log.e( "onSuccess----","hit");
             Picasso.get().load(pic_src.replace("https://","http://")).into(iv_profilePic);
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e( "onCreate:-----------",e.toString());
         }
+        String url = pic_src.replace("https://","http://");
+        RequestQueue requestQueue=new Volley().newRequestQueue(this);
+        StringRequest stringRequest=new StringRequest(url, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String rsp=response;
+                Log.e( "onResponse:-----------------",rsp);
+                if (rsp.contains("404 Not Found") || rsp.contains("message=Not Found") || rsp.contains("404") || rsp.length()==1) {
+                    Log.e( "onResponse:---------","Not exist");
+                    setimg();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e( "onFailure:-----------------",error.toString());
+                setimg();
+            }
+        });
+        requestQueue.add(stringRequest);
 
+        Log.e( "onCreate:--------","3");
         String finalPic_src = pic_src;
         String finalConsultant_id = consultant_id;
         String finalName = name;
@@ -92,6 +144,7 @@ public class ConsultantProfile extends AppCompatActivity {
         String finalSpeciality = speciality;
         String finalTiming_from = timing_from;
         String finalTiming_to = timing_to;
+        String final_c_aval_days = c_aval_days;
 
         if(ACCOUNT==null) {
             b_appointment.setText("Login to Book!");
@@ -113,10 +166,14 @@ public class ConsultantProfile extends AppCompatActivity {
                     intent.putExtra("fee", finalFee);
                     intent.putExtra("startTime", finalTiming_from);
                     intent.putExtra("endTime", finalTiming_to);
+                    intent.putExtra("c_aval_days", final_c_aval_days);
                 }
                 startActivity(intent);
             }
         });
-
     }
+    public void setimg(){
+        iv_profilePic.setImageDrawable(getDrawable(R.drawable.img_1));
+    }
+
 }

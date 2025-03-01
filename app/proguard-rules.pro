@@ -21,3 +21,4 @@
 #-renamesourcefileattribute SourceFile
 
  -keep class io.agora.**{*;}
+ -keep class you.thiago.carouselview.** { *; }

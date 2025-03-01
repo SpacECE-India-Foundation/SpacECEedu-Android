@@ -3,21 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".VideoLibrary.VideoLibrary_Premium"
-    android:paddingHorizontal="5dp">
+    tools:context=".VideoLibrary.VideoLibrary_Premium">
 
-<androidx.recyclerview.widget.RecyclerView
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/VL_premium_RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent" />
+
 
 </FrameLayout>

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+import android.window.SplashScreen;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,13 +16,17 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.spacECE.spaceceedu.Authentication.Account;
+import com.spacECE.spaceceedu.Authentication.LoginActivity;
+import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.ConsultUS.ConsultUs_SplashScreen;
+import com.spacECE.spaceceedu.GrowthTracker.GrowthTrackerHome;
 import com.spacECE.spaceceedu.LearnOnApp.LearnOn_List_SplashScreen;
-import com.spacECE.spaceceedu.LibForSmall.Library_main;
 import com.spacECE.spaceceedu.LibForSmall.library_splash_screen;
 import com.spacECE.spaceceedu.VideoLibrary.VideoLibrary_Activity_SplashScreen;
-import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageListener;
+import com.spacECE.spaceceedu.space_active.ActivitiesListActivity;
+
+import you.thiago.carouselview.CarouselView;
+import you.thiago.carouselview.ImageListener;
 
 public class FragmentMain extends Fragment {
 
@@ -30,7 +36,7 @@ public class FragmentMain extends Fragment {
     Button signOut;
     private final int[] mImages = new int[]{
             R.drawable.view1, R.drawable.view2, R.drawable.view3,
-            R.drawable.view4,R.drawable.view5
+            //R.drawable.view4,R.drawable.view5
     };
 
 
@@ -39,6 +45,7 @@ public class FragmentMain extends Fragment {
     CardView cv_dailyActivities;
     CardView cv_libraryBooks;
     CardView cv_learnOnApp;
+    CardView growthTracker;
 
     @Nullable
     @Override
@@ -66,6 +73,8 @@ public class FragmentMain extends Fragment {
 
         cv_learnOnApp = v.findViewById(R.id.CardView_LearnOnApp);
 
+        growthTracker = v.findViewById(R.id.CardView_GrowthTracker);
+
         cv_videoLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +95,7 @@ public class FragmentMain extends Fragment {
         cv_dailyActivities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(),ActivitiesListActivity.class);
+                Intent intent = new Intent(getContext(), ActivitiesListActivity.class);
                 startActivity(intent);
             }
         });
@@ -104,6 +113,24 @@ public class FragmentMain extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), LearnOn_List_SplashScreen.class);
                 startActivity(intent);
+            }
+        });
+
+        growthTracker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserLocalStore userLocalStore = new UserLocalStore(requireContext());
+                Account account = userLocalStore.getLoggedInAccount();
+                // Check if the user is logged in (you can replace this condition with your actual login check)
+                if (account != null) {
+                    Intent intent = new Intent(getContext(), GrowthTrackerHome.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "Please LogIn/SignUp first", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
             }
         });
 
