@@ -20,8 +20,10 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# --- Instamojo ---
+# --- Instamojo, Agora and carousel ---
 -keep class com.instamojo.android.** { *; }
+ -keep class io.agora.**{*;}
+ -keep class you.thiago.carouselview.** { *; }
 
 # --- Retrofit + Gson ---
 -keep class retrofit2.** { *; }
