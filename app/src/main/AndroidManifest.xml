@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -11,9 +12,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -31,12 +32,11 @@
         android:icon="@mipmap/ic_launcher_"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round_"
-        android:supportsRtl="true"
+        tools:replace="android:supportsRtl"
+        android:supportsRtl="false"
         android:theme="@style/Theme.SpacECEedu"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".videoCallTesting"
-            android:exported="false" />
+
         <activity
             android:name=".GrowthTracker.GrowthTrackerTips"
             android:exported="false" />
@@ -161,7 +161,8 @@
 
         <activity
             android:name="com.instamojo.android.activities.PaymentDetailsActivity"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="com.instamojo.android.activities.PaymentDetailsActivity" />
 

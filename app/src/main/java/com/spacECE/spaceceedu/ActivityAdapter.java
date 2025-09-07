@@ -15,7 +15,6 @@ public class ActivityAdapter extends BaseAdapter {
     Context context;
     List<ActivityData> activityDataList;
 
-
     public ActivityAdapter(Context context,List<ActivityData> activityDataList){
         this.context = context;
         this.activityDataList = activityDataList;

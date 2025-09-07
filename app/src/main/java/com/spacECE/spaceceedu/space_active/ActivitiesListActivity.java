@@ -339,21 +339,21 @@ public class ActivitiesListActivity extends AppCompatActivity implements ClickLi
                             key_domain_list = new ArrayList<>(key_domain.keySet());
                             key_domain_list.add(0, "All");
                             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(ActivitiesListActivity.this,
-                                    R.layout.support_simple_spinner_dropdown_item, key_domain_list);
+                                    android.R.layout.simple_spinner_dropdown_item, key_domain_list);
                             key_spinner.setAdapter(arrayAdapter);
 
                             // Set up the developer domain spinner
                             dev_domain_list = new ArrayList<>(domain.keySet());
                             dev_domain_list.add(0, "All");
                             ArrayAdapter<String> dev_domain_adapter = new ArrayAdapter<>(ActivitiesListActivity.this,
-                                    R.layout.support_simple_spinner_dropdown_item, dev_domain_list);
+                                    android.R.layout.simple_spinner_dropdown_item, dev_domain_list);
                             dev_spinner.setAdapter(dev_domain_adapter);
 
                             // Set up the level spinner
                             level_list = new ArrayList<>(level.keySet());
                             level_list.add(0, "All");
                             ArrayAdapter<String> level_adapter = new ArrayAdapter<>(ActivitiesListActivity.this,
-                                    R.layout.support_simple_spinner_dropdown_item, level_list);
+                                    android.R.layout.simple_spinner_dropdown_item, level_list);
                             level_spinner.setAdapter(level_adapter);
 
                         } catch (JSONException e) {

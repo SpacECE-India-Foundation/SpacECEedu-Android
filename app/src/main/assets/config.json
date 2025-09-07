@@ -1,5 +1,6 @@
 {
-  "BASE_URL": "http://13.126.66.91/",
+  "BASE_URL": "https://hustle-7c68d043.mileswebhosting.com/spacece-main/",
+
   "USER_IMG": "img/users/",
 
   "REMINDER_BROAD_CAST_RECEIVER_URL": "http://educationfoundation.space/spacece/api/spaceactive_activities.php?ano=",

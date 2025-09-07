@@ -147,7 +147,7 @@ public class ActivitiesListActivity extends AppCompatActivity implements Adapter
 
 
         //make it 0 if not worked
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(ActivitiesListActivity.this, 200, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(ActivitiesListActivity.this, 200, intent, PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         long time = System.currentTimeMillis();
