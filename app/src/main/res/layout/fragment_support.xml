@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ternary"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/tv_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:alpha=".6"
+                    android:fontFamily="@font/font_poppins_medium"
+                    android:gravity="center"
+                    android:text="@string/text_your_support"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_toEndOf="@id/tv_heading"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_support"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/StyleSectionTextHeading"
+                    android:text="@string/text_donate_us" />
+
+                <View style="@style/StyleSectionUnderline" />
+            </LinearLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:columnCount="2"
+                android:rowCount="2">
+
+                <androidx.appcompat.widget.AppCompatToggleButton
+                    android:id="@+id/tb_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:background="@drawable/selector_round_solid"
+                    android:elevation="@dimen/_2sdp"
+                    android:padding="@dimen/_8sdp"
+                    android:textColor="@color/color_selector_black_white"
+                    android:textOff="@string/text_5000_"
+                    android:textOn="@string/text_5000_"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ToggleButton
+                    android:id="@+id/tb_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:background="@drawable/selector_round_solid"
+                    android:elevation="@dimen/_2sdp"
+                    android:padding="@dimen/_8sdp"
+                    android:textColor="@color/color_selector_black_white"
+                    android:textOff="@string/text_10000_"
+                    android:textOn="@string/text_10000_"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ToggleButton
+                    android:id="@+id/tb_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:background="@drawable/selector_round_solid"
+                    android:elevation="@dimen/_2sdp"
+                    android:padding="@dimen/_8sdp"
+                    android:textColor="@color/color_selector_black_white"
+                    android:textOff="@string/text_15000_"
+                    android:textOn="@string/text_15000_"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ToggleButton
+                    android:id="@+id/tb_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:background="@drawable/selector_round_solid"
+                    android:elevation="@dimen/_2sdp"
+                    android:padding="@dimen/_8sdp"
+                    android:textColor="@color/color_selector_black_white"
+                    android:textOff="@string/text_20000_"
+                    android:textOn="@string/text_20000_"
+                    android:textSize="@dimen/_12ssp" />
+            </GridLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/StyleSectionTextHeading"
+                    android:text="@string/text_personal_information" />
+
+                <View style="@style/StyleSectionUnderline" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@drawable/bg_full_round_solid_stroke"
+                android:orientation="vertical"
+                android:padding="@dimen/_6sdp">
+
+                <EditText
+                    android:id="@+id/edt_amount"
+                    style="@style/StyleEditText"
+                    android:drawableStart="@drawable/ic_rupee"
+                    android:hint="@string/text_amount"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="6" />
+
+                <EditText
+                    android:id="@+id/edt_name"
+                    style="@style/StyleEditText"
+                    android:drawableStart="@drawable/ic_user"
+                    android:hint="@string/text_name"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapWords"
+                    android:maxLength="30" />
+
+                <EditText
+                    android:id="@+id/edt_email"
+                    style="@style/StyleEditText"
+                    android:drawableStart="@drawable/ic_email"
+                    android:hint="@string/text_email"
+                    android:importantForAutofill="no"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="30" />
+
+                <EditText
+                    android:id="@+id/edt_phone"
+                    style="@style/StyleEditText"
+                    android:drawableStart="@drawable/ic_call"
+                    android:hint="@string/text_phone"
+                    android:importantForAutofill="no"
+                    android:inputType="phone"
+                    android:maxLength="10" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_pay"
+                    style="@style/StyleCustomButton"
+                    android:layout_centerInParent="true"
+                    android:layout_marginVertical="@dimen/_24sdp"
+                    android:text="@string/text_proceed_to_pay" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="@dimen/_48sdp"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_centerInParent="true"
+                    android:elevation="@dimen/_4sdp"
+                    android:indeterminateTint="@color/color_white"
+                    android:padding="@dimen/_8sdp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

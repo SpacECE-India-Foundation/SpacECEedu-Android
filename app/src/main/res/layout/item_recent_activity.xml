@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/_4sdp"
+    android:layout_marginVertical="@dimen/_4sdp"
+    android:elevation="1dp"
+    android:paddingBottom="@dimen/_12sdp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_item_light_yellow"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_14sdp"
+        android:paddingVertical="@dimen/_8sdp"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/text_milestone_message"
+            tools:text="New milestone video submitted by Parent #234"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:layout_marginEnd="8dp"
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/font_poppins"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/text_timestamp"
+            tools:text="2 min ago"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_gray_dark"
+            android:gravity="end"
+            android:fontFamily="@font/font_poppins"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <include
+        android:id="@+id/layout_load_more"
+        layout="@layout/layout_load_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_8sdp"/>
+
+</LinearLayout>
+

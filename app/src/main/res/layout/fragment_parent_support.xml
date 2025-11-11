@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:background="@color/color_ternary"
+            android:elevation="@dimen/_2sdp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                style="@style/StyleCircleIcon"
+                android:src="@drawable/ic_back"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/iv_back"
+                android:fontFamily="@font/font_poppins"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/text_parent_support"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/_16ssp" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/color_ternary"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StyleSectionTextHeading"
+                        android:text="@string/text_tips_for_parents" />
+
+                    <View style="@style/StyleSectionUnderline" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/bg_full_round_solid_stroke"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:padding="@dimen/_8sdp">
+
+                        <ImageView
+                            style="@style/StyleImageIcon"
+                            android:src="@drawable/ic_routines"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/StyleCardSTextHeading"
+                                android:layout_margin="0dp"
+                                android:text="@string/text_daily_routines" />
+
+                            <TextView
+                                style="@style/StyleCardSTextSubHeading"
+                                android:text="@string/text_set_simple_schedules" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:padding="@dimen/_8sdp">
+
+                        <ImageView
+                            style="@style/StyleImageIcon"
+                            android:src="@drawable/ic_thumbsup"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/StyleCardSTextHeading"
+                                android:layout_margin="0dp"
+                                android:text="@string/text_positive_communication" />
+
+                            <TextView
+                                style="@style/StyleCardSTextSubHeading"
+                                android:text="@string/text_encourage_child_with_listening" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:padding="@dimen/_8sdp">
+
+                        <ImageView
+                            style="@style/StyleImageIcon"
+                            android:src="@drawable/ic_healthy"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/StyleCardSTextHeading"
+                                android:layout_margin="0dp"
+                                android:text="@string/text_healthy_habits" />
+
+                            <TextView
+                                style="@style/StyleCardSTextSubHeading"
+                                android:text="@string/text_teach_kids_about_food_exercise" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginBottom="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:padding="@dimen/_8sdp">
+
+                        <ImageView
+                            style="@style/StyleImageIcon"
+                            android:src="@drawable/ic_learning"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/StyleCardSTextHeading"
+                                android:layout_margin="0dp"
+                                android:text="@string/text_learning_at_home" />
+
+                            <TextView
+                                style="@style/StyleCardSTextSubHeading"
+                                android:text="@string/text_play_small_games_read" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StyleSectionTextHeading"
+                        android:text="@string/text_easy_parenting_checklists" />
+
+                    <View style="@style/StyleSectionUnderline" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/bg_full_round_solid_stroke"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_set_daily_playtime" />
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_praise_small_achievements" />
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginBottom="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_read_story_before_bedtime" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StyleSectionTextHeading"
+                        android:text="@string/text_get_in_touch_with_us" />
+
+                    <View style="@style/StyleSectionUnderline" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:alpha=".6"
+                    android:fontFamily="@font/font_poppins_medium"
+                    android:gravity="center"
+                    android:text="@string/text_join_our_parent_community"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_contact"
+                    style="@style/StyleCustomButton"
+                    android:layout_marginVertical="@dimen/_24sdp"
+                    android:text="@string/text_contact_us_now" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

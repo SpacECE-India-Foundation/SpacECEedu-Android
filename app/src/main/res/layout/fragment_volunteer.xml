@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="TooManyViews">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:background="@color/color_ternary"
+            android:elevation="@dimen/_2sdp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                style="@style/StyleCircleIcon"
+                android:src="@drawable/ic_back"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/iv_back"
+                android:fontFamily="@font/font_poppins"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/text_volunteer_opportunities"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/_16ssp" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/color_ternary"
+            android:clipToPadding="false"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:alpha=".6"
+                    android:fontFamily="@font/font_poppins_medium"
+                    android:gravity="center"
+                    android:text="@string/text_volunteering_is_a_work"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/vp_options"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="never" />
+
+                    <me.relex.circleindicator.CircleIndicator3
+                        android:id="@+id/ci_options"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_alignBottom="@id/vp_options"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/_24sdp"
+                        android:elevation="@dimen/_4sdp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StyleSectionTextHeading"
+                        android:text="@string/text_why_volunteer_with_us" />
+
+                    <View style="@style/StyleSectionUnderline" />
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_low_round_solid_stroke">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical">
+
+                                <View style="@style/StyleDot" />
+
+                                <TextView
+                                    style="@style/StyleSectionTextHeading"
+                                    android:fontFamily="@font/font_poppins"
+                                    android:text="@string/text_make_a_real_impact"
+                                    android:textColor="@color/color_gray_dark" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical">
+
+                                <View style="@style/StyleDot" />
+
+                                <TextView
+                                    style="@style/StyleSectionTextHeading"
+                                    android:fontFamily="@font/font_poppins"
+                                    android:text="@string/text_learn_and_grow"
+                                    android:textColor="@color/color_gray_dark" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical">
+
+                                <View style="@style/StyleDot" />
+
+                                <TextView
+                                    style="@style/StyleSectionTextHeading"
+                                    android:fontFamily="@font/font_poppins"
+                                    android:text="@string/text_connect_and_network"
+                                    android:textColor="@color/color_gray_dark" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical">
+
+                                <View style="@style/StyleDot" />
+
+                                <TextView
+                                    style="@style/StyleSectionTextHeading"
+                                    android:fontFamily="@font/font_poppins"
+                                    android:text="@string/text_find_purpose"
+                                    android:textColor="@color/color_gray_dark" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_100sdp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/img_hands"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:columnCount="3"
+                    android:rowCount="1">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="@dimen/_4sdp"
+                        android:background="@drawable/bg_low_round_solid_stroke"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_32sdp"
+                            android:layout_height="@dimen/_32sdp"
+                            android:src="@drawable/ic_cap"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:text="@string/text_500"
+                            android:textColor="@color/color_accent"
+                            android:textSize="@dimen/_14ssp" />
+
+                        <TextView
+                            style="@style/StyleCardSTextSubHeading"
+                            android:gravity="center"
+                            android:text="@string/text_children_received_education"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_9sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="@dimen/_4sdp"
+                        android:background="@drawable/bg_low_round_solid_stroke"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_32sdp"
+                            android:layout_height="@dimen/_32sdp"
+                            android:src="@drawable/ic_plate"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:text="@string/text_10000"
+                            android:textColor="@color/color_accent"
+                            android:textSize="@dimen/_14ssp" />
+
+                        <TextView
+                            style="@style/StyleCardSTextSubHeading"
+                            android:gravity="center"
+                            android:text="@string/text_meals_served_support"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_10sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="@dimen/_4sdp"
+                        android:background="@drawable/bg_low_round_solid_stroke"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_32sdp"
+                            android:layout_height="@dimen/_32sdp"
+                            android:src="@drawable/ic_handshake"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:text="@string/text_200"
+                            android:textColor="@color/color_accent"
+                            android:textSize="@dimen/_14ssp" />
+
+                        <TextView
+                            style="@style/StyleCardSTextSubHeading"
+                            android:gravity="center"
+                            android:text="@string/text_volunteers_joined_our_cause"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_10sdp" />
+
+                    </LinearLayout>
+                </GridLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StyleSectionTextHeading"
+                        android:text="@string/text_benefits" />
+
+                    <View style="@style/StyleSectionUnderline" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/bg_full_round_solid_stroke"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_learn_teaching_leadership" />
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_certificates_volunteer_appreciation" />
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_meet_inspiring_peers" />
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginBottom="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_experience_the_joy" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StyleSectionTextHeading"
+                        android:text="@string/text_join_us_as_volunteer" />
+
+                    <View style="@style/StyleSectionUnderline" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/bg_full_round_solid_stroke"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_6sdp">
+
+                    <EditText
+                        android:id="@+id/edt_name"
+                        style="@style/StyleEditText"
+                        android:drawableStart="@drawable/ic_user"
+                        android:hint="@string/text_name"
+                        android:importantForAutofill="no"
+                        android:inputType="textCapWords"
+                        android:maxLength="30" />
+
+                    <EditText
+                        android:id="@+id/edt_email"
+                        style="@style/StyleEditText"
+                        android:drawableStart="@drawable/ic_email"
+                        android:hint="@string/text_email"
+                        android:importantForAutofill="no"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="30" />
+
+                    <EditText
+                        android:id="@+id/edt_phone"
+                        style="@style/StyleEditText"
+                        android:drawableStart="@drawable/ic_call"
+                        android:hint="@string/text_phone"
+                        android:importantForAutofill="no"
+                        android:inputType="phone"
+                        android:maxLength="10" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_6sdp">
+
+                        <Spinner
+                            android:id="@+id/spinner_role"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_low_round_solid_stroke"
+                            android:entries="@array/array_volunteer_roles"
+                            android:hint="@string/text_choose_your_role"
+                            android:importantForAutofill="no"
+                            android:inputType="textCapWords"
+                            android:maxLength="50"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:paddingVertical="@dimen/_10sdp"
+                            android:switchTextAppearance="@style/StyleEditText"
+                            tools:ignore="RtlSymmetry" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="@dimen/_16sdp"
+                            android:rotation="-90"
+                            android:src="@drawable/ic_back"
+                            tools:ignore="ContentDescription" />
+
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/edt_query"
+                        style="@style/StyleEditText"
+                        android:gravity="top"
+                        android:hint="@string/text_leave_us_a_message"
+                        android:importantForAutofill="no"
+                        android:inputType="textMultiLine"
+                        android:maxLength="500"
+                        android:maxLines="5"
+                        android:minLines="3"
+                        android:overScrollMode="always"
+                        android:scrollbars="vertical" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_send"
+                        style="@style/StyleCustomButton"
+                        android:layout_marginVertical="@dimen/_8sdp"
+                        android:text="@string/text_submit" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StyleSectionTextHeading"
+                        android:text="@string/text_volunteer_experiences" />
+
+                    <View style="@style/StyleSectionUnderline" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_profile"
+                        android:layout_width="@dimen/_64sdp"
+                        android:layout_height="@dimen/_64sdp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bg_circle_stroke"
+                        android:elevation="@dimen/_2sdp"
+                        android:padding="@dimen/_16sdp"
+                        android:src="@drawable/ic_user"
+                        tools:ignore="ContentDescription" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_low_round_solid_stroke"
+                            android:elevation="@dimen/_2sdp"
+                            android:padding="@dimen/_16sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:src="@drawable/ic_quote"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                style="@style/StyleCardSTextSubHeading"
+                                android:layout_width="0dp"
+                                android:layout_marginVertical="@dimen/_16sdp"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="3"
+                                android:text="@string/text_join_our_parent_community"
+                                android:textColor="@color/color_gray_dark"
+                                android:textSize="@dimen/_10sdp"
+                                tools:ignore="NestedWeights" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:layout_gravity="bottom"
+                                android:rotation="180"
+                                android:src="@drawable/ic_quote"
+                                tools:ignore="ContentDescription" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginHorizontal="@dimen/_12sdp"
+                            android:layout_marginVertical="@dimen/_8sdp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_low_round_solid_stroke"
+                            android:elevation="@dimen/_2sdp"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/_16sdp"
+                            android:paddingTop="@dimen/_16sdp"
+                            android:paddingBottom="@dimen/_24sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:layout_gravity="bottom"
+                                android:src="@drawable/ic_back"
+                                app:tint="@color/color_black"
+                                tools:ignore="ContentDescription" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:paddingHorizontal="@dimen/_16sdp"
+                                android:paddingTop="@dimen/_16sdp"
+                                tools:ignore="NestedWeights">
+
+                                <TextView
+                                    style="@style/StyleCardSTextSubHeading"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/font_poppins_medium"
+                                    android:gravity="center"
+                                    android:text="@string/text_volunteer"
+                                    android:textColor="@color/color_black"
+                                    android:textSize="@dimen/_12sdp"
+                                    tools:ignore="NestedWeights" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1" />
+
+                                <TextView
+                                    style="@style/StyleCardSTextSubHeading"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_16sdp"
+                                    android:gravity="center"
+                                    android:text="@string/text_volunteer"
+                                    android:textColor="@color/color_gray_dark"
+                                    android:textSize="@dimen/_10sdp"
+                                    tools:ignore="NestedWeights" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:layout_gravity="bottom"
+                                android:rotation="180"
+                                android:src="@drawable/ic_back"
+                                app:tint="@color/color_black"
+                                tools:ignore="ContentDescription" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_contact"
+                    style="@style/StyleCustomButton"
+                    android:layout_marginVertical="@dimen/_24sdp"
+                    android:text="@string/text_contact_us_now" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

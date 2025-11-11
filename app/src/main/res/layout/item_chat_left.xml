@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/_8sdp"
+        android:elevation="@dimen/_1sdp"
+        android:fontFamily="@font/font_poppins_medium"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingVertical="@dimen/_4sdp"
+        android:textColor="@color/color_gray_dark"
+        android:textSize="@dimen/_10ssp"
+        tools:text="MMMM DD, YYYY" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_date">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginVertical="@dimen/_4sdp"
+            android:background="@drawable/bg_circle_solid"
+            android:elevation="@dimen/_3sdp"
+            android:src="@drawable/ic_profile"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/view_space"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_14sdp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_space"
+            android:layout_marginVertical="@dimen/_2sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_56sdp"
+            android:background="@drawable/bg_low_round_solid_stroke"
+            android:elevation="@dimen/_2sdp"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            tools:ignore="UselessParent">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_poppins_semibold"
+                android:includeFontPadding="false"
+                android:textColor="@color/color_accent"
+                android:textSize="@dimen/_12ssp"
+                tools:text="@string/app_name" />
+
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_poppins"
+                android:includeFontPadding="false"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/_12ssp"
+                tools:text="@string/text_tell_us_how" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:fontFamily="@font/font_poppins"
+                android:includeFontPadding="false"
+                android:textColor="@color/color_gray_dark"
+                android:textSize="@dimen/_10ssp"
+                tools:text="HH:MM PM" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

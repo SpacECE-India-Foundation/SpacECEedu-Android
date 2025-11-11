@@ -20,4 +20,44 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
- -keep class io.agora.**{*;}
+# --- Room (keep entities, DAOs, database) ---
+-keep class androidx.room.** { *; }
+-keep class * extends androidx.room.RoomDatabase
+-keep class * extends androidx.room.RoomOpenHelper
+-keep @androidx.room.* class * { *; }
+
+# --- Retrofit + Gson ---
+-keep class retrofit2.** { *; }
+-keep class okhttp3.** { *; }
+-keep class com.google.gson.** { *; }
+-keep class okhttp3.logging.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
+
+# Retrofit models and interfaces (optional example):
+-keep class com.tradeforsure.data.** { *; }
+-keep class com.tradeforsure.util.** { *; }
+-keep class com.tradeforsure.viewModel.** { *; }
+-keep class android.text.Html { *; }
+
+# --- Coroutines, Lifecycle ---
+-dontwarn kotlinx.coroutines.**
+-dontwarn androidx.lifecycle.**
+
+# --- Glide (for image loading) ---
+-keep class com.bumptech.glide.** { *; }
+-keep interface com.bumptech.glide.** { *; }
+-keep class com.bumptech.glide.annotation.** { *; }
+-keep class com.bumptech.glide.generated.** { *; }
+
+# --- Google Play Services (OTP/Auth/Updates) ---
+-dontwarn com.google.android.gms.**
+-dontwarn com.google.firebase.**
+
+# --- Firebase ---
+-keep class com.google.firebase.** { *; }
+-keep class com.google.analytics.** { *; }
+
+# --- Razorpay ---
+-dontwarn com.razorpay.**
+-keep class com.razorpay.** { *; }

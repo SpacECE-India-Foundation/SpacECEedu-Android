@@ -1,64 +1,325 @@
 <resources>
-    // Replace #YOUR APP ID# with your App ID in the string format
-    <string name="agora_app_id">464ff3e49fb3409494c0956edcec52e7</string>
-    <string name="Rs">\u20B9</string>
-    <string name="app_name">SpacECEedu</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string-array name="Categories">
-        <item>Categories</item>
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
+    <!--App Details Strings-->
+    <string name="app_name">SpacECE</string>
+    <string name="text_welcome">Welcome!</string>
+    <string name="text_india">India</string>
+    <string name="text_foundation">Foundation</string>
+    <string name="text_spacece_email">info@spacece.org</string>
+    <string name="text_spacece_phone">+91 9096305648</string>
+    <string name="text_spacece_address">SpacECE India Foundation, New Delhi</string>
+    <string name="text_spacece_website">https://www.spacece.co</string>
+    <string name="text_spacece_operating_hour">Mon-Sat: 9:00 AM - 6:00 PM</string>
+
+    <!--Role Selection Activity-->
+    <string name="text_parent">Parent</string>
+    <string name="text_admin">Admin</string>
+    <string name="text_select_your_role">Select your role to continue\nyour journey with us</string>
+    <string name="text_track_your_child">Track your child’s\ndevelopment</string>
+    <string name="text_manage_and_oversee">Manage &amp; oversee\noperations</string>
+    <string name="text_continue_as_guest">Continue as Guest</string>
+
+    <!--Login Activity-->
+    <string name="text_login_as_parent">Login as Parent</string>
+    <string name="text_login_as_admin">Login as Admin</string>
+    <string name="text_email">Email</string>
+    <string name="text_password">Password</string>
+    <string name="text_login">Login</string>
+    <string name="text_don_t_have_an_account">#c1Don’t have an account?#c1 #c2Register#c2</string>
+    <string name="text_forgot_password">Forgot Password</string>
+    <string name="text_other_options">other options</string>
+    <string name="text_please_enter_email">Please enter Email!</string>
+    <string name="text_invalid_email">Invalid Email!</string>
+    <string name="text_please_enter_password">Please enter Password!</string>
+    <string name="text_invalid_password">Invalid Password!</string>
+    <string name="text_email_is_not_registered">Email is not registered!</string>
+    <string name="text_wrong_password">Wrong Password!</string>
+
+    <!--Parent Signup Activity-->
+    <string name="text_signup_as_parent">Signup as Parent</string>
+    <string name="text_name">Name</string>
+    <string name="text_signup">Signup</string>
+    <string name="text_already_have_an_account">#c1Already have an account?#c1 #c2Login#c2</string>
+    <string name="text_please_enter_name">Please enter Name!</string>
+    <string name="text_please_enter_phone">Please enter Phone!</string>
+    <string name="text_invalid_phone">Invalid Phone!</string>
+    <string name="text_please_confirm_password">Please confirm Password!</string>
+    <string name="text_password_not_matched">Password didn’t match!</string>
+    <string name="text_weak_password">Password must be at least 8 characters long and include one uppercase, one lowercase, one number, and one special character (A\-Z,a\-z,0\-9,@,$,#,&amp; etc).</string>
+
+    <!--Admin Signup Activity-->
+    <string name="text_signup_as_admin">Signup as Admin</string>
+
+    <!--Forgot Password Activity-->
+    <string name="text_enter_your_email">Enter your Email or Phone, we will send you a verification link</string>
+    <string name="text_or">Or</string>
+    <string name="text_phone">Phone</string>
+    <string name="text_send">Send</string>
+
+    <!--Reset Password Activity-->
+    <string name="text_reset_password">Reset Password</string>
+    <string name="text_we_have_confirmed">We have confirmed that it’s you! Please set a new password</string>
+    <string name="text_confirm_password">Confirm Password</string>
+    <string name="text_save">Save</string>
+
+    <!--Main Activity-->
+    <string name="text_home">Home</string>
+    <string name="text_programs">Programs</string>
+    <string name="text_support">Support</string>
+    <string name="text_support_us">Support Us</string>
+    <string name="text_contact">Contact</string>
+    <string name="text_my_profile">My Profile</string>
+    <string name="text_about_us">About Us</string>
+    <string name="text_privacy_policy">Privacy Policy</string>
+    <string name="text_terms_n_conditions">Terms &amp; Conditions</string>
+    <string name="text_help">Help &amp; Support</string>
+    <string name="text_logout">Logout</string>
+
+    <!--Home Fragment-->
+    <string name="text_our_offerings">Our Offerings</string>
+    <string name="text_lib_for_small">Lib for Small</string>
+    <string name="text_interactive_books">Interactive books and learning materials</string>
+    <string name="text_consult_us">Consult Us</string>
+    <string name="text_book_appointments">Book appointments with childcare experts</string>
+    <string name="text_child_management">Child Management</string>
+    <string name="text_child_progress">Progress monitoring &amp; Milestone tracker</string>
+    <string name="text_space_tube">SpaceTube</string>
+    <string name="text_a_video_library">A video library with educational content.</string>
+    <string name="text_make_a_difference">Make a Difference</string>
+    <string name="text_join_our_community">Join our community of volunteers and help us create positive change in children’s lives.</string>
+    <string name="text_join_us_as_volunteer">Join us as Volunteer</string>
+
+    <!--Volunteer Fragment-->
+    <string name="text_volunteer_opportunities">Volunteer Opportunities</string>
+    <string name="text_volunteering_is_a_work">Volunteering is a work of Heart!</string>
+    <string name="text_fundraising_volunteer">Fundraising Volunteer</string>
+    <string name="text_support_education_healthcare">Support children’s education, healthcare &amp; well-being</string>
+    <string name="text_roles_n_responsibilities">Roles &amp; Responsibilities:</string>
+    <string name="text_events">Events</string>
+    <string name="text_donor_outreach">Donor Outreach</string>
+    <string name="text_social_media">Social Media</string>
+    <string name="text_relations">Relations</string>
+    <string name="text_time_commitment">Time Commitment:</string>
+    <string name="text_flexible_few_hours">Flexible, few hours/week or event-based</string>
+    <string name="text_perks">Perks:</string>
+    <string name="text_skills">Skills</string>
+    <string name="text_networking">Networking</string>
+    <string name="text_certificate">Certificate</string>
+    <string name="text_make_an_impact">Make an Impact</string>
+    <string name="text_teaching_assistant">Teaching Assistant</string>
+    <string name="text_support_learning_afterschool">Support children’s learning &amp; afterschool activities</string>
+    <string name="text_homework">Homework</string>
+    <string name="text_reading">Reading</string>
+    <string name="text_math_english_science">Math, English &amp; Science</string>
+    <string name="text_group_support">Group &amp; 1:1 support</string>
+    <string name="text_hours_per_week_flexible">2–4 hours per week, flexible.</string>
+    <string name="text_teaching_mentoring_skills">Teaching &amp; mentoring skills</string>
+    <string name="text_confidence">Confidence</string>
+    <string name="text_direct_impact">Direct impact</string>
+    <string name="text_event_organizer">Event Organizer</string>
+    <string name="text_plan_manage_events">Plan &amp; manage NGO events: awareness drives, health camps, cultural programs</string>
+    <string name="text_logistics">Logistics</string>
+    <string name="text_volunteer_vendor_coordination">Volunteer &amp; Vendor Coordination</string>
+    <string name="text_execution_reporting">Execution &amp; Reporting</string>
+    <string name="text_event_based_weekends">Event-based, usually weekends.</string>
+    <string name="text_event_management_experience">Event management experience</string>
+    <string name="text_leadership">Leadership</string>
+    <string name="text_appreciation">Appreciation</string>
+    <string name="text_social_media_volunteer">Social Media Volunteer</string>
+    <string name="text_promote_ngos_mission">Promote the NGO’s mission online</string>
+    <string name="text_content_creation">Content Creation</string>
+    <string name="text_campaigns">Campaigns</string>
+    <string name="text_engagement">Engagement</string>
+    <string name="text_awareness">Awareness</string>
+    <string name="text_flexible_remote_possible">Flexible Remote possible</string>
+    <string name="text_digital_marketing_skills">Digital marketing skills</string>
+    <string name="text_creativity">Creativity</string>
+    <string name="text_amplify_impact">Amplify Impact</string>
+    <string name="text_why_volunteer_with_us">Why Volunteer With Us?</string>
+    <string name="text_make_a_real_impact">Make a Real Impact</string>
+    <string name="text_learn_and_grow">Learn &amp; Grow</string>
+    <string name="text_connect_and_network">Connect &amp; Network</string>
+    <string name="text_find_purpose">Find Purpose</string>
+    <string name="text_children_received_education">children received free education last year</string>
+    <string name="text_meals_served_support">meals served with volunteer support</string>
+    <string name="text_200">200+</string>
+    <string name="text_volunteers_joined_our_cause">volunteers joined our cause in the past year</string>
+    <string name="text_benefits">Benefits</string>
+    <string name="text_learn_teaching_leadership">Learn teaching, leadership &amp; communication.</string>
+    <string name="text_certificates_volunteer_appreciation">Certificates &amp; volunteer appreciation.</string>
+    <string name="text_meet_inspiring_peers">Meet inspiring peers &amp; mentors.</string>
+    <string name="text_experience_the_joy">Experience the joy of making lives better.</string>
+    <string name="text_choose_your_role">Choose Role</string>
+    <string-array name="array_volunteer_roles">
+        <item>Choose Role</item>
+        <item>@string/text_events</item>
+        <item>@string/text_donor_outreach</item>
+        <item>@string/text_social_media</item>
+        <item>@string/text_relations</item>
+        <item>@string/text_homework</item>
+        <item>@string/text_reading</item>
+        <item>@string/text_math_english_science</item>
+        <item>@string/text_group_support</item>
+        <item>@string/text_logistics</item>
+        <item>@string/text_volunteer_vendor_coordination</item>
+        <item>@string/text_execution_reporting</item>
+        <item>@string/text_content_creation</item>
+        <item>@string/text_campaigns</item>
+        <item>@string/text_engagement</item>
+        <item>@string/text_awareness</item>
     </string-array>
-    <string-array name="ratings">
-        <item>Rating</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
+    <string name="text_submit">Submit</string>
+    <string name="text_volunteer_experiences">Volunteer Experiences</string>
+    <string name="text_volunteer">Volunteer</string>
+    <string name="text_the_more_we_share">The more we Share, the more we have..\.</string>
+
+    <!--Programs Fragment-->
+    <string name="text_community_chat">Community Chat</string>
+    <string name="text_community_chat_and_share">Chat and share information with other parent along with photos, videos, documents</string>
+    <string name="text_community_care">Community Care</string>
+    <string name="text_working_with_local">Working with local communities. Supporting children’s education, health.</string>
+    <string name="text_parent_support">Parent Support</string>
+    <string name="text_simple_tools_and_tips">Simple tools and tips for parents. Helping them guide their child’s growth.</string>
+    <string name="text_parents_reviews">Parents Reviews</string>
+    <string name="text_please_share_your_review">Please share your valuable review of our app and rate your experience</string>
+    <string name="text_our_impact">Our Impact</string>
+    <string name="text_10000">10,000+</string>
+    <string name="text_children_reached">Children Reached</string>
+    <string name="text_150">150+</string>
+    <string name="text_learning_centers">Learning Centers</string>
+    <string name="text_500">500+</string>
+    <string name="text_trained_educators">Trained Educators</string>
+    <string name="text_50">50+</string>
+    <string name="text_communities_served">Communities Served</string>
+
+    <!--Support Fragment-->
+    <string name="text_your_support">Your support makes\na difference</string>
+    <string name="text_donate_us">Donate Us</string>
+    <string name="text_5000_">₹ 5,000</string>
+    <string name="text_10000_">₹ 10,000</string>
+    <string name="text_15000_">₹ 15,000</string>
+    <string name="text_20000_">₹ 20,000</string>
+    <string name="text_personal_information">Personal Information</string>
+    <string name="text_amount">Amount</string>
+    <string name="text_proceed_to_pay">Proceed to Pay</string>
+    <string name="text_please_enter_valid_amount">Please Enter Amount</string>
+
+    <!--Contact Fragment-->
+    <string name="text_we_are_always_here">Hi, we’re always here to help you!</string>
+    <string name="text_get_in_touch">Get In Touch</string>
+    <string name="text_locate_us">Locate Us</string>
+    <string name="text_visit_us">Visit Us</string>
+    <string name="text_operating_hours">Operating Hours</string>
+    <string name="text_leave_us_a_message">Leave us a Message</string>
+    <string name="text_subject">Subject</string>
+    <string name="text_tell_us_how">Tell us how we can help you?</string>
+    <string name="text_send_message">Send Message</string>
+    <string name="text_connect_with_us">Connect With Us</string>
+    <string name="text_instagram">Instagram</string>
+    <string name="text_facebook">Facebook</string>
+    <string name="text_whatsapp">WhatsApp</string>
+    <string name="text_linkedin">LinkedIn</string>
+    <string name="text_twitter">Twitter</string>
+    <string name="text_youtube">YouTube</string>
+
+    <!--Community Chat Fragment-->
+    <string name="text_write_your_message">Write your message..\.</string>
+
+    <!--Community Care Fragment-->
+    <string name="text_parent_community">Parent Community</string>
+    <string name="text_read_together">Read Together</string>
+    <string name="text_use_interactive_books">Use interactive books from Lib for Small to make storytime fun and build language skills.</string>
+    <string name="text_expert_guidance">Expert Guidance</string>
+    <string name="text_book_appointments_with_experts">Book appointments with childcare experts through Consult Us to get personalized parenting tips.</string>
+    <string name="text_track_growth">Track Growth</string>
+    <string name="text_monitor_child_milestones">Monitor your child’s milestones and progress easy with Child Management.</string>
+    <string name="text_learn_with_videos">Learn with Videos</string>
+    <string name="text_explore_space_tube_for_videos">Explore SpaceTube for engaging educational videos that make learning fun and simple.</string>
+    <string name="text_why_community_matters">Why Community Matters</string>
+    <string name="text_building_strong_connections">Building strong connections with neighborhoods.</string>
+    <string name="text_ensuring_children_growth">Ensuring children grow in safe, supportive environments.</string>
+    <string name="text_easy_community_actions">Easy Community Actions</string>
+    <string name="text_join_local_parent_meeting">Join local parent meetings.</string>
+    <string name="text_share_resources_with_families">Share resources with other families.</string>
+    <string name="text_participate_in_health">Participate in health and education drives.</string>
+    <string name="text_join_the_fun_today">Join the Fun Today!</string>
+    <string name="text_be_part_of_a_caring_community">Be part of a caring community, connect with other parents, and join hands to build a brighter future for every child.</string>
+    <string name="text_contact_us_now">Contact Us Now</string>
+    <string name="text_contact_us">Contact Us</string>
+    <string name="text_dash_board">Dashboard</string>
+    <string name="text_milestone_tracker">Milestone Tracker</string>
+
+    <!--Parent Support Fragment-->
+    <string name="text_tips_for_parents">Tips for Parents</string>
+    <string name="text_daily_routines">Daily Routines</string>
+    <string name="text_set_simple_schedules">Set simple schedules for play, study, and rest.</string>
+    <string name="text_positive_communication">Positive Communication</string>
+    <string name="text_encourage_child_with_listening">Encourage your child with active listening.</string>
+    <string name="text_healthy_habits">Healthy Habits</string>
+    <string name="text_teach_kids_about_food_exercise">Teach kids about balanced food, and exercise.</string>
+    <string name="text_learning_at_home">Learning at Home</string>
+    <string name="text_play_small_games_read">Play small games, read together.</string>
+    <string name="text_easy_parenting_checklists">Easy Parenting Checklists</string>
+    <string name="text_set_daily_playtime">Set daily playtime with your child.</string>
+    <string name="text_praise_small_achievements">Praise small achievements.</string>
+    <string name="text_read_story_before_bedtime">Read a story before bedtime.</string>
+    <string name="text_get_in_touch_with_us">Get in Touch With Us</string>
+    <string name="text_join_our_parent_community">Join our parent community to get regular tips, activities, and support for your child’s growth.</string>
+
+    <!--Parents Reviews Fragment-->
+    <string name="text_write_a_review">Write a Review</string>
+    <string name="text_excellent">Excellent</string>
+    <string name="text_average">Average</string>
+    <string name="text_good">Good</string>
+    <string name="text_poor">Poor</string>
+    <string name="text_rate_us">Rate Us</string>
+    <string name="text_tell_us_about">Tell us about your experience</string>
+    <string name="text_write_your_review">Write your Review</string>
+    <string name="text_post">Post</string>
+
+
+    <!--Add Child Fragment-->
+    <string name="text_add_child">Add Child</string>
+    <string name="text_progress">Progress</string>
+    <string name="text_personal_details">Personal Details</string>
+    <string name="text_upload">Upload</string>
+    <string name="text_upload_child_picture">Upload child\'s picture</string>
+    <string name="text_upload_child_name">Enter child name</string>
+    <string name="text_dob">DOB</string>
+    <string name="text_gender">Gender</string>
+    <string name="text_male">Male</string>
+    <string name="text_female">Female</string>
+    <string name="text_center">Center</string>
+    <string name="text_choose_nearby_center">Choose nearby center</string>
+    <string name="text_next">Next ></string>
+    <string name="text_back">&lt; Back</string>
+    <string name="text_motor_development">Motor Development</string>
+    <string name="text_social_skills">Social Skills</string>
+    <string name="text_language_development">Language Development</string>
+    <string name="text_cognitive_development">Cognitive</string>
+    <string name="text_yes">Yes</string>
+    <string name="text_no">No</string>
+    <string name="text_enter_child_name">Enter Child Name</string>
+    <string name="text_select_date">Select Date</string>
+    <string-array name="array_centers">
+        <item>Choose Center</item>
+        <item>Dhayari</item>
+        <item>Khed Shivapur</item>
+        <item>Karve Nagar</item>
     </string-array>
-    <string name="title_activity_main2">MainActivity2</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!--Other Common Strings-->
+    <string name="text_no_internet">No Internet Available!</string>
+    <string name="text_something_went_wrong">Something went wrong!</string>
+    <string name="text_failed_to_load_more">Failed to load more data!</string>
+    <string name="text_you_have_seen_all">—— No more data available ——</string>
+    <string name="text_load_more">Load More</string>
+    <string name="text_success">"Success"</string>
+    <string name="text_failure">"Failure"</string>
+    <string name="text_retry">Retry</string>
+    <string name="text_empty"> </string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_user_registration">UserRegistration</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_new_login">NewLoginActivity</string>
-    <string name="title_activity_login2">LoginActivity2</string>
-    <string name="login">Login</string>
-    <string name="user_name_e">User Name/Email</string>
-    <string name="password">Password</string>
-    <string name="new_registr">New Registration</string>
-    <string name="back">Back</string>
-    <string name="skip">Skip</string>
-
-    <string name="spaceece">SpaceECE</string>
-    <string name="registration">Registration Details</string>
-    <string name="enter_user_">Enter User Name</string>
-    <string name="enter_phone">Enter Phone Number</string>
-    <string name="enter_email">Enter Email</string>
-    <string name="enter_passw">Enter Password</string>
-    <string name="re_enter_pa">Re-Enter Password</string>
-    <string name="register_si">REGISTER</string>
-
+    <string name="txt_solve_a_puzzle_record_progress_video">Solve a puzzle - Record progress video</string>
+    <string name="txt_ognitive">Cognitive</string>
+    <!-- MileStone Tracker fragment-->
 
 </resources>

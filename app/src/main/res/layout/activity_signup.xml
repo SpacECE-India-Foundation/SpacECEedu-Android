@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_primary_down">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                style="@style/StyleCircleIcon"
+                android:src="@drawable/ic_back"
+                tools:ignore="ContentDescription" />
+
+            <include
+                android:id="@+id/layout_header"
+                layout="@layout/layout_auth_header" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_header"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="@dimen/_24sdp"
+                android:layout_marginBottom="@dimen/_32sdp"
+                android:background="@drawable/bg_full_round_solid_stroke"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/gradient_accent_light_circle"
+                    android:padding="@dimen/_8sdp"
+                    android:src="@drawable/ic_auth"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tv_login_as"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:fontFamily="@font/font_poppins_bold"
+                    android:text="@string/text_signup_as_parent"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_14ssp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_edt_name"
+                    style="@style/StyleCustomTextInputLayout"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ti_edt_name"
+                        style="@style/StyleCustomTextInputEditText"
+                        android:drawableStart="@drawable/ic_user"
+                        android:hint="@string/text_name"
+                        android:inputType="textCapWords"
+                        android:maxLength="50" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_edt_phone"
+                    style="@style/StyleCustomTextInputLayout"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ti_edt_phone"
+                        style="@style/StyleCustomTextInputEditText"
+                        android:drawableStart="@drawable/ic_dialpad"
+                        android:hint="@string/text_phone"
+                        android:inputType="phone"
+                        android:maxLength="10" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_edt_email"
+                    style="@style/StyleCustomTextInputLayout"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ti_edt_email"
+                        style="@style/StyleCustomTextInputEditText"
+                        android:drawableStart="@drawable/ic_email"
+                        android:hint="@string/text_email"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="50" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_edt_password"
+                    style="@style/StyleCustomTextInputLayout"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ti_edt_password"
+                        style="@style/StyleCustomTextInputEditText"
+                        android:drawableStart="@drawable/ic_password"
+                        android:hint="@string/text_password"
+                        android:inputType="textPassword"
+                        android:maxLength="15" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_edt_confirm_password"
+                    style="@style/StyleCustomTextInputLayout"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ti_edt_confirm_password"
+                        style="@style/StyleCustomTextInputEditText"
+                        android:drawableStart="@drawable/ic_tick"
+                        android:hint="@string/text_confirm_password"
+                        android:inputType="textPassword"
+                        android:imeOptions="actionDone"
+                        android:maxLength="15" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_signup"
+                        style="@style/StyleCustomButton"
+                        android:layout_centerInParent="true"
+                        android:layout_marginVertical="@dimen/_16sdp"
+                        android:text="@string/text_signup" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        android:layout_width="@dimen/_48sdp"
+                        android:layout_height="@dimen/_48sdp"
+                        android:layout_centerInParent="true"
+                        android:elevation="@dimen/_4sdp"
+                        android:indeterminateTint="@color/color_white"
+                        android:padding="@dimen/_8sdp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:fontFamily="@font/font_poppins"
+                    android:gravity="center"
+                    android:text="@string/text_already_have_an_account"
+                    android:textColor="@color/color_gray_dark"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ImageView
+                    android:id="@+id/iv_gmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/_24sdp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_gmail"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</layout>

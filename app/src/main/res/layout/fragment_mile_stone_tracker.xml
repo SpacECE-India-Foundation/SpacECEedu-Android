@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:background="@color/color_ternary"
+            android:elevation="@dimen/_2sdp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                style="@style/StyleCircleIcon"
+                android:src="@drawable/ic_back"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/iv_back"
+                android:fontFamily="@font/font_poppins"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/text_milestone_tracker"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/_16ssp" />
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.fragment.MileStoneTrackerFragment">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_primary_light"
+                android:orientation="vertical">
+
+
+                <!-- Completion Status Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_12sdp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gradient_secondary_start"
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/_16sdp"
+                        android:paddingTop="@dimen/_12sdp"
+                        android:paddingEnd="@dimen/_16sdp"
+                        android:paddingBottom="@dimen/_12sdp">
+
+                        <!-- Completion Status Title -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_12sdp"
+                            android:gravity="center"
+                            android:text="Completion Status"
+                            android:textColor="#FFFFFF"
+                            android:textSize="@dimen/_16ssp"
+                            android:textStyle="bold" />
+
+                        <!-- Stats Container -->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_85sdp"
+                            android:layout_marginTop="@dimen/_4sdp">
+
+                            <!-- Total Milestones Card -->
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/csCardMilestones"
+                                android:layout_width="@dimen/_85sdp"
+                                android:layout_height="@dimen/_75sdp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                app:cardCornerRadius="@dimen/_12sdp"
+                                app:cardElevation="0dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/_8sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Total"
+                                        android:textColor="#FF6B35"
+                                        android:textSize="@dimen/_9ssp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="@dimen/_2sdp"
+                                        android:text="Milestones"
+                                        android:textColor="#FF6B35"
+                                        android:textSize="@dimen/_9ssp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/csTextMilestonesCount"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="8"
+                                        android:textColor="#FF6B35"
+                                        android:textSize="@dimen/_24ssp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                            <!-- Center Progress Circle -->
+                            <RelativeLayout
+                                android:id="@+id/csProgressCircle"
+                                android:layout_width="@dimen/_60sdp"
+                                android:layout_height="@dimen/_60sdp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/bg_circle_yellow_progress">
+
+                                <TextView
+                                    android:id="@+id/csTextProgress"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="3/5"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="@dimen/_16ssp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
+
+                            <!-- Total Tasks Card -->
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/csCardTasks"
+                                android:layout_width="@dimen/_85sdp"
+                                android:layout_height="@dimen/_75sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                app:cardCornerRadius="@dimen/_12sdp"
+                                app:cardElevation="0dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#FFFFFF"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/_8sdp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="@dimen/_2sdp"
+                                        android:text="Total Tasks"
+                                        android:textColor="#FF6B35"
+                                        android:textSize="@dimen/_9ssp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/csTextTasksCount"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="20"
+                                        android:textColor="#FF6B35"
+                                        android:textSize="@dimen/_24ssp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+                        </RelativeLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Today's Tasks Section Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_8sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Activities"
+                        android:textColor="#1F2D2E"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
+
+                    <!-- Underline for header -->
+                    <View
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_3sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:background="@color/color_secondary" />
+                </LinearLayout>
+
+                <!-- RecyclerView for task items -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_milestone_tasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingBottom="@dimen/_12sdp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_task" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

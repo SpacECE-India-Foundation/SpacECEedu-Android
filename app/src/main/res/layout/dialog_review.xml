@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_12sdp"
+    android:background="@drawable/bg_full_round_solid_stroke"
+    android:padding="@dimen/_6sdp">
+
+    <ImageView
+        android:id="@+id/iv_close"
+        style="@style/StyleCircleIcon"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="0dp"
+        android:elevation="0dp"
+        android:padding="@dimen/_10sdp"
+        android:src="@drawable/ic_close"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/StyleSectionTextHeading"
+            android:textSize="@dimen/_14ssp"
+            android:layout_marginVertical="@dimen/_16sdp"
+            android:text="@string/text_rate_us" />
+
+        <RatingBar
+            android:id="@+id/rb_reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:progressBackgroundTint="@color/color_gray_light"
+            android:progressTint="@color/color_yellow"
+            android:secondaryProgressTint="@color/color_gray_light" />
+
+        <TextView
+            style="@style/StyleSectionTextHeading"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:fontFamily="@font/font_poppins"
+            android:text="@string/text_write_your_review" />
+
+        <EditText
+            android:id="@+id/edt_query"
+            style="@style/StyleEditText"
+            android:gravity="top"
+            android:hint="@string/text_tell_us_about"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:maxLength="500"
+            android:maxLines="5"
+            android:minLines="3"
+            android:overScrollMode="always"
+            android:scrollbars="vertical" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_post"
+            style="@style/StyleCustomButton"
+            android:layout_marginVertical="@dimen/_16sdp"
+            android:text="@string/text_post" />
+    </LinearLayout>
+</RelativeLayout>

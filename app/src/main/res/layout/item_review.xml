@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/_2sdp"
+        android:padding="@dimen/_8sdp">
+
+        <ImageView
+            style="@style/StyleImageIcon"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:backgroundTint="@color/color_white"
+            android:padding="0dp"
+            android:src="@drawable/ic_profile"
+            tools:ignore="ContentDescription" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/StyleCardSTextHeading"
+                android:layout_alignParentStart="true"
+                android:layout_margin="0dp"
+                android:layout_toStartOf="@id/tv_time"
+                android:fontFamily="@font/font_poppins_semibold"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/_24sdp"
+                android:text="@string/app_name"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/StyleCardSTextHeading"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="0dp"
+                android:fontFamily="@font/font_poppins"
+                android:text="Few minutes ago"
+                android:textColor="@color/color_gray_dark"
+                tools:ignore="HardcodedText" />
+
+            <RatingBar
+                android:id="@+id/rb_reviews"
+                style="@android:style/Widget.Holo.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_name"
+                android:numStars="5"
+                android:progressBackgroundTint="@color/color_gray_light"
+                android:progressTint="@color/color_yellow"
+                android:rating="3.5"
+                android:secondaryProgressTint="@color/color_gray_light" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        style="@style/StyleCardSTextHeading"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginTop="0dp"
+        android:alpha=".8"
+        android:fontFamily="@font/font_poppins"
+        tools:ignore="RtlSymmetry"
+        android:text="@string/text_simple_tools_and_tips" />
+
+    <View
+        android:id="@+id/view_divider"
+        style="@style/StyleDivider"
+        android:layout_margin="@dimen/_8sdp" />
+
+    <include
+        android:id="@+id/layout_load_more"
+        layout="@layout/layout_load_more" />
+</LinearLayout>

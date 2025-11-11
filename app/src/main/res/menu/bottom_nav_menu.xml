@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/selector_home"
+        android:title="@string/text_home" />
+    <item
+        android:id="@+id/nav_programs"
+        android:icon="@drawable/selector_programs"
+        android:title="@string/text_programs" />
+    <item
+        android:id="@+id/nav_support"
+        android:icon="@drawable/selector_support"
+        android:title="@string/text_support" />
+    <item
+        android:id="@+id/nav_contact"
+        android:icon="@drawable/selector_contact"
+        android:title="@string/text_contact" />
+</menu>

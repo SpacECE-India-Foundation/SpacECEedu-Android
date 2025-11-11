@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:background="@color/color_ternary"
+            android:elevation="@dimen/_2sdp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                style="@style/StyleCircleIcon"
+                android:src="@drawable/ic_back"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/iv_back"
+                android:fontFamily="@font/font_poppins"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/text_community_care"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/_16ssp" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_ternary"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StyleSectionTextHeading"
+                        android:text="@string/text_parent_community" />
+
+                    <View style="@style/StyleSectionUnderline" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/bg_full_round_solid_stroke"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:padding="@dimen/_8sdp">
+
+                        <ImageView
+                            style="@style/StyleImageIcon"
+                            android:src="@drawable/ic_read"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/StyleCardSTextHeading"
+                                android:layout_margin="0dp"
+                                android:text="@string/text_read_together" />
+
+                            <TextView
+                                style="@style/StyleCardSTextSubHeading"
+                                android:text="@string/text_use_interactive_books" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:padding="@dimen/_8sdp">
+
+                        <ImageView
+                            style="@style/StyleImageIcon"
+                            android:src="@drawable/ic_guide"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/StyleCardSTextHeading"
+                                android:layout_margin="0dp"
+                                android:text="@string/text_expert_guidance" />
+
+                            <TextView
+                                style="@style/StyleCardSTextSubHeading"
+                                android:text="@string/text_book_appointments_with_experts" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:padding="@dimen/_8sdp">
+
+                        <ImageView
+                            style="@style/StyleImageIcon"
+                            android:src="@drawable/ic_track"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/StyleCardSTextHeading"
+                                android:layout_margin="0dp"
+                                android:text="@string/text_track_growth" />
+
+                            <TextView
+                                style="@style/StyleCardSTextSubHeading"
+                                android:text="@string/text_monitor_child_milestones" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginBottom="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:padding="@dimen/_8sdp">
+
+                        <ImageView
+                            style="@style/StyleImageIcon"
+                            android:src="@drawable/ic_video"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/StyleCardSTextHeading"
+                                android:layout_margin="0dp"
+                                android:text="@string/text_learn_with_videos" />
+
+                            <TextView
+                                style="@style/StyleCardSTextSubHeading"
+                                android:text="@string/text_explore_space_tube_for_videos" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StyleSectionTextHeading"
+                        android:text="@string/text_why_community_matters" />
+
+                    <View style="@style/StyleSectionUnderline" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/bg_full_round_solid_stroke"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_building_strong_connections" />
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginBottom="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_ensuring_children_growth" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StyleSectionTextHeading"
+                        android:text="@string/text_easy_community_actions" />
+
+                    <View style="@style/StyleSectionUnderline" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/bg_full_round_solid_stroke"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_join_local_parent_meeting" />
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_share_resources_with_families" />
+
+                    </LinearLayout>
+
+                    <View style="@style/StyleDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginBottom="@dimen/_6sdp"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_8sdp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            style="@style/StyleCheckIcon"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/StyleCardSTextHeading"
+                            android:layout_margin="0dp"
+                            android:text="@string/text_participate_in_health" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/StyleSectionTextHeading"
+                        android:text="@string/text_join_the_fun_today" />
+
+                    <View style="@style/StyleSectionUnderline" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:alpha=".6"
+                    android:fontFamily="@font/font_poppins_medium"
+                    android:gravity="center"
+                    android:text="@string/text_be_part_of_a_caring_community"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_contact"
+                    style="@style/StyleCustomButton"
+                    android:layout_marginVertical="@dimen/_24sdp"
+                    android:text="@string/text_contact_us_now" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>
