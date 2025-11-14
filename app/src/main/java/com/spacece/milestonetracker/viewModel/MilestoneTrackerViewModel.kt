@@ -92,10 +92,6 @@ class MilestoneTrackerViewModel(context: Context) : ViewModel() {
         }
     }
 
-
-
-
-
 //    for get all child api
     private val _childrenResponse = MutableLiveData<Event<Result<ApiResponse<ChildData>>>>()
     val childrenResponse: LiveData<Event<Result<ApiResponse<ChildData>>>> get() = _childrenResponse

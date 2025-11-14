@@ -50,6 +50,16 @@ class AddChildFragment : BaseFragment(), OnClickListener {
 
     private var imageName: String? = null
     private var uri: Uri? = null
+
+    private var childDob: Long = 0L
+
+    // Persist category and answers
+    private val answers = mutableMapOf<String, String>()
+    private val category = mutableListOf<AnswerReq>()
+
+    private var maxSteps = 1
+    private var step = 0
+
     private val pickImageLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
@@ -64,14 +74,6 @@ class AddChildFragment : BaseFragment(), OnClickListener {
             binding.tvUploadChildPicture.setupText(imageName ?: "Picture Selected")
         }
     }
-    private var childDob: Long = 0L
-
-    // Persist category and answers
-    private val answers = mutableMapOf<String, String>()
-    private val category = mutableListOf<AnswerReq>()
-
-    private var maxSteps = 1
-    private var step = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -149,7 +151,7 @@ class AddChildFragment : BaseFragment(), OnClickListener {
                 setupData()
             } else {
                 isEnabled = false
-                requireActivity().onBackPressedDispatcher.onBackPressed()
+                (activity as ParentMainActivity).onBackPressAction()
                 isEnabled = true
             }
         }
@@ -169,6 +171,8 @@ class AddChildFragment : BaseFragment(), OnClickListener {
         when (step) {
             0 -> {
                 binding.apply {
+                    questionList = CategoryList(emptyList())
+                    childDetailQuestionsAdapter.submitList(emptyList())
                     llAddChildForm.setVisibility(true)
                     tvStepTitle.setupText("Personal Details")
                     bNext.isEnabled = true
@@ -316,7 +320,7 @@ class AddChildFragment : BaseFragment(), OnClickListener {
             if (!detailsInputValidation()) {
                 Toast.makeText(
                     requireContext(),
-                    "Please fill in all personal details.",
+                    "Please fill in all details!",
                     Toast.LENGTH_LONG
                 ).show()
                 return
@@ -325,9 +329,20 @@ class AddChildFragment : BaseFragment(), OnClickListener {
             detailsSubmit()
             return
         }
+
+        if (answers.size < questionList.categories[step - 1].que.size) {
+            Toast.makeText(
+                requireContext(),
+                "Please answer all the queries!",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+
         // Steps 1 to second-last: Save current answers and proceed
         if (step < questionList.categories.size) {
             answerSave(questionList.categories[step - 1], answers)
+
             answers.clear()
             step++
             setupData()
@@ -379,7 +394,7 @@ class AddChildFragment : BaseFragment(), OnClickListener {
         val allAnswered = currentQuestions.keys.all { q ->
             currentAnswers.contains(q)
         }
-        binding.bNext.isEnabled = allAnswered
+        //binding.bNext.isEnabled = allAnswered
     }
 
     private fun answerSave(currentCategory: Category, currentAnswers: Map<String, String>) {
@@ -455,7 +470,7 @@ class AddChildFragment : BaseFragment(), OnClickListener {
         }
         val centerSelected = binding.spinnerCenter.selectedItemPosition > 0
         val dobValid = childDob != 0L
-        return name.isNotBlank() && gender && centerSelected && dobValid
+        return uri != null && name.isNotBlank() && gender && centerSelected && dobValid
     }
 
     private fun addChildResponseObserver(result: Result<ApiResponse<ChildDetailsRes>>) {
@@ -465,13 +480,14 @@ class AddChildFragment : BaseFragment(), OnClickListener {
                         data.message?.contains("success", ignoreCase = true) == true
                 )
         if (isSuccess) {
-            Log.d("QS", "Child Added successfully")
+            Log.d("QS", "Child Added successfully.")
             Log.d("RES", "API Response: ${data.message}")
-            Toast.makeText(
+            /*Toast.makeText(
                 requireContext(),
                 data.message ?: "Child Added Successfully.",
                 Toast.LENGTH_SHORT
-            ).show()
+            ).show()*/
+            HomeFragment.isNewChildAdded = true
             childId = data.data?.childId.let { id ->
                 id?.let { if (it > 0) id else null }
             }
@@ -484,7 +500,11 @@ class AddChildFragment : BaseFragment(), OnClickListener {
             if (categoriesList.isEmpty()) {
                 showLoader(false)
                 Log.e("AddChild", "No categories in response!")
-                Toast.makeText(requireContext(), "No questions available", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    "Please try later, Currently unavailable!",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
                 return
             }
@@ -511,7 +531,7 @@ class AddChildFragment : BaseFragment(), OnClickListener {
         if (isSuccess) {
             Toast.makeText(
                 requireContext(),
-                "Child Progress Saved Successfully.",
+                "Child has been successfully added!",
                 Toast.LENGTH_SHORT
             ).show()
             //If task is done call below line to exit from fragment
@@ -520,9 +540,37 @@ class AddChildFragment : BaseFragment(), OnClickListener {
             restoreSubmissionUi()
             Toast.makeText(
                 requireContext(),
-                "Unsuccessful, Something Went Wrong!.",
+                "Something Went Wrong, Try Again!.",
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        if (hidden) {
+            //clear defaults
+            step = 0
+            binding.apply {
+                childName = ""
+                childGender = ""
+                center = ""
+                childId = null
+                questionSeriesId = null
+                imageName = ""
+                uri = null
+                childDob = 0
+                answers.clear()
+                category.clear()
+                questionList = CategoryList(emptyList())
+                childDetailQuestionsAdapter.submitList(emptyList())
+                tvUploadChildPicture.setupText("")
+                edtChildName.setupText("")
+                tvChildDob.setupText("")
+                rgChildGender.clearCheck()
+                spinnerCenter.setSelection(0)
+            }
+            setupData()
+        }
+        super.onHiddenChanged(hidden)
     }
 }

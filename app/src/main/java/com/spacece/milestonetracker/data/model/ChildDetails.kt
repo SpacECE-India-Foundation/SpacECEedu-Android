@@ -22,7 +22,7 @@ data class ChildDetails(
 // Add Child Request Model
 data class ChildDetailsReq(
     val userId:Int,
-    val image:MultipartBody.Part?,
+    val childImage:MultipartBody.Part?,
     val childName: String,
     val dob: Long,
     val gender: String,

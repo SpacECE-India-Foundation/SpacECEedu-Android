@@ -19,6 +19,7 @@ import java.util.Date
 import java.util.Locale
 
 class MilestoneTrackerRepository(context: Context) {
+    private val userRepository = UserRepository(context)
 
     /*suspend fun submitChildDetails(
         details: ChildDetailsReq
@@ -54,13 +55,13 @@ class MilestoneTrackerRepository(context: Context) {
         Log.d("SubmitChild", "DOB: ${details.dob}")
         Log.d("SubmitChild", "───────────────────────────────────")
 
-        if (details.image != null) {
+        if (details.childImage != null) {
             Log.d("SubmitChild", "✅ Image: PRESENT")
             Log.d("SubmitChild", "   Field Name: image")
-            Log.d("SubmitChild", "   Headers: ${details.image.headers}")
-            Log.d("SubmitChild", "   Content-Type: ${details.image.body.contentType()}")
-            Log.d("SubmitChild", "   Content-Length: ${details.image.body.contentLength()} bytes")
-            Log.d("SubmitChild", "   Size: ${details.image.body.contentLength() / 1024} KB")
+            Log.d("SubmitChild", "   Headers: ${details.childImage.headers}")
+            Log.d("SubmitChild", "   Content-Type: ${details.childImage.body.contentType()}")
+            Log.d("SubmitChild", "   Content-Length: ${details.childImage.body.contentLength()} bytes")
+            Log.d("SubmitChild", "   Size: ${details.childImage.body.contentLength() / 1024} KB")
         } else {
             Log.e("SubmitChild", "❌ Image: NULL - No image provided!")
         }
@@ -69,7 +70,7 @@ class MilestoneTrackerRepository(context: Context) {
 
         val result = safeApiCall {
             apiService().submitChildDetails(
-                details.image,
+                details.childImage,
                 details.userId.toString().toRequestBody(),
                 details.center.toRequestBody(),
                 details.childName.toRequestBody(),
@@ -128,7 +129,7 @@ class MilestoneTrackerRepository(context: Context) {
 
     suspend fun getAllChildren(userId: Int): Result<ApiResponse<ChildData>> {
         return safeApiCall {
-            val response = apiService().getAllChildren(userId)
+            val response = apiService().getAllChildren(userRepository.getUserDetails().current_user_id)
             response
         }
     }

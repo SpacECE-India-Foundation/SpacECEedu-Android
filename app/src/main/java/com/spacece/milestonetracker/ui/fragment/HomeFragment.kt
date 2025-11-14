@@ -28,8 +28,10 @@ import com.spacece.milestonetracker.ui.activity.LoginActivity
 import com.spacece.milestonetracker.ui.activity.ParentMainActivity
 import com.spacece.milestonetracker.ui.adapter.ChildrenAdapter
 import com.spacece.milestonetracker.ui.base.BaseFragment
+import com.spacece.milestonetracker.utils.setButtonProgress
 import com.spacece.milestonetracker.utils.setOnClickListeners
 import com.spacece.milestonetracker.utils.setVisibility
+import com.spacece.milestonetracker.utils.setupText
 import com.spacece.milestonetracker.utils.startActivity
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -47,6 +49,9 @@ class HomeFragment : BaseFragment(), OnClickListener {
 
     private var userId: Int? = null
 
+    companion object {
+        var isNewChildAdded = false
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +65,12 @@ class HomeFragment : BaseFragment(), OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListeners(listOf(binding.llMilestoneTracker, binding.tvAddChild))
         viewModelObservers()
-        setupFragmentDataView()
+        binding.apply {
+            llNoChild.setVisibility(false)
+            llChildDetails.setVisibility(false)
+            progressBar.setVisibility(true)
+            imgProfile.clipToOutline = true
+        }
         lifecycleScope.launch {
             userId = getCurrentUserId(requireContext())
             userId?.let { id ->
@@ -70,24 +80,23 @@ class HomeFragment : BaseFragment(), OnClickListener {
                     milestoneTrackerViewModel.fetchAllChildren(id)
                 }
             }
+            if (userId == null || !sharedPrefs.isUserLoggedIn()) {
+                binding.apply {
+                    llNoChild.setVisibility(true)
+                    llChildDetails.setVisibility(false)
+                    progressBar.setVisibility(false)
+                }
+            }
         }
-
+        binding.btnSubmit.setButtonProgress(binding.progressBarSubmit, false)
         setupChildrenRecyclerView()
     }
 
     private fun setupFragmentDataView() = with(binding) {
         val isDataView = sharedPrefs.isUserLoggedIn() && childrenList.isNotEmpty()
-
-        Log.d("Visibility", "===== setupFragmentDataView =====")
-        Log.d("Visibility", "isUserLoggedIn: ${sharedPrefs.isUserLoggedIn()}")
-        Log.d("Visibility", "childrenList.size: ${childrenList.size}")
-        Log.d("Visibility", "childrenList.isNotEmpty: ${childrenList.isNotEmpty()}")
-        Log.d("Visibility", "isDataView: $isDataView")
-        Log.d("Visibility", "llNoChild.visibility will be: ${if (!isDataView) "VISIBLE" else "GONE"}")
-        Log.d("Visibility", "llChildDetails.visibility will be: ${if (isDataView) "VISIBLE" else "GONE"}")
-
         llNoChild.setVisibility(!isDataView)
         llChildDetails.setVisibility(isDataView)
+        progressBar.setVisibility(false)
     }
 
     override fun onClick(v: View) {
@@ -130,24 +139,29 @@ class HomeFragment : BaseFragment(), OnClickListener {
 
         val months = listOf("April", "May", "June", "July", "August")
         val xAxis = lineChart.xAxis
-        xAxis.valueFormatter = IndexAxisValueFormatter(getMonthLabels(entries.size))
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.setDrawGridLines(false)
-        xAxis.textColor = Color.BLACK
-        xAxis.textSize = 12f
-        xAxis.granularity = 1f
+        xAxis.apply {
+            valueFormatter = IndexAxisValueFormatter(getMonthLabels(entries.size))
+            position = XAxis.XAxisPosition.BOTTOM
+            setDrawGridLines(false)
+            textColor = Color.BLACK
+            textSize = 12f
+            granularity = 1f
+        }
 
         val yAxisLeft = lineChart.axisLeft
-        yAxisLeft.textColor = Color.BLACK
-        yAxisLeft.axisMinimum = 0f
-        lineChart.axisRight.isEnabled = false
+        yAxisLeft.apply {
+            textColor = Color.BLACK
+            axisMinimum = 0f
+        }
 
-        lineChart.legend.isEnabled = false
-        lineChart.description.isEnabled = false
-        lineChart.setDrawGridBackground(false)
-        lineChart.setTouchEnabled(false)
-
-        lineChart.invalidate()
+        lineChart.apply {
+            axisRight.isEnabled = false
+            legend.isEnabled = false
+            description.isEnabled = false
+            setDrawGridBackground(false)
+            setTouchEnabled(false)
+            invalidate()
+        }
     }
 
     /**
@@ -162,6 +176,8 @@ class HomeFragment : BaseFragment(), OnClickListener {
             childrenList,
             onChildClick = { child ->
                 //showChildDetails(child)
+                binding.progressBarChild.setVisibility(true)
+                binding.llMilestoneDetails.setVisibility(false)
                 showProfileData(child.childId)
             },
             onAddClick = {
@@ -234,6 +250,7 @@ class HomeFragment : BaseFragment(), OnClickListener {
         Toast.makeText(requireContext(), "${newChild.childName} added!", Toast.LENGTH_SHORT).show()*/
     }
 
+
     // it will work after the backend set up
     private fun setupChildGrowthUpdate(childId: Int) {
         binding.btnSubmit.setOnClickListener {
@@ -249,6 +266,7 @@ class HomeFragment : BaseFragment(), OnClickListener {
                 return@setOnClickListener
             }
             userId?.let { id ->
+                binding.btnSubmit.setButtonProgress(binding.progressBarSubmit, true)
                 milestoneTrackerViewModel.updateChildGrowth(id, childId, heightInput, weightInput)
             } ?: run {
                 Toast.makeText(
@@ -259,6 +277,7 @@ class HomeFragment : BaseFragment(), OnClickListener {
             }
         }
     }
+
 
     private fun showProfileData(childId: Int) {
         userId?.let { id ->
@@ -274,9 +293,13 @@ class HomeFragment : BaseFragment(), OnClickListener {
                 if (result?.status == STATUS_CODE_SUCCESS.toString()) {
                     result.data?.let { data ->
                         profile = data
+                        binding.progressBarChild.setVisibility(false)
+                        binding.llMilestoneDetails.setVisibility(true)
                         updateProfileUI(data)
                         setupCharts(data)
                         setupChildGrowthUpdate(data.childId)
+                        updateDevelopmentProgress(data)
+
                     } ?: run {
                         Toast.makeText(requireContext(), "Profile data is null", Toast.LENGTH_SHORT)
                             .show()
@@ -298,19 +321,19 @@ class HomeFragment : BaseFragment(), OnClickListener {
                 if (result?.status == STATUS_CODE_SUCCESS.toString()) {
                     childrenList = result.data?.children ?: emptyList()
                     adapter.updateList(childrenList)
-                    setupFragmentDataView()
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        result?.message ?: "Something Went Wrong ,Unable to get all child.",
+                        result?.message ?: "Something went wrong, Unable to fetch data!",
                         Toast.LENGTH_SHORT
                     ).show()
-                    setupFragmentDataView()
                 }
+                setupFragmentDataView()
             }
         }
 
         milestoneTrackerViewModel.updateChildGrowthResponse.observe(viewLifecycleOwner) { event ->
+            binding.btnSubmit.setButtonProgress(binding.progressBarSubmit, false)
             event.getContentIfNotHandled()?.let { result ->
                 result.onSuccess { response ->
                     Toast.makeText(
@@ -339,25 +362,33 @@ class HomeFragment : BaseFragment(), OnClickListener {
     private fun updateProfileUI(profileData: ChildKaDetails) {
         binding.apply {
             tvName.text = profileData.childName
+            tvGender.text = "(" + profileData.gender + ")"
             tvAge.text = profileData.dob
             tvLocation.text = profileData.center
             tvHeightValue.text = "${profileData.height} cm"
             tvWeightValue.text = "${profileData.weight} kg"
 
             val lastHeight = profileData.heightProgress.lastOrNull()?.height
-            tvLastCheck.text = "${lastHeight ?: profileData.height} cm"
-            tvNextCheck.text = "Today"
-            tvNotice.text = "Today is your child's physical data update"
+            //tvLastCheck.text = "${lastHeight ?: profileData.height} cm"
+            //tvNextCheck.text = "Today"
+            //tvNotice.text = "Today is your child's physical data update"
 
-            val imageUrl = profileData.image
-                ?: "https://static.vecteezy.com/system/resources/previews/007/312/854/large_2x/child-profile-sketch-vector.jpg"
+            val imageUrl =
+                "https://hustle-7c68d043.mileswebhosting.com/spacece/" + profileData.image
 
             Glide.with(imgProfile.context)
                 .load(imageUrl)
-                .placeholder(R.drawable.profile_pic)
+                .placeholder(
+                    if (profileData.gender.equals(
+                            "male",
+                            true
+                        )
+                    ) R.drawable.boy else R.drawable.girl
+                )
                 .into(imgProfile)
         }
     }
+
 
     private fun convertHeightToChartEntries(data: List<HeightProgress>): List<Entry> {
         return data.mapIndexed { index, data ->
@@ -365,12 +396,6 @@ class HomeFragment : BaseFragment(), OnClickListener {
             val yValue = data.height.toFloat()
             Entry(xValue, yValue)
         }
-    }
-
-
-    private fun setupCharts(profileData: ChildKaDetails) {
-        setupLineChart(binding.lineChart, convertWeightToChartEntries(profileData.weightProgress))
-        setupLineChart(binding.lineChart1, convertHeightToChartEntries(profileData.heightProgress))
     }
 
     private fun convertWeightToChartEntries(data: List<WeightProgress>): List<Entry> {
@@ -381,6 +406,11 @@ class HomeFragment : BaseFragment(), OnClickListener {
         }
     }
 
+    private fun setupCharts(profileData: ChildKaDetails) {
+        setupLineChart(binding.lineChart, convertHeightToChartEntries(profileData.heightProgress))
+        setupLineChart(binding.lineChart1, convertWeightToChartEntries(profileData.weightProgress))
+    }
+
     private fun getMonthLabels(dataSize: Int): List<String> {
         val calendar = Calendar.getInstance()
         return (0 until dataSize).map {
@@ -389,6 +419,148 @@ class HomeFragment : BaseFragment(), OnClickListener {
         }.reversed()
     }
 
+
+    // Sets a map of progressBar value and Status text
+    private fun answersForProgress(catId: String): Map<String, String> {
+        val answers = profile.childProgress.find { it.catId == catId }
+        if (answers == null) {
+            Log.w("AnswersForProgress", "⚠️ No answers found for catId: $catId")
+            return mapOf("-1" to "No Data")
+        }
+
+        val ans = answers.ans
+        val q1 = ans.q1.trim()
+        val q2 = ans.q2.trim()
+        val q3 = ans.q3.trim()
+
+        // Count how many "Yes" answers (1) the child has
+        val yesCount = listOf(q1, q2, q3).count { it == "1" }
+
+        val result = when (yesCount) {
+            0 -> mapOf("0" to "Poor")        // No "Yes" answers (all answered "No")
+            1 -> mapOf("1" to "Developing")  // One "Yes" answer
+            2 -> mapOf("2" to "Good")        // Two "Yes" answers
+            3 -> mapOf("3" to "Perfect")     // All three "Yes" answers
+            else -> {
+                Log.w("AnswersForProgress", "⚠️ Invalid yes count: $yesCount")
+                mapOf("-1" to "Unknown")
+            }
+        }
+        return result
+    }
+
+    private fun initializeProgressBars() = with(binding) {
+        // Set max values
+        progressLanguage.max = 3
+        progressMotor.max = 3
+        progressCognitive.max = 3
+        progressSocial.max = 3
+
+        // Reset all to 0
+        progressLanguage.progress = 0
+        progressMotor.progress = 0
+        progressCognitive.progress = 0
+        progressSocial.progress = 0
+
+        // Reset all status texts
+        val status = "Unavailable"
+        textLanguageStatus.text = status
+        textMotorStatus.text = status
+        textCognitiveStatus.text = status
+        textSocialStatus.text = status
+    }
+
+    private fun updateDevelopmentProgress(profileData: ChildKaDetails) {
+        var poorSkillFound = false
+        var poorSkillCategory = ""
+        initializeProgressBars()
+        profileData.childProgress.forEach { childProgress ->
+            val catId = childProgress.catId
+
+            val progressMap = answersForProgress(catId)
+            val progressValue = progressMap.entries.firstOrNull()?.key ?: "-1"
+            val statusText = progressMap.entries.firstOrNull()?.value ?: "N/A"
+
+            setProgressBarValue(catId, progressValue.toIntOrNull() ?: 0)
+            setStatusText(catId, statusText)
+
+            // Checks for poor skills
+            if (progressValue == "0" && !poorSkillFound) {
+                poorSkillFound = true
+                poorSkillCategory = catId
+                Log.d("UpdateDevProgress", "⚠️ Poor skill found in catId: $catId")
+            }
+        }
+
+        setObserverNote(poorSkillCategory, poorSkillFound)
+    }
+
+    private fun setProgressBarValue(catId: String, progressValue: Int) = with(binding) {
+        when (catId) {
+            "1" -> progressLanguage.progress = progressValue
+            "2" -> progressMotor.progress = progressValue
+            "3" -> progressCognitive.progress = progressValue
+            "4" -> progressSocial.progress = progressValue
+            else -> Log.w("SetProgress", "Unknown catId: $catId")
+        }
+    }
+
+    private fun setStatusText(catId: String, statusText: String) = with(binding) {
+        when (catId) {
+            "1" -> textLanguageStatus.setupText(statusText)
+            "2" -> textMotorStatus.setupText(statusText)
+            "3" -> textCognitiveStatus.setupText(statusText)
+            "4" -> textSocialStatus.setupText(statusText)
+            else -> Log.w("SetStatus", "Unknown catId: $catId")
+        }
+    }
+
+    private fun setObserverNote(catId: String, hasPoorProgress: Boolean) {
+        binding.textObserverNote.setupText(
+            when {
+                !hasPoorProgress -> {
+                    "\"${profile.childName}'s is going good, keep it up!\". Keep focusing on your child!\""
+                }
+
+                catId == "1" -> {
+                    "\"${profile.childName} should focus on developing Language skills\""
+                }
+
+                catId == "2" -> {
+                    "\"${profile.childName} should focus on developing Motor skills\""
+                }
+
+                catId == "3" -> {
+                    "\"${profile.childName} should focus on developing Cognitive skills\""
+                }
+
+                catId == "4" -> {
+                    "\"${profile.childName} should focus on developing Social skills\""
+                }
+
+                else -> {
+                    "\"Keep monitoring ${profile.childName}'s development progress\""
+                }
+            }
+        )
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        if (!hidden) {
+            if (sharedPrefs.isUserLoggedIn()) {
+                if (isNewChildAdded || childrenList.isEmpty()) {
+                    isNewChildAdded = false
+                    binding.apply {
+                        llNoChild.setVisibility(false)
+                        llChildDetails.setVisibility(false)
+                        progressBar.setVisibility(true)
+                    }
+                    milestoneTrackerViewModel.fetchAllChildren(id)
+                }
+            }
+        }
+        super.onHiddenChanged(hidden)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
