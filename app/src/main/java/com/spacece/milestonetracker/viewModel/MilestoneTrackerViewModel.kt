@@ -15,14 +15,18 @@ import com.spacece.milestonetracker.data.model.ChildDetailsReq
 import com.spacece.milestonetracker.data.model.ChildDetailsRes
 import com.spacece.milestonetracker.data.model.ChildData
 import com.spacece.milestonetracker.data.model.ChildKaDetails
+import com.spacece.milestonetracker.data.model.MilestoneTaskResponse
+import com.spacece.milestonetracker.data.model.UpdateTaskStatusRequest
 import com.spacece.milestonetracker.data.repository.MilestoneTrackerRepository
 import com.spacece.milestonetracker.viewModel.vmHelper.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-
-
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 
 class MilestoneTrackerViewModel(context: Context) : ViewModel() {
@@ -129,4 +133,85 @@ class MilestoneTrackerViewModel(context: Context) : ViewModel() {
             }
         }
     }
+
+
+    // milestone api functions
+    val milestoneData = MutableLiveData<MilestoneTaskResponse?>()
+    val error = MutableLiveData<String?>()
+
+    fun loadMilestoneTasks(userId: String, childId: String) {
+        Log.d("MILESTONE_DBG", "VM.loadMilestoneTasks user=$userId child=$childId")
+        viewModelScope.launch {
+            val result = milestoneTrackerRepository.getMilestoneTasks(userId, childId)
+
+            result.onSuccess { apiResponse ->
+                milestoneData.value = apiResponse.data
+            }.onFailure {
+                error.value = it.message ?: "Something went wrong"
+            }
+        }
+    }
+
+
+    val updateTaskStatusResult = MutableLiveData<String?>()
+
+    fun updateTaskStatus(userId: String, childId: String, taskId: String, completed: Boolean) {
+        viewModelScope.launch {
+            val request = UpdateTaskStatusRequest(
+                taskId = taskId,
+                completed = completed.toString()
+            )
+
+            val result = milestoneTrackerRepository.updateTaskStatus(userId, childId, request)
+
+            result.onSuccess {
+                updateTaskStatusResult.value = it.message ?: "Success"
+            }.onFailure {
+                updateTaskStatusResult.value = it.message
+            }
+        }
+    }
+
+
+    val submitMilestoneResult = MutableLiveData<String?>()
+    val isUploading = MutableLiveData<Boolean>()
+
+
+
+    fun submitMilestoneTask(
+        userId: String,
+        childId: String,
+        taskId: String,
+        videoFile: File
+    ) {
+        viewModelScope.launch {
+
+            isUploading.postValue(true)   // 🔥 show loader
+
+            val userIdBody = userId.toRequestBody("text/plain".toMediaTypeOrNull())
+            val childIdBody = childId.toRequestBody("text/plain".toMediaTypeOrNull())
+            val taskIdBody = taskId.toRequestBody("text/plain".toMediaTypeOrNull())
+            val requestFile = videoFile.asRequestBody("video/mp4".toMediaTypeOrNull())
+
+            val videoPart = MultipartBody.Part.createFormData(
+                "taskVideo",
+                videoFile.name,
+                requestFile
+            )
+
+            val result = milestoneTrackerRepository.submitMilestoneTask(
+                userIdBody, childIdBody, taskIdBody, videoPart
+            )
+
+            result.onSuccess {
+                submitMilestoneResult.postValue(it.message ?: "Uploaded Successfully")
+            }.onFailure {
+                submitMilestoneResult.postValue(it.message)
+            }
+
+            isUploading.postValue(false)  //  hide loader
+        }
+    }
+
+
 }

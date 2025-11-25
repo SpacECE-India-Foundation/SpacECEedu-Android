@@ -16,6 +16,11 @@ const val UPDATE_CHILD_GROWTH = "spacece/api/updateChildGrowth_MilesStone.php"
 const val GET_ALL_CHILD = "spacece/api/getAllChild.php"
 const val GET_CHILD_DETAILS = "spacece/api/getChildDetails.php"
 
+// Mile stone tracker end points
+const val MILESTONE_TASK_LIST = "spacece/api/Get_MilesStoneTask.php "
+const val UPDATE_TASK_STATUS = "spacece/api/Update_TaskMilesStone.php"
+const val SUBMIT_MILESTONE_TASK = "spacece/api/SubmitMilesStone_Task.php"
+
 //request keys
 const val NAME = "name"
 const val PHONE = "phone"

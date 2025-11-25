@@ -20,5 +20,22 @@ class SharedPrefs constructor(context: Context) {
 
     fun setGuestLoggedIn(isLoggedIn: Boolean) = prefs.edit { putBoolean(IS_GUEST_LOG_IN, isLoggedIn) }
     fun isGuestLoggedIn(): Boolean = prefs.getBoolean(IS_GUEST_LOG_IN, false)
+
+
+    fun saveSelectedChildId(childId: String) {
+        prefs.edit().putString("SELECTED_CHILD_ID", childId).apply()
+    }
+
+    fun getSelectedChildId(): String {
+        return prefs.getString("SELECTED_CHILD_ID", "") ?: ""
+    }
+
+    fun saveUserId(userId: String) {
+        prefs.edit().putString("USER_ID", userId).apply()
+    }
+
+    fun getUserId(): String {
+        return prefs.getString("USER_ID", "") ?: ""
+    }
 }
 

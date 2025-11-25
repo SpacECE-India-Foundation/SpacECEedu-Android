@@ -113,22 +113,56 @@ public class UsefulFunctions {
         }
 
         // for convet age from dob
+//        public static int calculateAgeFromDob(String dobString) {
+//            if (dobString == null || dobString.isEmpty()) return 0;
+//
+//            try {
+//
+//                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+//                Date dob = sdf.parse(dobString.trim());
+//
+//
+//                Calendar today = Calendar.getInstance();
+//                Calendar birthDate = Calendar.getInstance();
+//                birthDate.setTime(dob);
+//
+//                int age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
+//
+//                // If birthday hasn't occurred yet this year
+//                if (today.get(Calendar.DAY_OF_YEAR) < birthDate.get(Calendar.DAY_OF_YEAR)) {
+//                    age--;
+//                }
+//
+//                return age;
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                return 0;
+//            }
+//        }
+
+
         public static int calculateAgeFromDob(String dobString) {
-            if (dobString == null || dobString.isEmpty()) return 0;
+            if (dobString == null || dobString.trim().isEmpty()) return 0;
+
+            dobString = dobString.trim();  // IMPORTANT FIX
 
             try {
+                SimpleDateFormat sdf;
 
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                Date dob = sdf.parse(dobString.trim());
+                // Auto detect format
+                if (dobString.contains("-")) {
+                    sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                } else {
+                    sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                }
 
-
+                Date dob = sdf.parse(dobString);
                 Calendar today = Calendar.getInstance();
                 Calendar birthDate = Calendar.getInstance();
                 birthDate.setTime(dob);
 
                 int age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
 
-                // If birthday hasn't occurred yet this year
                 if (today.get(Calendar.DAY_OF_YEAR) < birthDate.get(Calendar.DAY_OF_YEAR)) {
                     age--;
                 }

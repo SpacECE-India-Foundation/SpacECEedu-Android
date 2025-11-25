@@ -6,6 +6,8 @@ import com.spacece.milestonetracker.data.model.ChildData
 import com.spacece.milestonetracker.data.model.ChildDetailsRes
 import com.spacece.milestonetracker.data.model.ChildKaDetails
 import com.spacece.milestonetracker.data.model.ForgetPasswordResponse
+import com.spacece.milestonetracker.data.model.MilestoneTaskResponse
+import com.spacece.milestonetracker.data.model.UpdateTaskStatusRequest
 import com.spacece.milestonetracker.data.model.User
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -86,5 +88,29 @@ interface ApiService {
         @Query("userId") userId: Int,
         @Query("childId") childId: Int
     ): Response<ApiResponse<ChildKaDetails>>
+
+
+    // api 6 7 8
+    @GET(MILESTONE_TASK_LIST)
+    suspend fun getMilestoneTasks(
+        @Query("userId") userId: String,
+        @Query("childId") childId: String
+    ): Response<ApiResponse<MilestoneTaskResponse>>
+
+    @POST(UPDATE_TASK_STATUS)
+    suspend fun updateTaskStatus(
+        @Query("userId") userId: String,
+        @Query("childId") childId: String,
+        @Body request: UpdateTaskStatusRequest
+    ): Response<ApiResponse<Any>>
+
+    @Multipart
+    @POST(SUBMIT_MILESTONE_TASK)
+    suspend fun submitMilestoneTask(
+        @Part("userId") userId: RequestBody,
+        @Part("childId") childId: RequestBody,
+        @Part("taskId") taskId: RequestBody,
+        @Part taskVideo: MultipartBody.Part
+    ): Response<ApiResponse<Any>>
 
 }

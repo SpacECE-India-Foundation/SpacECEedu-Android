@@ -123,10 +123,10 @@
                                         android:textStyle="bold" />
 
                                     <TextView
-                                        android:id="@+id/csTextMilestonesCount"
+                                        android:id="@+id/tvMilestone"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="8"
+                                        android:text="0"
                                         android:textColor="#FF6B35"
                                         android:textSize="@dimen/_24ssp"
                                         android:textStyle="bold" />
@@ -143,11 +143,11 @@
                                 android:background="@drawable/bg_circle_yellow_progress">
 
                                 <TextView
-                                    android:id="@+id/csTextProgress"
+                                    android:id="@+id/tvProgress"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
-                                    android:text="3/5"
+                                    android:text="0/0"
                                     android:textColor="#FFFFFF"
                                     android:textSize="@dimen/_16ssp"
                                     android:textStyle="bold" />
@@ -181,10 +181,10 @@
                                         android:textStyle="bold" />
 
                                     <TextView
-                                        android:id="@+id/csTextTasksCount"
+                                        android:id="@+id/tvTasks"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="20"
+                                        android:text="0"
                                         android:textColor="#FF6B35"
                                         android:textSize="@dimen/_24ssp"
                                         android:textStyle="bold" />
@@ -221,6 +221,15 @@
                         android:background="@color/color_secondary" />
                 </LinearLayout>
 
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_36sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:indeterminateTint="@color/color_yellow"
+                    android:padding="@dimen/_8sdp" />
+
                 <!-- RecyclerView for task items -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_milestone_tasks"
@@ -229,7 +238,8 @@
                     android:nestedScrollingEnabled="false"
                     android:paddingBottom="@dimen/_12sdp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_task" />
+                    tools:listitem="@layout/item_task"
+                    />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

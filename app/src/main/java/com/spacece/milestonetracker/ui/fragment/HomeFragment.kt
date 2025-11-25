@@ -28,6 +28,7 @@ import com.spacece.milestonetracker.ui.activity.LoginActivity
 import com.spacece.milestonetracker.ui.activity.ParentMainActivity
 import com.spacece.milestonetracker.ui.adapter.ChildrenAdapter
 import com.spacece.milestonetracker.ui.base.BaseFragment
+import com.spacece.milestonetracker.utils.UsefulFunctions
 import com.spacece.milestonetracker.utils.setButtonProgress
 import com.spacece.milestonetracker.utils.setOnClickListeners
 import com.spacece.milestonetracker.utils.setVisibility
@@ -73,6 +74,7 @@ class HomeFragment : BaseFragment(), OnClickListener {
         }
         lifecycleScope.launch {
             userId = getCurrentUserId(requireContext())
+            sharedPrefs.saveUserId(userId.toString())   // 🔥 ADD THIS
             userId?.let { id ->
                 if (sharedPrefs.isUserLoggedIn()) {
                     Log.d("UI", "$userId")
@@ -175,6 +177,10 @@ class HomeFragment : BaseFragment(), OnClickListener {
         adapter = ChildrenAdapter(
             childrenList,
             onChildClick = { child ->
+
+                // save the child id in shared prefrenses so we can use it in milestone task
+                sharedPrefs.saveSelectedChildId(child.childId.toString())
+
                 //showChildDetails(child)
                 binding.progressBarChild.setVisibility(true)
                 binding.llMilestoneDetails.setVisibility(false)
@@ -184,6 +190,8 @@ class HomeFragment : BaseFragment(), OnClickListener {
                 showAddChildDialog()
             }
         )
+
+
 
         binding.rvChildren.apply {
             adapter = this@HomeFragment.adapter
@@ -251,7 +259,6 @@ class HomeFragment : BaseFragment(), OnClickListener {
     }
 
 
-    // it will work after the backend set up
     private fun setupChildGrowthUpdate(childId: Int) {
         binding.btnSubmit.setOnClickListener {
             val heightInput = binding.heightInput.text.toString().trim()
@@ -363,7 +370,10 @@ class HomeFragment : BaseFragment(), OnClickListener {
         binding.apply {
             tvName.text = profileData.childName
             tvGender.text = "(" + profileData.gender + ")"
-            tvAge.text = profileData.dob
+            val age = UsefulFunctions.DateFunc.calculateAgeFromDob(profileData.dob?.trim())
+            tvAge.text = "$age Years"
+
+//            tvAge.text = profileData.dob
             tvLocation.text = profileData.center
             tvHeightValue.text = "${profileData.height} cm"
             tvWeightValue.text = "${profileData.weight} kg"

@@ -2,16 +2,19 @@ package com.spacece.milestonetracker.data.repository
 
 import android.content.Context
 import android.util.Log
-import com.spacece.milestonetracker.data.model.ApiResponse
 import com.spacece.milestonetracker.data.model.AnswersListReq
+import com.spacece.milestonetracker.data.model.ApiResponse
 import com.spacece.milestonetracker.data.model.ChildData
 import com.spacece.milestonetracker.data.model.ChildDetailsReq
 import com.spacece.milestonetracker.data.model.ChildDetailsRes
 import com.spacece.milestonetracker.data.model.ChildKaDetails
+import com.spacece.milestonetracker.data.model.MilestoneTaskResponse
+import com.spacece.milestonetracker.data.model.UpdateTaskStatusRequest
 import com.spacece.milestonetracker.data.remote.ApiCall.safeApiCall
 import com.spacece.milestonetracker.data.remote.ApiCall.toRequestBody
 import com.spacece.milestonetracker.data.remote.ApiModule.apiService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.text.SimpleDateFormat
@@ -156,6 +159,39 @@ class MilestoneTrackerRepository(context: Context) {
     suspend fun getChildDetails(userId: Int, childId: Int): Result<ApiResponse<ChildKaDetails>>  {
         return safeApiCall {
             apiService().getChildDetails(userId, childId)
+        }
+    }
+
+
+    // milestone screen api funtions
+
+    suspend fun getMilestoneTasks(userId: String, childId: String)
+            : Result<ApiResponse<MilestoneTaskResponse>> {
+
+        return safeApiCall {
+            apiService().getMilestoneTasks(userId, childId)
+        }
+    }
+
+    suspend fun updateTaskStatus(
+        userId: String,
+        childId: String,
+        request: UpdateTaskStatusRequest
+    ): Result<ApiResponse<Any>> {
+        return safeApiCall {
+            apiService().updateTaskStatus(userId, childId, request)
+        }
+    }
+
+    suspend fun submitMilestoneTask(
+        userId: RequestBody,
+        childId: RequestBody,
+        taskId: RequestBody,
+        taskVideo: MultipartBody.Part
+    ): Result<ApiResponse<Any>> {
+
+        return safeApiCall {
+            apiService().submitMilestoneTask(userId, childId, taskId, taskVideo)
         }
     }
 

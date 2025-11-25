@@ -1,39 +1,59 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="@dimen/_6sdp"
-    android:paddingEnd="@dimen/_6sdp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="@dimen/_12sdp">
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:elevation="@dimen/_1sdp"
+        android:fontFamily="@font/font_poppins_medium"
+        android:textColor="@color/color_gray_dark"
+        android:textSize="@dimen/_10ssp"
+        tools:text="MMMM DD, YYYY" />
+
     <LinearLayout
         android:id="@+id/taskCard2Container_b"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_round_accent_yellow_stroke"
         android:orientation="vertical"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:padding="@dimen/_6sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_date">
 
         <!-- Header: emoji/icon + title -->
         <TextView
             android:id="@+id/taskCard2Header_b"
             android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginVertical="@dimen/_4sdp"
             android:layout_height="wrap_content"
-            app:drawableStartCompat="@drawable/ic_milestone"
             android:drawablePadding="@dimen/_4sdp"
             android:gravity="center_vertical"
             android:text="Milestone Task"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_8ssp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_milestone" />
         <!-- Inner white card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/taskCard2InnerCard_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginVertical="@dimen/_4sdp"
             android:layout_marginTop="@dimen/_4sdp"
             app:cardCornerRadius="@dimen/_8sdp"
             app:cardElevation="2dp">
@@ -41,13 +61,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/_6sdp"
-                android:gravity="center_vertical">
+                android:padding="@dimen/_8sdp">
 
                 <!-- Left: title + chip -->
                 <LinearLayout
                     android:layout_width="0dp"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
@@ -58,34 +79,46 @@
                         android:layout_height="wrap_content"
                         android:text="@string/txt_solve_a_puzzle_record_progress_video"
                         android:textColor="#1F2D2E"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_10ssp" />
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/taskCard2Tag_b"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:background="@drawable/bg_color_red"
                         android:paddingStart="@dimen/_6sdp"
-                        android:paddingEnd="@dimen/_6sdp"
                         android:paddingTop="@dimen/_2sdp"
+                        android:paddingEnd="@dimen/_6sdp"
                         android:paddingBottom="@dimen/_2sdp"
                         android:text="@string/txt_ognitive"
-                        android:textStyle="bold"
                         android:textAllCaps="false"
                         android:textColor="@color/color_red"
-                        android:textSize="@dimen/_8ssp" />
+                        android:textSize="@dimen/_8ssp"
+                        android:textStyle="bold" />
                 </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/checkbox_complete"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:buttonTint="#4CAF50"
+                    android:checked="true"
+                    android:enabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <!-- Right: small rounded square icon button -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/taskCard2Action_b"
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
+                    app:cardBackgroundColor="@color/color_primary_light"
                     app:cardCornerRadius="@dimen/_6sdp"
                     app:cardElevation="3dp"
-                    app:cardBackgroundColor="@color/color_primary_light"
                     app:strokeColor="@color/color_primary_dark"
                     app:strokeWidth="1dp">
 

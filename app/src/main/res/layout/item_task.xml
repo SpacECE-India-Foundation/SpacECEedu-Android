@@ -13,23 +13,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:elevation="@dimen/_1sdp"
             android:fontFamily="@font/font_poppins_medium"
-            android:paddingHorizontal="@dimen/_16sdp"
-            android:paddingVertical="@dimen/_4sdp"
             android:textColor="@color/color_gray_dark"
             android:textSize="@dimen/_10ssp"
             tools:text="MMMM DD, YYYY" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_marginBottom="@dimen/_4sdp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_date"
             android:layout_marginHorizontal="@dimen/_12sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
             android:background="@drawable/bg_full_round_solid_stroke"
-            android:padding="@dimen/_12sdp">
+            android:paddingHorizontal="@dimen/_12sdp">
 
             <TextView
                 android:id="@+id/tv_task_title"
