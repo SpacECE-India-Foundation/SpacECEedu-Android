@@ -3,6 +3,9 @@ plugins {
 }
 
 android {
+    signingConfigs {
+
+    }
     namespace 'com.spacECE.spaceceedu'
     compileSdk 34
 
