@@ -23,16 +23,19 @@ public class Library_main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library_main);
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,allbooks_fragment).commit();
+        // Fixed: Use correct ID from XML (R.id.bottomAppBar instead of R.id.bottom_navigation)
+        bottomNavigationView = findViewById(R.id.bottomAppBar);
+        
+        // Fixed: Use correct container ID from XML (R.id.book_framelayout instead of R.id.container)
+        getSupportFragmentManager().beginTransaction().replace(R.id.book_framelayout, allbooks_fragment).commit();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.allbooks) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, allbooks_fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.book_framelayout, allbooks_fragment).commit();
                 return true;
             } else if (itemId == R.id.mybooks) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, mybooks_fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.book_framelayout, mybooks_fragment).commit();
                 return true;
             } else if (itemId == R.id.chat) {
                 startActivity(new Intent(getApplicationContext(), ChatUS.class));
