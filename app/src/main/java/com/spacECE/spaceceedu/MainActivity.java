@@ -38,6 +38,7 @@ import com.spacECE.spaceceedu.Authentication.LoginActivity;
 import com.spacECE.spaceceedu.Authentication.UserLocalStore;
 import com.spacECE.spaceceedu.Location.LocationService;
 import com.spacECE.spaceceedu.Utils.UsefulFunctions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
@@ -384,6 +385,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void signOut() {
+        FirebaseAuth.getInstance().signOut();
         userLocalStore.clearUserData();
         ACCOUNT = null;
         userLocalStore.setUserLoggedIn(false);

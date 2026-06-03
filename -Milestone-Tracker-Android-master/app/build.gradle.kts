@@ -6,6 +6,13 @@ plugins {
     alias(libs.plugins.google.devtools.ksp)
     id("kotlin-kapt")
     id("kotlin-parcelize")
+
+        //id("com.android.application")
+
+        // Add the Google services Gradle plugin
+        id("com.google.gms.google-services")
+
+
 }
 
 android {
@@ -100,4 +107,6 @@ dependencies {
 
     //Mp Chart for graph
     implementation(libs.mpandroidchart)
+    implementation(platform("com.google.firebase:firebase-bom:34.13.0"))
+    implementation("com.google.firebase:firebase-analytics")
 }
